@@ -55,10 +55,14 @@ form {
 }
 
 .form-under p {
-    color: #2581dc;
     font-size: 1rem;
     cursor: pointer;
     margin-bottom: 0px;
+}
+
+.form-under p a {
+    text-decoration: none;
+    color: #2581dc;
 }
 
 .form-block {
