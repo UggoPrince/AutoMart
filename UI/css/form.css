@@ -6,16 +6,20 @@
     box-shadow: 0px 0px 8px #cccccc;
     border-radius: 5px;
 }
+
 form {
     min-height: 300px;
     padding: 30px;
 }
 
 .form-big {
+    max-width: 1000px;
+    width: 95%;
+}
+.form-medium {
     max-width: 550px;
     width: 95%;
 }
-.form-medium {}
 .form-small {}
 
 .form-header {
@@ -27,7 +31,8 @@ form {
 
 .form-header h1, h2 {
     margin-top: 0px;
-    color:#2a4b6b;
+    /*color:#2a4b6b;*/
+    color: #2581dc;
 }
 
 .form-body {
@@ -105,6 +110,68 @@ form {
 
 .form-block input[type='submit']:hover {
     background: #2a4b6b;
+    background: linear-gradient(#5786b6, #2a4b6b);
+}
+
+/*advert*/
+.ad-form-container {
+    margin: 20px auto;
+    background-color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.ad-section-header {
+    display: block;
+    margin: auto;
+    width: 100%;
+    color: #2581dc;
+    border-bottom: 1px solid #CCC;
+    font-size: 1.2rem;
+}
+
+.ad-form-block {
+    padding-top: 13px;
+    padding-bottom: 0px;
+    vertical-align: middle;
+    width: 100%;
+    /*background-color: red;*/
+}
+
+.ad-form-block label {
+    background-color: rgb(245, 245, 245);
+    color: #666;
+    height: 33px;
+    border: 1px solid #BBB;
+    border-right: 0px;
+    /*padding-bottom: 4px;*/
+    font-size: 0.95rem;
+    text-align: left;
+    float: left;
+    font-size: 1rem;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+.ad-form-block input, select {
+    /*width: 385px;*/
+    border: 1px solid #BBB;
+    /*border-radius: 0px 2px 2px 0px;*/
+    float: right
+}
+
+.ad-form-block input {padding: 8px;}
+.ad-form-block select {padding: 7px;}
+.ad-form-block input[type='file'] {padding: 5px;}
+.ad-form-block input[type='submit'] {
+    border-radius: 2px;
+    width: 150px;
+    background-color: #2581dc;
+    border-color: #2581dc;
+    color: #ffffff;
+}
+.ad-form-block input[type='submit']:hover {
+    background: #2a4b6b;
+    border-color: #2a4b6b;
 }
 
 @media only screen and (min-width: 800px) {
@@ -117,5 +184,13 @@ form {
 
     .form-block input {
         width: 100%;
+    }
+
+    .ad-form-block label {
+        width: 40%; /*156px;*/
+    }
+
+    .ad-form-block input, select {
+        width: 60%;
     }
 }
