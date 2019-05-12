@@ -26,10 +26,6 @@ header {
   min-height: 60px;
 }
 
-main {
-    padding: 0 10px;
-}
-
 section::before,
 nav::before,
 section::after,
@@ -56,7 +52,8 @@ nav::after {
 .navigation {
   height: 70px;
   margin: 0 auto;
-  background: #2a4b6b; /*#262626;*/
+  /*background: #2a4b6b; /*#262626;*/
+  background: linear-gradient(#5786b6, #2a4b6b);
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   /*box-shadow: 0px 5px 5px #ccc;*/
 }
@@ -76,6 +73,7 @@ nav ul {
 
 nav ul li a:hover {
     background: #2581dc; /*link-hover-color*/
+    background: linear-gradient(#2581dc, #2581dc);
     color:  #ffffff; /* nav-font-color */
 }
 
@@ -161,6 +159,12 @@ nav ul li a {
   background-size: cover;
 }
 
+/*adverts*/
+.ad-page {
+  background: #e0ecfab0;
+  min-height: 100vh;
+}
+
   
 @media screen and (min-width: 800px) {
     h1 { font-size: 2rem; }
@@ -173,19 +177,19 @@ nav ul li a {
     .nav-list { display: block !important;}
 
     /* For desktop: */
-    .col-1 {width: 8.33%;}
-    .col-2 {width: 16.66%;}
-    .col-3 {width: 25%;}
-    .col-4 {width: 33.33%;}
-    .col-5 {width: 41.66%;}
-    .col-6 {width: 50%;}
-    .col-7 {width: 58.33%;}
-    .col-7-5{width: 62.5%}
-    .col-8 {width: 66.66%;}
-    .col-9 {width: 75%;}
-    .col-10 {width: 83.33%;}
-    .col-11 {width: 91.66%;}
-    .col-12 {width: 100%;}
+    .col-1, .akol-1 {width: 8.33%;}
+    .col-2, .akol-2 {width: 16.66%;}
+    .col-3, .akol-3 {width: 25%;}
+    .col-4, .akol-4 {width: 33.33%;}
+    .col-5, .akol-5 {width: 41.66%;}
+    .col-6, .akol-6 {width: 50%;}
+    .col-7, .akol-7 {width: 58.33%;}
+    .col-7-5, .akol-7-5{width: 62.5%}
+    .col-8, .akol-8 {width: 66.66%;}
+    .col-9, .akol-9 {width: 75%;}
+    .col-10, .akol-10 {width: 83.33%;}
+    .col-11, .akol-11 {width: 91.66%;}
+    .col-12, .akol-12 {width: 100%;}
 }
 
 /* Extra small devices "mobile phones" */
