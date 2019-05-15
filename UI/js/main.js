@@ -1,3 +1,5 @@
+//import { buildCarList } from './buildCarList.js';
+
 let navOpen = false;
 
 function slideToggle() {
@@ -31,8 +33,18 @@ const toggleSoldOnDashboard = () => { // marks your Ad Sold or not
     }
 };
 
+const getPageName = () => {
+    let url = window.location.href;
+    const x = url.lastIndexOf('/')+1;
+    const page = url.substring(x);
+    return page;
+}
+
 document.addEventListener('DOMContentLoaded', ()=>{
     let nav_toggle = document.getElementById('nav-toggle');
     nav_toggle.addEventListener('click', slideToggle);
     toggleSoldOnDashboard(); // marks your Ads Sold or not
+    if(getPageName() === 'home.html'){
+        buildCarList(); // from buildCarList.js
+    }
 });

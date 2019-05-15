@@ -114,12 +114,20 @@ form {
     background: linear-gradient(#5786b6, #2a4b6b);
 }
 
-/*advert*/
+/**/
+
+/*advert and ordering*/
 .ad-form-container {
     margin: 20px auto;
     background-color: white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    box-shadow: 0px 0px 8px #cccccc;
 }
+
+.offer-form-container {
+    margin: auto;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
 
 .ad-section-header {
     display: block;
@@ -130,7 +138,7 @@ form {
     font-size: 1.2rem;
 }
 
-.ad-form-block {
+.ad-form-block/*, .offer-form-block*/ {
     padding-top: 13px;
     padding-bottom: 0px;
     vertical-align: middle;
@@ -138,7 +146,12 @@ form {
     /*background-color: red;*/
 }
 
-.ad-form-block label {
+/*.offer-form-block {
+    margin: auto;
+    text-align: center;
+}*/
+
+.ad-form-block label/*, .offer-form-block label*/ {
     background-color: rgb(245, 245, 245);
     color: #666;
     height: 33px;
@@ -161,6 +174,7 @@ form {
 }
 
 .ad-form-block input {padding: 8px;}
+.offer-form-block input {padding: 7px;}
 .ad-form-block select {padding: 7px;}
 .ad-form-block input[type='file'] {padding: 5px;}
 .ad-form-block input[type='submit'] {
@@ -174,6 +188,20 @@ form {
     background: #2a4b6b;
     border-color: #2a4b6b;
 }
+
+/*.offer-form-block input[type='submit'] {
+    border-radius: 2px;
+    width: 150px;
+    border: 1px solid #2581dc;
+    background-color: #2581dc;
+    border-color: #2581dc;
+    color: #ffffff;
+}
+
+.offer-form-block input[type='submit']:hover {
+    background: #039ec5;
+    border-color:#039ec5;
+}*/
 
 @media only screen and (min-width: 800px) {
 }
@@ -194,4 +222,11 @@ form {
     .ad-form-block input, select {
         width: 60%;
     }
+
+    /*.offer-form-block label {
+        width: 40%;
+    }
+    .offer-form-block input {
+        width: 60%;
+    }*/
 }

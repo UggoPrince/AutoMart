@@ -59,7 +59,7 @@ nav::after {
 }
 
 .nav-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
 }
       
@@ -161,8 +161,98 @@ nav ul li a {
 
 /*adverts*/
 .ad-page, .dash-page {
-  background: #e0ecfab0;
+  background: rgb(245, 247, 247);/*#eeeeee;/*#e0ecfab0;*/
   min-height: calc(100vh - 70px);
+}
+
+/*home page*/
+.home-page {
+  min-height: calc(100vh - 70px);
+}
+
+.home-page-content {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.home-page-body {
+  padding-top:20px;
+  /*background: red;*/
+  width: 100%;
+  text-align: center;
+  margin: auto;
+}
+
+.ad-box {
+  max-width: 300px;
+  box-shadow: 0px 0px 8px #cccccc;
+  border-radius: 3px;
+  margin: 0px 10px 10px;
+  padding-bottom: 5px;
+  display: inline-block;
+}
+
+.ad-box div {
+  max-width: 100%;
+}
+
+.ad-box-img {
+  height: 170px;
+}
+
+.ad-box-img img {
+  border-radius: 3px 3px 0px 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.ad-box-title,
+.ad-box-price,
+.ad-box-price-button,
+.ad-box-details {
+  text-align: left;
+  padding: 4px;
+  width:100%;
+  display: inline-block;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.ad-box-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ad-box-title a {
+  width: 100%;
+  color: #039ec5;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.ad-box-title a:hover {
+  text-decoration: underline;
+}
+.ad-box-price span{font-weight:bold;}
+.ad-box-price span:nth-of-type(1) {
+  color: #2a4b6b;
+}
+
+.ad-box-price span:nth-of-type(2) {
+  color: #039ec5;
+}
+.ad-box-price-button {text-align: center;}
+.ad-box-price-button button {
+  width: 80%;
+  padding: 4px;
+  background: #2581dc;
+  color: white;
+  border: 1px solid #2581dc;
+  border-radius: 2px;
+}
+
+.ad-box-price-button button:hover, button:visited {
+  background: #039ec5;
+  border-color:#039ec5;
 }
 
 /*dashboard page*/
@@ -170,6 +260,7 @@ nav ul li a {
   max-width: 1000px;
   margin: 10px auto 0px;
   background: #ffffff;
+  box-shadow: 0px 0px 8px #cccccc;
 }
 
 .dashboard-header {
