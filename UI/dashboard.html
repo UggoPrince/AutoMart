@@ -15,7 +15,7 @@
                 <div class="brand">
                     <a href="">AutoMart</a>
                 </div>
-                <nav>
+                <nav class="top-nav">
                     <div class="nav-mobile">
                         <a id="nav-toggle"><span></span></a>
                     </div>
@@ -31,48 +31,42 @@
     </header>
     <main>
         <section class="dash-page">
+            <div class="side-bar">
+                <nav class="side-nav">
+                    <ul class="side-nav-list">
+                        <li><a class="tabLink">Adverts</a></li>
+                        <li><a class="tabLink">Orders</a></li>
+                        <li><a class="tabLink">My Purchase</a></li>
+                    </ul>
+                </nav>
+            </div>
             <div class="dashboard">
                 <section class="dashboard-header">
                     <h1>Dashboard</h1>
                 </section>
                 <section class="dashboard-body">
-                    <section class="dash-tab-box">
-                        <div class="dash-tab dkol-3" id="dash-tab1">Adverts</div>
-                        <div class="dash-tab dkol-3">Orders</div>
-                        <div class="dash-tab dkol-3">My Purchase</div>
+                    <section>
+                        <nav class="side-nav2">
+                            <div class="dashMenu"><span>Menu</span></div>
+                            <ul class="side-nav-list2">
+                                <li><a class="tabLink2">Adverts</a></li>
+                                <li><a class="tabLink2">Orders</a></li>
+                                <li><a class="tabLink2">My Purchase</a></li>
+                            </ul>
+                        </nav>
                     </section>
                     <section>
                         <section class="dtab" id="dtab1">
-                            <section class="ad-block">
-                                <section class="ad-block-header">Advert Title</section>
-                                <section class="ad-block-body">
-                                    <img src="images/c1.jpg">
-                                    <section class="ad-block-info">
-                                        <section class="ad-block-info-child">
-                                            <section><div>Price</div><div>N10,000,000.00</div></section>
-                                            <section><div>Priced</div><div>Yes</div></section>
-                                        </section>
-                                        <section class="ad-block-info-child">
-                                            <input type="number" placeholder="Enter new price" min="0" />
-                                            <button>Update Price</button>
-                                        </section>
-                                        <section class="ad-block-info-child">
-                                            <section>
-                                                <div class="markSold">Mark as Sold</div>
-                                                <input type="checkbox" class="soldMarker"/>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </section>
-                            </section>
-                            <section class="ad-block">
+                            <section class="dtab-header"><h3>Adverts</h3></section>
+                            <section>
+                                <section class="ad-block">
                                     <section class="ad-block-header">Advert Title</section>
                                     <section class="ad-block-body">
-                                        <img src="images/c2.jpg">
+                                        <img src="images/c1.jpg">
                                         <section class="ad-block-info">
                                             <section class="ad-block-info-child">
-                                                <section><div>Price</div><div>N5,000,000.00</div></section>
-                                                <section><div>Priced</div><div>No</div></section>
+                                                <section><div>Price</div><div>N10,000,000.00</div></section>
+                                                <section><div>Priced</div><div>Yes</div></section>
                                             </section>
                                             <section class="ad-block-info-child">
                                                 <input type="number" placeholder="Enter new price" min="0" />
@@ -87,9 +81,59 @@
                                         </section>
                                     </section>
                                 </section>
+                                <section class="ad-block">
+                                        <section class="ad-block-header">Advert Title</section>
+                                        <section class="ad-block-body">
+                                            <img src="images/c2.jpg">
+                                            <section class="ad-block-info">
+                                                <section class="ad-block-info-child">
+                                                    <section><div>Price</div><div>N5,000,000.00</div></section>
+                                                    <section><div>Priced</div><div>No</div></section>
+                                                </section>
+                                                <section class="ad-block-info-child">
+                                                    <input type="number" placeholder="Enter new price" min="0" />
+                                                    <button>Update Price</button>
+                                                </section>
+                                                <section class="ad-block-info-child">
+                                                    <section>
+                                                        <div class="markSold">Mark as Sold</div>
+                                                        <input type="checkbox" class="soldMarker"/>
+                                                    </section>
+                                                </section>
+                                            </section>
+                                        </section>
+                                </section>
+                            </section>
                         </section>
-                        <section class="dtab" id="dtab2"></section>
-                        <section class="dtab" id="dtab2"></section>
+                        <section class="dtab" id="dtab2">
+                            <section class="dtab-header"><h3>Orders</h3></section>
+                            <section>
+                                <section class="ad-block">
+                                    <section class="ad-block-header">Advert Title</section>
+                                    <section class="ad-block-body">
+                                        <img src="images/c1.jpg">
+                                        <section class="ad-block-info">
+                                            <section class="ad-block-info-child">
+                                                <section><div>Price</div><div>N10,000,000.00</div></section>
+                                                <section><div>Accepted</div><div>No</div></section>
+                                            </section>
+                                            <section class="ad-block-info-child">
+                                                <input type="number" placeholder="Enter new price" min="0" />
+                                                <button>Price it Again</button>
+                                            </section>
+                                            <section class="ad-block-info-child">
+                                                <section>
+                                                    <div>Owner's Name</div>
+                                                </section>
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="dtab" id="dtab3">
+                            <section class="dtab-header"><h3>My Purchase</h3></section>
+                        </section>
                     </section>
                 </section>
             </div>

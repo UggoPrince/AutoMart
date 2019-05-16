@@ -53,6 +53,41 @@ const toggleMakeOfferModal = () => {
     });
 };
 
+const toggleDashboardTabs = () => {
+    const tabs = document.getElementsByClassName('dtab');
+    const tablink = document.getElementsByClassName('tabLink');
+    const tablink2 = document.getElementsByClassName('tabLink2');
+    tablink[0].addEventListener('click', () => {hideAndShowTabs(tabs, 0, 1, 2);});
+    tablink[1].addEventListener('click', () => {hideAndShowTabs(tabs, 1, 0, 2);});
+    tablink[2].addEventListener('click', () => {hideAndShowTabs(tabs, 2, 0, 1);});
+
+    const dashMenu = document.getElementsByClassName('dashMenu')[0];
+    dashMenu.addEventListener('click', hideMobileSideMenu);
+    
+    tablink2[0].addEventListener('click', () => {hideAndShowTabs(tabs, 0, 1, 2); hideMobileSideMenu();});
+    tablink2[1].addEventListener('click', () => {hideAndShowTabs(tabs, 1, 0, 2); hideMobileSideMenu();});
+    tablink2[2].addEventListener('click', () => {hideAndShowTabs(tabs, 2, 0, 1); hideMobileSideMenu();});
+};
+
+let mobileSideMenuOpen = false;
+
+const hideMobileSideMenu = () => {
+    const side_nav_list2 = document.getElementsByClassName('side-nav-list2')[0];
+    if (!mobileSideMenuOpen) {
+        side_nav_list2.style.display = 'block';
+        mobileSideMenuOpen = true;
+    } else {
+        side_nav_list2.style.display = 'none';
+        mobileSideMenuOpen = false;
+    }
+};
+
+const hideAndShowTabs = (tabs, a, b, c) => {
+    tabs[b].style.display = 'none';
+    tabs[c].style.display = 'none';
+    tabs[a].style.display = 'block';
+};
+
 const getPageName = () => {
     let url = window.location.href;
     const x = url.lastIndexOf('/')+1;
@@ -64,8 +99,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     let nav_toggle = document.getElementById('nav-toggle');
     nav_toggle.addEventListener('click', slideToggle);
     toggleSoldOnDashboard(); // marks your Ads Sold or not
-    if(getPageName() === 'home.html'){
+    if (getPageName() === 'home.html'){
         buildCarList(); // from buildCarList.js
         toggleMakeOfferModal(); // toggles modal for
+    }
+    if (getPageName() === 'dashboard.html') {
+        toggleDashboardTabs();
     }
 });
