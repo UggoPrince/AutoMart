@@ -1,0 +1,84 @@
+.car-page {
+    width: 100%;
+    background: white;
+    padding-top: 10px;
+    min-height: calc(100vh - 70px);
+}
+
+.car-details {
+    width: 65%;
+    min-height: 300px;
+    margin: auto;
+}
+
+.car-header {
+    width: 100%;
+    min-height: 100px;
+    background: #555;
+    background: linear-gradient(rgb(243, 243, 243),rgb(243, 242, 242));
+    border-bottom: 1px solid #999;
+    padding: 8px 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.2rem;
+}
+.car-header-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.car-header-title,
+.car-header-location,
+.car-header-price,
+.car-owner-details {
+    padding: 2px;
+}
+.car-header-location,
+.car-header-price {
+    color: #666;
+}
+.car-header-price {
+    color: orange;
+}
+.car-header-price span {
+    color: black;
+}
+.car-owner-details {
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(rgb(243, 243, 243),rgb(202, 197, 197));
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: auto;
+    padding: 8px 15px;
+    text-align: center;
+}
+.car-owner-name {
+    text-align: left;
+    font-weight: bold;
+}
+.car-owner-details button {
+    width: 40%;
+    margin: 0px auto;
+    padding: 4px;
+    background: #2581dc;
+    color: white;
+    border: 1px solid #2581dc;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.car-photo{
+    width: 100%;
+    height: 400px;
+    background: #777;
+    margin: 5px auto 0px auto;
+    display: inline-block;
+}
+
+/* Extra small devices "mobile phones" */
+@media only screen and (max-width: 799px) {
+    .car-details {
+        width: 95%;
+    }
+    .car-photo {
+        height: auto;
+    }
+}

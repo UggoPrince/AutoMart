@@ -13,6 +13,7 @@ const buildCarList = () => {
 
         const ad_box_title = document.createElement('div')
         const a = document.createElement('a');
+        a.href = 'car.html';
         a.innerHTML = vehicles[i].title;
         ad_box_title.className = 'ad-box-title';
         ad_box_title.append(a);

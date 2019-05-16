@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AutoMart-Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/form.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/makeOfferModal.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/car.css">
+    <script src="js/vehicles.js"></script>
+    <script src="js/buildCarList.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body>
+    <header>
+        <div class="navigation">
+            <div class="nav-container">
+                <div class="brand">
+                    <a href="">AutoMart</a>
+                </div>
+                <nav class="top-nav">
+                    <div class="nav-mobile">
+                        <a id="nav-toggle"><span></span></a>
+                    </div>
+                    <ul class="nav-list">
+                        <li><a href="home.html">HOME</a></li>
+                        <li><a href="dashboard.html">DASHBOARD</a></li>
+                        <li><a href="postad.html">POST ADVERT</a></li>
+                        <li><a href="">SIGN OUT</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+</body>
+<main>
+    <section class="car-page">
+        <div class="car-details">
+            <section class="car-header">
+                <div class="car-header-title">BLACK BRAND NEW G-WAGON SUV</div>
+                <div class="car-header-location">No 3 Ikorodu road express way</div>
+                <div class="car-header-contact"><span>Contact : </span>07012345678</div>
+                <div class="car-header-price"><span>Price : </span> N16,000,000</div>
+            </section>
+            <!--<section class="car-photo">-->
+            <img src="images/c1.jpg" class="car-photo">
+            <!--</section>-->
+            <div class="car-owner-details">
+                <div class="car-owner-name">Owner's Name</div>
+                <button class="revealOfferModal">MAKE AN OFFER</button>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- The Modal -->
+<div id="makeOfferModalHome" class="modal">
+
+        <!-- Modal content -->
+        <div class="form-medium offer-form-container">
+            <form class="modal-content" action="" method="POST">
+            <section class="modal-header form-header">
+                <span class="close">&times;</span><br>
+                <h2>Make An Offer</h2>
+            </section>
+
+            <section class="modal-body">
+                <section class="offer-form-block">
+                    <label class="akol-3">Your Name </label>
+                    <input class="akol-9" value="name" readonly class="akol-10">
+                </section>
+                <section class="offer-form-block">
+                    <label class="akol-3">Enter Amount</label>
+                    <input class="akol-9" type="number" min="0"/>
+                </section>
+            </section>
+            <section class="modal-footer">
+                <section class="offer-form-block">
+                    <input class="sendOffer" type="submit" value="SEND"/>
+                </section>
+            </section>
+            </form>
+        </div>
+    </div>
+</html>

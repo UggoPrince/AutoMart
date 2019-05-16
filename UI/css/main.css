@@ -286,6 +286,7 @@ section::after,
   color: #039ec5;
   cursor: pointer;
   font-size: 1.1rem;
+  text-decoration: none;
 }
 
 .ad-box-title a:hover {
