@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/form.css">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">
     <script src="js/main.js"></script>
+    <script src="js/signin.js"></script>
 </head>
 <body>
     <header>
@@ -33,18 +34,18 @@
     <main>
         <section>
             <div class="form-container form-medium">
-                <form class="" method="POST" action="" name="signinForm">
+                <form class="" method="POST" action="" name="signinForm" id="signinForm">
                     <div class="form-header col-12">
                         <h1>User Login</h1>
                     </div>
                     <section class="form-body">
                         <section class="form-block">
                             <label class="col-4 must-fill">Email Address</label>
-                            <input class="col-7-5" type="email" name="email" placeholder="Enter Email Address" />
+                            <input class="col-7-5" type="email" name="email" placeholder="Enter Email Address" required />
                         </section>
                         <section class="form-block">
                             <label class="col-4 must-fill">Password</label>
-                            <input class="col-7-5" type="password" name="password" placeholder="Enter Password" />
+                            <input class="col-7-5" type="password" name="password" placeholder="Enter Password" required />
                         </section>
                         <section class="form-block">
                             <input type="submit" value="SIGN IN" />
@@ -53,7 +54,10 @@
                 </form>
                 <div class="form-under">
                     <h1>Don't have an account?</h1>
-                    <p><a href="signup.html">Sign up here &rarr;</a></p>
+                    <p><a href="signup.html">Sign up here &rarr;</a></p><br>
+                    <span>For admin sign in use this (demo).</span><br>
+                    <span>email: mrjohndoe@gmail.com</span><br>
+                    <span>password: 12345678</span>
                 </div>
             </div>
         </section>
