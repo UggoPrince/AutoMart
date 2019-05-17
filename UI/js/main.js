@@ -106,4 +106,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if (getPageName() === 'dashboard.html') {
         toggleDashboardTabs();
     }
+    if (getPageName() === 'car.html') {
+        toggleMakeOfferModal();
+    }
 });
