@@ -70,6 +70,16 @@ const listBuilder = (i, admin) => {
         button2.className = 'revealReportModal';
         button2.innerHTML = 'REPORT ADVERT';
         section2.append(button2);
+    } else {
+        section2 = document.createElement('section');
+        const button2 = document.createElement('button');
+        section2.className = 'ad-box-delete-button';
+        button2.className = '';
+        button2.innerHTML = 'DELETE ADVERT';
+        button2.addEventListener('click', ()=>{
+            ad_Box_Div.style.display = 'none';
+        });
+        section2.append(button2);
     }
 
     ad_Box_Div.append(ad_box_img, ad_box_title, ad_box_price, available, ad_box_details, section, section2);

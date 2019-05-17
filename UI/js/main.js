@@ -35,29 +35,41 @@ const toggleSoldOnDashboard = () => { // marks your Ad Sold or not
 
 const toggleMakeOfferModal = () => {
     const makeOfferModal = document.getElementById("makeOfferModalHome"); // Get the modal
-    const reportFraudModal = document.getElementById("reportFraudByUser"); // Get the modal
     const btn = document.getElementsByClassName("revealOfferModal"); // Get the button that opens the modal
-    const report_btn = document.getElementsByClassName("revealReportModal"); // Get the button that opens the modal
     const span = document.getElementsByClassName("close")[0]; // Get the <span> element that closes the modal
-    const report_span = document.getElementsByClassName("close")[1]; // Get the <span> element that closes the modal
 
     span.addEventListener('click', () => { // When the user clicks on <span> (x), close the modal
         makeOfferModal.style.display = "none";
     });
-    report_span.addEventListener('click', () => { // When the user clicks on <span> (x), close the modal
-        reportFraudModal.style.display = "none";
-    });
+    
     for (let i = 0; i < btn.length; i++) { // When the user clicks the button, open the modal
         btn[i].addEventListener('click', () => {
             makeOfferModal.style.display = "block";
-        });
-        report_btn[i].addEventListener('click', () => {
-            reportFraudModal.style.display = "block";
         });
     }
     window.addEventListener('click', (event) => { // When the user clicks anywhere outside of the modal, close it
         if (event.target == makeOfferModal) {
             makeOfferModal.style.display = "none";
+        }
+    });
+};
+
+const buildReportFeatures = () => {
+    const reportFraudModal = document.getElementById("reportFraudByUser"); // Get the modal
+    const report_btn = document.getElementsByClassName("revealReportModal"); // Get the button that opens the modal
+    const report_span = document.getElementsByClassName("close")[1]; // Get the <span> element that closes the modal
+
+    report_span.addEventListener('click', () => { // When the user clicks on <span> (x), close the modal
+        reportFraudModal.style.display = "none";
+    });
+
+    for (let i = 0; i < report_btn.length; i++) { // When the user clicks the button, open the modal
+        report_btn[i].addEventListener('click', () => {
+            reportFraudModal.style.display = "block";
+        });
+    }
+    window.addEventListener('click', (event) => { // When the user clicks anywhere outside of the modal, close it
+        if (event.target == reportFraudModal) {
             reportFraudModal.style.display = 'none';
         }
     });
@@ -111,7 +123,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
     toggleSoldOnDashboard(); // marks your Ads Sold or not
     if (getPageName() === 'home.html'){
         buildCarList('user'); // from buildCarList.js
-        toggleMakeOfferModal(); // toggles modal for
+        toggleMakeOfferModal(); // toggles modal for making offers
+        buildReportFeatures(); // toggles report fraud modal
     }
     if (getPageName() === 'adminhome.html') {
         buildCarList('admin'); // from buildCarList.js
