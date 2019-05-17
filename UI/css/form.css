@@ -175,6 +175,7 @@ form {
 
 .ad-form-block input {padding: 8px;}
 .offer-form-block input {padding: 7px;}
+.offer-form-block textarea {padding: 7px;height: 100px;resize: none;}
 .ad-form-block select {padding: 7px;}
 .ad-form-block input[type='file'] {padding: 5px;}
 .ad-form-block input[type='submit'] {
@@ -226,7 +227,7 @@ form {
     .offer-form-block label {
         width: 40%;
     }
-    .offer-form-block input {
+    .offer-form-block input, .offer-form-block textarea {
         width: 60%;
     }
 }

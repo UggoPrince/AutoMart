@@ -15,6 +15,7 @@ const buildCarList = (userType) => {
 
 const listBuilder = (i, admin) => {
     let available = '';
+    let section2 = '';
     const ad_Box_Div = document.createElement('div');
     ad_Box_Div.className = 'ad-box';
     //ad_Box_Div.style.marginLeft = '10px';
@@ -62,7 +63,15 @@ const listBuilder = (i, admin) => {
     button.className = 'revealOfferModal';
     button.innerHTML = 'MAKE AN OFFER';
     section.append(button);
+    if (!admin) {
+        section2 = document.createElement('section');
+        const button2 = document.createElement('button');
+        section2.className = 'ad-box-report-button';
+        button2.className = 'revealReportModal';
+        button2.innerHTML = 'REPORT ADVERT';
+        section2.append(button2);
+    }
 
-    ad_Box_Div.append(ad_box_img, ad_box_title, ad_box_price, available, ad_box_details, section);
+    ad_Box_Div.append(ad_box_img, ad_box_title, ad_box_price, available, ad_box_details, section, section2);
     return ad_Box_Div;
 };
