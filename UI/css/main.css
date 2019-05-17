@@ -269,6 +269,7 @@ section::after,
 .ad-box-price,
 .ad-box-available,
 .ad-box-price-button,
+.ad-box-report-button,
 .ad-box-details {
   text-align: left;
   padding: 4px;
@@ -306,7 +307,7 @@ section::after,
   text-transform: capitalize;
   font-weight: 700;
 }
-.ad-box-price-button {text-align: center;}
+.ad-box-price-button, .ad-box-report-button {text-align: center;}
 .ad-box-price-button button {
   width: 80%;
   padding: 4px;
@@ -316,9 +317,25 @@ section::after,
   border-radius: 2px;
 }
 
-.ad-box-price-button button:hover, button:visited {
+.ad-box-price-button button:hover, 
+.ad-box-price-button button:visited {
   background: #039ec5;
   border-color:#039ec5;
+}
+
+.ad-box-report-button button {
+  width: 80%;
+  padding: 4px;
+  background: #039ec5;
+  color: white;
+  border: 1px solid #039ec5;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.ad-box-report-button button:hover,
+.ad-box-report-button button:hover {
+  background: orangered;
+  border: 1px solid orangered;
 }
 
 /*dashboard page*/
@@ -541,7 +558,9 @@ section::after,
     }
 
     .ad-block-info-child input[type='number'] {width: 122px;}
-} 
+}
+
+.rocolor {color:orangered;}
  
 /* Extra small devices "Tabs" */
 @media only screen and (max-width: 992px) {} 
