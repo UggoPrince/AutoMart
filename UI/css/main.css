@@ -270,6 +270,7 @@ section::after,
 .ad-box-available,
 .ad-box-price-button,
 .ad-box-report-button,
+.ad-box-delete-button,
 .ad-box-details {
   text-align: left;
   padding: 4px;
@@ -307,7 +308,9 @@ section::after,
   text-transform: capitalize;
   font-weight: 700;
 }
-.ad-box-price-button, .ad-box-report-button {text-align: center;}
+.ad-box-price-button,
+.ad-box-report-button,
+.ad-box-delete-button {text-align: center;}
 .ad-box-price-button button {
   width: 80%;
   padding: 4px;
@@ -337,7 +340,20 @@ section::after,
   background: orangered;
   border: 1px solid orangered;
 }
-
+.ad-box-delete-button button {
+  width: 80%;
+  padding: 4px;
+  background: #039ec5;
+  color: white;
+  border: 1px solid #039ec5;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.ad-box-delete-button button:hover,
+.ad-box-delete-button button:hover {
+  background: rgb(212, 57, 0);
+  border: 1px solid orangered;
+}
 /*dashboard page*/
 .side-bar {
   width: 15%;
