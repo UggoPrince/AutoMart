@@ -267,6 +267,7 @@ section::after,
 
 .ad-box-title,
 .ad-box-price,
+.ad-box-available,
 .ad-box-price-button,
 .ad-box-details {
   text-align: left;
@@ -299,6 +300,11 @@ section::after,
 
 .ad-box-price span:nth-of-type(2) {
   color: #039ec5;
+}
+.ad-box-available {
+  color: orange;
+  text-transform: capitalize;
+  font-weight: 700;
 }
 .ad-box-price-button {text-align: center;}
 .ad-box-price-button button {

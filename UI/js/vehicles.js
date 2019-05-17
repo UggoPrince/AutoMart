@@ -6,17 +6,17 @@ const vehicles = [
         bodyType:'SUV',
         price: 'N15,000,000',
         state:'New',
-        status:'availble',
+        status:'available',
         pix:'images/c1.jpg'
     },
     {
-        title:'Clean Venza',
-        manufacturer:'Toyota',
-        model: 'Venza',
-        bodyType:'SUV',
-        price: 'N5,000,000',
+        title:'New Mercedes Truck',
+        manufacturer:'Mercedes',
+        model: 'Mack 725',
+        bodyType:'Truck',
+        price: 'N20,000,000',
         state:'New',
-        status:'availble',
+        status:'Sold',
         pix:'images/c2.jpg'
     },
     {
@@ -26,7 +26,7 @@ const vehicles = [
         bodyType:'SUV',
         price: 'N10,000,000',
         state:'Used',
-        status:'availble',
+        status:'available',
         pix:'images/c3.jpg'
     },
     {
@@ -36,7 +36,7 @@ const vehicles = [
         bodyType:'SUV',
         price: 'N4,000,000',
         state:'New',
-        status:'availble',
+        status:'available',
         pix:'images/c4.jpg'
     },
     {
@@ -46,7 +46,7 @@ const vehicles = [
         bodyType:'SUV',
         price: 'N6,000,000',
         state:'New',
-        status:'availble',
+        status:'available',
         pix:'images/c5.jpg'
     },
     {
@@ -56,7 +56,37 @@ const vehicles = [
         bodyType:'SUV',
         price: 'N16,000,000',
         state:'Used',
-        status:'availble',
+        status:'available',
         pix:'images/c6.jpg'
+    },
+    {
+        title:'Fairly used Dina',
+        manufacturer:'Toyota',
+        model: 'Dina 260',
+        bodyType:'Truck',
+        price: 'N6,000,000',
+        state:'Used',
+        status:'sold',
+        pix:'images/c7.jpg'
+    },
+    {
+        title:'Imported Mack',
+        manufacturer:'Mack',
+        model: 'Mack 800',
+        bodyType:'Truck',
+        price: 'N13,000,000',
+        state:'Used',
+        status:'sold',
+        pix:'images/c8.jpg'
+    },
+    {
+        title:'Clean Venza',
+        manufacturer:'Toyota',
+        model: 'Venza',
+        bodyType:'SUV',
+        price: 'N5,000,000',
+        state:'New',
+        status:'available',
+        pix:'images/c9.jpg'
     },
 ];

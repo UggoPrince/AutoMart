@@ -100,7 +100,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     nav_toggle.addEventListener('click', slideToggle);
     toggleSoldOnDashboard(); // marks your Ads Sold or not
     if (getPageName() === 'home.html'){
-        buildCarList(); // from buildCarList.js
+        buildCarList('user'); // from buildCarList.js
+        toggleMakeOfferModal(); // toggles modal for
+    }
+    if (getPageName() === 'adminhome.html') {
+        buildCarList('admin'); // from buildCarList.js
         toggleMakeOfferModal(); // toggles modal for
     }
     if (getPageName() === 'dashboard.html') {
