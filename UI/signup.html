@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/form.css">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">
     <script src="js/main.js"></script>
+    <script src="js/signup.js"></script>
 </head>
 <body>
     <header>
@@ -33,30 +34,30 @@
     <main>
         <section>
             <div class="form-container form-medium">
-                <form class="" method="POST" action="" name="signupForm">
+                <form class="" method="POST" action="" name="signupForm" id="signupForm">
                     <div class="form-header col-12">
                         <h1>Create An Account</h1>
                     </div>
                     <section class="form-body">
                         <section class="form-block">
                             <label class="col-4 must-fill">First Name</label>
-                            <input class="col-7-5" type="text" name="firstname" placeholder="Enter First Name" />
+                            <input class="col-7-5" type="text" name="firstname" placeholder="Enter First Name" required />
                         </section>
                         <section class="form-block">
                             <label class="col-4 must-fill">Last Name</label>
-                            <input class="col-7-5" type="text" name="lastname" placeholder="Enter Last Name" />
+                            <input class="col-7-5" type="text" name="lastname" placeholder="Enter Last Name" required />
                         </section>
                         <section class="form-block">
                             <label class="col-4 must-fill">Email Address</label>
-                            <input class="col-7-5" type="email" name="email" placeholder="Enter Email Address" />
+                            <input class="col-7-5" type="email" name="email" placeholder="Enter Email Address" required />
                         </section>
                         <section class="form-block">
                             <label class="col-4 must-fill">Password</label>
-                            <input class="col-7-5" type="password" name="password" placeholder="Enter Password" />
+                            <input class="col-7-5" type="password" name="password" placeholder="Enter Password" required />
                         </section>
                         <section class="form-block">
                             <label class="col-4 must-fill">Confirm Password</label>
-                            <input class="col-7-5" type="password" name="compassword" placeholder="Confirm Password" />
+                            <input class="col-7-5" type="password" name="compassword" placeholder="Confirm Password" required />
                         </section>
                         <section class="form-block">
                             <input type="submit" value="CREATE ACCOUNT" />

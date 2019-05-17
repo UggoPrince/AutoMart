@@ -214,6 +214,23 @@ section::after,
   background-size: cover;
 }
 
+.bannerBottom {
+  width: 100%;
+  height: calc(100% - 70px);
+  text-align: center;
+  font-size: 5rem;
+  color: orange;
+  font-style: italic;
+}
+.bannerText {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-top: 200px;
+}
+.bannerBottom span {
+  color: white;
+  font-style: normal;
+}
+
 /*adverts*/
 .ad-page, .dash-page {
   background: rgb(245, 247, 247);/*#eeeeee;/*#e0ecfab0;*/
