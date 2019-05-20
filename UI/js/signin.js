@@ -3,11 +3,11 @@ const signin = (event) => {
     const f = event.target;
     if (f.email.value === 'mrjohndoe@gmail.com' && f.password.value === '12345678') {
         const person = JSON.stringify({userType: 'admin'})
-        localStorage.setItem('user', person);
+        localStorage.setItem('autoMartUser', person);
         window.location.replace('adminhome.html');
     } else {
         const person = JSON.stringify({userType: 'user'})
-        localStorage.setItem('user', person);
+        localStorage.setItem('autoMartUser', person);
         window.location.replace('home.html');
     }
 };

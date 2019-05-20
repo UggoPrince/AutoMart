@@ -1,7 +1,7 @@
 const signup = (event) => {
     event.preventDefault();
     const person = JSON.stringify({userType: 'user'})
-    localStorage.setItem('user', person);
+    localStorage.setItem('autoMartUser', person);
     window.location.replace('home.html');
 };
 document.addEventListener('DOMContentLoaded', () => {
