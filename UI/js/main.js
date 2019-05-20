@@ -116,24 +116,64 @@ const getPageName = () => {
     const page = url.substring(x);
     return page;
 }
+const signOutSetup = () => {
+    const signoutLink = document.getElementById('signoutLink');
+    signoutLink.addEventListener('click', signOut);
+};
+const signOut = () => {
+    localStorage.removeItem('autoMartUser');
+    window.location.replace('index.html');
+};
 
 document.addEventListener('DOMContentLoaded', ()=>{
+    let user = '';
+    const pageName = getPageName();
+    if (localStorage.getItem('autoMartUser')) {
+        user = JSON.parse(localStorage.getItem('autoMartUser'));
+    } else {
+        if (pageName === 'adminhome.html'
+        || pageName === 'home.html'
+        || pageName === 'car.html'
+        || pageName === 'dashboard.html'
+        || pageName === 'postad.html') {
+            window.location.replace('index.html');
+        }
+    }
+
+    
     let nav_toggle = document.getElementById('nav-toggle');
     nav_toggle.addEventListener('click', slideToggle);
     toggleSoldOnDashboard(); // marks your Ads Sold or not
     if (getPageName() === 'home.html'){
+        if (user !== '' && user.userType === 'admin')
+            window.location.replace('adminhome.html');
         buildCarList('user'); // from buildCarList.js
         toggleMakeOfferModal(); // toggles modal for making offers
         buildReportFeatures(); // toggles report fraud modal
+        signOutSetup();
     }
     if (getPageName() === 'adminhome.html') {
+        if (user !== '' && user.userType === 'user')
+            window.location.replace('home.html');
         buildCarList('admin'); // from buildCarList.js
         toggleMakeOfferModal(); // toggles modal for
+        signOutSetup();
     }
     if (getPageName() === 'dashboard.html') {
         toggleDashboardTabs();
+        signOutSetup();
     }
     if (getPageName() === 'car.html') {
         toggleMakeOfferModal();
+        signOutSetup();
+    }
+
+    if ((getPageName() === 'signup.html'
+        || getPageName() === 'signin.html') 
+        && user !== '') {
+        if (user.userType === 'admin')
+            window.location.replace('adminhome.html');
+        else 
+            window.location.replace('home.html');
     }
 });

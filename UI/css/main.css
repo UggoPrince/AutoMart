@@ -17,7 +17,7 @@ h1 {
     font-size: 1.5rem;
 }
 
-main, header {
+main, header, footer {
     margin: 0 auto;
     width: 100%;
 }
@@ -513,6 +513,18 @@ section::after,
 
 .bw {background: white;}
 
+footer {
+  min-height: 200px;
+  background:#222;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: white;
+  text-align: center;
+}
+
+footer div {
+  padding: 10px;
+  float: left;
+}
   
 @media screen and (min-width: 800px) {
     h1 { font-size: 2rem; }
