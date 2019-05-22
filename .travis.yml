@@ -5,7 +5,7 @@ node_js:
 env:
   global: CC_TEST_REPORTER_ID=84d01afc57804cd10ba1741c0011bde877b1275fa5b2abcb5daae8827ad3ac99
 install:
-  - cd API
+  - cd api
   - npm install
 cache:
   directories:
