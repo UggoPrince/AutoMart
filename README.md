@@ -1,7 +1,7 @@
 # AutoMart
 AutoMart is an online app that enables you to sell and/or buy cars.
 
-[![Build Status](https://travis-ci.com/UggoPrince/AutoMart.svg?branch=develop)](https://travis-ci.com/UggoPrince/AutoMart) [![Coverage Status](https://coveralls.io/repos/github/UggoPrince/AutoMart/badge.svg?branch=develop)](https://coveralls.io/github/UggoPrince/AutoMart?branch=develop) [![Test Coverage](https://api.codeclimate.com/v1/badges/57c9772eeae7b66be027/test_coverage)](https://codeclimate.com/github/UggoPrince/AutoMart/test_coverage)
+[![Build Status](https://travis-ci.com/UggoPrince/AutoMart.svg?branch=ft-signin-endpoint-166143234)](https://travis-ci.com/UggoPrince/AutoMart) [![Coverage Status](https://coveralls.io/repos/github/UggoPrince/AutoMart/badge.svg?branch=ft-signin-endpoint-166143234)](https://coveralls.io/github/UggoPrince/AutoMart?branch=ft-signin-endpoint-166143234) [![Test Coverage](https://api.codeclimate.com/v1/badges/57c9772eeae7b66be027/test_coverage)](https://codeclimate.com/github/UggoPrince/AutoMart/test_coverage)
 
 # Key Application Features
 

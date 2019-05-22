@@ -8,13 +8,19 @@ class ValidateUser {
     this.errorMessages = {};
   }
 
-  checkSignupFields(firstname, lastname, email, password, address, phoneNumber) {
+  validateSigninFields(email, password) {
+    this.isValidEmail(email, 'email'); // validate email
+    this.isValidPassword(password, 'password'); // validate password
+    return { error: this.error, data: this.errorMessages };
+  }
+
+  validateSignupFields(firstname, lastname, email, password, address, phoneNumber) {
     this.isValidName(firstname, 'firstname'); // validate firstname
     this.isValidName(lastname, 'lastname'); // validate lastname
     this.isValidAddress(address, 'address'); // validate address
     this.isValidEmail(email, 'email'); // validate email
-    this.isValidPhoneNumber(phoneNumber, 'phone_number');
-    this.isValidPassword(password, 'password');
+    this.isValidPhoneNumber(phoneNumber, 'phone_number'); // validate phone number
+    this.isValidPassword(password, 'password'); // validate password
 
     return { error: this.error, data: this.errorMessages };
   }
@@ -60,11 +66,11 @@ class ValidateUser {
   isValidPassword(password, type) {
     const passRegExp = /^(?=.*[A-Za-z])+(?=.*\d)[A-Za-z\d]{8,}$/; // /^[A-Za-z]\w{8,}$/;
     if (this.isEmptyString(password)) {
-      this.integrateError(type, `${type} must start with a letter, contain numbers and atleast 8 characters long.`);
+      this.integrateError(type, `${type} must have a letter, number and atleast 8 characters long.`);
     } else if (!passRegExp.test(password)) {
-      this.integrateError(type, `Invalid ${type}. password starts with a letter, contain numbers and atleast 8 characters long.`);
+      this.integrateError(type, `Invalid ${type}. password must have a letter, number and atleast 8 characters long.`);
     }
-  } // ''
+  }
 
   isValidPhoneNumber(phoneNumber, type) {
     const telRegExp = /^(\+\d{1,3} ?)?(\(\d{1,5}\)|\d{1,5}) ?\d{3}?\d{0,7}( (x|xtn|ext|extn|pax|pbx|extension)?\.? ?\d{2-5})?$/i;
