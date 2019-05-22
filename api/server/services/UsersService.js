@@ -37,7 +37,20 @@ class UsersService {
     };
   }
 
-  add(fisrtname, lastname, email, password, address, phoneNumber) {
+  signin(email, password) {
+    const valid = true;
+    for (let i = 0; i < this.users.length; i += 1) {
+      if (this.users[i].email === email && this.users[i].password === password) {
+        return {
+          valid,
+          data: this.getUserById(i),
+        };
+      }
+    }
+    return { valid: false, error: 'Invalid password.' };
+  }
+
+  signup(fisrtname, lastname, email, password, address, phoneNumber) {
     const allUsers = this.users.length;
     const id = allUsers + 1;
     const user = {

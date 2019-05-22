@@ -83,4 +83,55 @@ describe('Users Test', () => {
         });
     });
   });
+
+  describe('POST /api/v1/auth/signin', () => {
+    const user = {
+      email: 'johnmatthew@gmail.com',
+      password: 'k12345kljd',
+    };
+    it('should sign in a user', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .send(user)
+        .end((err, res) => {
+          expect(res.status).to.be.eql(200);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not sign in a user when one or all fields are not provided', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .send({})
+        .end((err, res) => {
+          expect(res.status).to.be.eql(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not sign in a user when a wrong email is provided', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .send({ email: 'thony@gmail.com', password: 'kh123456kjhf' })
+        .end((err, res) => {
+          expect(res.status).to.be.eql(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not sign in a user when a wrong password is provided', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .send({ email: 'johnmatthew@gmail.com', password: 'kh123456kjhf' })
+        .end((err, res) => {
+          expect(res.status).to.be.eql(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+  });
 });
