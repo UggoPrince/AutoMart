@@ -10,11 +10,11 @@ class UsersController {
       password,
     } = req.body;
     const validator = new Validator();
-    const validUserContent = validator.validateSigninFields(email, password);
-    if (validUserContent.error) {
+    const validUserReq = validator.validateSigninFields(email, password);
+    if (validUserReq.error) {
       res.status(404).send({
         status: 404,
-        error: validUserContent.data,
+        error: validUserReq.data,
       });
     } else if (!usersService.emailExist(email)) {
       res.status(404).send({
@@ -48,13 +48,13 @@ class UsersController {
     } = req.body;
 
     const validator = new Validator();
-    const validUserContent = validator.validateSignupFields(
+    const validUserReq = validator.validateSignupFields(
       firstname, lastname, email, password, address, phoneNumber,
     );
-    if (validUserContent.error) {
+    if (validUserReq.error) {
       res.status(404).send({
         status: 404,
-        error: validUserContent.data,
+        error: validUserReq.data,
       });
     } else if (usersService.emailExist(email)) {
       res.status(404).send({

@@ -1,11 +1,12 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable class-methods-use-this */
+/* eslint-disable no-useless-constructor */
 /* eslint-disable no-control-regex */
+import Validator from './Validator';
 
-class ValidateUser {
+class ValidateUser extends Validator {
   constructor() {
-    this.error = false;
-    this.errorMessages = {};
+    super();
   }
 
   validateSigninFields(email, password) {
@@ -23,17 +24,6 @@ class ValidateUser {
     this.isValidPassword(password, 'password'); // validate password
 
     return { error: this.error, data: this.errorMessages };
-  }
-
-  integrateError(type, message) {
-    this.error = true;
-    this.errorMessages[type] = message;
-  }
-
-  isEmptyString(str) {
-    const space = /^\s*$/;
-    if (str === '' || str === null || str === undefined || space.test(str)) { return true; }
-    return false;
   }
 
   isValidName(name, type) {

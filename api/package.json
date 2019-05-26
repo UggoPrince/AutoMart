@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon --exec babel-node app.js",
-    "test": "nyc mocha --require @babel/register --exit",
+    "test": "nyc mocha --require @babel/register --exit --recursive --timeout 20000",
     "coverage": "nyc report --reporter=lcov --reporter=text-lcov | coveralls"
   },
   "repository": {
@@ -16,6 +16,8 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cloudinary": "^1.14.0",
+    "connect-multiparty": "^2.2.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.0"
   },
@@ -23,6 +25,7 @@
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
     "@babel/node": "^7.2.2",
+    "@babel/plugin-transform-regenerator": "^7.4.5",
     "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.4.4",
     "babel-polyfill": "^6.26.0",

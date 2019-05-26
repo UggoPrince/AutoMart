@@ -1,5 +1,7 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable import/no-extraneous-dependencies */
 import dotenv from 'dotenv';
+import 'babel-polyfill';
 import app from '../server/index';
 
 dotenv.config();
