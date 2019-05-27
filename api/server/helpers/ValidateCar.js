@@ -22,21 +22,12 @@ class ValidateCar extends Validator {
     return { error: this.error, data: this.errorMessages };
   }
 
-  validateInt(int, type) {
-    const intRegExp = /^\d+$/;
-    if (this.isEmptyString(int)) {
-      this.integrateError(type, `No ${type} entered.`);
-    } else if (!intRegExp.test(int) || int === '0') {
-      this.integrateError(type, `Invalid ${type}.`);
-    }
-  }
-
-  validateString(str, type) {
+  validateString(str, field) {
     const regExp = /^[\w ]+[^_]$/;
     if (this.isEmptyString(str)) {
-      this.integrateError(type, `No ${type} entered.`);
+      this.integrateError(field, `No ${field} entered.`);
     } else if (!regExp.test(str)) {
-      this.integrateError(type, `Invalid ${type}.`);
+      this.integrateError(field, `Invalid ${field}.`);
     }
   }
 
@@ -44,47 +35,47 @@ class ValidateCar extends Validator {
     this.validateInt(owner, type);
   }
 
-  isValidState(state, type) {
+  isValidState(state, field) {
     if (this.isEmptyString(state)) {
-      this.integrateError(type, `No ${type} entered.`);
+      this.integrateError(field, `No ${field} entered.`);
     } else {
       const str = state.toLowerCase();
       if (str !== 'new' && str !== 'used') {
-        this.integrateError(type, `Invalid ${type}. Must be [ new ] or [ used ].`);
+        this.integrateError(field, `Invalid ${field}. Must be [ new ] or [ used ].`);
       }
     }
   }
 
-  isValidStatus(status, type) {
+  isValidStatus(status, field) {
     if (this.isEmptyString(status)) {
-      this.integrateError(type, `No ${type} entered.`);
+      this.integrateError(field, `No ${field} entered.`);
     } else {
       const str = status.toLowerCase();
       if (str !== 'available') {
-        this.integrateError(type, `Invalid ${type}. Must be [ available ].`);
+        this.integrateError(field, `Invalid ${field}. Must be [ available ].`);
       }
     }
   }
 
-  isValidPrice(price, type) {
-    this.validateInt(price, type);
+  isValidPrice(price, field) {
+    this.validateFloat(price, field);
   }
 
-  isValidTitle(title, type) {
-    this.validateString(title, type);
+  isValidTitle(title, field) {
+    this.validateString(title, field);
   }
 
-  isValidManufacturer(manufacturer, type) {
-    this.validateString(manufacturer, type);
+  isValidManufacturer(manufacturer, field) {
+    this.validateString(manufacturer, field);
   }
 
-  isValidModel(model, type) {
-    this.validateString(model, type);
+  isValidModel(model, field) {
+    this.validateString(model, field);
   }
 
-  isValidBodyType(bodyType, type) {
+  isValidBodyType(bodyType, field) {
     if (this.isEmptyString(bodyType)) {
-      this.integrateError(type, `No ${type} entered.`);
+      this.integrateError(field, `No ${field} entered.`);
     } else {
       const str = bodyType.toLowerCase();
       const bodyT = [' Convertibles', ' Coupe',
@@ -100,7 +91,7 @@ class ValidateCar extends Validator {
       && str !== 'van' && str !== 'truck'
       && str !== 'trailer truck' && str !== 'tipper truck'
       && str !== 'bus' && str !== 'motorbike') {
-        this.integrateError(type, `Invalid ${type}. Each should be one of these: ${bodyT}`);
+        this.integrateError(field, `Invalid ${field}. Each should be one of these: ${bodyT}`);
       }
     }
   }

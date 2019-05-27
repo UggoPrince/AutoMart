@@ -26,48 +26,48 @@ class ValidateUser extends Validator {
     return { error: this.error, data: this.errorMessages };
   }
 
-  isValidName(name, type) {
+  isValidName(name, field) {
     const nameRegExp = /^(?=.*[A-Za-z])+\w+[^_]$/;
     if (this.isEmptyString(name)) {
-      this.integrateError(type, `No ${type} entered.`);
+      this.integrateError(field, `No ${field} entered.`);
     } else if (!nameRegExp.test(name)) {
-      this.integrateError(type, `Invalid ${type}.`);
+      this.integrateError(field, `Invalid ${field}.`);
     }
   }
 
-  isValidAddress(address, type) {
+  isValidAddress(address, field) {
     const addRegExp = /^[a-zA-Z0-9\s,.'-]{3,}$/;
     if (this.isEmptyString(address)) {
-      this.integrateError(type, `No ${type} entered.`);
+      this.integrateError(field, `No ${field} entered.`);
     } else if (!addRegExp.test(address)) {
-      this.integrateError(type, `Invalid ${type}.`);
+      this.integrateError(field, `Invalid ${field}.`);
     }
   }
 
-  isValidEmail(email, type) {
+  isValidEmail(email, field) {
     const emailRegExp = /^(([^<>()\\[\]\\.,;:@"\x00-\x20\x7F]|\\.)+|("""([^\x0A\x0D"\\]|\\\\)+"""))@(([a-z]|#\d+?)([a-z0-9-]|#\d+?)*([a-z0-9]|#\d+?)\.)+([a-z]{2,4})$/i;
     if (this.isEmptyString(email)) {
-      this.integrateError(type, `No ${type} entered.`);
+      this.integrateError(field, `No ${field} entered.`);
     } else if (!emailRegExp.test(email)) {
-      this.integrateError(type, `Invalid ${type}.`);
+      this.integrateError(field, `Invalid ${field}.`);
     }
   }
 
-  isValidPassword(password, type) {
+  isValidPassword(password, field) {
     const passRegExp = /^(?=.*[A-Za-z])+(?=.*\d)[A-Za-z\d]{8,}$/; // /^[A-Za-z]\w{8,}$/;
     if (this.isEmptyString(password)) {
-      this.integrateError(type, `${type} must have a letter, number and atleast 8 characters long.`);
+      this.integrateError(field, `${field} must have a letter, number and atleast 8 characters long.`);
     } else if (!passRegExp.test(password)) {
-      this.integrateError(type, `Invalid ${type}. password must have a letter, number and atleast 8 characters long.`);
+      this.integrateError(field, `Invalid ${field}. password must have a letter, number and atleast 8 characters long.`);
     }
   }
 
-  isValidPhoneNumber(phoneNumber, type) {
+  isValidPhoneNumber(phoneNumber, field) {
     const telRegExp = /^(\+\d{1,3} ?)?(\(\d{1,5}\)|\d{1,5}) ?\d{3}?\d{0,7}( (x|xtn|ext|extn|pax|pbx|extension)?\.? ?\d{2-5})?$/i;
     if (this.isEmptyString(phoneNumber)) {
-      this.integrateError(type, `No ${type} entered.`);
+      this.integrateError(field, `No ${field} entered.`);
     } else if (!telRegExp.test(phoneNumber)) {
-      this.integrateError(type, `Invalid ${type}.`);
+      this.integrateError(field, `Invalid ${field}.`);
     }
   }
 }

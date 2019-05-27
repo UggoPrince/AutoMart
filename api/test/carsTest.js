@@ -10,8 +10,6 @@ import app from './app';
 dotenv.config();
 chai.use(chaiHttp);
 
-console.log(__dirname);
-
 describe('Cars Test', () => {
   process.env.CLOUDINARY_AUTOMART_FOLDER = 'automartTest';
   const carAdvert = {
@@ -50,6 +48,26 @@ describe('Cars Test', () => {
         .post('/api/v1/car')
         .set('Content-Type', 'application/x-www-form-urlencoded') // ('Content-Type', 'multipart/form-data')
         .field('owner', 7)
+        .field('state', 'new')
+        .field('status', 'available')
+        .field('price', 16000000)
+        .field('title', carAdvert.title)
+        .field('manufacturer', carAdvert.manufacturer)
+        .field('model', carAdvert.model)
+        .field('bodyType', carAdvert.body_type)
+        .attach('photo', fs.readFileSync(`${__dirname}/testImages/c1.jpg`), 'c1.jpg')
+        .end((err, res) => {
+          expect(res.status).to.be.eql(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not create a car advert when the owner id not an integer', (done) => {
+      chai.request(app)
+        .post('/api/v1/car')
+        .set('Content-Type', 'application/x-www-form-urlencoded') // ('Content-Type', 'multipart/form-data')
+        .field('owner', 'j')
         .field('state', 'new')
         .field('status', 'available')
         .field('price', 16000000)
