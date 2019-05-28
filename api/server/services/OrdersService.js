@@ -50,6 +50,19 @@ class OrdersService {
     const index = id - 1;
     return this.getOrderById(index);
   }
+
+  update(id, newAmount) {
+    const oldAmount = this.orders[id].amount;
+    this.orders[id].amount = newAmount;
+    const order = this.orders[id];
+    return {
+      id: order.id,
+      car_id: order.car_id,
+      status: order.status,
+      old_price_offered: oldAmount,
+      new_price_offered: order.amount,
+    };
+  }
 }
 
 export default new OrdersService();

@@ -14,6 +14,12 @@ class ValidateOrder extends Validator {
     return { error: this.error, data: this.errorMessages };
   }
 
+  validateUpdateOrderFields(newAmount, orderId) {
+    this.isValidAmount(newAmount, 'newAmount'); // validate the new price that's to update old price
+    this.isValidOrderId(orderId, 'orderId'); // validate the order's id
+    return { error: this.error, data: this.errorMessages };
+  }
+
   isValidBuyer(buyer, field) {
     this.validateInt(buyer, field);
   }
@@ -24,6 +30,10 @@ class ValidateOrder extends Validator {
 
   isValidAmount(amount, field) {
     this.validateFloat(amount, field);
+  }
+
+  isValidOrderId(orderId, field) {
+    this.validateInt(orderId, field);
   }
 }
 
