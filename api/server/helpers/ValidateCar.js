@@ -22,6 +22,12 @@ class ValidateCar extends Validator {
     return { error: this.error, data: this.errorMessages };
   }
 
+  validateUpdateCarStatusFields(carId, newStatus) {
+    this.validateInt(carId, 'carId');
+    this.isValidNewStatus(newStatus, 'newStatus');
+    return { error: this.error, data: this.errorMessages };
+  }
+
   validateString(str, field) {
     const regExp = /^[\w ]+[^_]$/;
     if (this.isEmptyString(str)) {
@@ -53,6 +59,17 @@ class ValidateCar extends Validator {
       const str = status.toLowerCase();
       if (str !== 'available') {
         this.integrateError(field, `Invalid ${field}. Must be [ available ].`);
+      }
+    }
+  }
+
+  isValidNewStatus(status, field) {
+    if (this.isEmptyString(status)) {
+      this.integrateError(field, `No ${field} entered.`);
+    } else {
+      const str = status.toLowerCase();
+      if (str !== 'sold') {
+        this.integrateError(field, `Invalid ${field}. Must be changed to [ sold ] in order to update the status.`);
       }
     }
   }

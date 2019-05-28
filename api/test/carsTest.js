@@ -124,4 +124,51 @@ describe('Cars Test', () => {
         });
     });
   });
+
+  describe('PATCH /api/v1/car/:car_id/status', () => {
+    it('should update the status of a car', (done) => {
+      chai.request(app)
+        .patch('/api/v1/car/2/status')
+        .send({ newStatus: 'sold' })
+        .end((err, res) => {
+          expect(res.status).to.be.equal(200);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not update the status of a car when the carId or/and the newStatus are invalid.', (done) => {
+      chai.request(app)
+        .patch('/api/v1/car/p/status')
+        .send({ newStatus: 'solds' })
+        .end((err, res) => {
+          expect(res.status).to.be.equal(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not update the status of a car when the carId does not exist in database.', (done) => {
+      chai.request(app)
+        .patch('/api/v1/car/22/status')
+        .send({ newStatus: 'sold' })
+        .end((err, res) => {
+          expect(res.status).to.be.equal(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should bot update the status of a car when the newStatus is not sent.', (done) => {
+      chai.request(app)
+        .patch('/api/v1/car/2/status')
+        .send({})
+        .end((err, res) => {
+          expect(res.status).to.be.equal(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+  });
 });

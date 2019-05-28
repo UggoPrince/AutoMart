@@ -23,18 +23,26 @@ class UsersService {
   }
 
   getUserById(id) {
-    const currentUser = this.getAllUsers()[id];
-    return {
-      token: '45erkjherht45495783',
-      id: currentUser.id,
-      fisrtname: currentUser.fisrtname,
-      lastname: currentUser.lastname,
-      email: currentUser.email,
-      password: currentUser.password,
-      address: currentUser.address,
-      is_admin: currentUser.is_admin,
-      phone_number: currentUser.phone_number,
-    };
+    const users = this.getAllUsers();
+    for (let i = 0; i < users.length; i += 1) {
+      if (users[i].id === id) {
+        return {
+          exist: true,
+          data: {
+            token: '45erkjherht45495783',
+            id: users[i].id,
+            fisrtname: users[i].fisrtname,
+            lastname: users[i].lastname,
+            email: users[i].email,
+            password: users[i].password,
+            address: users[i].address,
+            is_admin: users[i].is_admin,
+            phone_number: users[i].phone_number,
+          },
+        };
+      }
+    }
+    return { exist: false, error: 'no such user with this id.' };
   }
 
   signin(email, password) {
@@ -43,7 +51,7 @@ class UsersService {
       if (this.users[i].email === email && this.users[i].password === password) {
         return {
           valid,
-          data: this.getUserById(i),
+          user: this.getUserById(this.users[i].id),
         };
       }
     }
@@ -64,8 +72,7 @@ class UsersService {
       phone_number: phoneNumber,
     };
     this.users.push(user);
-    const index = id - 1;
-    return this.getUserById(index);
+    return this.getUserById(id);
   }
 
   emailExist(email) {

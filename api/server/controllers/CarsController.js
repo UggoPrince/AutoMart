@@ -21,20 +21,47 @@ class CarsController {
         status: 404,
         error: validCarReq.data,
       });
-    } else if (!usersService.getAllUsers()[parseInt(owner, 10) - 1]) { // -1 because it's an array
+    } else if (!usersService.getUserById(parseInt(owner, 10)).exist) {
       res.status(404).send({
         status: 404,
         error: 'Invalid owner',
       });
     } else {
-      const ownerId = owner - 1;
-      const ownerEmail = usersService.getUserById(ownerId).email;
+      const ownerId = parseInt(owner, 10);
+      const ownerEmail = usersService.getUserById(ownerId).data.email;
       const addedCar = await carsService.createAdvert(
         owner, state, status, price, title, manufacturer, model, bodyType, myPhoto, ownerEmail,
       );
       res.status(201).send({
         status: 201,
-        data: addedCar,
+        data: addedCar.data,
+      });
+    }
+  }
+
+  updateCarStatus(req, res) {
+    const { newStatus } = req.body;
+    const carId = req.params.car_id;
+    const validator = new Validator();
+    const validUpdateReq = validator.validateUpdateCarStatusFields(carId, newStatus);
+    if (validUpdateReq.error) {
+      res.status(404).send({
+        status: 404,
+        error: validUpdateReq.data,
+      });
+    } else if (!carsService.getCarById(parseInt(carId, 10)).exist) {
+      res.status(404).send({
+        status: 404,
+        error: 'Invalid carId. There is no car with this id.',
+      });
+    } else {
+      const id = parseInt(carId, 10);
+      const carOwner = carsService.getCarOwner(id);
+      const ownerEmail = usersService.getUserById(carOwner).data.email;
+      const newStatusUpdate = carsService.updateStatus(id, newStatus, ownerEmail);
+      res.status(200).send({
+        status: 200,
+        data: newStatusUpdate,
       });
     }
   }

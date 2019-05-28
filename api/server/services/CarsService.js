@@ -40,20 +40,35 @@ class CarsService {
   }
 
   getCarById(id) {
-    const car = this.getAllCars()[id];
-    return {
-      id: car.id,
-      email: this.userEmail,
-      created_on: car.created_on,
-      manufacturer: car.manufacturer,
-      model: car.model,
-      body_type: car.body_type,
-      state: car.state,
-      status: car.status,
-      price: car.price,
-      title: car.title,
-      photo: car.photo,
-    };
+    const cars = this.getAllCars();
+    for (let i = 0; i < cars.length; i += 1) {
+      if (cars[i].id === id) {
+        return {
+          exist: true,
+          data: {
+            id: cars[i].id,
+            email: this.userEmail,
+            created_on: cars[i].created_on,
+            manufacturer: cars[i].manufacturer,
+            model: cars[i].model,
+            body_type: cars[i].body_type,
+            state: cars[i].state,
+            status: cars[i].status,
+            price: cars[i].price,
+            title: cars[i].title,
+            photo: cars[i].photo,
+          },
+        };
+      }
+    }
+    return { exist: false, error: 'no such car with this id.' };
+  }
+
+  getCarOwner(id) {
+    const cars = this.getAllCars();
+    for (let i = 0; i < cars.length; i += 1) {
+      if (cars[i].id === id) return cars[i].owner;
+    }
   }
 
   async createAdvert(
@@ -81,8 +96,26 @@ class CarsService {
       photo: uploadedImg.url,
     };
     this.cars.push(car);
-    const index = id - 1;
-    return this.getCarById(index);
+    return this.getCarById(id);
+  }
+
+  updateStatus(carId, newStatus, email) {
+    const cars = this.getAllCars();
+    for (let i = 0; i < cars.length; i += 1) {
+      if (cars[i].id === carId) {
+        this.cars[i].status = newStatus;
+        return {
+          id: cars[i].id,
+          email,
+          created_on: cars[i].created_on,
+          manufacturer: cars[i].manufacturer,
+          model: cars[i].model,
+          price: cars[i].price,
+          state: cars[i].state,
+          status: this.cars[i].status,
+        };
+      }
+    }
   }
 }
 
