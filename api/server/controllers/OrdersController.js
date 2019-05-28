@@ -22,11 +22,13 @@ class OrdersController {
     } else {
       let idErrors = false;
       const idErrorMessages = [];
-      if (!usersService.getAllUsers()[parseInt(buyer, 10) - 1]) { // -1 because it's an array
+      const deBuyer = parseInt(buyer, 10);
+      const deCar = parseInt(carId, 10);
+      if (!usersService.getUserById(deBuyer).exist) { // -1 because it's an array
         idErrors = true;
         idErrorMessages.push('Invalid buyer. No buyer with such id.');
       }
-      if (!carsService.getAllCars()[parseInt(carId, 10) - 1]) { // -1 because it's an array
+      if (!carsService.getCarById(deCar).exist) { // -1 because it's an array
         idErrors = true;
         idErrorMessages.push('Invalid carId. No car with such id.');
       }
@@ -36,8 +38,7 @@ class OrdersController {
           error: idErrorMessages,
         });
       } else {
-        const i = carId - 1;
-        const carPrice = carsService.getCarById(i).price;
+        const carPrice = carsService.getCarById(deCar).price;
         const madeOrder = ordersService.order(buyer, carId, amount, carPrice);
         res.status(201).send({
           status: 201,
@@ -58,14 +59,14 @@ class OrdersController {
         status: 404,
         error: validOrderUpdateReq.data,
       });
-    } else if (!ordersService.getAllOrders()[orderId - 1]) { // -1 because it's an array
+    } else if (!ordersService.getOrderById(parseInt(orderId, 10)).exist) {
       res.status(404).send({
         status: 404,
         error: 'Invalid orderId. No order with such id.',
       });
     } else {
-      const id = orderId - 1;
-      const getOrderStatus = ordersService.getOrderById(id).status;
+      const id = parseInt(orderId, 10);
+      const getOrderStatus = ordersService.getOrderById(id).data.status;
       let statusError = false;
       let statusErrorMessages = '';
       if (getOrderStatus === 'accepted') {

@@ -26,7 +26,7 @@ class UsersController {
       if (userData.valid) {
         res.status(200).send({
           status: 200,
-          data: userData.data,
+          data: userData.user.data,
         });
       } else {
         res.status(404).send({
@@ -67,7 +67,7 @@ class UsersController {
       );
       res.status(201).send({
         status: 201,
-        data: addedUser,
+        data: addedUser.data,
       });
     }
   }

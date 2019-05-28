@@ -7,5 +7,6 @@ const Router = express.Router();
 const multipartMiddleware = multipart();
 
 Router.post('/car', multipartMiddleware, carsControllers.addCar); // add a car
+Router.patch('/car/:car_id/status', carsControllers.updateCarStatus); // update car status
 
 export default Router;

@@ -24,14 +24,22 @@ class OrdersService {
   }
 
   getOrderById(id) {
-    const order = this.getAllOrders()[id];
-    return {
-      id: order.id,
-      car_id: order.car_id,
-      status: order.status,
-      price: this.carPrice,
-      price_offered: order.amount,
-    };
+    const orders = this.getAllOrders();
+    for (let i = 0; i < orders.length; i += 1) {
+      if (orders[i].id === id) {
+        return {
+          exist: true,
+          data: {
+            id: orders[i].id,
+            car_id: orders[i].car_id,
+            status: orders[i].status,
+            price: this.carPrice,
+            price_offered: orders[i].amount,
+          },
+        };
+      }
+    }
+    return { exist: false, error: 'no order with this id.' };
   }
 
   order(buyer, carId, amount, carPrice) {
@@ -47,20 +55,23 @@ class OrdersService {
       created_on: Date.now(),
     };
     this.orders.push(order);
-    const index = id - 1;
-    return this.getOrderById(index);
+    return this.getOrderById(id);
   }
 
   update(id, newAmount) {
-    const oldAmount = this.orders[id].amount;
-    this.orders[id].amount = newAmount;
-    const order = this.orders[id];
+    const order = this.getOrderById(id).data;
+    const oldAmount = order.price_offered;
+    for (let i = 0; i < this.orders.length; i += 1) {
+      if (this.orders[i].id === id) {
+        this.orders[i].amount = newAmount;
+      }
+    }
     return {
       id: order.id,
       car_id: order.car_id,
       status: order.status,
       old_price_offered: oldAmount,
-      new_price_offered: order.amount,
+      new_price_offered: newAmount,
     };
   }
 }
