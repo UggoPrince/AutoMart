@@ -39,6 +39,30 @@ class CarsController {
     }
   }
 
+  getCar(req, res) {
+    const carId = req.params.car_id;
+    const validator = new Validator();
+    const validGetCarReq = validator.validateGetSpecficCar(carId);
+    if (validGetCarReq.error) {
+      res.status(404).send({
+        status: 404,
+        error: validGetCarReq.data,
+      });
+    } else if (!carsService.getCarById(parseInt(carId, 10)).exist) {
+      res.status(404).send({
+        status: 404,
+        error: 'Invalid carId. There is no car with this id.',
+      });
+    } else {
+      const id = parseInt(carId, 10);
+      const { car } = carsService.getCarById(id);
+      res.status(200).send({
+        status: 200,
+        data: car,
+      });
+    }
+  }
+
   updateCarStatus(req, res) {
     const { newStatus } = req.body;
     const carId = req.params.car_id;

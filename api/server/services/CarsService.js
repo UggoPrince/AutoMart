@@ -58,6 +58,7 @@ class CarsService {
             title: cars[i].title,
             photo: cars[i].photo,
           },
+          car: cars[i],
         };
       }
     }
