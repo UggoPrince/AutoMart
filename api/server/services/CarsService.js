@@ -99,23 +99,42 @@ class CarsService {
     return this.getCarById(id);
   }
 
-  updateStatus(carId, newStatus, email) {
+  updater(carId, field, newField) {
     const cars = this.getAllCars();
     for (let i = 0; i < cars.length; i += 1) {
       if (cars[i].id === carId) {
-        this.cars[i].status = newStatus;
-        return {
-          id: cars[i].id,
-          email,
-          created_on: cars[i].created_on,
-          manufacturer: cars[i].manufacturer,
-          model: cars[i].model,
-          price: cars[i].price,
-          state: cars[i].state,
-          status: this.cars[i].status,
-        };
+        this.cars[i][field] = newField;
+        return i;
       }
     }
+  }
+
+  updateStatus(carId, newStatus, email) {
+    const i = this.updater(carId, 'status', newStatus);
+    return {
+      id: this.cars[i].id,
+      email,
+      created_on: this.cars[i].created_on,
+      manufacturer: this.cars[i].manufacturer,
+      model: this.cars[i].model,
+      price: this.cars[i].price,
+      state: this.cars[i].state,
+      status: this.cars[i].status,
+    };
+  }
+
+  updatePrice(carId, newPrice, email) {
+    const i = this.updater(carId, 'price', newPrice);
+    return {
+      id: this.cars[i].id,
+      email,
+      created_on: this.cars[i].created_on,
+      manufacturer: this.cars[i].manufacturer,
+      model: this.cars[i].model,
+      price: this.cars[i].price,
+      state: this.cars[i].state,
+      status: this.cars[i].status,
+    };
   }
 }
 

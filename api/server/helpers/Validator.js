@@ -35,6 +35,15 @@ class Validator {
       this.integrateError(field, `Invalid ${field}.`);
     }
   }
+
+  validateString(str, field) {
+    const regExp = /^[\w ]+[^_]$/;
+    if (this.isEmptyString(str)) {
+      this.integrateError(field, `No ${field} entered.`);
+    } else if (!regExp.test(str)) {
+      this.integrateError(field, `Invalid ${field}.`);
+    }
+  }
 }
 
 export default Validator;

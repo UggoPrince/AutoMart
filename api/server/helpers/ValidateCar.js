@@ -7,7 +7,7 @@ class ValidateCar extends Validator {
     super();
   }
 
-  validateCreateAdvertFields(
+  validateCreateAdvertFields( // validates the fields that would creat an advert
     owner, state, status, price, title, manufacturer, model, bodyType, photo,
   ) {
     this.isValidOwner(owner, 'owner'); // validate owner
@@ -22,19 +22,18 @@ class ValidateCar extends Validator {
     return { error: this.error, data: this.errorMessages };
   }
 
+  // validates the field and url parameter sent to update a car status
   validateUpdateCarStatusFields(carId, newStatus) {
     this.validateInt(carId, 'carId');
     this.isValidNewStatus(newStatus, 'newStatus');
     return { error: this.error, data: this.errorMessages };
   }
 
-  validateString(str, field) {
-    const regExp = /^[\w ]+[^_]$/;
-    if (this.isEmptyString(str)) {
-      this.integrateError(field, `No ${field} entered.`);
-    } else if (!regExp.test(str)) {
-      this.integrateError(field, `Invalid ${field}.`);
-    }
+  // validates the field and url parameter that updates a car price
+  validatUpdateCarPriceFields(carId, newPrice) {
+    this.validateInt(carId, 'carId'); // validate car id
+    this.isValidPrice(newPrice, 'newPrice'); // validate the new price
+    return { error: this.error, data: this.errorMessages };
   }
 
   isValidOwner(owner, type) {
