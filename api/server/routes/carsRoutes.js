@@ -9,5 +9,6 @@ const multipartMiddleware = multipart();
 Router.post('/car', multipartMiddleware, carsControllers.addCar); // add a car
 Router.patch('/car/:car_id/status', carsControllers.updateCarStatus); // update car status
 Router.patch('/car/:car_id/price', carsControllers.updateCarPrice); // update the price of a car
+Router.get('/car/:car_id', carsControllers.getCar); // get a specific car
 
 export default Router;
