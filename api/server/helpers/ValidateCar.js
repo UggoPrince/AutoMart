@@ -56,6 +56,12 @@ class ValidateCar extends Validator {
     return { error: this.error, data: this.errorMessages };
   }
 
+  // validate the url parameter for car id sent to delete a car
+  validateDeleteACar(carId) {
+    this.validateInt(carId, 'carId');
+    return { error: this.error, data: this.errorMessages };
+  }
+
   isValidOwner(owner, type) {
     this.validateInt(owner, type);
   }

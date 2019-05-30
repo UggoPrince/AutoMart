@@ -160,6 +160,15 @@ class CarsService {
       status: this.cars[i].status,
     };
   }
+
+  delete(id) {
+    for (let i = 0; i < this.cars.length; i += 1) {
+      if (this.cars[i].id === id) {
+        this.cars.splice(i, 1);
+        break;
+      }
+    }
+  }
 }
 
 export default new CarsService();
