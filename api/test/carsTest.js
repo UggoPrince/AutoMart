@@ -251,6 +251,7 @@ describe('Cars Test', () => {
         });
     });
   });
+
   describe('GET /api/v1/car?status=available', () => {
     it('should get all unsold cars', (done) => {
       chai.request(app)
@@ -275,6 +276,29 @@ describe('Cars Test', () => {
     it('should not get all unsold cars when no status query string is sent', (done) => {
       chai.request(app)
         .get('/api/v1/car?')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+  });
+
+  describe('GET /api/v1/car?status=available&min_price=value&max_price=value', () => {
+    it('should get all unsold cars with a price range', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?status=available&min_price=5000000.12&max_price=22000000.00')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(200);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not get all unsold cars with a price range when one all query values are incorrect', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?status=availables&min_price=5000000.12&max_price=22000000.00ggg')
         .end((err, res) => {
           expect(res.status).to.be.equal(404);
           expect(res.type).to.be.equal('application/json');

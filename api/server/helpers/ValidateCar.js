@@ -48,6 +48,14 @@ class ValidateCar extends Validator {
     return { error: this.error, data: this.errorMessages };
   }
 
+  // validate the query string for getting cars in a certain price range
+  validateGetUnsoldCarsInPriceRange(status, minPrice, maxPrice) {
+    this.isValidStatusQuery(status, 'status');
+    this.isValidPrice(minPrice, 'min_price');
+    this.isValidPrice(maxPrice, 'max_price');
+    return { error: this.error, data: this.errorMessages };
+  }
+
   isValidOwner(owner, type) {
     this.validateInt(owner, type);
   }

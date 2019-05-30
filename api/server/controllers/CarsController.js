@@ -68,6 +68,7 @@ class CarsController {
     const qLength = Object.keys(req.query).length;
     const validator = new Validator();
     const isOne = qLength > 0 && qLength === 1;
+    const isThree = qLength > 0 && qLength === 3;
 
     if (isOne) { // process request for getting unsold cars only
       const validQuery = validator.validateGetUnsoldCars(rQuery.status);
@@ -81,6 +82,24 @@ class CarsController {
         res.status(200).send({
           status: 200,
           data: unsoldCars,
+        });
+      }
+    } else if (isThree) { // process request for getting unsold cars on a certain price range
+      const validQuery = validator.validateGetUnsoldCarsInPriceRange(
+        rQuery.status, rQuery.min_price, rQuery.max_price,
+      );
+      if (validQuery.error) {
+        res.status(404).send({
+          status: 404,
+          error: validQuery.data,
+        });
+      } else {
+        const unsoldCarsInPriceRange = carsService.getCarsByStatusAndPriceRange(
+          rQuery.status, rQuery.min_price, rQuery.max_price,
+        );
+        res.status(200).send({
+          status: 200,
+          data: unsoldCarsInPriceRange,
         });
       }
     } else {

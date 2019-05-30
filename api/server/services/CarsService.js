@@ -82,6 +82,19 @@ class CarsService {
     return unsoldCars;
   }
 
+  getCarsByStatusAndPriceRange(status, minPrice, maxPrice) {
+    const unsoldCarsInPriceRange = [];
+    for (let i = 0; i < this.cars.length; i += 1) {
+      const car = this.cars[i];
+      if (car.status === status
+        && car.price >= minPrice
+        && car.price <= maxPrice) {
+        unsoldCarsInPriceRange.push(this.cars[i]);
+      }
+    }
+    return unsoldCarsInPriceRange;
+  }
+
   async createAdvert(
     owner, state, status, price, title, manufacturer, model, bodyType, myPhoto, ownerEmail,
   ) {
