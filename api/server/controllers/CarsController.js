@@ -39,7 +39,7 @@ class CarsController {
     }
   }
 
-  getCar(req, res) {
+  getACar(req, res) {
     const carId = req.params.car_id;
     const validator = new Validator();
     const validGetCarReq = validator.validateGetSpecficCar(carId);
@@ -59,6 +59,34 @@ class CarsController {
       res.status(200).send({
         status: 200,
         data: car,
+      });
+    }
+  }
+
+  getCars(req, res) {
+    const rQuery = req.query;
+    const qLength = Object.keys(req.query).length;
+    const validator = new Validator();
+    const isOne = qLength > 0 && qLength === 1;
+
+    if (isOne) { // process request for getting unsold cars only
+      const validQuery = validator.validateGetUnsoldCars(rQuery.status);
+      if (validQuery.error) {
+        res.status(404).send({
+          status: 404,
+          error: validQuery.data,
+        });
+      } else {
+        const unsoldCars = carsService.getCarsByStatus(rQuery.status);
+        res.status(200).send({
+          status: 200,
+          data: unsoldCars,
+        });
+      }
+    } else {
+      res.status(404).send({
+        status: 404,
+        error: 'The query string (with its value) is not valid.',
       });
     }
   }
