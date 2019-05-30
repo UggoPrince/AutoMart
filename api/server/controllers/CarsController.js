@@ -163,6 +163,30 @@ class CarsController {
       });
     }
   }
+
+  deleteCar(req, res) {
+    const carId = req.params.car_id;
+    const validator = new Validator();
+    const validDeleteCarReq = validator.validateDeleteACar(carId);
+    if (validDeleteCarReq.error) {
+      res.status(404).send({
+        status: 404,
+        data: validDeleteCarReq.data,
+      });
+    } else if (!carsService.getCarById(parseInt(carId, 10)).exist) {
+      res.status(404).send({
+        status: 404,
+        error: 'Invalid carId. There is no car with this id.',
+      });
+    } else {
+      const id = parseInt(carId, 10);
+      carsService.delete(id);
+      res.status(200).send({
+        status: 200,
+        data: 'Car Ad successfully deleted',
+      });
+    }
+  }
 }
 
 export default new CarsController();
