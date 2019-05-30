@@ -72,6 +72,16 @@ class CarsService {
     }
   }
 
+  getCarsByStatus(status) {
+    const unsoldCars = [];
+    for (let i = 0; i < this.cars.length; i += 1) {
+      if (this.cars[i].status === status) {
+        unsoldCars.push(this.cars[i]);
+      }
+    }
+    return unsoldCars;
+  }
+
   async createAdvert(
     owner, state, status, price, title, manufacturer, model, bodyType, myPhoto, ownerEmail,
   ) {

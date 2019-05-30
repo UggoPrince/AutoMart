@@ -251,4 +251,36 @@ describe('Cars Test', () => {
         });
     });
   });
+  describe('GET /api/v1/car?status=available', () => {
+    it('should get all unsold cars', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?status=available')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(200);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not get all unsold cars when the status query string is incorrect', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?status=availabless')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not get all unsold cars when no status query string is sent', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+  });
 });

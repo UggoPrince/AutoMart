@@ -42,6 +42,12 @@ class ValidateCar extends Validator {
     return { error: this.error, data: this.errorMessages };
   }
 
+  // validate the query string sent for status
+  validateGetUnsoldCars(status) {
+    this.isValidStatusQuery(status, 'status');
+    return { error: this.error, data: this.errorMessages };
+  }
+
   isValidOwner(owner, type) {
     this.validateInt(owner, type);
   }
@@ -124,6 +130,12 @@ class ValidateCar extends Validator {
       this.integrateError(str, `No ${str} submited.`);
     } else if (myPhoto.photo.type !== 'image/jpeg' && myPhoto.photo.type !== 'image/png') {
       this.integrateError(str, `You didn't submit an ${str} type. jpg/png is accepted.`);
+    }
+  }
+
+  isValidStatusQuery(status, query) {
+    if (status !== 'available') {
+      this.integrateError(query, `The ${query} query string must be the [ ?status=available ].`);
     }
   }
 }
