@@ -67,6 +67,7 @@ class CarsController {
     const rQuery = req.query;
     const qLength = Object.keys(req.query).length;
     const validator = new Validator();
+    const isZero = qLength === 0;
     const isOne = qLength > 0 && qLength === 1;
     const isThree = qLength > 0 && qLength === 3;
 
@@ -102,6 +103,12 @@ class CarsController {
           data: unsoldCarsInPriceRange,
         });
       }
+    } else if (isZero) { // process request for admin view all car adverts
+      const allCars = carsService.getAllCars();
+      res.status(200).send({
+        status: 200,
+        data: allCars,
+      });
     } else {
       res.status(404).send({
         status: 404,

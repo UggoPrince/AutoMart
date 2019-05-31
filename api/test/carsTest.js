@@ -273,9 +273,9 @@ describe('Cars Test', () => {
           done();
         });
     });
-    it('should not get all unsold cars when no status query string is sent', (done) => {
+    it('should not get all unsold/sold cars when query string is sent has more than 3 values', (done) => {
       chai.request(app)
-        .get('/api/v1/car?')
+        .get('/api/v1/car?a&b&c&d')
         .end((err, res) => {
           expect(res.status).to.be.equal(404);
           expect(res.type).to.be.equal('application/json');
@@ -338,6 +338,19 @@ describe('Cars Test', () => {
             done();
           });
       });
+    });
+  });
+
+  describe('GET /api/v1/car', () => {
+    it('should get all cars as admin both sold and unsold', (done) => {
+      chai.request(app)
+        .get('/api/v1/car')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(200);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
     });
   });
 });
