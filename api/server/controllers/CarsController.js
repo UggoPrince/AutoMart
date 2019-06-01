@@ -93,17 +93,42 @@ class CarsController {
         });
       }
     } else if (isTwo) { // process request for getting new and used unsold cars
-      const validQuery = validator.validate_Get_Unsold_Used_Cars(rQuery.status, rQuery.state);
-      if (validQuery.error) {
+      if (rQuery.state) {
+        const validQuery = validator.validate_Get_Unsold_Used_Cars(rQuery.status, rQuery.state);
+        if (validQuery.error) {
+          res.status(404).send({
+            status: 404,
+            error: validQuery.data,
+          });
+        } else {
+          const unsoldCars = carsService.getCarsByStatusAndState(rQuery.status, 'state', rQuery.state);
+          res.status(200).send({
+            status: 200,
+            data: unsoldCars,
+          });
+        }
+      } else if (rQuery.manufacturer) { // process request for getting unsold cars by manufacturer
+        const validQuery = validator.validate_Get_Unsold_Cars_By_Manufacturer(
+          rQuery.status, rQuery.manufacturer,
+        );
+        if (validQuery.error) {
+          res.status(404).send({
+            status: 404,
+            error: validQuery.data,
+          });
+        } else {
+          const unsoldCars = carsService.getCarsByStatusAndManufacturer(
+            rQuery.status, 'manufacturer', rQuery.manufacturer,
+          );
+          res.status(200).send({
+            status: 200,
+            data: unsoldCars,
+          });
+        }
+      } else {
         res.status(404).send({
           status: 404,
-          error: validQuery.data,
-        });
-      } else {
-        const unsoldCars = carsService.getCarsByStatusAndState(rQuery.status, rQuery.state);
-        res.status(200).send({
-          status: 200,
-          data: unsoldCars,
+          error: 'The query string (with its value) is not valid.',
         });
       }
     } else if (isThree) { // process request for getting unsold cars on a certain price range

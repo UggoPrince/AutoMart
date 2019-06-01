@@ -64,6 +64,12 @@ class ValidateCar extends Validator {
     return this.getErrorMessage();
   }
 
+  validate_Get_Unsold_Cars_By_Manufacturer(status, manufacturer) {
+    this.isValidStatusQuery(status, 'status');
+    this.validateString(manufacturer, 'manufacturer');
+    return this.getErrorMessage();
+  }
+
   // validate the url parameter for car id sent to delete a car
   validateDeleteACar(carId) {
     this.validateInt(carId, 'carId');

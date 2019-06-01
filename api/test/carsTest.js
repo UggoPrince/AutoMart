@@ -352,6 +352,39 @@ describe('GET /api/v1/car?status=available&state=used', () => {
   });
 });
 
+describe('GET /api/v1/car?status=available&manufacturer=value', () => {
+  it('should get all unsold cars from a specific manufacturer', (done) => {
+    chai.request(app)
+      .get('/api/v1/car?status=available&manufacturer=toyota')
+      .end((err, res) => {
+        expect(res.status).to.be.equal(200);
+        expect(res.type).to.be.equal('application/json');
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+  it('should not get all unsold cars of a specific manufacturer', (done) => {
+    chai.request(app)
+      .get('/api/v1/car?status=availables&manufacturer=toyota')
+      .end((err, res) => {
+        expect(res.status).to.be.equal(404);
+        expect(res.type).to.be.equal('application/json');
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+  it('should not get all unsold cars of a specific manufacturer', (done) => {
+    chai.request(app)
+      .get('/api/v1/car?status=availables&manufacturerssss=toyota')
+      .end((err, res) => {
+        expect(res.status).to.be.equal(404);
+        expect(res.type).to.be.equal('application/json');
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+});
+
 describe('DELETE /api/v1/car/:car_id', () => {
   it('should delete a posted car ad', (done) => {
     chai.request(app)

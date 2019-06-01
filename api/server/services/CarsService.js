@@ -95,15 +95,19 @@ class CarsService {
     return unsoldCarsInPriceRange;
   }
 
-  getCarsByStatusAndState(status, state) {
+  getCarsByStatusAndState(status, field, state) {
     const unsoldCars = [];
     for (let i = 0; i < this.cars.length; i += 1) {
       const car = this.cars[i];
-      if (car.status === status && car.state === state) {
+      if (car.status === status && car[field] === state) {
         unsoldCars.push(this.cars[i]);
       }
     }
     return unsoldCars;
+  }
+
+  getCarsByStatusAndManufacturer(status, field, manufacturer) {
+    return this.getCarsByStatusAndState(status, field, manufacturer);
   }
 
   async createAdvert(
