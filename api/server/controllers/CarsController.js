@@ -92,17 +92,15 @@ class CarsController {
           data: unsoldCars,
         });
       }
-    } else if (isTwo) { // process request for getting used unsold cars
-      let secondQueryStr = '';
-      if (rQuery.state === 'used') secondQueryStr = 'used';
-      const validQuery = validator.validate_Get_Unsold_Used_Cars(rQuery.status, secondQueryStr);
+    } else if (isTwo) { // process request for getting new and used unsold cars
+      const validQuery = validator.validate_Get_Unsold_Used_Cars(rQuery.status, rQuery.state);
       if (validQuery.error) {
         res.status(404).send({
           status: 404,
           error: validQuery.data,
         });
       } else {
-        const unsoldCars = carsService.getCarsByStatusAndState(rQuery.status, secondQueryStr);
+        const unsoldCars = carsService.getCarsByStatusAndState(rQuery.status, rQuery.state);
         res.status(200).send({
           status: 200,
           data: unsoldCars,
