@@ -12,7 +12,7 @@ class ValidateUser extends Validator {
   validateSigninFields(email, password) {
     this.isValidEmail(email, 'email'); // validate email
     this.isValidPassword(password, 'password'); // validate password
-    return { error: this.error, data: this.errorMessages };
+    return this.getErrorMessage();
   }
 
   validateSignupFields(firstname, lastname, email, password, address, phoneNumber) {
@@ -23,7 +23,7 @@ class ValidateUser extends Validator {
     this.isValidPhoneNumber(phoneNumber, 'phone_number'); // validate phone number
     this.isValidPassword(password, 'password'); // validate password
 
-    return { error: this.error, data: this.errorMessages };
+    return this.getErrorMessage();
   }
 
   isValidName(name, field) {

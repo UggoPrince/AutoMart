@@ -69,9 +69,16 @@ class CarsController {
     const validator = new Validator();
     const isZero = qLength === 0;
     const isOne = qLength > 0 && qLength === 1;
+    const isTwo = qLength > 0 && qLength === 2;
     const isThree = qLength > 0 && qLength === 3;
 
-    if (isOne) { // process request for getting unsold cars only
+    if (isZero) { // process request for admin view all car adverts
+      const allCars = carsService.getAllCars();
+      res.status(200).send({
+        status: 200,
+        data: allCars,
+      });
+    } else if (isOne) { // process request for getting unsold cars only
       const validQuery = validator.validateGetUnsoldCars(rQuery.status);
       if (validQuery.error) {
         res.status(404).send({
@@ -80,6 +87,22 @@ class CarsController {
         });
       } else {
         const unsoldCars = carsService.getCarsByStatus(rQuery.status);
+        res.status(200).send({
+          status: 200,
+          data: unsoldCars,
+        });
+      }
+    } else if (isTwo) { // process request for getting used unsold cars
+      let secondQueryStr = '';
+      if (rQuery.state === 'used') secondQueryStr = 'used';
+      const validQuery = validator.validate_Get_Unsold_Used_Cars(rQuery.status, secondQueryStr);
+      if (validQuery.error) {
+        res.status(404).send({
+          status: 404,
+          error: validQuery.data,
+        });
+      } else {
+        const unsoldCars = carsService.getCarsByStatusAndState(rQuery.status, secondQueryStr);
         res.status(200).send({
           status: 200,
           data: unsoldCars,
@@ -103,12 +126,6 @@ class CarsController {
           data: unsoldCarsInPriceRange,
         });
       }
-    } else if (isZero) { // process request for admin view all car adverts
-      const allCars = carsService.getAllCars();
-      res.status(200).send({
-        status: 200,
-        data: allCars,
-      });
     } else {
       res.status(404).send({
         status: 404,

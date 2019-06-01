@@ -95,6 +95,17 @@ class CarsService {
     return unsoldCarsInPriceRange;
   }
 
+  getCarsByStatusAndState(status, state) {
+    const unsoldCars = [];
+    for (let i = 0; i < this.cars.length; i += 1) {
+      const car = this.cars[i];
+      if (car.status === status && car.state === state) {
+        unsoldCars.push(this.cars[i]);
+      }
+    }
+    return unsoldCars;
+  }
+
   async createAdvert(
     owner, state, status, price, title, manufacturer, model, bodyType, myPhoto, ownerEmail,
   ) {

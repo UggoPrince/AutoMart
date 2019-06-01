@@ -11,7 +11,7 @@ class ValidateFlag extends Validator {
     this.validateInt(carId, 'carId');
     this.validateString(reason, 'reason');
     this.validateString(description, 'description');
-    return { error: this.error, data: this.errorMessages };
+    return this.getErrorMessage();
   }
 }
 

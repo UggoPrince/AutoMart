@@ -306,39 +306,62 @@ describe('Cars Test', () => {
           done();
         });
     });
-
-    describe('DELETE /api/v1/car/:car_id', () => {
-      it('should delete a posted car ad', (done) => {
-        chai.request(app)
-          .delete('/api/v1/car/4')
-          .end((err, res) => {
-            expect(res.status).to.be.equal(200);
-            expect(res.type).to.be.equal('application/json');
-            expect(res.body).to.be.an('object');
-            done();
-          });
-      });
-      it('should not delete a posted car AD if the carId is not an integer', (done) => {
-        chai.request(app)
-          .delete('/api/v1/car/df')
-          .end((err, res) => {
-            expect(res.status).to.be.equal(404);
-            expect(res.type).to.be.equal('application/json');
-            expect(res.body).to.be.an('object');
-            done();
-          });
-      });
-      it('should not delete a posted  AD if the catId is not in dataBase', (done) => {
-        chai.request(app)
-          .delete('/api/v1/car/100')
-          .end((err, res) => {
-            expect(res.status).to.be.equal(404);
-            expect(res.type).to.be.equal('application/json');
-            expect(res.body).to.be.an('object');
-            done();
-          });
-      });
+    it('should not delete a posted car AD if the carId is not an integer', (done) => {
+      chai.request(app)
+        .delete('/api/v1/car/df')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
     });
+    it('should not delete a posted  AD if the catId is not in dataBase', (done) => {
+      chai.request(app)
+        .delete('/api/v1/car/100')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+  });
+});
+
+describe('GET /api/v1/car?status=available&state=used', () => {
+  it('should get all used unsold cars', (done) => {
+    chai.request(app)
+      .get('/api/v1/car?status=available&state=used')
+      .end((err, res) => {
+        expect(res.status).to.be.equal(200);
+        expect(res.type).to.be.equal('application/json');
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+  it('should not get all used unsold cars when any or all queries string are invalid', (done) => {
+    chai.request(app)
+      .get('/api/v1/car?status=availables&state=useds')
+      .end((err, res) => {
+        expect(res.status).to.be.equal(404);
+        expect(res.type).to.be.equal('application/json');
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+});
+
+describe('DELETE /api/v1/car/:car_id', () => {
+  it('should delete a posted car ad', (done) => {
+    chai.request(app)
+      .delete('/api/v1/car/4')
+      .end((err, res) => {
+        expect(res.status).to.be.equal(200);
+        expect(res.type).to.be.equal('application/json');
+        expect(res.body).to.be.an('object');
+        done();
+      });
   });
 
   describe('GET /api/v1/car', () => {
