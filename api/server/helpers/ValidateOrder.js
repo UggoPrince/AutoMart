@@ -11,13 +11,13 @@ class ValidateOrder extends Validator {
     this.isValidBuyer(buyer, 'buyer'); // validate user id
     this.isValidCarId(carId, 'carId'); // validate car id
     this.isValidAmount(amount, 'amount'); // validate buyer's price
-    return { error: this.error, data: this.errorMessages };
+    return this.getErrorMessage();
   }
 
   validateUpdateOrderFields(newAmount, orderId) {
     this.isValidAmount(newAmount, 'newAmount'); // validate the new price that's to update old price
     this.isValidOrderId(orderId, 'orderId'); // validate the order's id
-    return { error: this.error, data: this.errorMessages };
+    return this.getErrorMessage();
   }
 
   isValidBuyer(buyer, field) {

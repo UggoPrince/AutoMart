@@ -44,6 +44,10 @@ class Validator {
       this.integrateError(field, `Invalid ${field}.`);
     }
   }
+
+  getErrorMessage() {
+    return { error: this.error, data: this.errorMessages };
+  }
 }
 
 export default Validator;

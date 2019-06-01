@@ -1,5 +1,6 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-useless-constructor */
+/* eslint-disable camelcase */
 import Validator from './Validator';
 
 class ValidateCar extends Validator {
@@ -19,33 +20,33 @@ class ValidateCar extends Validator {
     this.isValidModel(model, 'model'); // validate model
     this.isValidBodyType(bodyType, 'bodyType'); // validate body_type
     this.isValidPhoto(photo, 'image'); // validate photo
-    return { error: this.error, data: this.errorMessages };
+    return this.getErrorMessage();
   }
 
   // validates the field and url parameter sent to update a car status
   validateUpdateCarStatusFields(carId, newStatus) {
     this.validateInt(carId, 'carId');
     this.isValidNewStatus(newStatus, 'newStatus');
-    return { error: this.error, data: this.errorMessages };
+    return this.getErrorMessage();
   }
 
   // validates the field and url parameter that updates a car price
   validatUpdateCarPriceFields(carId, newPrice) {
     this.validateInt(carId, 'carId'); // validate car id
     this.isValidPrice(newPrice, 'newPrice'); // validate the new price
-    return { error: this.error, data: this.errorMessages };
+    return this.getErrorMessage();
   }
 
   // validate the url parameter for car id sent to retrieve a car
   validateGetSpecficCar(carId) {
     this.validateInt(carId, 'carId');
-    return { error: this.error, data: this.errorMessages };
+    return this.getErrorMessage();
   }
 
   // validate the query string sent for status
   validateGetUnsoldCars(status) {
     this.isValidStatusQuery(status, 'status');
-    return { error: this.error, data: this.errorMessages };
+    return this.getErrorMessage();
   }
 
   // validate the query string for getting cars in a certain price range
@@ -53,13 +54,20 @@ class ValidateCar extends Validator {
     this.isValidStatusQuery(status, 'status');
     this.isValidPrice(minPrice, 'min_price');
     this.isValidPrice(maxPrice, 'max_price');
-    return { error: this.error, data: this.errorMessages };
+    return this.getErrorMessage();
+  }
+
+  // validate the query string for getting cars that are used
+  validate_Get_Unsold_Used_Cars(status, state) {
+    this.isValidStatusQuery(status, 'status');
+    this.isValidState(state, 'state');
+    return this.getErrorMessage();
   }
 
   // validate the url parameter for car id sent to delete a car
   validateDeleteACar(carId) {
     this.validateInt(carId, 'carId');
-    return { error: this.error, data: this.errorMessages };
+    return this.getErrorMessage();
   }
 
   isValidOwner(owner, type) {
