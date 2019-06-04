@@ -2,6 +2,8 @@
 import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './swaggerDocs/config/swaggerDef';
 import usersRouter from './routes/usersRoutes';
 import carsRouter from './routes/carsRoutes';
 import ordersRouter from './routes/ordersRoutes';
@@ -12,6 +14,13 @@ const app = express();
 
 // Log request to console
 app.use(logger('dev'));
+
+// produce api documentation
+app.get('/swagger.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
+app.use('/api/v1/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Parse incoming request data
 app.use(bodyParser.json());

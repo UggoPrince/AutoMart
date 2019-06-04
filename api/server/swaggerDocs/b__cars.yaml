@@ -1,0 +1,646 @@
+components:
+  schemas:
+    Car:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/carId'
+        onwer:
+          $ref: '#/components/schemas/owner'
+        created_on:
+          $ref: '#/components/schemas/created_on'
+        state:
+          $ref: '#/components/schemas/state'
+        status:
+          $ref: '#/components/schemas/status'
+        price:
+          $ref: '#/components/schemas/price'
+        title:
+          $ref: '#/components/schemas/title'
+        manufacturer:
+          $ref: '#/components/schemas/manufacturer'
+        model:
+          $ref: '#/components/schemas/model'
+        body_type:
+          $ref: '#/components/schemas/body_type'
+        photo:
+          $ref: '#/components/schemas/photo'
+    createAdvert:
+      type: object
+      properties:
+        owner:
+          $ref: '#/components/schemas/owner'
+        state:
+          $ref: '#/components/schemas/state'
+        status:
+          $ref: '#/components/schemas/status'
+        price:
+          $ref: '#/components/schemas/price'
+        title:
+          $ref: '#/components/schemas/title'
+        manufacturer:
+          $ref: '#/components/schemas/manufacturer'
+        model:
+          $ref: '#/components/schemas/model'
+        bodyType:
+          $ref: '#/components/schemas/body_type'
+        photo:
+          $ref: '#/components/schemas/image'
+    createdAdvert:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/carId'
+        email:
+          $ref: '#/components/schemas/email'
+        created_on:
+          $ref: '#/components/schemas/created_on'
+        manufacturer:
+          $ref: '#/components/schemas/manufacturer'
+        model:
+          $ref: '#/components/schemas/model'
+        body_type:
+          $ref: '#/components/schemas/body_type'
+        state:
+          $ref: '#/components/schemas/state'
+        status:
+          $ref: '#/components/schemas/status'
+        price:
+          $ref: '#/components/schemas/price'
+        title:
+          $ref: '#/components/schemas/title'
+        photo:
+          $ref: '#/components/schemas/photo'
+    updatedCarStatus:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/carId'
+        email:
+          $ref: '#/components/schemas/owner'
+        created_on:
+          $ref: '#/components/schemas/created_on'
+        manufacturer:
+          $ref: '#/components/schemas/manufacturer'
+        model:
+          $ref: '#/components/schemas/model'
+        price:
+          $ref: '#/components/schemas/price'
+        state:
+          $ref: '#/components/schemas/state'
+        status:
+          $ref: '#/components/schemas/status'
+    carId:
+      type: integer
+      description: Car identifaction number
+      example: '6'
+    owner:
+      type: integer
+      description: Car owner who posted the car advert
+      example: '12'
+    created_on:
+      type: string
+      format: date
+      description: The time the car advert was created
+      example: '1558620970335'
+    state:
+      type: string
+      description: Present state of the car if it's new or used
+      example: new/used
+    status:
+      type: string
+      description: Determines if an offer for the car has been accepted as it's no more available
+      example: available/sold - default is available
+    price:
+      type: float
+      description: Car price the owner wants to it for.
+      example: '120000000.00'
+    title:
+      type: string
+      description: title of the posted car advert
+      example: This is a brand new mercedes.
+    manufacturer:
+      type: string
+      description: The car makers
+      example: Mercedes
+    model:
+      type: string
+      description: Car model
+      example: mercedes brabus S550v
+    body_type:
+      type: string
+      description: Body type of the vehicle
+      example: Sedan, Truck, Hatchback...
+    photo:
+      type: string
+      description: Photo representation of the car on cloudinary
+      example: 'https://res.cloudinary.com/dya3r9cfe/image/upload/v1558624479/c9.jpg'
+    image:
+      type: string
+      format: binary
+      description: image file of the car
+paths:
+  /car:
+    post:
+      tags:
+        - Car
+      description: 'Create a car sale advert'
+      opperationId: addCar
+      parameters: []
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/createAdvert'
+        required: true
+      responses:
+        '201':
+          description: Response data after user creates car advert successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 201 success status code
+                    example: '201'
+                  data:
+                    $ref: '#/components/schemas/createdAdvert'
+        '404':
+          description: Response for an unsuccessful car creation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 404 error status code
+                    example: '404'
+                  error: 
+                    type: object/string
+                    example: 'necessary error message'
+  /car/car_id:
+    get:
+      tags:
+        - Car
+      description: 'get a specific car'
+      operationId: getACar
+      parameters:
+        - name: car_id
+          in: query
+          description: id of the specific car in database
+          required: true
+          schema:
+            $ref: '#/components/schemas/carId'
+      responses:
+        '200':
+          description: Response data that contains details about a car
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 200 success status code
+                    example: '200'
+                  data:
+                    $ref: '#/components/schemas/Car'
+        '404':
+          description: Response gotten when getting car is unsuccessful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 404 error status code
+                    example: '404'
+                  error: 
+                    type: object/string
+                    example: 'necessary error message'
+    delete:
+      tags:
+        - Car
+      description: Admin delete a specific car advert
+      operationId: deleteCar
+      parameters:
+        - name: car_id
+          in: query
+          description: id of the specific car in database
+          required: true
+          schema:
+            $ref: '#/components/schemas/carId'
+      responses:
+        '200':
+          description: Response data that contains success message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 200 success status code
+                    example: '200'
+                  data:
+                    type: string
+                    description: string value with success message
+                    example: Car Ad successfully deleted
+        '404':
+          description: Response gotten when car id is invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 404 error status code
+                    example: '404'
+                  error: 
+                    type: object/string
+                    example: 'necessary error message'
+  /car/:
+    get:
+      tags:
+        - Car
+      description: Admin get a all cars
+      operationId: getCars
+      parameters: []
+      responses:
+        '200':
+          description: Response data that contains all cars
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 200 success status code
+                    example: '200'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Car'
+  /car?status=available:
+    get:
+      tags:
+        - Car
+      description: 'get a all unsold cars'
+      operationId: getAllUnsoldCars
+      parameters:
+        - name: status
+          in: query
+          description: available cars
+          required: true
+          schema:
+            type: string
+            enum: [available]
+            $ref: '#/components/schemas/status'
+      responses:
+        '200':
+          description: Response data that contains all available cars
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 200 success status code
+                    example: '200'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Car'
+        '404':
+          description: Error response when the query string and or its value is not correct
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 404 error status code
+                    example: '404'
+                  error: 
+                    type: object/string
+                    example: 'necessary error message'
+  /car?status=available&min_price=value&max_price=value:
+    get:
+      tags:
+        - Car
+      description: 'Get all unsold (available) cars within a price range'
+      operationId: getAllUnsoldCarsInPriceRange
+      parameters:
+        - name: status
+          in: query
+          description: available cars
+          required: true
+          schema:
+            type: string
+            enum: [available]
+            $ref: '#/components/schemas/status'
+        - name: min_price
+          in: query
+          description: user's desired lowest price of cars
+          required: true
+          schema:
+            $ref: '#/components/schemas/price'
+        - name: max_price
+          in: query
+          description: user's desired highest price of cars
+          required: true
+          schema:
+            $ref: '#/components/schemas/price'
+      responses:
+        '200':
+          description: Response data that contains all available cars with the user specified price range
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 200 success status code
+                    example: '200'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Car'
+        '404':
+          description: Error response when the query strings and or its value is not correct
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 404 error status code
+                    example: '404'
+                  error: 
+                    type: object/string
+                    example: 'necessary error message'
+  /car?status=available&state=new:
+    get:
+      tags:
+        - Car
+      description: Get all unsold new cars
+      operationId: getAllNewUnsoldCars
+      parameters:
+        - name: status
+          in: query
+          description: all available cars
+          required: true
+          schema:
+            type: string
+            enum: [available]
+            $ref: '#/components/schemas/status'
+        - name: state
+          in: query
+          description: all new cars
+          required: true
+          schema:
+            $ref: '#/components/schemas/state'
+      responses:
+        '200':
+          description: Response data that contains all available new cars
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 200 success status code
+                    example: '200'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Car'
+        '404':
+          description: Error response when the query strings and or its value is not correct
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 404 error status code
+                    example: '404'
+                  error: 
+                    type: object/string
+                    example: 'necessary error message'
+  /car?status=available&state=used:
+    get:
+      tags:
+        - Car
+      description: Get all unsold used cars
+      operationId: getAllUsedUnsoldCars
+      parameters:
+        - name: status
+          in: query
+          description: all available cars
+          required: true
+          schema:
+            type: string
+            enum: [available]
+            $ref: '#/components/schemas/status'
+        - name: state
+          in: query
+          description: all used cars
+          required: true
+          schema:
+            $ref: '#/components/schemas/state'
+      responses:
+        '200':
+          description: Response data that contains all available used cars
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 200 success status code
+                    example: '200'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Car'
+        '404':
+          description: Error response when the query strings and or its value is incorrect
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 404 error status code
+                    example: '404'
+                  error: 
+                    type: object/string
+                    example: 'necessary error message'
+  /car?status=available&manufacturer=value:
+    get:
+      tags:
+        - Car
+      description: Get all unsold used cars
+      operationId: getAllUnsoldCarsByManufacturer
+      parameters:
+        - name: status
+          in: query
+          description: all available cars
+          required: true
+          schema:
+            type: string
+            enum: [available]
+            $ref: '#/components/schemas/status'
+        - name: manufacturer
+          in: query
+          description: cars of a specific manufacturer
+          required: true
+          schema:
+            $ref: '#/components/schemas/manufacturer'
+      responses:
+        '200':
+          description: Response data that contains all available cars of a specific manufacturer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 200 success status code
+                    example: '200'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Car'
+        '404':
+          description: > 
+            Error response when the status (with its value) and 
+            manufacturer query string value is incorrect
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 404 error status code
+                    example: '404'
+                  error: 
+                    type: object/string
+                    example: 'necessary error message'
+  /car/car_id/status:
+    patch:
+      tags:
+        - Car
+      description: update a posted car avdert as sold
+      operationId: updateCarStatus
+      parameters:
+        - name: car_id
+          in: query
+          description: specific car id
+          required: true
+          schema:
+            $ref: '#/components/schemas/carId'
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              type: string
+              description: update car status to sold
+              example: sold
+        required: true
+      responses:
+        '200':
+          description: Response data that contains car detals with updated status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 200 success status code
+                    example: '200'
+                  data:
+                    $ref: '#/components/schemas/updatedCarStatus'
+        '404':
+          description: > 
+            Error response when an invaild or non existing car id and not the string "sold" is 
+            sent in request. 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 404 error status code
+                    example: '404'
+                  error: 
+                    type: object/string
+                    example: 'necessary error message'
+  /car/car_id/price:
+    patch:
+      tags:
+        - Car
+      description: update the price of a car advert
+      operationId: updateCarPrice
+      parameters:
+        - name: car_id
+          in: query
+          description: specific car id
+          required: true
+          schema:
+            $ref: '#/components/schemas/carId'
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/price'
+        required: true
+      responses:
+        '200':
+          description: Response data that contains car detals with updated price
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 200 success status code
+                    example: '200'
+                  data:
+                    $ref: '#/components/schemas/updatedCarStatus'
+        '404':
+          description: > 
+            Error response when an invaild or non existing car id and/or an invalid price is 
+            sent in request. 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 404 error status code
+                    example: '404'
+                  error: 
+                    type: object/string
+                    example: 'necessary error message'
