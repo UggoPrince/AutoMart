@@ -25,7 +25,7 @@ app.use('/api/v1/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // HOME PAGE
 app.get('/', (req, res) => {
   res.status(200).send('<h1>Welcome to AutoMart API.</h1>'
-  + '<span>Here is the document of version 1.0'
+  + '<span>Here is the documentation of version 1.0'
   + ' <a href="https://automarter.herokuapp.com/api/v1/api-docs/" target="blank">'
   + 'automarter.herokuapp.com/api/v1/api-docs/</a></span>');
 });
