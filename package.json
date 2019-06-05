@@ -12,6 +12,10 @@
     },
     "author": "uggoprince",
     "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/UggoPrince/AutoMart/issues"
+    },
+    "homepage": "https://github.com/UggoPrince/AutoMart#readme",
     "dependencies": {
       "body-parser": "^1.19.0",
       "cloudinary": "^1.14.0",
@@ -20,7 +24,8 @@
       "express": "^4.17.0",
       "morgan": "^1.9.1",
       "swagger-jsdoc": "^3.2.9",
-      "swagger-ui-express": "^4.0.5"
+      "swagger-ui-express": "^4.0.5",
+      "babel-polyfill": "^6.26.0"
     }
   }
   
