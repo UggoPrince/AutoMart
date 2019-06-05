@@ -19,5 +19,15 @@ describe('Index Test', () => {
           done();
         });
     });
+    it('should return html of home page', (done) => {
+      chai.request(app)
+        .get('/')
+        .end((err, res) => {
+          expect(res.status).to.be.eql(200);
+          expect(res.type).to.be.equal('text/html');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
   });
 });

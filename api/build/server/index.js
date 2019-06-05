@@ -35,7 +35,11 @@ app.get('/swagger.json', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(_swaggerDef["default"]);
 });
-app.use('/api/v1/api-docs', _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(_swaggerDef["default"])); // Parse incoming request data
+app.use('/api/v1/api-docs', _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(_swaggerDef["default"])); // HOME PAGE
+
+app.get('/', function (req, res) {
+  res.status(200).send('<h1>Welcome to AutoMart API.</h1>' + '<span>Here is the document of version 1.0' + ' <a href="https://automarter.herokuapp.com/api/v1/api-docs/" target="blank">' + 'automarter.herokuapp.com/api/v1/api-docs/</a></span>');
+}); // Parse incoming request data
 
 app.use(_bodyParser["default"].json());
 app.use(_bodyParser["default"].json({
