@@ -4,6 +4,11 @@
   "description": "AutoMart is an online app that enables you to sell and/or buy cars.",
   "main": "app.js",
   "scripts": {
+    
+    "clean": "rm -rf build && mkdir build",
+    "build-server": "babel -d ./build/server ./server -s",
+    "build-app": "babel -d ./build app.js -s",
+    "build": "npm run clean && npm run build-server && npm run build-app",
     "start:dev": "nodemon --exec babel-node app.js",
     "test": "nyc mocha --require @babel/register --exit --recursive --timeout 40000",
     "coverage": "nyc report --reporter=lcov --reporter=text-lcov | coveralls"
