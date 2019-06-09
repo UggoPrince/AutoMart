@@ -1,0 +1,5 @@
+/.vscode
+/api/.nyc_output
+/api/node_modules
+/api/.env
+package-lock.json
