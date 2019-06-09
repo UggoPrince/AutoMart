@@ -1,0 +1,31 @@
+{
+    "name": "automart",
+    "version": "1.0.0",
+    "description": "AutoMart is an online app that enables you to sell and/or buy cars.",
+    "main": "app.js",
+    "scripts": {
+      "start": "node ./api/build/app.js"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/UggoPrince/AutoMart.git"
+    },
+    "author": "uggoprince",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/UggoPrince/AutoMart/issues"
+    },
+    "homepage": "https://github.com/UggoPrince/AutoMart#readme",
+    "dependencies": {
+      "body-parser": "^1.19.0",
+      "cloudinary": "^1.14.0",
+      "connect-multiparty": "^2.2.0",
+      "dotenv": "^8.0.0",
+      "express": "^4.17.0",
+      "morgan": "^1.9.1",
+      "swagger-jsdoc": "^3.2.9",
+      "swagger-ui-express": "^4.0.5",
+      "babel-polyfill": "^6.26.0"
+    }
+  }
+  

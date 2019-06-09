@@ -1,0 +1,90 @@
+components:
+  schemas:
+    Flags:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/flagId'
+        car_id:
+          $ref: '#/components/schemas/carId'
+        created_on:
+          $ref: '#/components/schemas/created_on'
+        reason:
+          $ref: '#/components/schemas/reason'
+        description:
+          $ref: '#/components/schemas/description'
+    reportAdvert:
+      type: object
+      properties:
+        car_id:
+          $ref: '#/components/schemas/carId'
+        reason:
+          $ref: '#/components/schemas/reason'
+        description:
+          $ref: '#/components/schemas/description'
+    flagedReport:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/flagId'
+        car_id:
+          $ref: '#/components/schemas/carId'
+        reason:
+          $ref: '#/components/schemas/reason'
+        description:
+          $ref: '#/components/schemas/description'
+    flagId:
+      type: integer
+      description: Flag identification number
+      example: '9'
+    reason:
+      type: string
+      description: reason for the flag
+      example: pricing, weird demands, etc
+    description:
+      type: string
+      description: a descriptive report about the advert
+      example: The ad has a mercedes brabus g-wagon sold for 1 million naira
+paths:
+  /flag:
+    post:
+      tags:
+        - Flag
+      description: report a suspected or fraudulent advert
+      opperationId: reportAdvert
+      parameters: []
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/reportAdvert'
+        required: true
+      responses:
+        '201':
+          description: Response data after reporting an advert
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 201 success status code
+                    example: '201'
+                  data:
+                    $ref: '#/components/schemas/flagedReport'
+        '404':
+          description: > 
+            Response when the report advert request is unsuccessful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 404 error status code
+                    example: '404'
+                  error: 
+                    type: object/string
+                    example: 'necessary error message'

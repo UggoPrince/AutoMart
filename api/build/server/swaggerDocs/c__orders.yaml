@@ -1,0 +1,164 @@
+components:
+  schemas:
+    Order:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/orderId'
+        buyer:
+          $ref: '#/components/schemas/buyer'
+        car_id:
+          $ref: '#/components/schemas/carId'
+        amount:
+          $ref: '#/components/schemas/orderStatus'
+        status:
+          $ref: '#/components/schemas/amount'
+    makeOrder:
+      type: object
+      properties:
+        buyer:
+          $ref: '#/components/schemas/buyer'
+        car_id:
+          $ref: '#/components/schemas/carId'
+        amount:
+          $ref: '#/components/schemas/orderStatus'
+    madeOrder:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/orderId'
+        buyer:
+          $ref: '#/components/schemas/buyer'
+        car_id:
+          $ref: '#/components/schemas/carId'
+        status:
+          $ref: '#/components/schemas/orderStatus'
+        price:
+          $ref: '#/components/schemas/price'
+        created_on:
+          $ref: '#/components/schemas/created_on'
+    updatedOrder:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/orderId'
+        car_id:
+          $ref: '#/components/schemas/carId'
+        status:
+          $ref: '#/components/schemas/orderStatus'
+        old_price_offered:
+          $ref: '#/components/schemas/amount'
+        new_price_offered:
+          type: float
+          example: '14500000.00'
+    orderId:
+      type: integer
+      description: Order identification number
+      example: '1'
+    buyer:
+      type: integer
+      decsription: id of user making the order
+      example: '4'
+    amount:
+      type: float
+      description: price the buyer is offering for the car
+      example: '14000000.00'
+    orderStatus:
+      type: string
+      description: current status of the order
+      example: pending, accepted or rejected
+paths:
+  /order:
+    post:
+      tags:
+        - Order
+      description: 'make a purchase order'
+      opperationId: makeOrder
+      parameters: []
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/makeOrder'
+        required: true
+      responses:
+        '201':
+          description: Response data after user makes a purchase order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 201 success status code
+                    example: '201'
+                  data:
+                    $ref: '#/components/schemas/madeOrder'
+        '404':
+          description: > 
+            Response for an unsuccessful purchase due to 
+            incorrect url or any/all the required fields is not filled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 404 error status code
+                    example: '404'
+                  error: 
+                    type: object/string
+                    example: 'necessary error message'
+  /order/order_id/price:
+    patch:
+      tags:
+        - Order
+      description: buyer updates the price of their purchase when the status is still "pending"
+      operationId: updateOrder
+      parameters:
+        - name: order_id
+          in: query
+          description: order id
+          required: true
+          schema:
+            $ref: '#/components/schemas/orderId'
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              type: float
+              description: buyer's new price for the car
+              example: '14500000.00'
+        required: true
+      responses:
+        '200':
+          description: Response data after buyer updates the price of the order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 200 success status code
+                    example: '200'
+                  data:
+                    $ref: '#/components/schemas/updatedOrder'
+        '404':
+          description: > 
+            Response for an unsuccessful price due to 
+            incorrect url or the new price entered and/or order id parameter is not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 404 error status code
+                    example: '404'
+                  error: 
+                    type: object/string
+                    example: 'necessary error message'
