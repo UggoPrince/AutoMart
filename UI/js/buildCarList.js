@@ -1,19 +1,25 @@
 const buildCarList = (userType) => {
     const content = document.getElementsByClassName('home-page-body')[0];
-    if (userType === 'user') {
+    if (userType === 'noUser') {
         for (let i = 0, j = 1; i < vehicles.length; i++, j++) {
             if (vehicles[i].status === 'available') {
-                content.append('\n\n', listBuilder(i, false));
+                content.append('\n\n', listBuilder(i, false, true));
+            }
+        }
+    } else if (userType === 'user') {
+        for (let i = 0, j = 1; i < vehicles.length; i++, j++) {
+            if (vehicles[i].status === 'available') {
+                content.append('\n\n', listBuilder(i, false, false));
             }
         }
     } else if (userType === 'admin') {
         for (let i = 0, j = 1; i < vehicles.length; i++, j++) {
-            content.append('\n\n', listBuilder(i, true));
+            content.append('\n\n', listBuilder(i, true, false));
         }
     }
 };
 
-const listBuilder = (i, admin) => {
+const listBuilder = (i, admin, noUser) => {
     let available = '';
     let section2 = '';
     const ad_Box_Div = document.createElement('div');
@@ -62,14 +68,14 @@ const listBuilder = (i, admin) => {
     section.className = 'ad-box-price-button';
     button.className = 'revealOfferModal';
     button.innerHTML = 'MAKE AN OFFER';
-    section.append(button);
+    if (!noUser) section.append(button);
     if (!admin) {
         section2 = document.createElement('section');
         const button2 = document.createElement('button');
         section2.className = 'ad-box-report-button';
         button2.className = 'revealReportModal';
         button2.innerHTML = 'REPORT ADVERT';
-        section2.append(button2);
+        if (!noUser) section2.append(button2);
     } else {
         section2 = document.createElement('section');
         const button2 = document.createElement('button');
@@ -79,7 +85,7 @@ const listBuilder = (i, admin) => {
         button2.addEventListener('click', ()=>{
             ad_Box_Div.style.display = 'none';
         });
-        section2.append(button2);
+        if (!noUser) section2.append(button2);
     }
 
     ad_Box_Div.append(ad_box_img, ad_box_title, ad_box_price, available, ad_box_details, section, section2);

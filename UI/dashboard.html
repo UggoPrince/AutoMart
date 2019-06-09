@@ -6,6 +6,8 @@
     <title>AutoMart-Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/form.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/makeOfferModal.css">
     <script src="js/main.js"></script>
 </head>
 <body>
@@ -22,18 +24,18 @@
                     <ul class="nav-list">
                         <li><a href="home.html">HOME</a></li>
                         <li><a href="dashboard.html">DASHBOARD</a></li>
-                        <li><a href="postad.html">POST ADVERT</a></li>
                         <li><a href="" id="signoutLink">SIGN OUT</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
     </header>
-    <main>
+    <main class="ht">
         <section class="dash-page">
             <div class="side-bar">
                 <nav class="side-nav">
                     <ul class="side-nav-list">
+                        <li><a class="revealPostAdvertModal tabLink">Post Advert</a></li>
                         <li><a class="tabLink">Adverts</a></li>
                         <li><a class="tabLink">Orders</a></li>
                         <li><a class="tabLink">My Purchase</a></li>
@@ -49,6 +51,7 @@
                         <nav class="side-nav2">
                             <div class="dashMenu"><span>Menu</span></div>
                             <ul class="side-nav-list2">
+                                <li><a class="revealPostAdvertModal tabLink2">Post Advert</a></li>
                                 <li><a class="tabLink2">Adverts</a></li>
                                 <li><a class="tabLink2">Orders</a></li>
                                 <li><a class="tabLink2">My Purchase</a></li>
@@ -139,5 +142,87 @@
             </div>
         </section>
     </main>
+    <footer>
+        <section>
+            <div class="col-4">
+                <p>COMPANY INFO</p>
+                <span></span>
+            </div>
+            <div class="col-4">
+                <p>CONTACT US</p>
+                <span></span>
+            </div>
+            <div class="col-4">
+                <p>SOCIAL MEDIA</p>
+                <span></span>
+            </div>
+        </section>
+    </footer>
+    <section id="postAdvertModal" class="ad-modal">
+        <div class="ad-form-container form-big">
+            <form action="POST" class="modal-content advertForm">
+                <section class="form-header col-12">
+                    <h1>Post Advert <span class="close">&times;</span></h1>
+                </section>
+                <section><br>
+                    <div class="ad-section-header">Product Info</div>
+                    <section>
+                        <section class="ad-form-block">
+                            <label class="akol-2 must-fill">Location</label>
+                            <input class="akol-10" placeholder="Location of Product">
+                        </section>
+                        <section class="ad-form-block">
+                            <label class="akol-2 must-fill">Vehicle Type</label>
+                            <select class="akol-10">
+                                <option value="select">--Select Type--</option>
+                                <option value="car">Car</option>
+                                <option value="van">Van</option>
+                                <option value="truck">Truck</option>
+                                <option value="trailer">Trailer</option>
+                            </select>
+                        </section>
+                        <section class="ad-form-block">
+                            <label class="akol-2 must-fill">Vehicle State</label>
+                            <select class="akol-10">
+                                <option value="select">--Select State--</option>
+                                <option value="new">New</option>
+                                <option value="used">Used</option>
+                            </select>
+                        </section>
+                        <section class="ad-form-block">
+                            <label class="akol-2 must-fill">Manufacturer</label>
+                            <input class="akol-10" type="text" placeholder="Enter Manufacturer">
+                        </section>
+                        <section class="ad-form-block">
+                            <label class="akol-2 must-fill">Model</label>
+                            <input class="akol-10" type="text" placeholder="Enter Model">
+                        </section>
+                        <section class="ad-form-block">
+                            <label class="akol-2 must-fill">Upload Photo(s)</label>
+                            <input class="akol-10" type="file" multiple accept="image/*">
+                        </section>
+                    </section>
+                </section>
+                <section><br>
+                    <div class="ad-section-header">Advert Info</div>
+                    <section>
+                        <section class="ad-form-block">
+                            <label class="akol-2 must-fill">Vehicle Price</label>
+                            <input class="akol-10" type="number" min="0" placeholder="Enter Your Price">
+                        </section>
+                        <section class="ad-form-block">
+                            <label class="akol-2 must-fill">Title</label>
+                            <input class="akol-10" type="text" placeholder="Enter Advert Title">
+                        </section>
+                    </section>
+                </section>
+                <section>
+                    <section class="ad-form-block">
+                        <input type="submit" value="POST">
+                    </section>
+                </section>
+            </form>
+        </div>
+    </section>
 </body>
 </html>

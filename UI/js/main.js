@@ -15,6 +15,84 @@ function slideToggle() {
     }
 }
 
+const toggleSearchBoxType = () => {
+    const searchType = document.getElementById('searchType');
+    searchType.options.selectedIndex = 0;
+    disableSearchBoxes();
+
+    searchType.addEventListener('change', (event) => {
+        const val = parseInt(event.target.value, 10);
+        if (val === 0) {
+            disableSearchBoxes();
+            displaySearchBoxDivs(0, 'none');
+            displaySearchBoxDivs(1, 'none');
+            displaySearchBoxDivs(2, 'none');
+        } else if (val === 1) {
+            enableStateSearchBoxes(false, 'default'); // enable search by state
+            enablePriceSearchBoxes(true, 'not-allowed'); // disable
+            enableManufacturerSearchBox(true, 'not-allowed');
+            enableSearchButton(false, 'default') // enable
+            displaySearchBoxDivs(0, 'block');
+            displaySearchBoxDivs(1, 'none');
+            displaySearchBoxDivs(2, 'none');
+        } else if (val === 2) {
+            enablePriceSearchBoxes(false, 'default'); // enable
+            enableStateSearchBoxes(true, 'not-allowed') // disable
+            enableManufacturerSearchBox(true, 'not-allowed');
+            enableSearchButton(false, 'default') // enable
+            displaySearchBoxDivs(0, 'none');
+            displaySearchBoxDivs(1, 'block');
+            displaySearchBoxDivs(2, 'none');
+        } else if (val === 3) {
+            enablePriceSearchBoxes(true, 'not-allowed'); // disable
+            enableStateSearchBoxes(true, 'not-allowed') // disable
+            enableManufacturerSearchBox(false, 'default'); // enable
+            enableSearchButton(false, 'default') // enable
+            displaySearchBoxDivs(0, 'none');
+            displaySearchBoxDivs(1, 'none');
+            displaySearchBoxDivs(2, 'block');
+        }
+    });
+};
+
+const displaySearchBoxDivs = (n, show) => {
+    const searchBoxDiv = document.getElementsByClassName('searchBoxBodyDiv');
+    searchBoxDiv[n].style.display = show;
+};
+
+const disableSearchBoxes = () => {
+    enableStateSearchBoxes(true, 'not-allowed'); // disable
+    enablePriceSearchBoxes(true, 'not-allowed'); // disable
+    enableSearchButton(true, 'not-allowed'); // disable search button
+    enableManufacturerSearchBox(true, 'not-allowed');
+};
+
+const enableStateSearchBoxes = (truthy, cursor) => {
+    const searchState = document.getElementById('searchTypeOfState');
+    searchState.disabled = truthy;
+    searchState.style.cursor = cursor;
+};
+
+const enablePriceSearchBoxes = (truthy, cursor) => {
+    const searchPrice = document.getElementsByClassName('searchTypeOfPrice');
+    searchPrice[0].disabled = truthy;
+    searchPrice[0].style.cursor = cursor;
+    searchPrice[1].disabled = truthy;
+    searchPrice[1].style.cursor = cursor;
+};
+
+const enableManufacturerSearchBox = (truthy, cursor) => {
+    const searchManufact = document.getElementById('searchTypeOfManufacturer');
+    searchManufact.disabled = truthy;
+    searchManufact.style.cursor = cursor;
+}
+
+const enableSearchButton = (truthy, cursor) => {
+    const searchButton = document.getElementById('searchButton');
+    searchButton.disabled = truthy;
+    searchButton.style.cursor = cursor;
+};
+
 const toggleSoldOnDashboard = () => { // marks your Ad Sold or not
     const markSold = document.getElementsByClassName('markSold');
     const soldMarker = document.getElementsByClassName('soldMarker');
@@ -50,6 +128,28 @@ const toggleMakeOfferModal = () => {
     window.addEventListener('click', (event) => { // When the user clicks anywhere outside of the modal, close it
         if (event.target == makeOfferModal) {
             makeOfferModal.style.display = "none";
+        }
+    });
+};
+
+const togglePostAdvertModal = () => {
+    const postAdvertModal = document.getElementById('postAdvertModal');
+    const revealPostAdvertModal = document.getElementsByClassName('revealPostAdvertModal');
+    const span = document.getElementsByClassName("close")[0]; // Get the <span> element that closes the modal
+
+    span.addEventListener('click', () => { // When the user clicks on <span> (x), close the modal
+        postAdvertModal.style.display = "none";
+    });
+    
+    for (let i = 0; i < revealPostAdvertModal.length; i++) { // When the user clicks the tab, open the modal
+        revealPostAdvertModal[i].addEventListener('click', () => {
+            postAdvertModal.style.display = "block";
+        });
+    }
+
+    window.addEventListener('click', (event) => {
+        if (event.target === postAdvertModal) {
+            postAdvertModal.style.display = "none"
         }
     });
 };
@@ -144,9 +244,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
     let nav_toggle = document.getElementById('nav-toggle');
     nav_toggle.addEventListener('click', slideToggle);
     toggleSoldOnDashboard(); // marks your Ads Sold or not
+    if(getPageName() === '' || getPageName() === 'index.html') {
+        toggleSearchBoxType();
+        buildCarList('noUser');
+    }
     if (getPageName() === 'home.html'){
         if (user !== '' && user.userType === 'admin')
             window.location.replace('adminhome.html');
+        toggleSearchBoxType();
         buildCarList('user'); // from buildCarList.js
         toggleMakeOfferModal(); // toggles modal for making offers
         buildReportFeatures(); // toggles report fraud modal
@@ -155,12 +260,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if (getPageName() === 'adminhome.html') {
         if (user !== '' && user.userType === 'user')
             window.location.replace('home.html');
+        toggleSearchBoxType();
         buildCarList('admin'); // from buildCarList.js
         toggleMakeOfferModal(); // toggles modal for
         signOutSetup();
     }
     if (getPageName() === 'dashboard.html') {
         toggleDashboardTabs();
+        togglePostAdvertModal();
         signOutSetup();
     }
     if (getPageName() === 'car.html') {

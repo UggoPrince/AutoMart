@@ -26,7 +26,6 @@
                     <ul class="nav-list">
                         <li><a href="home.html">HOME</a></li>
                         <li><a href="dashboard.html">DASHBOARD</a></li>
-                        <li><a href="postad.html">POST ADVERT</a></li>
                         <li><a href="" id="signoutLink">SIGN OUT</a></li>
                     </ul>
                 </nav>
@@ -34,6 +33,45 @@
         </div>
     </header>
     <main>
+        <section class="searchBox">
+            <form action="" method="POST" name="searchForm" id="searchBoxForm">
+                <section class="searchBoxHeader">
+                    <div>SEARCH BY:</div>
+                    <div>
+                        <select id="searchType">
+                            <option value="0">--Select--</option>
+                            <option value="1">State</option>
+                            <option value="2">Price</option>
+                            <option value="3">Manufacturer</option>
+                        </select>
+                    </div>
+                    <div><input type="submit" value="SEARCH" id="searchButton"></div>
+                </section>
+                <section class="searchBoxBody">
+                    <section class="searchBoxBody1 searchBoxBodyDiv">
+                        <div>State</div>
+                        <select id="searchTypeOfState">
+                            <option value="0">select</option>
+                            <option value="1">New</option>
+                            <option value="2">Used</option>
+                        </select>
+                    </section>
+                    <section class="searchBoxBody2 searchBoxBodyDiv">
+                        <div>Price</div>
+                        <div>
+                            <input type="number" min="0" placeholder="Min Price" class="searchTypeOfPrice">
+                            <input type="number" min="0" placeholder="Max Price" class="searchTypeOfPrice">
+                        </div>
+                    </section>
+                    <section class="searchBoxBody3 searchBoxBodyDiv">
+                        <div>Manufacturer</div>
+                        <div>
+                            <input type="text" placeholder="Enter Manufacturer" id="searchTypeOfManufacturer">
+                        </div>
+                    </section>
+                </section>
+            </form>
+        </section>
         <section class="home-page">
             <div class="home-page-content">
                 <section class="home-page-body">
@@ -54,8 +92,24 @@
                     </div>-->
                 </section>
             </div>
-        </section>
+        </section><br><br>
     </main>
+    <footer>
+        <section>
+            <div class="col-4">
+                <p>COMPANY INFO</p>
+                <span></span>
+            </div>
+            <div class="col-4">
+                <p>CONTACT US</p>
+                <span></span>
+            </div>
+            <div class="col-4">
+                <p>SOCIAL MEDIA</p>
+                <span></span>
+            </div>
+        </section>
+    </footer>
      <!-- The Modal -->
      <div id="makeOfferModalHome" class="modal">
 

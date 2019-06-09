@@ -6,6 +6,8 @@
     <title>AutoMart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">
+    <script src="js/vehicles.js"></script>
+    <script src="js/buildCarList.js"></script>
     <script src="js/main.js"></script>
 </head>
 <body>
@@ -27,12 +29,77 @@
                 </nav>
             </div>
         </div>
-        <div class="bannerBottom">
+        <section class="bannerBottom">
             <div class="bannerText">
                 <span>Get the Best cars on </span>AUTOMART
             </div>
-        </div>
+            <section class="searchBoxForIndex">
+                <form action="" method="POST" name="searchForm">
+                    <section class="searchBoxHeader">
+                        <div>SEARCH BY:</div>
+                        <div>
+                            <select id="searchType">
+                                <option value="0">--Select--</option>
+                                <option value="1">State</option>
+                                <option value="2">Price</option>
+                                <option value="3">Manufacturer</option>
+                            </select>
+                        </div>
+                    </section>
+                    <section class="searchBoxBody">
+                        <section class="searchBoxBody1 searchBoxBodyDiv">
+                            <div>State</div>
+                            <select id="searchTypeOfState">
+                                <option value="0">select</option>
+                                <option value="1">New</option>
+                                <option value="2">Used</option>
+                            </select>
+                        </section>
+                        <section class="searchBoxBody2 searchBoxBodyDiv">
+                            <div>Price</div>
+                            <div>
+                                <input type="number" min="0" placeholder="Min Price" class="searchTypeOfPrice">
+                                <input type="number" min="0" placeholder="Max Price" class="searchTypeOfPrice">
+                            </div>
+                        </section>
+                        <section class="searchBoxBody3 searchBoxBodyDiv">
+                            <div>Manufacturer</div>
+                            <div>
+                                <input type="text" placeholder="Enter Manufacturer" id="searchTypeOfManufacturer">
+                            </div>
+                        </section>
+                        <div><input type="submit" value="SEARCH" id="searchButton"></div>
+                    </section>
+                </form>
+            </section>
+        </section>
     </header>
+    <main>
+        <section class="home-page">
+            <div class="index-page-content">
+                <section class="indexContentHeader">
+                    FEATURED ADVERTS
+                </section>
+                <section class="home-page-body">
+                    <!--<div class="ad-box">
+                        <div class="ad-box-img"><img src="images/c1.jpg"></div>
+                        <div class="ad-box-title">
+                            <a>Brand New G-Wagon for sale</a>
+                        </div>
+                        <div class="ad-box-price"><span>Price: </span><span>N10,000,000.00</span></div>
+                        <div class="ad-box-details">
+                            <span>Mercedes </span>|
+                            <span>G-Wagon </span>|
+                            <span>New</span>
+                        </div>
+                        <section class="ad-box-price-button">
+                            <button class="revealOfferModal">MAKE AN OFFER</button> 
+                        </section>
+                    </div>-->
+                </section>
+            </div>
+        </section>
+    </main>
     <footer>
         <section>
             <div class="col-4">
