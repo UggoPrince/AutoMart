@@ -16,10 +16,12 @@ export default class Database {
       port: process.env.DATABASE_PORT,
     });
 
+    /*
     this.pool.on('connect', () => {
       // eslint-disable-next-line no-console
       console.log('connected to the db');
     });
+    */
 
     /*
     this.pool.on('error', (err) => {
