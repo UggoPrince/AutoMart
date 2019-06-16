@@ -1,7 +1,7 @@
 # AutoMart
 AutoMart is an online app that enables you to sell and/or buy cars.
 
-[![Build Status](https://travis-ci.com/UggoPrince/AutoMart.svg?branch=develop)](https://travis-ci.com/UggoPrince/AutoMart) [![Coverage Status](https://coveralls.io/repos/github/UggoPrince/AutoMart/badge.svg?branch=develop)](https://coveralls.io/github/UggoPrince/AutoMart?branch=develop) [![Test Coverage](https://api.codeclimate.com/v1/badges/57c9772eeae7b66be027/test_coverage)](https://codeclimate.com/github/UggoPrince/AutoMart/test_coverage)
+[![Build Status](https://travis-ci.com/UggoPrince/AutoMart.svg?branch=ch-set-up-database-166703616)](https://travis-ci.com/UggoPrince/AutoMart) [![Coverage Status](https://coveralls.io/repos/github/UggoPrince/AutoMart/badge.svg?branch=ch-set-up-database-166703616)](https://coveralls.io/github/UggoPrince/AutoMart?branch=ch-set-up-database-166703616) [![Test Coverage](https://api.codeclimate.com/v1/badges/57c9772eeae7b66be027/test_coverage)](https://codeclimate.com/github/UggoPrince/AutoMart/test_coverage)
 
 # Key Application Features
 
@@ -17,6 +17,10 @@ AutoMart is an online app that enables you to sell and/or buy cars.
 - User can view all unsold cars within a price range.
 - Admin can delete a posted AD record.
 - Admin can view all posted ads whether sold or unsold.
+- User can view all used unsold cars.
+- User can view all new unsold cars.
+- User can flag/report a posted AD as fraudulent.
+- User can view all unsold cards of a specific make (manufacturer).
 
 ### Development
 
@@ -36,6 +40,7 @@ more info: (https://help.github.com/articles/cloning-a-repository/)
 - JavaScript (ES6) (http://es6-features.org/)
 - Node.js (https://nodejs.org/en/)
 - Express (https://www.npmjs.com/package/express-api)
+- Postgres (https://www.postgresql.org/)
 
 ### Author
 Ugo P. Anayo

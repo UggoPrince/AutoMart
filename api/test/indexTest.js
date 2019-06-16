@@ -29,5 +29,15 @@ describe('Index Test', () => {
           done();
         });
     });
+    it('should not return not found when a wrong url is used', (done) => {
+      chai.request(app)
+        .get('/carss')
+        .end((err, res) => {
+          expect(res.status).to.be.eql(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('string');
+          done();
+        });
+    });
   });
 });

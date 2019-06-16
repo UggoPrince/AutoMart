@@ -1,10 +1,6 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-useless-constructor */
+/* eslint-disable no-empty-function */
 export default class Flags {
-  constructor() {
-    this.id = null;
-    this.car_id = null;
-    this.created_on = null;
-    this.reason = null; // [pricing, weird demands, etc]
-    this.description = null;
-  }
+  constructor() {}
 }
