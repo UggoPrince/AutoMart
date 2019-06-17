@@ -5,11 +5,14 @@
 import dotenv from 'dotenv';
 import app from './server/index';
 import Database from './server/database/Database';
+import { createTables } from './server/database/Tables';
 
 dotenv.config();
 const port = process.env.PORT || 4000;
 
 const db = new Database();
-db.createTables();
+db.pool.query(createTables, (err) => {
+  if (err) console.log(err);
+});
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));
