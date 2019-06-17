@@ -3,7 +3,8 @@
 /* global describe:true, it:true, */
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import app from './app';
+import { dropTables } from '../server/database/Tables';
+import app, { db } from './app';
 
 chai.use(chaiHttp);
 
@@ -39,5 +40,13 @@ describe('Index Test', () => {
           done();
         });
     });
+  });
+});
+
+describe('Drop database tables', async () => {
+  // eslint-disable-next-line no-unused-vars
+  await db.pool.query(dropTables, (err, res) => {
+  // eslint-disable-next-line no-console
+    if (err) console.log(err);
   });
 });
