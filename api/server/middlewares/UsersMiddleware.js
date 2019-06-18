@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 import Validator from './validators/ValidateUser';
 
-const validateUserSignup = async (req, res, next) => {
+export const validateUserSignup = (req, res, next) => {
   const {
     firstname, lastname, email, password, address, phoneNumber,
   } = req.body;
@@ -13,4 +13,12 @@ const validateUserSignup = async (req, res, next) => {
   }
 };
 
-export default validateUserSignup;
+export const validateUserSignin = async (req, res, next) => {
+  const { email, password } = req.body;
+  const result = Validator.validateSigninFields(email, password);
+  if (result.error) {
+    res.status(400).send(Validator.Response());
+  } else {
+    next();
+  }
+};

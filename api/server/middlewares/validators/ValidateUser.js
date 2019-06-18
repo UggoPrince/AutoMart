@@ -13,7 +13,13 @@ class ValidateUser extends Validator {
     ValidateUser.isValidEmail(email, 'email'); // validate email
     ValidateUser.isValidPhoneNumber(phoneNumber, 'phoneNumber'); // validate phone number
     ValidateUser.isValidPassword(password, 'password'); // validate password
+    return ValidateUser.getErrorMessage();
+  }
 
+  static validateSigninFields(email, password) {
+    ValidateUser.refresh();
+    ValidateUser.isValidEmail(email, 'email'); // validate email
+    ValidateUser.isValidPassword(password, 'password'); // validate password
     return ValidateUser.getErrorMessage();
   }
 
