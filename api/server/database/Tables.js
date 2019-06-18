@@ -5,7 +5,7 @@ export const createTables = `
             id SERIAL PRIMARY KEY,
             email VARCHAR(60) NOT NULL UNIQUE,
             first_name VARCHAR(100) NOT NULL,
-            last_naeme VARCHAR(100) NOT NULL,
+            last_name VARCHAR(100) NOT NULL,
             password VARCHAR NOT NULL,
             address VARCHAR NOT NULL,
             phone_number VARCHAR NOT NULL,
