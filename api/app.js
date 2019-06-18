@@ -5,7 +5,7 @@
 import dotenv from 'dotenv';
 import app from './server/index';
 import Database from './server/database/Database';
-import { createTables } from './server/database/Tables';
+import { createTables, dropTables } from './server/database/Tables';
 
 dotenv.config();
 const port = process.env.PORT || 4000;
