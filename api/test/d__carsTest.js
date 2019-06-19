@@ -1,22 +1,17 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable import/no-extraneous-dependencies */
-/* global before:true, after:true, describe:true, it:true, */
+/* global before:true, describe:true, it:true, */
 import fs from 'fs';
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import dotenv from 'dotenv';
-import { dropTables } from '../server/database/Tables';
-import app, { db } from './app';
+import app from './app';
 
 dotenv.config();
 chai.use(chaiHttp);
 
 before('', () => {
   process.env.CLOUDINARY_AUTOMART_FOLDER = 'automartTest';
-});
-
-after(async () => {
-  await db.pool.query(dropTables).then(res => res).catch((err) => { console.log(err); });
 });
 
 describe('Cars Test', () => {

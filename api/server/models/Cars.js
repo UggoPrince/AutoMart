@@ -29,13 +29,19 @@ class Cars {
       )
       RETURNING *;
     `;
-    const result = await db.pool.query(queryString).then(res => res);
+    const result = await db.query(queryString);
     return result;
   }
 
   async getOwnerEmailById(id) {
-    const queryString = `SELECT email FROM users WHERE id = '${id}'`;
-    const result = await db.pool.query(queryString).then(res => res);
+    const queryString = `SELECT email FROM users WHERE id = '${id}';`;
+    const result = await db.query(queryString);
+    return result;
+  }
+
+  async getCarById(id) {
+    const queryString = `SELECT * FROM cars WHERE id = '${id}';`;
+    const result = await db.query(queryString);
     return result;
   }
 

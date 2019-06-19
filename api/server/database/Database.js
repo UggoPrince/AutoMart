@@ -15,4 +15,9 @@ export default class Database {
       port: process.env.DATABASE_PORT,
     });
   }
+
+  async query(queryString) {
+    const result = await this.pool.query(queryString).then(res => res);
+    return result;
+  }
 }

@@ -5,7 +5,7 @@
 import Validator from './Validator';
 
 class ValidateUser extends Validator {
-  static signupFields(firstname, lastname, email, password, address, phoneNumber) {
+  static validateSignupFields(firstname, lastname, email, password, address, phoneNumber) {
     ValidateUser.refresh();
     ValidateUser.isValidName(firstname, 'firstname'); // validate firstname
     ValidateUser.isValidName(lastname, 'lastname'); // validate lastname
