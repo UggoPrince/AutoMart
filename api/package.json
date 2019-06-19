@@ -8,7 +8,7 @@
     "build-server": "babel -d ./build/server ./server -s",
     "build-app": "babel -d ./build app.js -s",
     "build": "npm run clean && npm run build-server && npm run build-app",
-    "start:dev": "nodemon --exec babel-node app.js",
+    "start": "nodemon --exec babel-node app.js",
     "test": "set DATABASE=automartTest&& nyc mocha --require @babel/register --exit --recursive --timeout 60000",
     "coverage": "nyc report --reporter=lcov --reporter=text-lcov | coveralls"
   },
