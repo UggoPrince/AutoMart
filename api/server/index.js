@@ -5,8 +5,8 @@ import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './swaggerDocs/config/swaggerDef';
 import usersRouter from './routes/usersRoutes';
-/*
 import carsRouter from './routes/carsRoutes';
+/*
 import ordersRouter from './routes/ordersRoutes';
 import flagsRouter from './routes/flagsRoutes'; */
 
@@ -37,8 +37,8 @@ app.use(bodyParser.json({ type: 'application/json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/v1/', usersRouter);
-/*
 app.use('/api/v1/', carsRouter);
+/*
 app.use('/api/v1/', ordersRouter);
 app.use('/api/v1/', flagsRouter);
 */
