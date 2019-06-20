@@ -8,6 +8,7 @@ import {
   validateUpdateCarPrice,
   validateViewACar,
   validateViewCars,
+  validateDeleteCar,
 } from '../middlewares/CarsMiddleware';
 
 const Router = express.Router();
@@ -23,5 +24,7 @@ Router.patch('/car/:car_id/price', validateUpdateCarPrice, carsControllers.updat
 Router.get('/car/:car_id', validateViewACar, carsControllers.getSpecificCar);
 // get cars
 Router.get('/car', validateViewCars, carsControllers.getCars);
+// delete a car
+Router.delete('/car/:car_id', validateDeleteCar, carsControllers.deleteCar);
 
 export default Router;

@@ -39,7 +39,7 @@ describe('Orders Test', () => {
           amount: 1200000,
         })
         .end((err, res) => {
-          expect(res.status).to.be.eql(400);
+          expect(res.status).to.be.eql(404);
           expect(res.type).to.be.equal('application/json');
           expect(res.body).to.be.an('object');
           done();
