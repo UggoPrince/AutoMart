@@ -345,4 +345,17 @@ describe('Cars Test', () => {
         });
     });
   });
+
+  describe('GET /api/v1/car', () => {
+    it('should get all cars as admin both sold and unsold', (done) => {
+      chai.request(app)
+        .get('/api/v1/car')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(200);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+  });
 });

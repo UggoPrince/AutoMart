@@ -63,6 +63,12 @@ class Cars {
     return result;
   }
 
+  async getAllCars() {
+    const queryString = 'SELECT * FROM cars;';
+    const result = await db.query(queryString);
+    return result;
+  }
+
   async getCarsByStatusAvailable() {
     const queryString = 'SELECT * FROM cars WHERE status = \'available\';';
     const result = db.query(queryString);

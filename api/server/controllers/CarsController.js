@@ -45,6 +45,13 @@ class CarsController {
 
   async getCars(req, res) {
     const rQuery = req.query;
+    if (req.qLength === 0) {
+      const result = await Cars.getAllCars();
+      res.status(200).send({
+        status: 200,
+        data: result.rows,
+      });
+    }
     if (req.qLength === 1) {
       const result = await Cars.getCarsByStatusAvailable();
       res.status(200).send({
