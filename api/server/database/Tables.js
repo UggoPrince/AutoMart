@@ -32,6 +32,7 @@ export const createTables = `
             id SERIAL PRIMARY KEY,
             buyer INT REFERENCES users (id),
             car_id INT REFERENCES cars (id),
+            created_on TIMESTAMP NOT NULL DEFAULT NOW(),
             amount DECIMAL NOT NULL,
             status VARCHAR NOT NULL DEFAULT 'pending',
             CONSTRAINT order_status CHECK(status = 'pending' OR

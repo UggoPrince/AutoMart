@@ -11,7 +11,7 @@ class CarsController {
     if (ownerEmail.rowCount === 0) {
       res.status(400).send({
         status: 400,
-        error: `User with id (${reqBody.id}) do not exist in database`,
+        error: `User with id (${reqBody.id}) do not exist.`,
       });
     } else {
       const result = await Cars.postAdvert(reqBody, carPhoto);
