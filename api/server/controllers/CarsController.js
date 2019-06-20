@@ -7,17 +7,32 @@ class CarsController {
     const reqBody = req.body;
     const carPhoto = req.files;
 
-    const ownerEmail = await Cars.getOwnerEmailById(reqBody.owner);
-    if (ownerEmail.rowCount === 0) {
+    const result = await Cars.postAdvert(reqBody, carPhoto);
+    if (result.error) {
       res.status(400).send({
         status: 400,
-        error: `User with id (${reqBody.id}) do not exist.`,
+        error: result.errorMessage,
       });
     } else {
-      const result = await Cars.postAdvert(reqBody, carPhoto);
-      result.rows[0].owner = ownerEmail.rows[0].email;
       res.status(201).send({
         status: 201,
+        data: result.rows[0],
+      });
+    }
+  }
+
+  async updateCarStatus(req, res) {
+    const reqBody = req.body;
+    reqBody.carId = req.params.car_id;
+    const result = await Cars.updateStatus(reqBody);
+    if (result.error) {
+      res.status(400).send({
+        status: 400,
+        error: result.errorMessage,
+      });
+    } else {
+      res.status(200).send({
+        status: 200,
         data: result.rows[0],
       });
     }

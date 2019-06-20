@@ -4,7 +4,7 @@
 import Validator from './Validator';
 
 class ValidateCar extends Validator {
-  static createAdvertFields( // validates the fields that would creat an advert
+  static validateCreateAdvertFields( // validates the fields that would creat an advert
     owner, state, status, price, title, manufacturer, model, bodyType, photo,
   ) {
     ValidateCar.refresh();
@@ -17,6 +17,14 @@ class ValidateCar extends Validator {
     ValidateCar.isValidModel(model, 'model'); // validate model
     ValidateCar.isValidBodyType(bodyType, 'bodyType'); // validate body_type
     ValidateCar.isValidPhoto(photo, 'image'); // validate photo
+    return ValidateCar.getErrorMessage();
+  }
+
+  // validates the field and url parameter sent to update a car status
+  static validateUpdateCarStatusFields(carId, newStatus) {
+    ValidateCar.refresh();
+    ValidateCar.validateInt(carId, 'carId');
+    ValidateCar.isValidNewStatus(newStatus, 'newStatus');
     return ValidateCar.getErrorMessage();
   }
 
@@ -42,6 +50,17 @@ class ValidateCar extends Validator {
       const str = status.toLowerCase();
       if (str !== 'available') {
         ValidateCar.integrateError(field, `Invalid ${field}. Must be [ available ].`);
+      }
+    }
+  }
+
+  static isValidNewStatus(status, field) {
+    if (ValidateCar.isEmptyString(status)) {
+      ValidateCar.integrateError(field, `No ${field} entered.`);
+    } else {
+      const str = status.toLowerCase();
+      if (str !== 'sold') {
+        ValidateCar.integrateError(field, `Invalid ${field}. Must be changed to [ sold ] in order to update the status.`);
       }
     }
   }
