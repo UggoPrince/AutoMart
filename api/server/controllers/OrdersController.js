@@ -26,8 +26,8 @@ class OrdersController {
     reqBody.orderId = req.params.order_id;
     const result = await Orders.updatePrice(reqBody);
     if (result.error) {
-      res.status(400).send({
-        status: 400,
+      res.status(404).send({
+        status: 404,
         error: result.errorMessage,
       });
     } else {

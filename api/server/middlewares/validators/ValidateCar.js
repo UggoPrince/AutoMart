@@ -36,6 +36,13 @@ class ValidateCar extends Validator {
     return ValidateCar.getErrorMessage();
   }
 
+  // validate the url parameter for car id sent to retrieve a car
+  static validateViewSpecficCar(carId) {
+    ValidateCar.refresh();
+    ValidateCar.validateInt(carId, 'carId');
+    return ValidateCar.getErrorMessage();
+  }
+
   static isValidOwner(owner, type) {
     ValidateCar.validateInt(owner, type);
   }

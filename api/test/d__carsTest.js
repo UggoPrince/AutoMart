@@ -156,7 +156,7 @@ describe('Cars Test', () => {
         .patch('/api/v1/car/22/status')
         .send({ newStatus: 'sold' })
         .end((err, res) => {
-          expect(res.status).to.be.equal(400);
+          expect(res.status).to.be.equal(404);
           expect(res.type).to.be.equal('application/json');
           expect(res.body).to.be.an('object');
           done();
@@ -214,7 +214,40 @@ describe('Cars Test', () => {
         .patch('/api/v1/car/120/price')
         .send({ newPrice: 121212 })
         .end((err, res) => {
+          expect(res.status).to.be.equal(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+  });
+
+  describe('GET /api/v1/car/:car_id/', () => {
+    it('should get a specitic car', (done) => {
+      chai.request(app)
+        .get('/api/v1/car/1')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(200);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not get a specitic car when the car id is invalid', (done) => {
+      chai.request(app)
+        .get('/api/v1/car/1k')
+        .end((err, res) => {
           expect(res.status).to.be.equal(400);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not get a specitic car when the car id does not exist', (done) => {
+      chai.request(app)
+        .get('/api/v1/car/100')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(404);
           expect(res.type).to.be.equal('application/json');
           expect(res.body).to.be.an('object');
           done();

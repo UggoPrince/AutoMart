@@ -26,8 +26,8 @@ class CarsController {
     reqBody.carId = req.params.car_id;
     const result = await Cars.updateStatus(reqBody);
     if (result.error) {
-      res.status(400).send({
-        status: 400,
+      res.status(404).send({
+        status: 404,
         error: result.errorMessage,
       });
     } else {
@@ -43,8 +43,24 @@ class CarsController {
     reqBody.carId = req.params.car_id;
     const result = await Cars.updatePrice(reqBody);
     if (result.error) {
-      res.status(400).send({
-        status: 400,
+      res.status(404).send({
+        status: 404,
+        error: result.errorMessage,
+      });
+    } else {
+      res.status(200).send({
+        status: 200,
+        data: result.rows[0],
+      });
+    }
+  }
+
+  async viewSpecificCar(req, res) {
+    const carId = req.params.car_id;
+    const result = await Cars.getACar(carId);
+    if (result.error) {
+      res.status(404).send({
+        status: 404,
         error: result.errorMessage,
       });
     } else {
