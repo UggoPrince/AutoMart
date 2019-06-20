@@ -56,6 +56,17 @@ describe('Orders Test', () => {
           done();
         });
     });
+    it('should make a purchase order', (done) => {
+      chai.request(app)
+        .post('/api/v1/order/')
+        .send(newOrder)
+        .end((err, res) => {
+          expect(res.status).to.be.eql(201);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
   });
 
   describe('PATCH /api/v1/order/:order_id/price', () => {
@@ -64,7 +75,7 @@ describe('Orders Test', () => {
     };
     it('should update the price of a purchase order', (done) => {
       chai.request(app)
-        .patch('/api/v1/order/1/price')
+        .patch('/api/v1/order/2/price')
         .send(update)
         .end((err, res) => {
           expect(res.status).to.be.eql(200);
@@ -75,24 +86,24 @@ describe('Orders Test', () => {
     });
     it('should not update the order price if the status is accepted or rejected', (done) => {
       chai.request(app)
-        .patch('/api/v1/order/2/price')
+        .patch('/api/v1/order/5/price')
         .send(update)
         .end((err, res) => {
-          expect(res.status).to.be.eql(400);
+          expect(res.status).to.be.eql(404);
           expect(res.type).to.be.equal('application/json');
           expect(res.body).to.be.an('object');
         });
       chai.request(app)
-        .patch('/api/v1/order/3/price')
+        .patch('/api/v1/order/100/price')
         .send(update)
         .end((err, res) => {
-          expect(res.status).to.be.eql(400);
+          expect(res.status).to.be.eql(404);
           expect(res.type).to.be.equal('application/json');
           expect(res.body).to.be.an('object');
         });
       done();
     });
-    it('should update price if the new orice is not a float', (done) => {
+    it('should not update price if the new price is not a float', (done) => {
       chai.request(app)
         .patch('/api/v1/order/3/price')
         .send({ newAmount: '1222kl' })
@@ -103,16 +114,16 @@ describe('Orders Test', () => {
           done();
         });
     });
-    it('should update price if the order id is not valid', (done) => {
+    /* it('should not update price if the order id is not valid', (done) => {
       chai.request(app)
         .patch('/api/v1/order/33/price')
         .send(update)
         .end((err, res) => {
-          expect(res.status).to.be.eql(400);
+          expect(res.status).to.be.eql(404);
           expect(res.type).to.be.equal('application/json');
           expect(res.body).to.be.an('object');
           done();
         });
-    });
+    }); */
   });
 });

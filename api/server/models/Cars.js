@@ -61,6 +61,14 @@ class Cars {
     return result;
   }
 
+  async getACar(id) {
+    const result = await this.getCarById(id);
+    if (result.rowCount === 0) {
+      return { error: true, errorMessage: `Car with id (${id}) do not exist.` };
+    }
+    return result;
+  }
+
   async updater(carId, field, value) {
     const car = await this.getCarById(carId);
     if (car.rowCount === 0) {

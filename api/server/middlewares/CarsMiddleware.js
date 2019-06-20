@@ -37,3 +37,13 @@ export const validateUpdateCarPrice = (req, res, next) => {
     next();
   }
 };
+
+export const validateViewACar = (req, res, next) => {
+  const carId = req.params.car_id;
+  const result = Validator.validateViewSpecficCar(carId);
+  if (result.error) {
+    res.status(400).send(Validator.Response());
+  } else {
+    next();
+  }
+};
