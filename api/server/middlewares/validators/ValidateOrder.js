@@ -11,6 +11,12 @@ class ValidateOrder extends Validator {
     return ValidateOrder.getErrorMessage();
   }
 
+  static validateUpdateOrderFields(newAmount, orderId) {
+    ValidateOrder.isValidAmount(newAmount, 'newAmount'); // validate the new price that's to update old price
+    ValidateOrder.isValidOrderId(orderId, 'orderId'); // validate the order's id
+    return ValidateOrder.getErrorMessage();
+  }
+
   static isValidBuyer(buyer, field) {
     ValidateOrder.validateInt(buyer, field);
   }
@@ -21,6 +27,10 @@ class ValidateOrder extends Validator {
 
   static isValidAmount(amount, field) {
     ValidateOrder.validateFloat(amount, field);
+  }
+
+  static isValidOrderId(orderId, field) {
+    this.validateInt(orderId, field);
   }
 }
 
