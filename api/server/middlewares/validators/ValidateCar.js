@@ -50,6 +50,15 @@ class ValidateCar extends Validator {
     return ValidateCar.getErrorMessage();
   }
 
+  // validate the query string for getting cars in a certain price range
+  static validateViewUnsoldCarsInPriceRange(status, minPrice, maxPrice) {
+    ValidateCar.refresh();
+    ValidateCar.isValidStatusQuery(status, 'status');
+    ValidateCar.isValidPrice(minPrice, 'min_price');
+    ValidateCar.isValidPrice(maxPrice, 'max_price');
+    return ValidateCar.getErrorMessage();
+  }
+
   static isValidOwner(owner, type) {
     ValidateCar.validateInt(owner, type);
   }
@@ -137,7 +146,7 @@ class ValidateCar extends Validator {
 
   static isValidStatusQuery(status, query) {
     if (status !== 'available') {
-      ValidateCar.integrateError(query, `The ${query} query string must be the [ ?status=available ].`);
+      ValidateCar.integrateError(query, `The ${query} query string must be [ ?status=available ].`);
     }
   }
 }
