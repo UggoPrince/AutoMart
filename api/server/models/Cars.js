@@ -19,10 +19,6 @@ const db = new Database();
 class Cars {
   async postAdvert(carData, carPhoto) {
     // check if user for this car exist
-    const ownerEmail = await this.getOwnerEmailById(carData.owner);
-    if (ownerEmail.rowCount === 0) {
-      return { error: true, errorMessage: `User with id (${carData.carId}) do not exist.` };
-    }
     const uploadedImg = await this.uploadImage(carPhoto);
     const queryString = `
       INSERT INTO cars (
@@ -36,7 +32,9 @@ class Cars {
       RETURNING *;
     `;
     const result = await db.query(queryString);
-    result.rows[0].owner = ownerEmail.rows[0].email;
+    result.rows[0].owner = carData.email;
+    result.rows[0].email = result.rows[0].owner;
+    delete result.rows[0].owner;
     return result;
   }
 
@@ -49,9 +47,8 @@ class Cars {
     return uploadedImg;
   }
 
-  async getOwnerEmailById(id) {
-    const queryString = `SELECT email FROM users WHERE id = '${id}';`;
-    const result = await db.query(queryString);
+  async getCarOwner(id) {
+    const result = await Users.getUserById(id);
     return result;
   }
 
@@ -63,9 +60,6 @@ class Cars {
 
   async getACar(id) {
     const result = await this.getCarById(id);
-    if (result.rowCount === 0) {
-      return { error: true, errorMessage: `Car with id (${id}) do not exist.` };
-    }
     return result;
   }
 
@@ -84,10 +78,7 @@ class Cars {
 
   async updater(carId, field, value) {
     const car = await this.getCarById(carId);
-    if (car.rowCount === 0) {
-      return { error: true, errorMessage: `Car with id (${carId}) do not exist.` };
-    }
-    const owner = await Users.getUserById(car.rows[0].owner);
+    const owner = await this.getCarOwner(car.rows[0].owner);
     const queryString = `UPDATE cars SET ${field} = '${value}'
     WHERE id = '${carId}' RETURNING *;`;
     const result = await db.query(queryString);
@@ -103,6 +94,12 @@ class Cars {
 
   async updatePrice(carData) {
     const result = await this.updater(carData.carId, 'price', carData.newPrice);
+    return result;
+  }
+
+  async deleteAdvert(carId) {
+    const queryString = `DELETE FROM cars WHERE id ='${carId}';`;
+    const result = await db.query(queryString);
     return result;
   }
 }

@@ -8,67 +8,39 @@ class CarsController {
     const carPhoto = req.files;
 
     const result = await Cars.postAdvert(reqBody, carPhoto);
-    if (result.error) {
-      res.status(400).send({
-        status: 400,
-        error: result.errorMessage,
-      });
-    } else {
-      res.status(201).send({
-        status: 201,
-        data: result.rows[0],
-      });
-    }
+    res.status(201).send({
+      status: 201,
+      data: result.rows[0],
+    });
   }
 
   async updateCarStatus(req, res) {
     const reqBody = req.body;
     reqBody.carId = req.params.car_id;
     const result = await Cars.updateStatus(reqBody);
-    if (result.error) {
-      res.status(404).send({
-        status: 404,
-        error: result.errorMessage,
-      });
-    } else {
-      res.status(200).send({
-        status: 200,
-        data: result.rows[0],
-      });
-    }
+    res.status(200).send({
+      status: 200,
+      data: result.rows[0],
+    });
   }
 
   async updateCarPrice(req, res) {
     const reqBody = req.body;
     reqBody.carId = req.params.car_id;
     const result = await Cars.updatePrice(reqBody);
-    if (result.error) {
-      res.status(404).send({
-        status: 404,
-        error: result.errorMessage,
-      });
-    } else {
-      res.status(200).send({
-        status: 200,
-        data: result.rows[0],
-      });
-    }
+    res.status(200).send({
+      status: 200,
+      data: result.rows[0],
+    });
   }
 
   async getSpecificCar(req, res) {
     const carId = req.params.car_id;
     const result = await Cars.getACar(carId);
-    if (result.error) {
-      res.status(404).send({
-        status: 404,
-        error: result.errorMessage,
-      });
-    } else {
-      res.status(200).send({
-        status: 200,
-        data: result.rows[0],
-      });
-    }
+    res.status(200).send({
+      status: 200,
+      data: result.rows[0],
+    });
   }
 
   async getCars(req, res) {
@@ -86,6 +58,15 @@ class CarsController {
         data: result.rows,
       });
     }
+  }
+
+  async deleteCar(req, res) {
+    const carId = req.params.car_id;
+    await Cars.deleteAdvert(carId);
+    res.status(200).send({
+      status: 200,
+      data: 'Car Ad successfully deleted',
+    });
   }
 }
 
