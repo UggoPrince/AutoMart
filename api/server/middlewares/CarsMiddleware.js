@@ -49,11 +49,32 @@ export const validateViewACar = (req, res, next) => {
 };
 
 export const validateViewCars = (req, res, next) => {
-  const rQuery = req.query.status;
-  const result = Validator.validateViewUnsoldCarsQuery(rQuery);
-  if (result.error) {
-    res.status(404).send(Validator.Response());
+  const rQuery = req.query;
+  const qLength = Object.keys(req.query).length;
+  const isOne = qLength > 0 && qLength === 1;
+  const isThree = qLength > 0 && qLength === 3;
+  if (isOne) {
+    const result = Validator.validateViewUnsoldCarsQuery(rQuery.status);
+    if (result.error) {
+      res.status(400).send(Validator.Response());
+    } else {
+      req.qLength = 1;
+      next();
+    }
+  } else if (isThree) {
+    const result = Validator.validateViewUnsoldCarsInPriceRange(
+      rQuery.status, rQuery.min_price, rQuery.max_price,
+    );
+    if (result.error) {
+      res.status(400).send(Validator.Response());
+    } else {
+      req.qLength = 3;
+      next();
+    }
   } else {
-    next();
+    res.status(400).send({
+      status: 400,
+      error: 'The query string (with its value) is not valid.',
+    });
   }
 };

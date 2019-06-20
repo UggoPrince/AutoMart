@@ -72,11 +72,20 @@ class CarsController {
   }
 
   async getCars(req, res) {
-    const result = await Cars.getCarsByStatusAvailable();
-    res.status(200).send({
-      status: 200,
-      data: result.rows,
-    });
+    const rQuery = req.query;
+    if (req.qLength === 1) {
+      const result = await Cars.getCarsByStatusAvailable();
+      res.status(200).send({
+        status: 200,
+        data: result.rows,
+      });
+    } else if (req.qLength === 3) {
+      const result = await Cars.getCarsByStatusAndPriceRange(rQuery.min_price, rQuery.max_price);
+      res.status(200).send({
+        status: 200,
+        data: result.rows,
+      });
+    }
   }
 }
 

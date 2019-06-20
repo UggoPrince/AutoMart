@@ -70,7 +70,14 @@ class Cars {
   }
 
   async getCarsByStatusAvailable() {
-    const queryString = 'SELECT * FROM cars WHERE status = \'available\'';
+    const queryString = 'SELECT * FROM cars WHERE status = \'available\';';
+    const result = db.query(queryString);
+    return result;
+  }
+
+  async getCarsByStatusAndPriceRange(min, max) {
+    const queryString = `SELECT * FROM cars WHERE status = 'available'
+      AND price BETWEEN ${min} AND ${max};`;
     const result = db.query(queryString);
     return result;
   }
