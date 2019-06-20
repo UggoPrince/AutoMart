@@ -73,9 +73,13 @@ export const validateViewACar = async (req, res, next) => {
 export const validateViewCars = (req, res, next) => {
   const rQuery = req.query;
   const qLength = Object.keys(req.query).length;
+  const isZero = qLength === 0;
   const isOne = qLength > 0 && qLength === 1;
   const isThree = qLength > 0 && qLength === 3;
-  if (isOne) {
+  if (isZero) {
+    req.qLength = 0;
+    next();
+  } else if (isOne) {
     const result = Validator.validateViewUnsoldCarsQuery(rQuery.status);
     if (result.error) {
       res.status(400).send(Validator.Response());
