@@ -5,13 +5,15 @@ import fs from 'fs';
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import dotenv from 'dotenv';
-import app from './app';
+import { seedCars } from '../server/database/Tables';
+import app, { db } from './app';
 
 dotenv.config();
 chai.use(chaiHttp);
 
-before('', () => {
+before('Seed cars table', async () => {
   process.env.CLOUDINARY_AUTOMART_FOLDER = 'automartTest';
+  await db.pool.query(seedCars).then(res => res).catch((err) => { console.log(err); });
 });
 
 describe('Cars Test', () => {
@@ -246,6 +248,39 @@ describe('Cars Test', () => {
     it('should not get a specitic car when the car id does not exist', (done) => {
       chai.request(app)
         .get('/api/v1/car/100')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+  });
+
+  describe('GET /api/v1/car?status=available', () => {
+    it('should get all unsold cars', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?status=available')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(200);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not get all unsold cars when the status query string is incorrect', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?status=availabless')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(404);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not get all unsold/sold cars when query string is sent has more than 3 values', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?a&b&c&d')
         .end((err, res) => {
           expect(res.status).to.be.equal(404);
           expect(res.type).to.be.equal('application/json');

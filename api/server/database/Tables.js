@@ -47,3 +47,24 @@ export const createTables = `
             description VARCHAR NOT NULL
         );`;
 export const dropTables = 'DROP TABLE IF EXISTS users, cars, orders, flags;';
+
+export const seedUsers = `INSERT INTO users (
+    first_name, last_name, email, password, address, is_admin, phone_number
+    ) VALUES
+    ('john', 'doe', 'johndoe@gmail.com', 'doe123456', 'no 55 ikorodu road', true, '07012345678'),
+    ('sarah', 'conoh', 'sarahconoh@gmail.com', 'conoh123456', 'no 56 ibadan road', false, '07011223344'),
+    ('brian', 'emeka', 'brianemeka@gmail.com', 'emeka123456', 'no 10 rumuokoro road', false,'07022338899');`;
+
+export const seedCars = `INSERT INTO cars (
+    owner, state, status, price, title, manufacturer, model, body_type, photos
+    ) VALUES
+    (1, 'new', 'sold', 15000000.00, 'Brand new G-Wagon', 'mercedes', 'g-wagon', 'SUV',
+    '{https://res.cloudinary.com/dya3r9cfe/image/upload/v1558624490/c1.jpg}'),
+    (1, 'new', 'available', 6000000.00, 'New venza on sale.', 'toyota', 'venza', 'SUV',
+    '{https://res.cloudinary.com/dya3r9cfe/image/upload/v1558624479/c9.jpg}'),
+    (1, 'used', 'available', 9000000.00, 'Ford truck. Buy now while still available.', 'toyota',
+    'Fond Pickup Truck', 'Truck', '{https://res.cloudinary.com/dya3r9cfe/image/upload/v1558617991/c14.png}'),
+    (2, 'used', 'sold', 14000000.00, 'Belgium Mack for sale.', 'Mack', 'Mack 209', 'Trailer',
+    '{https://res.cloudinary.com/dya3r9cfe/image/upload/v1558624761/c8.jpg}'),
+    (2, 'new', 'available', 16000000.00, 'New Mercedes truck', 'Mercedes', 'Mercedes 455', 'Trailer',
+    '{https://res.cloudinary.com/dya3r9cfe/image/upload/v1558624904/c2.jpg}');`;

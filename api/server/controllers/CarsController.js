@@ -55,7 +55,7 @@ class CarsController {
     }
   }
 
-  async viewSpecificCar(req, res) {
+  async getSpecificCar(req, res) {
     const carId = req.params.car_id;
     const result = await Cars.getACar(carId);
     if (result.error) {
@@ -69,6 +69,14 @@ class CarsController {
         data: result.rows[0],
       });
     }
+  }
+
+  async getCars(req, res) {
+    const result = await Cars.getCarsByStatusAvailable();
+    res.status(200).send({
+      status: 200,
+      data: result.rows,
+    });
   }
 }
 

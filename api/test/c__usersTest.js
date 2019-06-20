@@ -3,13 +3,14 @@
 /* global before:true, describe:true, it:true, */
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import { createTables } from '../server/database/Tables';
+import { createTables, seedUsers } from '../server/database/Tables';
 import app, { db } from './app';
 
 chai.use(chaiHttp);
 
 before('Create Tables', async () => {
   await db.pool.query(createTables).then(res => res).catch((err) => { console.log(err); });
+  await db.pool.query(seedUsers).then(res => res).catch((err) => { console.log(err); });
 });
 
 describe('Users Test', () => {

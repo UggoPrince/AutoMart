@@ -37,9 +37,16 @@ class ValidateCar extends Validator {
   }
 
   // validate the url parameter for car id sent to retrieve a car
-  static validateViewSpecficCar(carId) {
+  static validateViewSpecficCarParams(carId) {
     ValidateCar.refresh();
     ValidateCar.validateInt(carId, 'carId');
+    return ValidateCar.getErrorMessage();
+  }
+
+  // validate the query string sent for status
+  static validateViewUnsoldCarsQuery(status) {
+    ValidateCar.refresh();
+    ValidateCar.isValidStatusQuery(status, 'status');
     return ValidateCar.getErrorMessage();
   }
 
@@ -125,6 +132,12 @@ class ValidateCar extends Validator {
       ValidateCar.integrateError(str, `No ${str} submited.`);
     } else if (myPhoto.photo.type !== 'image/jpeg' && myPhoto.photo.type !== 'image/png') {
       ValidateCar.integrateError(str, `You didn't submit an ${str} type. jpg/png is accepted.`);
+    }
+  }
+
+  static isValidStatusQuery(status, query) {
+    if (status !== 'available') {
+      ValidateCar.integrateError(query, `The ${query} query string must be the [ ?status=available ].`);
     }
   }
 }

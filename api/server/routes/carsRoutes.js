@@ -7,6 +7,7 @@ import {
   validateUpdateCarStatus,
   validateUpdateCarPrice,
   validateViewACar,
+  validateViewCars,
 } from '../middlewares/CarsMiddleware';
 
 const Router = express.Router();
@@ -19,6 +20,8 @@ Router.patch('/car/:car_id/status', validateUpdateCarStatus, carsControllers.upd
 // update the price of a car
 Router.patch('/car/:car_id/price', validateUpdateCarPrice, carsControllers.updateCarPrice);
 // view a specific car
-Router.get('/car/:car_id', validateViewACar, carsControllers.viewSpecificCar);
+Router.get('/car/:car_id', validateViewACar, carsControllers.getSpecificCar);
+// get cars
+Router.get('/car', validateViewCars, carsControllers.getCars);
 
 export default Router;
