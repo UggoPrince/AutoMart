@@ -28,6 +28,14 @@ class ValidateCar extends Validator {
     return ValidateCar.getErrorMessage();
   }
 
+  // validates the field and url parameter that updates a car price
+  static validatUpdateCarPriceFields(carId, newPrice) {
+    ValidateCar.refresh();
+    ValidateCar.validateInt(carId, 'carId'); // validate car id
+    ValidateCar.isValidPrice(newPrice, 'newPrice'); // validate the new price
+    return ValidateCar.getErrorMessage();
+  }
+
   static isValidOwner(owner, type) {
     ValidateCar.validateInt(owner, type);
   }

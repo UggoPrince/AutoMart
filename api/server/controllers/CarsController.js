@@ -37,6 +37,23 @@ class CarsController {
       });
     }
   }
+
+  async updateCarPrice(req, res) {
+    const reqBody = req.body;
+    reqBody.carId = req.params.car_id;
+    const result = await Cars.updatePrice(reqBody);
+    if (result.error) {
+      res.status(400).send({
+        status: 400,
+        error: result.errorMessage,
+      });
+    } else {
+      res.status(200).send({
+        status: 200,
+        data: result.rows[0],
+      });
+    }
+  }
 }
 
 export default new CarsController();

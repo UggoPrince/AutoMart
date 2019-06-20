@@ -26,3 +26,14 @@ export const validateUpdateCarStatus = (req, res, next) => {
     next();
   }
 };
+
+export const validateUpdateCarPrice = (req, res, next) => {
+  const { newPrice } = req.body;
+  const carId = req.params.car_id;
+  const result = Validator.validatUpdateCarPriceFields(carId, newPrice);
+  if (result.error) {
+    res.status(400).send(Validator.Response());
+  } else {
+    next();
+  }
+};
