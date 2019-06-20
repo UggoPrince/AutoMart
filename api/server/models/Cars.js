@@ -69,6 +69,12 @@ class Cars {
     return result;
   }
 
+  async getCarsByStatusAvailable() {
+    const queryString = 'SELECT * FROM cars WHERE status = \'available\'';
+    const result = db.query(queryString);
+    return result;
+  }
+
   async updater(carId, field, value) {
     const car = await this.getCarById(carId);
     if (car.rowCount === 0) {
