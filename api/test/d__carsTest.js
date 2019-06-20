@@ -174,4 +174,51 @@ describe('Cars Test', () => {
         });
     });
   });
+
+  describe('PATCH /api/v1/car/:car_id/price', () => {
+    it('should update the price of a car advert', (done) => {
+      chai.request(app)
+        .patch('/api/v1/car/1/price')
+        .send({ newPrice: 120000.12 })
+        .end((err, res) => {
+          expect(res.status).to.be.equal(200);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not update the price of a car when the carId or/and the newPrice are invalid.', (done) => {
+      chai.request(app)
+        .patch('/api/v1/car/p/price')
+        .send({ newPrice: 'solds' })
+        .end((err, res) => {
+          expect(res.status).to.be.equal(400);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should bot update the price of a car when the newPrice is not sent.', (done) => {
+      chai.request(app)
+        .patch('/api/v1/car/2/price')
+        .send({})
+        .end((err, res) => {
+          expect(res.status).to.be.equal(400);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not update the price of a car when the carId does not exist in database.', (done) => {
+      chai.request(app)
+        .patch('/api/v1/car/120/price')
+        .send({ newPrice: 121212 })
+        .end((err, res) => {
+          expect(res.status).to.be.equal(400);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+  });
 });

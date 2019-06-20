@@ -61,17 +61,27 @@ class Cars {
     return result;
   }
 
-  async updateStatus(carData) {
-    const car = await this.getCarById(carData.carId);
+  async updater(carId, field, value) {
+    const car = await this.getCarById(carId);
     if (car.rowCount === 0) {
-      return { error: true, errorMessage: `Car with id (${carData.carId}) do not exist.` };
+      return { error: true, errorMessage: `Car with id (${carId}) do not exist.` };
     }
     const owner = await Users.getUserById(car.rows[0].owner);
-    const carStatus = carData.newStatus.toLowerCase();
-    const queryString = `UPDATE cars SET status = '${carStatus}'
-    WHERE id = '${carData.carId}' RETURNING *;`;
+    const queryString = `UPDATE cars SET ${field} = '${value}'
+    WHERE id = '${carId}' RETURNING *;`;
     const result = await db.query(queryString);
     result.rows[0].owner = owner.rows[0].email;
+    return result;
+  }
+
+  async updateStatus(carData) {
+    const carStatus = carData.newStatus.toLowerCase();
+    const result = await this.updater(carData.carId, 'status', carStatus);
+    return result;
+  }
+
+  async updatePrice(carData) {
+    const result = await this.updater(carData.carId, 'price', carData.newPrice);
     return result;
   }
 }
