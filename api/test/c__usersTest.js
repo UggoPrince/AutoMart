@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
 /* global before:true, describe:true, it:true, */
 import chai, { expect } from 'chai';
@@ -99,10 +100,26 @@ describe('Users Test', () => {
   });
 
   describe('POST /api/v1/auth/signin', () => {
+    const admin = {
+      email: 'johndoe@gmail.com',
+      password: 'doe123456',
+    };
     const user = {
       email: 'johnmatthew@gmail.com',
       password: 'k12345kljd',
     };
+    it('should sign in a user', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .send(admin)
+        .end((err, res) => {
+          expect(res.status).to.be.eql(200);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          process.env.tokenUser = res.body.data.token;
+          done();
+        });
+    });
     it('should sign in a user', (done) => {
       chai.request(app)
         .post('/api/v1/auth/signin')
@@ -111,6 +128,20 @@ describe('Users Test', () => {
           expect(res.status).to.be.eql(200);
           expect(res.type).to.be.equal('application/json');
           expect(res.body).to.be.an('object');
+          process.env.tokenUser2 = res.body.data.token;
+          done();
+        });
+    });
+    it('should sign in a user', (done) => {
+      process.env.tokenTime = '-1h';
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .send(user)
+        .end((err, res) => {
+          expect(res.status).to.be.eql(200);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          process.env.tokenUser3 = res.body.data.token;
           done();
         });
     });

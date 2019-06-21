@@ -14,12 +14,6 @@ class CheckOrder {
     if (car.rowCount > 0) return { error: false, data: car.rows[0] };
     return { error: true };
   }
-
-  async checkBuyerId(buyerId) {
-    const buyer = await Orders.getOrderOwner(buyerId);
-    if (buyer.rowCount > 0) return { error: false, data: buyer.rows[0] };
-    return { error: true };
-  }
 }
 
 export default new CheckOrder();

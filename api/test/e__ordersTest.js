@@ -18,6 +18,7 @@ describe('Orders Test', () => {
     it('should not make a purchase order when one or all the fields are not provided', (done) => {
       chai.request(app)
         .post('/api/v1/order/')
+        .set({ authentication: process.env.tokenUser })
         .send({})
         .end((err, res) => {
           expect(res.status).to.be.eql(400);
@@ -29,6 +30,7 @@ describe('Orders Test', () => {
     it('should not make a purchase order if wrong id values are sent', (done) => {
       chai.request(app)
         .post('/api/v1/order/')
+        .set({ authentication: process.env.tokenUser })
         .send({
           buyer: 22,
           carId: 33,
@@ -44,6 +46,7 @@ describe('Orders Test', () => {
     it('should make a purchase order', (done) => {
       chai.request(app)
         .post('/api/v1/order/')
+        .set({ authentication: process.env.tokenUser })
         .send(newOrder)
         .end((err, res) => {
           expect(res.status).to.be.eql(201);
@@ -55,6 +58,7 @@ describe('Orders Test', () => {
     it('should make a purchase order', (done) => {
       chai.request(app)
         .post('/api/v1/order/')
+        .set({ authentication: process.env.tokenUser })
         .send(newOrder)
         .end((err, res) => {
           expect(res.status).to.be.eql(201);
@@ -72,6 +76,7 @@ describe('Orders Test', () => {
     it('should update the price of a purchase order', (done) => {
       chai.request(app)
         .patch('/api/v1/order/2/price')
+        .set({ authentication: process.env.tokenUser })
         .send(update)
         .end((err, res) => {
           expect(res.status).to.be.eql(200);
@@ -83,6 +88,7 @@ describe('Orders Test', () => {
     it('should not update the order price if the status is accepted or rejected', (done) => {
       chai.request(app)
         .patch('/api/v1/order/5/price')
+        .set({ authentication: process.env.tokenUser })
         .send(update)
         .end((err, res) => {
           expect(res.status).to.be.eql(404);
@@ -91,6 +97,7 @@ describe('Orders Test', () => {
         });
       chai.request(app)
         .patch('/api/v1/order/100/price')
+        .set({ authentication: process.env.tokenUser })
         .send(update)
         .end((err, res) => {
           expect(res.status).to.be.eql(404);
@@ -102,6 +109,7 @@ describe('Orders Test', () => {
     it('should not update price if the new price is not a float', (done) => {
       chai.request(app)
         .patch('/api/v1/order/3/price')
+        .set({ authentication: process.env.tokenUser })
         .send({ newAmount: '1222kl' })
         .end((err, res) => {
           expect(res.status).to.be.eql(400);

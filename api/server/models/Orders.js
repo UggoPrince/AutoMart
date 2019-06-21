@@ -1,7 +1,6 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable class-methods-use-this */
 import Database from '../database/Database';
-import Users from './Users';
 import Cars from './Cars';
 
 const db = new Database();
@@ -16,11 +15,6 @@ class Orders {
     return result;
   }
 
-  async getOrderOwner(id) {
-    const owner = await Users.getUserById(id);
-    return owner;
-  }
-
   async getOrderedCar(id) {
     const car = await Cars.getCarById(id);
     return car;
@@ -33,10 +27,6 @@ class Orders {
   }
 
   async updatePrice(orderData) {
-    const order = await this.getOrderById(orderData.orderId);
-    if (order.rowCount === 0) {
-      return { error: true, errorMessage: `Order with id (${orderData.orderId}) do not exist.` };
-    }
     const queryString = `
     UPDATE orders SET amount = '${orderData.newAmount}'
     WHERE id = '${orderData.orderId}' AND status = 'pending'

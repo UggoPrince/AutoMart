@@ -3,19 +3,14 @@ import Validator from './validators/ValidateOrder';
 import OrderChecker from './database_checkers/OrderChecker';
 
 export const validatePurchaseOrder = async (req, res, next) => {
-  const { buyer, carId, amount } = req.body;
-  const result = Validator.validateMakeOrderFields(buyer, carId, amount);
+  const { carId, amount } = req.body;
+  const result = Validator.validateMakeOrderFields(carId, amount);
   if (result.error) {
     res.status(400).send(Validator.Response());
   } else {
     let error = false;
     const errorMessage = {};
-    const user = await OrderChecker.checkBuyerId(buyer);
     const car = await OrderChecker.checkOrderedCar(carId);
-    if (user.error) {
-      error = true;
-      errorMessage.buyer = `User with id (${buyer}) do not exist.`;
-    }
     if (car.error) {
       error = true;
       errorMessage.carId = `Car with id (${carId}) do not exist.`;
@@ -26,6 +21,7 @@ export const validatePurchaseOrder = async (req, res, next) => {
         error: errorMessage,
       });
     } else {
+      req.body.buyer = req.token.id;
       req.body.carPrice = car.data.price;
       next();
     }
