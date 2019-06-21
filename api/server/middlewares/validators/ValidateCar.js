@@ -5,10 +5,9 @@ import Validator from './Validator';
 
 class ValidateCar extends Validator {
   static validateCreateAdvertFields( // validates the fields that would creat an advert
-    owner, state, status, price, title, manufacturer, model, bodyType, photo,
+    state, status, price, title, manufacturer, model, bodyType, photo,
   ) {
     ValidateCar.refresh();
-    ValidateCar.isValidOwner(owner, 'owner'); // validate owner
     ValidateCar.isValidState(state, 'state'); // validate state
     ValidateCar.isValidStatus(status, 'status'); // validate status
     ValidateCar.isValidPrice(price, 'price'); // validate price
@@ -79,10 +78,6 @@ class ValidateCar extends Validator {
     ValidateCar.isValidStatusQuery(status, 'status');
     ValidateCar.validateString(manufacturer, 'manufacturer');
     return ValidateCar.getErrorMessage();
-  }
-
-  static isValidOwner(owner, type) {
-    ValidateCar.validateInt(owner, type);
   }
 
   static isValidState(state, field) {

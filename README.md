@@ -1,7 +1,7 @@
 # AutoMart
 AutoMart is an online app that enables you to sell and/or buy cars.
 
-[![Build Status](https://travis-ci.com/UggoPrince/AutoMart.svg?branch=ft-user-report-advert-166715899)](https://travis-ci.com/UggoPrince/AutoMart) [![Coverage Status](https://coveralls.io/repos/github/UggoPrince/AutoMart/badge.svg?branch=ft-user-report-advert-166715899)](https://coveralls.io/github/UggoPrince/AutoMart?branch=ft-user-report-advert-166715899) [![Test Coverage](https://api.codeclimate.com/v1/badges/57c9772eeae7b66be027/test_coverage)](https://codeclimate.com/github/UggoPrince/AutoMart/test_coverage)
+[![Build Status](https://travis-ci.com/UggoPrince/AutoMart.svg?branch=ft-add-jwt-authentication-166835641)](https://travis-ci.com/UggoPrince/AutoMart) [![Coverage Status](https://coveralls.io/repos/github/UggoPrince/AutoMart/badge.svg?branch=ft-add-jwt-authentication-166835641)](https://coveralls.io/github/UggoPrince/AutoMart?branch=ft-add-jwt-authentication-166835641) [![Test Coverage](https://api.codeclimate.com/v1/badges/57c9772eeae7b66be027/test_coverage)](https://codeclimate.com/github/UggoPrince/AutoMart/test_coverage)
 
 # Key Application Features
 
@@ -22,9 +22,9 @@ AutoMart is an online app that enables you to sell and/or buy cars.
 - User can flag/report a posted AD as fraudulent.
 - User can view all unsold cards of a specific make (manufacturer).
 
-### ft-user-report-advert-166715899ment
+### Development
 
-The application is ft-user-report-advert-166715899ed with NodeJs using ExpressJs for routing and PostgreSQL database.
+The application is developed with NodeJs using ExpressJs for routing and PostgreSQL database.
 
 ### Installation
 Clone the project repository

@@ -2,8 +2,10 @@
 import express from 'express';
 import flagsControllers from '../controllers/FlagsController';
 import validateReportAdvert from '../middlewares/FlagsMiddleware';
+import authenticate from '../middlewares/AuthMiddleware';
 
 const Router = express.Router();
-Router.post('/flag', validateReportAdvert, flagsControllers.reportAdvert); // reports a fraudulent advert
+// reports a fraudulent advert
+Router.post('/flag', [authenticate, validateReportAdvert], flagsControllers.reportAdvert);
 
 export default Router;

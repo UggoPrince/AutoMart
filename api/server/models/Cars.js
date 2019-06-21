@@ -1,9 +1,9 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable class-methods-use-this */
+/* eslint-disable camelcase */
 import cloudiner from 'cloudinary';
 import dotenv from 'dotenv';
 import Database from '../database/Database';
-import Users from './Users';
 
 dotenv.config();
 const cloudinary = cloudiner.v2;
@@ -32,9 +32,22 @@ class Cars {
       RETURNING *;
     `;
     const result = await db.query(queryString);
-    result.rows[0].owner = carData.email;
-    result.rows[0].email = result.rows[0].owner;
-    delete result.rows[0].owner;
+    const {
+      id, created_on, state, status, price, title, manufacturer, model, body_type, photos,
+    } = result.rows[0];
+    result.rows[0] = {
+      id,
+      email: carData.email,
+      created_on,
+      state,
+      status,
+      price,
+      title,
+      manufacturer,
+      model,
+      body_type,
+      photos,
+    };
     return result;
   }
 
@@ -45,11 +58,6 @@ class Cars {
       use_filename: true,
     }, (err, result) => result);
     return uploadedImg;
-  }
-
-  async getCarOwner(id) {
-    const result = await Users.getUserById(id);
-    return result;
   }
 
   async getCarById(id) {
@@ -96,24 +104,38 @@ class Cars {
     return result;
   }
 
-  async updater(carId, field, value) {
-    const car = await this.getCarById(carId);
-    const owner = await this.getCarOwner(car.rows[0].owner);
+  async updater(carId, field, value, ownerEmail) {
     const queryString = `UPDATE cars SET ${field} = '${value}'
     WHERE id = '${carId}' RETURNING *;`;
     const result = await db.query(queryString);
-    result.rows[0].owner = owner.rows[0].email;
+    const {
+      // eslint-disable-next-line no-unused-vars
+      id, created_on, state, status, price, title, manufacturer, model, body_type, photos,
+    } = result.rows[0];
+    result.rows[0] = {
+      id,
+      email: ownerEmail,
+      created_on,
+      state,
+      status,
+      price,
+      title,
+      manufacturer,
+      model,
+      body_type,
+      photos,
+    };
     return result;
   }
 
   async updateStatus(carData) {
     const carStatus = carData.newStatus.toLowerCase();
-    const result = await this.updater(carData.carId, 'status', carStatus);
+    const result = await this.updater(carData.carId, 'status', carStatus, carData.email);
     return result;
   }
 
   async updatePrice(carData) {
-    const result = await this.updater(carData.carId, 'price', carData.newPrice);
+    const result = await this.updater(carData.carId, 'price', carData.newPrice, carData.email);
     return result;
   }
 

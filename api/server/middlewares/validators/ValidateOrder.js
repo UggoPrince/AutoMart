@@ -3,9 +3,8 @@
 import Validator from './Validator';
 
 class ValidateOrder extends Validator {
-  static validateMakeOrderFields(buyer, carId, amount) {
+  static validateMakeOrderFields(carId, amount) {
     ValidateOrder.refresh();
-    ValidateOrder.isValidBuyer(buyer, 'buyer'); // validate user id
     ValidateOrder.isValidCarId(carId, 'carId'); // validate car id
     ValidateOrder.isValidAmount(amount, 'amount'); // validate buyer's price
     return ValidateOrder.getErrorMessage();
@@ -15,10 +14,6 @@ class ValidateOrder extends Validator {
     ValidateOrder.isValidAmount(newAmount, 'newAmount'); // validate the new price that's to update old price
     ValidateOrder.isValidOrderId(orderId, 'orderId'); // validate the order's id
     return ValidateOrder.getErrorMessage();
-  }
-
-  static isValidBuyer(buyer, field) {
-    ValidateOrder.validateInt(buyer, field);
   }
 
   static isValidCarId(carId, field) {

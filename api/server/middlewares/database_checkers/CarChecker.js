@@ -15,12 +15,6 @@ class CarCheck {
     }
     return false;
   }
-
-  async checkCarOwner(ownerId) {
-    const owner = await Cars.getCarOwner(ownerId);
-    if (owner.rowCount > 0) return { error: false, email: owner.rows[0].email };
-    return { error: true };
-  }
 }
 
 export default new CarCheck();

@@ -10,21 +10,22 @@ import {
   validateViewCars,
   validateDeleteCar,
 } from '../middlewares/CarsMiddleware';
+import authenticate from '../middlewares/AuthMiddleware';
 
 const Router = express.Router();
 const multipartMiddleware = multipart();
 
 // add a car
-Router.post('/car', [multipartMiddleware, validateCreateAdvert], carsControllers.addCar);
+Router.post('/car', [authenticate, multipartMiddleware, validateCreateAdvert], carsControllers.addCar);
 // update car status
-Router.patch('/car/:car_id/status', validateUpdateCarStatus, carsControllers.updateCarStatus);
+Router.patch('/car/:car_id/status', [authenticate, validateUpdateCarStatus], carsControllers.updateCarStatus);
 // update the price of a car
-Router.patch('/car/:car_id/price', validateUpdateCarPrice, carsControllers.updateCarPrice);
+Router.patch('/car/:car_id/price', [authenticate, validateUpdateCarPrice], carsControllers.updateCarPrice);
 // view a specific car
-Router.get('/car/:car_id', validateViewACar, carsControllers.getSpecificCar);
+Router.get('/car/:car_id', [authenticate, validateViewACar], carsControllers.getSpecificCar);
 // get cars
-Router.get('/car', validateViewCars, carsControllers.getCars);
+Router.get('/car', [authenticate, validateViewCars], carsControllers.getCars);
 // delete a car
-Router.delete('/car/:car_id', validateDeleteCar, carsControllers.deleteCar);
+Router.delete('/car/:car_id', [authenticate, validateDeleteCar], carsControllers.deleteCar);
 
 export default Router;
