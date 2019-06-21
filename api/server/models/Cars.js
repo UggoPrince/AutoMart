@@ -89,6 +89,13 @@ class Cars {
     return result;
   }
 
+  async getCarsByStatusAndManufacturer(field, manufacturer) {
+    const queryString = `SELECT * FROM cars WHERE status = 'available'
+      AND ${field} ~* '${manufacturer}';`;
+    const result = db.query(queryString);
+    return result;
+  }
+
   async updater(carId, field, value) {
     const car = await this.getCarById(carId);
     const owner = await this.getCarOwner(car.rows[0].owner);

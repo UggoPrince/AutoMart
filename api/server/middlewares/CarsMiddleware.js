@@ -97,6 +97,16 @@ export const validateViewCars = (req, res, next) => {
         req.qLength = 2;
         next();
       }
+    } else if (rQuery.status && rQuery.manufacturer) {
+      const result = Validator.validateViewUnsoldCarsByManufacturer(
+        rQuery.status, rQuery.manufacturer,
+      );
+      if (result.error) {
+        res.status(400).send(Validator.Response());
+      } else {
+        req.qLength = 2;
+        next();
+      }
     } else res.status(400).send({ status: 400, error: 'The query string (with its value) is not valid.' });
   } else if (isThree && rQuery.min_price && rQuery.max_price) {
     const result = Validator.validateViewUnsoldCarsInPriceRange(

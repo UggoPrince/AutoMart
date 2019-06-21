@@ -58,7 +58,11 @@ class CarsController {
         data: result.rows,
       });
     } else if (req.qLength === 2) {
-      const result = await Cars.getCarsByStatusAndState('state', rQuery.state);
+      let result = '';
+      if (rQuery.state) { result = await Cars.getCarsByStatusAndState('state', rQuery.state); }
+      if (rQuery.manufacturer) {
+        result = await Cars.getCarsByStatusAndManufacturer('manufacturer', rQuery.manufacturer);
+      }
       res.status(200).send({
         status: 200,
         data: result.rows,
