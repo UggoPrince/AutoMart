@@ -358,4 +358,37 @@ describe('Cars Test', () => {
         });
     });
   });
+
+  describe('GET /api/v1/car?status=available&state=new', () => {
+    it('should get all used unsold cars', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?status=available&state=new')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(200);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not get all used unsold cars when any or all queries string are invalid', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?status=availables&state=new')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(400);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not get all used unsold cars when any or all queries string are invalid', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?status=availables&state=useds')
+        .end((err, res) => {
+          expect(res.status).to.be.equal(400);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+  });
 });
