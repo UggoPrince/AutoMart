@@ -382,7 +382,7 @@ describe('Cars Test', () => {
     });
     it('should not get all used unsold cars when any or all queries string are invalid', (done) => {
       chai.request(app)
-        .get('/api/v1/car?status=availables&state=useds')
+        .get('/api/v1/car?statuses=availables&states=useds')
         .end((err, res) => {
           expect(res.status).to.be.equal(400);
           expect(res.type).to.be.equal('application/json');
