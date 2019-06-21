@@ -7,7 +7,7 @@ import swaggerSpec from './swaggerDocs/config/swaggerDef';
 import usersRouter from './routes/usersRoutes';
 import carsRouter from './routes/carsRoutes';
 import ordersRouter from './routes/ordersRoutes';
-/* import flagsRouter from './routes/flagsRoutes'; */
+import flagsRouter from './routes/flagsRoutes';
 
 // Set up express app
 const app = express();
@@ -38,8 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/v1/', usersRouter);
 app.use('/api/v1/', carsRouter);
 app.use('/api/v1/', ordersRouter);
-/* app.use('/api/v1/', flagsRouter);
-*/
+app.use('/api/v1/', flagsRouter);
 
 app.use((req, res) => {
   res.status(404).json('Not Found');
