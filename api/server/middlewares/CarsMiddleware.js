@@ -89,7 +89,7 @@ export const validateViewCars = (req, res, next) => {
       next();
     }
   } else if (isTwo) {
-    if (rQuery.status && rQuery.state.toLowerCase() === 'new') {
+    if (rQuery.status && rQuery.state) {
       const result = Validator.validateViewUnsoldNewCars(rQuery.status, rQuery.state);
       if (result.error) {
         res.status(400).send(Validator.Response());
@@ -98,7 +98,7 @@ export const validateViewCars = (req, res, next) => {
         next();
       }
     } else res.status(400).send({ status: 400, error: 'The query string (with its value) is not valid.' });
-  } else if (isThree) {
+  } else if (isThree && rQuery.min_price && rQuery.max_price) {
     const result = Validator.validateViewUnsoldCarsInPriceRange(
       rQuery.status, rQuery.min_price, rQuery.max_price,
     );
