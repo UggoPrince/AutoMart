@@ -1,16 +1,12 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable import/no-extraneous-dependencies */
-/* global after:true, describe:true, it:true, */
+/* global describe:true, it:true, */
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import { dropTables } from '../server/database/Tables';
-import app, { db } from './app';
+import app from './app';
 
 chai.use(chaiHttp);
 
-after(async () => {
-  await db.pool.query(dropTables).then(res => res).catch((err) => { console.log(err); });
-});
 
 describe('Orders Test', () => {
   const newOrder = {
