@@ -75,6 +75,7 @@ export const validateViewCars = (req, res, next) => {
   const qLength = Object.keys(req.query).length;
   const isZero = qLength === 0;
   const isOne = qLength > 0 && qLength === 1;
+  const isTwo = qLength > 0 && qLength === 2;
   const isThree = qLength > 0 && qLength === 3;
   if (isZero) {
     req.qLength = 0;
@@ -87,6 +88,16 @@ export const validateViewCars = (req, res, next) => {
       req.qLength = 1;
       next();
     }
+  } else if (isTwo) {
+    if (rQuery.status && rQuery.state.toLowerCase() === 'new') {
+      const result = Validator.validateViewUnsoldNewCars(rQuery.status, rQuery.state);
+      if (result.error) {
+        res.status(400).send(Validator.Response());
+      } else {
+        req.qLength = 2;
+        next();
+      }
+    } else res.status(400).send({ status: 400, error: 'The query string (with its value) is not valid.' });
   } else if (isThree) {
     const result = Validator.validateViewUnsoldCarsInPriceRange(
       rQuery.status, rQuery.min_price, rQuery.max_price,

@@ -66,6 +66,14 @@ class ValidateCar extends Validator {
     return ValidateCar.getErrorMessage();
   }
 
+  // validate the query string for getting cars that are used
+  static validateViewUnsoldNewCars(status, state) {
+    ValidateCar.refresh();
+    ValidateCar.isValidStatusQuery(status, 'status');
+    ValidateCar.isValidState(state, 'state');
+    return ValidateCar.getErrorMessage();
+  }
+
   static isValidOwner(owner, type) {
     ValidateCar.validateInt(owner, type);
   }

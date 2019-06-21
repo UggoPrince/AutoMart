@@ -51,9 +51,14 @@ class CarsController {
         status: 200,
         data: result.rows,
       });
-    }
-    if (req.qLength === 1) {
+    } else if (req.qLength === 1) {
       const result = await Cars.getCarsByStatusAvailable();
+      res.status(200).send({
+        status: 200,
+        data: result.rows,
+      });
+    } else if (req.qLength === 2) {
+      const result = await Cars.getCarsByStatusAndState('state', rQuery.state);
       res.status(200).send({
         status: 200,
         data: result.rows,
