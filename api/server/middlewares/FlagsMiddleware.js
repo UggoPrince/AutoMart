@@ -13,7 +13,7 @@ const validateReportAdvert = async (req, res, next) => {
   } else if (!await FlagChecker.checkFlaggedCar(carId)) {
     res.status(404).send({
       status: 404,
-      error: `Car with id (${carId}) do not exist.`,
+      error: `Car with id (${carId}) does not exist.`,
     });
   } else {
     next();

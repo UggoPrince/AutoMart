@@ -13,7 +13,7 @@ export const validatePurchaseOrder = async (req, res, next) => {
     const car = await OrderChecker.checkOrderedCar(carId);
     if (car.error) {
       error = true;
-      errorMessage.carId = `Car with id (${carId}) do not exist.`;
+      errorMessage.carId = `Car with id (${carId}) does not exist.`;
     }
     if (error) {
       res.status(404).send({
@@ -39,7 +39,7 @@ export const validateUpdateOrderPrice = async (req, res, next) => {
     if (order.error) {
       res.status(404).send({
         status: 404,
-        error: `Order with id (${orderId}) do not exist.`,
+        error: `Order with id (${orderId}) does not exist.`,
       });
     } else {
       req.body.amount = order.data.amount;

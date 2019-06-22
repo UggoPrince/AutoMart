@@ -28,7 +28,7 @@ export const validateUpdateCarStatus = async (req, res, next) => {
   } else if (!await CarChecker.checkId(carId)) {
     res.status(404).send({
       status: 404,
-      error: `Car with id (${carId}) do not exist.`,
+      error: `Car with id (${carId}) does not exist.`,
     });
   } else {
     req.body.email = req.token.email;
@@ -45,7 +45,7 @@ export const validateUpdateCarPrice = async (req, res, next) => {
   } else if (!await CarChecker.checkId(carId)) {
     res.status(404).send({
       status: 404,
-      error: `Car with id (${carId}) do not exist.`,
+      error: `Car with id (${carId}) does not exist.`,
     });
   } else {
     req.body.email = req.token.email;
@@ -141,7 +141,7 @@ export const validateDeleteCar = async (req, res, next) => {
       status: 403, error: 'You are not an admin. Only admin are allowed to delete an Advert',
     });
   } else if (!await CarChecker.checkId(carId)) {
-    res.status(404).send({ status: 404, error: `Car with id (${carId}) do not exist.` });
+    res.status(404).send({ status: 404, error: `Car with id (${carId}) does not exist.` });
   } else {
     next();
   }

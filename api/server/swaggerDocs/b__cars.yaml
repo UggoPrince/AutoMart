@@ -28,8 +28,6 @@ components:
     createAdvert:
       type: object
       properties:
-        owner:
-          $ref: '#/components/schemas/owner'
         state:
           $ref: '#/components/schemas/state'
         status:
@@ -71,13 +69,20 @@ components:
           $ref: '#/components/schemas/title'
         photo:
           $ref: '#/components/schemas/photo'
+    updateCarStatus:
+      type: object
+      properties:
+        newStatus:
+          type: string
+          description: update car status to sold
+          example: sold
     updatedCarStatus:
       type: object
       properties:
         id:
           $ref: '#/components/schemas/carId'
         email:
-          $ref: '#/components/schemas/owner'
+          $ref: '#/components/schemas/email'
         created_on:
           $ref: '#/components/schemas/created_on'
         manufacturer:
@@ -90,6 +95,13 @@ components:
           $ref: '#/components/schemas/state'
         status:
           $ref: '#/components/schemas/status'
+    updateCarPrice:
+      type: object
+      properties:
+        newPrice:
+          type: float
+          description: update car price to a new price
+          example: '18000000'
     carId:
       type: integer
       description: Car identifaction number
@@ -146,7 +158,13 @@ paths:
         - Car
       description: 'Create a car sale advert'
       opperationId: addCar
-      parameters: []
+      parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
       requestBody:
         content:
           'application/json':
@@ -167,7 +185,7 @@ paths:
                     example: '201'
                   data:
                     $ref: '#/components/schemas/createdAdvert'
-        '404':
+        '400':
           description: Response for an unsuccessful car creation
           content:
             application/json:
@@ -176,11 +194,11 @@ paths:
                 properties:
                   status:
                     type: integer
-                    description: 404 error status code
-                    example: '404'
+                    description: 400 error status code
+                    example: '400'
                   error: 
                     type: object/string
-                    example: 'necessary error message'
+                    example: 'Invalid Price'
   /car/car_id:
     get:
       tags:
@@ -188,6 +206,12 @@ paths:
       description: 'get a specific car'
       operationId: getACar
       parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
         - name: car_id
           in: query
           description: id of the specific car in database
@@ -208,8 +232,22 @@ paths:
                     example: '200'
                   data:
                     $ref: '#/components/schemas/Car'
+        '400':
+          description: Response gotten when car is not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 400 error status code
+                    example: '400'
+                  error: 
+                    type: object/string
+                    example: 'Invalid carId'
         '404':
-          description: Response gotten when getting car is unsuccessful
+          description: Response gotten when car does not exit in database
           content:
             application/json:
               schema:
@@ -221,13 +259,19 @@ paths:
                     example: '404'
                   error: 
                     type: object/string
-                    example: 'necessary error message'
+                    example: 'Car with id (carId) does not exist.'
     delete:
       tags:
         - Car
       description: Admin delete a specific car advert
       operationId: deleteCar
       parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
         - name: car_id
           in: query
           description: id of the specific car in database
@@ -250,8 +294,36 @@ paths:
                     type: string
                     description: string value with success message
                     example: Car Ad successfully deleted
+        '403':
+          description: Response gotten when the user is not an admin
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 403 error status code
+                    example: '403'
+                  error: 
+                    type: object/string
+                    example: 'You are not an admin. Only admin are allowed to delete an Advert'
+        '400':
+          description: Response gotten when car is not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 400 error status code
+                    example: '400'
+                  error: 
+                    type: object/string
+                    example: 'Invalid carId'
         '404':
-          description: Response gotten when car id is invalid
+          description: Response gotten when car id does not exist in database
           content:
             application/json:
               schema:
@@ -263,14 +335,20 @@ paths:
                     example: '404'
                   error: 
                     type: object/string
-                    example: 'necessary error message'
+                    example: 'Car with id (carId) does not exist.'
   /car/:
     get:
       tags:
         - Car
       description: Admin get a all cars
       operationId: getCars
-      parameters: []
+      parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
       responses:
         '200':
           description: Response data that contains all cars
@@ -287,6 +365,20 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Car'
+        '403':
+          description: Response gotten when the user is not an admin
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 403 error status code
+                    example: '403'
+                  error: 
+                    type: object/string
+                    example: 'You are not an admin. Only admins are allowed to view both sold and unsold cars.'
   /car?status=available:
     get:
       tags:
@@ -294,6 +386,12 @@ paths:
       description: 'get a all unsold cars'
       operationId: getAllUnsoldCars
       parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
         - name: status
           in: query
           description: available cars
@@ -318,7 +416,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Car'
-        '404':
+        '400':
           description: Error response when the query string and or its value is not correct
           content:
             application/json:
@@ -328,10 +426,10 @@ paths:
                   status:
                     type: integer
                     description: 404 error status code
-                    example: '404'
+                    example: '400'
                   error: 
                     type: object/string
-                    example: 'necessary error message'
+                    example: 'The status query string must be [ ?status=available ].'
   /car?status=available&min_price=value&max_price=value:
     get:
       tags:
@@ -339,6 +437,12 @@ paths:
       description: 'Get all unsold (available) cars within a price range'
       operationId: getAllUnsoldCarsInPriceRange
       parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
         - name: status
           in: query
           description: available cars
@@ -375,7 +479,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Car'
-        '404':
+        '400':
           description: Error response when the query strings and or its value is not correct
           content:
             application/json:
@@ -384,11 +488,11 @@ paths:
                 properties:
                   status:
                     type: integer
-                    description: 404 error status code
-                    example: '404'
+                    description: 400 error status code
+                    example: '400'
                   error: 
                     type: object/string
-                    example: 'necessary error message'
+                    example: 'Invalid Price.'
   /car?status=available&state=new:
     get:
       tags:
@@ -396,6 +500,12 @@ paths:
       description: Get all unsold new cars
       operationId: getAllNewUnsoldCars
       parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
         - name: status
           in: query
           description: all available cars
@@ -426,7 +536,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Car'
-        '404':
+        '400':
           description: Error response when the query strings and or its value is not correct
           content:
             application/json:
@@ -435,11 +545,11 @@ paths:
                 properties:
                   status:
                     type: integer
-                    description: 404 error status code
-                    example: '404'
+                    description: 400 error status code
+                    example: '400'
                   error: 
                     type: object/string
-                    example: 'necessary error message'
+                    example: 'Invalid state. Must be [ new ] or [ used ].'
   /car?status=available&state=used:
     get:
       tags:
@@ -447,6 +557,12 @@ paths:
       description: Get all unsold used cars
       operationId: getAllUsedUnsoldCars
       parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
         - name: status
           in: query
           description: all available cars
@@ -477,7 +593,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Car'
-        '404':
+        '400':
           description: Error response when the query strings and or its value is incorrect
           content:
             application/json:
@@ -486,11 +602,11 @@ paths:
                 properties:
                   status:
                     type: integer
-                    description: 404 error status code
-                    example: '404'
+                    description: 400 error status code
+                    example: '400'
                   error: 
                     type: object/string
-                    example: 'necessary error message'
+                    example: 'Invalid state. Must be [ new ] or [ used ].'
   /car?status=available&manufacturer=value:
     get:
       tags:
@@ -498,6 +614,12 @@ paths:
       description: Get all unsold used cars
       operationId: getAllUnsoldCarsByManufacturer
       parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
         - name: status
           in: query
           description: all available cars
@@ -528,7 +650,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Car'
-        '404':
+        '400':
           description: > 
             Error response when the status (with its value) and 
             manufacturer query string value is incorrect
@@ -539,11 +661,11 @@ paths:
                 properties:
                   status:
                     type: integer
-                    description: 404 error status code
-                    example: '404'
+                    description: 400 error status code
+                    example: '400'
                   error: 
                     type: object/string
-                    example: 'necessary error message'
+                    example: 'The status query string must be [ ?status=available ].'
   /car/car_id/status:
     patch:
       tags:
@@ -551,6 +673,12 @@ paths:
       description: update a posted car avdert as sold
       operationId: updateCarStatus
       parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
         - name: car_id
           in: query
           description: specific car id
@@ -561,9 +689,7 @@ paths:
         content:
           'application/json':
             schema:
-              type: string
-              description: update car status to sold
-              example: sold
+              $ref: '#/components/schemas/updateCarStatus'
         required: true
       responses:
         '200':
@@ -581,8 +707,7 @@ paths:
                     $ref: '#/components/schemas/updatedCarStatus'
         '404':
           description: > 
-            Error response when an invaild or non existing car id and not the string "sold" is 
-            sent in request. 
+            Error response when an invaild or non existing car id sent in request. 
           content:
             application/json:
               schema:
@@ -594,7 +719,22 @@ paths:
                     example: '404'
                   error: 
                     type: object/string
-                    example: 'necessary error message'
+                    example: 'Car with id (carId) does not exist.'
+        '400':
+          description: > 
+            Error response when a different string instead of 'sold' is sent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 400 error status code
+                    example: '400'
+                  error: 
+                    type: object/string
+                    example: 'Invalid newStatus. Must be changed to [ sold ] in order to update the status.'
   /car/car_id/price:
     patch:
       tags:
@@ -602,6 +742,12 @@ paths:
       description: update the price of a car advert
       operationId: updateCarPrice
       parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
         - name: car_id
           in: query
           description: specific car id
@@ -612,7 +758,7 @@ paths:
         content:
           'application/json':
             schema:
-              $ref: '#/components/schemas/price'
+              $ref: '#/components/schemas/updateCarPrice'
         required: true
       responses:
         '200':
@@ -643,4 +789,19 @@ paths:
                     example: '404'
                   error: 
                     type: object/string
-                    example: 'necessary error message'
+                    example: 'Car with id (carId) does not exist.'
+        '400':
+          description: > 
+            Error response when an invaild price is sent 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 400 error status code
+                    example: '400'
+                  error: 
+                    type: object/string
+                    example: 'Car with id (carId) do not exist.'
