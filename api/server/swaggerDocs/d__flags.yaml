@@ -52,7 +52,13 @@ paths:
         - Flag
       description: report a suspected or fraudulent advert
       opperationId: reportAdvert
-      parameters: []
+      parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
       requestBody:
         content:
           'application/json':
@@ -73,9 +79,24 @@ paths:
                     example: '201'
                   data:
                     $ref: '#/components/schemas/flagedReport'
+        '400':
+          description: > 
+            Response when one of the form input data is not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 400 error status code
+                    example: '400'
+                  error: 
+                    type: object/string
+                    example: 'Invalid Reason.'
         '404':
           description: > 
-            Response when the report advert request is unsuccessful
+            Response when the car being reported does not exist
           content:
             application/json:
               schema:
@@ -87,4 +108,4 @@ paths:
                     example: '404'
                   error: 
                     type: object/string
-                    example: 'necessary error message'
+                    example: 'Car with id (6) does not exist.'
