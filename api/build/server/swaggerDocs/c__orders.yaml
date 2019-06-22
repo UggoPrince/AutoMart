@@ -16,27 +16,36 @@ components:
     makeOrder:
       type: object
       properties:
-        buyer:
-          $ref: '#/components/schemas/buyer'
         car_id:
           $ref: '#/components/schemas/carId'
         amount:
-          $ref: '#/components/schemas/orderStatus'
+          type: float
+          description: Price the buyer is offering.
+          example: '140000000.00'
     madeOrder:
       type: object
       properties:
         id:
           $ref: '#/components/schemas/orderId'
-        buyer:
-          $ref: '#/components/schemas/buyer'
         car_id:
           $ref: '#/components/schemas/carId'
+        created_on:
+          $ref: '#/components/schemas/created_on'
         status:
           $ref: '#/components/schemas/orderStatus'
         price:
           $ref: '#/components/schemas/price'
-        created_on:
-          $ref: '#/components/schemas/created_on'
+        price_offered:
+          type: float
+          description: Price the buyer is offering.
+          example: '140000000.00'
+    updateOrder:
+      type: object
+      properties:
+        newAmount:
+          type: float
+          description: Pew price the buyer is offering.
+          example: '14500000.00'
     updatedOrder:
       type: object
       properties:
@@ -50,7 +59,8 @@ components:
           $ref: '#/components/schemas/amount'
         new_price_offered:
           type: float
-          example: '14500000.00'
+          description: New Price the buyer want to buy the car
+          example: '11500000.00'
     orderId:
       type: integer
       description: Order identification number
@@ -74,7 +84,13 @@ paths:
         - Order
       description: 'make a purchase order'
       opperationId: makeOrder
-      parameters: []
+      parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
       requestBody:
         content:
           'application/json':
@@ -95,10 +111,24 @@ paths:
                     example: '201'
                   data:
                     $ref: '#/components/schemas/madeOrder'
+        '400':
+          description: > 
+            Response when the amount offered is not a float
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 400 error status code
+                    example: '400'
+                  error: 
+                    type: object/string
+                    example: 'Invalid amount.'
         '404':
           description: > 
-            Response for an unsuccessful purchase due to 
-            incorrect url or any/all the required fields is not filled
+            Response for an unsuccessful purchase when carId does not exist
           content:
             application/json:
               schema:
@@ -110,7 +140,7 @@ paths:
                     example: '404'
                   error: 
                     type: object/string
-                    example: 'necessary error message'
+                    example: 'Car with id (6) does not exist.'
   /order/order_id/price:
     patch:
       tags:
@@ -118,6 +148,12 @@ paths:
       description: buyer updates the price of their purchase when the status is still "pending"
       operationId: updateOrder
       parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
         - name: order_id
           in: query
           description: order id
@@ -128,9 +164,7 @@ paths:
         content:
           'application/json':
             schema:
-              type: float
-              description: buyer's new price for the car
-              example: '14500000.00'
+              $ref: '#/components/schemas/updateOrder'
         required: true
       responses:
         '200':
@@ -146,10 +180,24 @@ paths:
                     example: '200'
                   data:
                     $ref: '#/components/schemas/updatedOrder'
+        '400':
+          description: > 
+            Response when the new amount is not a float
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 400 error status code
+                    example: '400'
+                  error: 
+                    type: object/string
+                    example: 'Invalid newAmount'
         '404':
           description: > 
-            Response for an unsuccessful price due to 
-            incorrect url or the new price entered and/or order id parameter is not valid
+            Response when the order does not exist
           content:
             application/json:
               schema:
@@ -161,4 +209,4 @@ paths:
                     example: '404'
                   error: 
                     type: object/string
-                    example: 'necessary error message'
+                    example: 'Order with id (orderId) does not exist.'

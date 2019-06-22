@@ -46,7 +46,7 @@ components:
     token:
       type: string
       description: Authentication token
-      example: 45erkjherht45495783
+      example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0aG9ueUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTYxMTYyMTY0LCJleHAiOjE1NjEyNDg1NjR9.jx2qbXyui03Dhb9F8iwwbMel9LMYIShLYr5Y5y94BtU
     userId:
       type: integer
       description: User identification number
@@ -108,7 +108,7 @@ paths:
                     example: '201'
                   data:
                     $ref: '#/components/schemas/User'
-        '404':
+        '400':
           description: Response for an unsuccessful registration
           content:
             application/json:
@@ -118,10 +118,10 @@ paths:
                   status:
                     type: integer
                     description: 404 error status code
-                    example: '404'
+                    example: '400'
                   error: 
                     type: object/string
-                    example: 'necessary error message'
+                    example: 'Invalid email'
   /auth/signin:
     post:
       tags:
@@ -149,3 +149,17 @@ paths:
                     example: '202'
                   data:
                     $ref: '#/components/schemas/User'
+        '404':
+          description: Response for an unsuccessful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 400 error status code
+                    example: '400'
+                  error: 
+                    type: object/string
+                    example: 'Invalid email/password'

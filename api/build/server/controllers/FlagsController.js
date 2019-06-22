@@ -5,13 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _FlagsService = _interopRequireDefault(require("../services/FlagsService"));
-
-var _CarsService = _interopRequireDefault(require("../services/CarsService"));
-
-var _ValidateFlag = _interopRequireDefault(require("../helpers/ValidateFlag"));
+var _Flags = _interopRequireDefault(require("../models/Flags"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -28,33 +28,39 @@ function () {
 
   _createClass(FlagsController, [{
     key: "reportAdvert",
-    value: function reportAdvert(req, res) {
-      var _req$body = req.body,
-          carId = _req$body.carId,
-          reason = _req$body.reason,
-          description = _req$body.description;
-      var validator = new _ValidateFlag["default"]();
-      var validFlagReq = validator.validateReportAdvertFields(carId, reason, description);
+    value: function () {
+      var _reportAdvert = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee(req, res) {
+        var result;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _Flags["default"].report(req.body);
 
-      if (validFlagReq.error) {
-        res.status(404).send({
-          status: 404,
-          error: validFlagReq.data
-        });
-      } else if (!_CarsService["default"].getCarById(parseInt(carId, 10)).exist) {
-        res.status(404).send({
-          status: 404,
-          error: 'Invalid carId. There is no car with this id.'
-        });
-      } else {
-        var report = _FlagsService["default"].report(carId, reason, description);
+              case 2:
+                result = _context.sent;
+                res.status(201).send({
+                  status: 201,
+                  data: result.rows[0]
+                });
 
-        res.status(201).send({
-          status: 201,
-          data: report
-        });
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function reportAdvert(_x, _x2) {
+        return _reportAdvert.apply(this, arguments);
       }
-    }
+
+      return reportAdvert;
+    }()
   }]);
 
   return FlagsController;
