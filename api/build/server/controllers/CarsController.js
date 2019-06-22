@@ -5,11 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _CarsService = _interopRequireDefault(require("../services/CarsService"));
-
-var _ValidateCar = _interopRequireDefault(require("../helpers/ValidateCar"));
-
-var _UsersService = _interopRequireDefault(require("../services/UsersService"));
+var _Cars = _interopRequireDefault(require("../models/Cars"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -36,56 +32,24 @@ function () {
       var _addCar = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee(req, res) {
-        var _req$body, owner, state, status, price, title, manufacturer, model, bodyType, myPhoto, validator, validCarReq, ownerId, ownerEmail, addedCar;
-
+        var reqBody, carPhoto, result;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _req$body = req.body, owner = _req$body.owner, state = _req$body.state, status = _req$body.status, price = _req$body.price, title = _req$body.title, manufacturer = _req$body.manufacturer, model = _req$body.model, bodyType = _req$body.bodyType;
-                myPhoto = req.files;
-                validator = new _ValidateCar["default"]();
-                validCarReq = validator.validateCreateAdvertFields(owner, state, status, price, title, manufacturer, model, bodyType, myPhoto);
+                reqBody = req.body;
+                carPhoto = req.files;
+                _context.next = 4;
+                return _Cars["default"].postAdvert(reqBody, carPhoto);
 
-                if (!validCarReq.error) {
-                  _context.next = 8;
-                  break;
-                }
-
-                res.status(404).send({
-                  status: 404,
-                  error: validCarReq.data
-                });
-                _context.next = 18;
-                break;
-
-              case 8:
-                if (_UsersService["default"].getUserById(parseInt(owner, 10)).exist) {
-                  _context.next = 12;
-                  break;
-                }
-
-                res.status(404).send({
-                  status: 404,
-                  error: 'Invalid owner'
-                });
-                _context.next = 18;
-                break;
-
-              case 12:
-                ownerId = parseInt(owner, 10);
-                ownerEmail = _UsersService["default"].getUserById(ownerId).data.email;
-                _context.next = 16;
-                return _CarsService["default"].createAdvert(owner, state, status, price, title, manufacturer, model, bodyType, myPhoto, ownerEmail);
-
-              case 16:
-                addedCar = _context.sent;
+              case 4:
+                result = _context.sent;
                 res.status(201).send({
                   status: 201,
-                  data: addedCar.data
+                  data: result.rows[0]
                 });
 
-              case 18:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -100,229 +64,268 @@ function () {
       return addCar;
     }()
   }, {
-    key: "getACar",
-    value: function getACar(req, res) {
-      var carId = req.params.car_id;
-      var validator = new _ValidateCar["default"]();
-      var validGetCarReq = validator.validateGetSpecficCar(carId);
-
-      if (validGetCarReq.error) {
-        res.status(404).send({
-          status: 404,
-          error: validGetCarReq.data
-        });
-      } else if (!_CarsService["default"].getCarById(parseInt(carId, 10)).exist) {
-        res.status(404).send({
-          status: 404,
-          error: 'Invalid carId. There is no car with this id.'
-        });
-      } else {
-        var id = parseInt(carId, 10);
-
-        var _carsService$getCarBy = _CarsService["default"].getCarById(id),
-            car = _carsService$getCarBy.car;
-
-        res.status(200).send({
-          status: 200,
-          data: car
-        });
-      }
-    }
-  }, {
-    key: "getCars",
-    value: function getCars(req, res) {
-      var rQuery = req.query;
-      var qLength = Object.keys(req.query).length;
-      var validator = new _ValidateCar["default"]();
-      var isZero = qLength === 0;
-      var isOne = qLength > 0 && qLength === 1;
-      var isTwo = qLength > 0 && qLength === 2;
-      var isThree = qLength > 0 && qLength === 3;
-
-      if (isZero) {
-        // process request for admin view all car adverts
-        var allCars = _CarsService["default"].getAllCars();
-
-        res.status(200).send({
-          status: 200,
-          data: allCars
-        });
-      } else if (isOne) {
-        // process request for getting unsold cars only
-        var validQuery = validator.validateGetUnsoldCars(rQuery.status);
-
-        if (validQuery.error) {
-          res.status(404).send({
-            status: 404,
-            error: validQuery.data
-          });
-        } else {
-          var unsoldCars = _CarsService["default"].getCarsByStatus(rQuery.status);
-
-          res.status(200).send({
-            status: 200,
-            data: unsoldCars
-          });
-        }
-      } else if (isTwo) {
-        // process request for getting new and used unsold cars
-        if (rQuery.state) {
-          var _validQuery = validator.validate_Get_Unsold_Used_Cars(rQuery.status, rQuery.state);
-
-          if (_validQuery.error) {
-            res.status(404).send({
-              status: 404,
-              error: _validQuery.data
-            });
-          } else {
-            var _unsoldCars = _CarsService["default"].getCarsByStatusAndState(rQuery.status, 'state', rQuery.state);
-
-            res.status(200).send({
-              status: 200,
-              data: _unsoldCars
-            });
-          }
-        } else if (rQuery.manufacturer) {
-          // process request for getting unsold cars by manufacturer
-          var _validQuery2 = validator.validate_Get_Unsold_Cars_By_Manufacturer(rQuery.status, rQuery.manufacturer);
-
-          if (_validQuery2.error) {
-            res.status(404).send({
-              status: 404,
-              error: _validQuery2.data
-            });
-          } else {
-            var _unsoldCars2 = _CarsService["default"].getCarsByStatusAndManufacturer(rQuery.status, 'manufacturer', rQuery.manufacturer);
-
-            res.status(200).send({
-              status: 200,
-              data: _unsoldCars2
-            });
-          }
-        } else {
-          res.status(404).send({
-            status: 404,
-            error: 'The query string (with its value) is not valid.'
-          });
-        }
-      } else if (isThree) {
-        // process request for getting unsold cars on a certain price range
-        var _validQuery3 = validator.validateGetUnsoldCarsInPriceRange(rQuery.status, rQuery.min_price, rQuery.max_price);
-
-        if (_validQuery3.error) {
-          res.status(404).send({
-            status: 404,
-            error: _validQuery3.data
-          });
-        } else {
-          var unsoldCarsInPriceRange = _CarsService["default"].getCarsByStatusAndPriceRange(rQuery.status, rQuery.min_price, rQuery.max_price);
-
-          res.status(200).send({
-            status: 200,
-            data: unsoldCarsInPriceRange
-          });
-        }
-      } else {
-        res.status(404).send({
-          status: 404,
-          error: 'The query string (with its value) is not valid.'
-        });
-      }
-    }
-  }, {
     key: "updateCarStatus",
-    value: function updateCarStatus(req, res) {
-      var newStatus = req.body.newStatus;
-      var carId = req.params.car_id;
-      var validator = new _ValidateCar["default"]();
-      var validUpdateReq = validator.validateUpdateCarStatusFields(carId, newStatus);
+    value: function () {
+      var _updateCarStatus = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2(req, res) {
+        var reqBody, result;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                reqBody = req.body;
+                reqBody.carId = req.params.car_id;
+                _context2.next = 4;
+                return _Cars["default"].updateStatus(reqBody);
 
-      if (validUpdateReq.error) {
-        res.status(404).send({
-          status: 404,
-          error: validUpdateReq.data
-        });
-      } else if (!_CarsService["default"].getCarById(parseInt(carId, 10)).exist) {
-        res.status(404).send({
-          status: 404,
-          error: 'Invalid carId. There is no car with this id.'
-        });
-      } else {
-        var id = parseInt(carId, 10);
+              case 4:
+                result = _context2.sent;
+                res.status(200).send({
+                  status: 200,
+                  data: result.rows[0]
+                });
 
-        var carOwner = _CarsService["default"].getCarOwner(id);
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
 
-        var ownerEmail = _UsersService["default"].getUserById(carOwner).data.email;
-
-        var newStatusUpdate = _CarsService["default"].updateStatus(id, newStatus, ownerEmail);
-
-        res.status(200).send({
-          status: 200,
-          data: newStatusUpdate
-        });
+      function updateCarStatus(_x3, _x4) {
+        return _updateCarStatus.apply(this, arguments);
       }
-    }
+
+      return updateCarStatus;
+    }()
   }, {
     key: "updateCarPrice",
-    value: function updateCarPrice(req, res) {
-      var newPrice = req.body.newPrice;
-      var carId = req.params.car_id;
-      var validator = new _ValidateCar["default"]();
-      var validUpdateCarPriceReq = validator.validatUpdateCarPriceFields(carId, newPrice);
+    value: function () {
+      var _updateCarPrice = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee3(req, res) {
+        var reqBody, result;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                reqBody = req.body;
+                reqBody.carId = req.params.car_id;
+                _context3.next = 4;
+                return _Cars["default"].updatePrice(reqBody);
 
-      if (validUpdateCarPriceReq.error) {
-        res.status(404).send({
-          status: 404,
-          error: validUpdateCarPriceReq.data
-        });
-      } else if (!_CarsService["default"].getCarById(parseInt(carId, 10)).exist) {
-        res.status(404).send({
-          status: 404,
-          error: 'Invalid carId. There is no car with this id.'
-        });
-      } else {
-        var id = parseInt(carId, 10);
+              case 4:
+                result = _context3.sent;
+                res.status(200).send({
+                  status: 200,
+                  data: result.rows[0]
+                });
 
-        var carOwner = _CarsService["default"].getCarOwner(id);
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
 
-        var ownerEmail = _UsersService["default"].getUserById(carOwner).data.email;
-
-        var newPriceUpdate = _CarsService["default"].updatePrice(id, newPrice, ownerEmail);
-
-        res.status(200).send({
-          status: 200,
-          data: newPriceUpdate
-        });
+      function updateCarPrice(_x5, _x6) {
+        return _updateCarPrice.apply(this, arguments);
       }
-    }
+
+      return updateCarPrice;
+    }()
+  }, {
+    key: "getSpecificCar",
+    value: function () {
+      var _getSpecificCar = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee4(req, res) {
+        var carId, result;
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                carId = req.params.car_id;
+                _context4.next = 3;
+                return _Cars["default"].getACar(carId);
+
+              case 3:
+                result = _context4.sent;
+                res.status(200).send({
+                  status: 200,
+                  data: result.rows[0]
+                });
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      function getSpecificCar(_x7, _x8) {
+        return _getSpecificCar.apply(this, arguments);
+      }
+
+      return getSpecificCar;
+    }()
+  }, {
+    key: "getCars",
+    value: function () {
+      var _getCars = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee5(req, res) {
+        var rQuery, result, _result, _result2, _result3;
+
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                rQuery = req.query;
+
+                if (!(req.qLength === 0)) {
+                  _context5.next = 8;
+                  break;
+                }
+
+                _context5.next = 4;
+                return _Cars["default"].getAllCars();
+
+              case 4:
+                result = _context5.sent;
+                res.status(200).send({
+                  status: 200,
+                  data: result.rows
+                });
+                _context5.next = 33;
+                break;
+
+              case 8:
+                if (!(req.qLength === 1)) {
+                  _context5.next = 15;
+                  break;
+                }
+
+                _context5.next = 11;
+                return _Cars["default"].getCarsByStatusAvailable();
+
+              case 11:
+                _result = _context5.sent;
+                res.status(200).send({
+                  status: 200,
+                  data: _result.rows
+                });
+                _context5.next = 33;
+                break;
+
+              case 15:
+                if (!(req.qLength === 2)) {
+                  _context5.next = 28;
+                  break;
+                }
+
+                _result2 = '';
+
+                if (!rQuery.state) {
+                  _context5.next = 21;
+                  break;
+                }
+
+                _context5.next = 20;
+                return _Cars["default"].getCarsByStatusAndState('state', rQuery.state);
+
+              case 20:
+                _result2 = _context5.sent;
+
+              case 21:
+                if (!rQuery.manufacturer) {
+                  _context5.next = 25;
+                  break;
+                }
+
+                _context5.next = 24;
+                return _Cars["default"].getCarsByStatusAndManufacturer('manufacturer', rQuery.manufacturer);
+
+              case 24:
+                _result2 = _context5.sent;
+
+              case 25:
+                res.status(200).send({
+                  status: 200,
+                  data: _result2.rows
+                });
+                _context5.next = 33;
+                break;
+
+              case 28:
+                if (!(req.qLength === 3)) {
+                  _context5.next = 33;
+                  break;
+                }
+
+                _context5.next = 31;
+                return _Cars["default"].getCarsByStatusAndPriceRange(rQuery.min_price, rQuery.max_price);
+
+              case 31:
+                _result3 = _context5.sent;
+                res.status(200).send({
+                  status: 200,
+                  data: _result3.rows
+                });
+
+              case 33:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }));
+
+      function getCars(_x9, _x10) {
+        return _getCars.apply(this, arguments);
+      }
+
+      return getCars;
+    }()
   }, {
     key: "deleteCar",
-    value: function deleteCar(req, res) {
-      var carId = req.params.car_id;
-      var validator = new _ValidateCar["default"]();
-      var validDeleteCarReq = validator.validateDeleteACar(carId);
+    value: function () {
+      var _deleteCar = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee6(req, res) {
+        var carId;
+        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                carId = req.params.car_id;
+                _context6.next = 3;
+                return _Cars["default"].deleteAdvert(carId);
 
-      if (validDeleteCarReq.error) {
-        res.status(404).send({
-          status: 404,
-          data: validDeleteCarReq.data
-        });
-      } else if (!_CarsService["default"].getCarById(parseInt(carId, 10)).exist) {
-        res.status(404).send({
-          status: 404,
-          error: 'Invalid carId. There is no car with this id.'
-        });
-      } else {
-        var id = parseInt(carId, 10);
+              case 3:
+                res.status(200).send({
+                  status: 200,
+                  data: 'Car Ad successfully deleted'
+                });
 
-        _CarsService["default"]["delete"](id);
+              case 4:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }));
 
-        res.status(200).send({
-          status: 200,
-          data: 'Car Ad successfully deleted'
-        });
+      function deleteCar(_x11, _x12) {
+        return _deleteCar.apply(this, arguments);
       }
-    }
+
+      return deleteCar;
+    }()
   }]);
 
   return CarsController;

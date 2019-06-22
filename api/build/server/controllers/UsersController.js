@@ -5,11 +5,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _UsersService = _interopRequireDefault(require("../services/UsersService"));
+var _Users = _interopRequireDefault(require("../models/Users"));
 
-var _ValidateUser = _interopRequireDefault(require("../helpers/ValidateUser"));
+var _JWT = _interopRequireDefault(require("../authentication/JWT"));
+
+var _errorHandlers = require("../helpers/errorHandlers");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -25,71 +31,115 @@ function () {
   }
 
   _createClass(UsersController, [{
-    key: "getUser",
-    value: function getUser(req, res) {
-      var _req$body = req.body,
-          email = _req$body.email,
-          password = _req$body.password;
-      var validator = new _ValidateUser["default"]();
-      var validUserReq = validator.validateSigninFields(email, password);
-
-      if (validUserReq.error) {
-        res.status(404).send({
-          status: 404,
-          error: validUserReq.data
-        });
-      } else if (!_UsersService["default"].emailExist(email)) {
-        res.status(404).send({
-          status: 404,
-          error: 'You don\'t have an account. Sign up now!'
-        });
-      } else {
-        var userData = _UsersService["default"].signin(email, password);
-
-        if (userData.valid) {
-          res.status(200).send({
-            status: 200,
-            data: userData.user.data
-          });
-        } else {
-          res.status(404).send({
-            status: 404,
-            error: 'Your email/password is incorrect.'
-          });
-        }
-      }
-    }
-  }, {
     key: "addUser",
-    value: function addUser(req, res) {
-      var _req$body2 = req.body,
-          firstname = _req$body2.firstname,
-          lastname = _req$body2.lastname,
-          email = _req$body2.email,
-          password = _req$body2.password,
-          address = _req$body2.address,
-          phoneNumber = _req$body2.phoneNumber;
-      var validator = new _ValidateUser["default"]();
-      var validUserReq = validator.validateSignupFields(firstname, lastname, email, password, address, phoneNumber);
+    value: function () {
+      var _addUser = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee(req, res) {
+        var reqBody, result, token;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                reqBody = req.body;
+                reqBody.isAdmin = false;
+                _context.next = 4;
+                return _Users["default"].signup(reqBody);
 
-      if (validUserReq.error) {
-        res.status(404).send({
-          status: 404,
-          error: validUserReq.data
-        });
-      } else if (_UsersService["default"].emailExist(email)) {
-        res.status(404).send({
-          status: 404,
-          error: 'You already have an account. Sign in.'
-        });
-      } else {
-        var addedUser = _UsersService["default"].signup(firstname, lastname, email, password, address, phoneNumber);
+              case 4:
+                result = _context.sent;
 
-        res.status(201).send({
-          status: 201,
-          data: addedUser.data
-        });
+                if (result.name && result.name === 'error' && result.detail === "Key (email)=(".concat(reqBody.email, ") already exists.")) {
+                  res.status(400).send({
+                    status: 400,
+                    error: (0, _errorHandlers.errorEmailDuplicate)()
+                  });
+                } else {
+                  token = UsersController.prepareToken(result.rows[0]);
+                  result.rows[0].token = token;
+                  res.status(201).send({
+                    status: 201,
+                    data: result.rows[0]
+                  });
+                }
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function addUser(_x, _x2) {
+        return _addUser.apply(this, arguments);
       }
+
+      return addUser;
+    }()
+  }, {
+    key: "getUser",
+    value: function () {
+      var _getUser = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2(req, res) {
+        var reqBody, result, token;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                reqBody = req.body;
+                _context2.next = 3;
+                return _Users["default"].signin(reqBody);
+
+              case 3:
+                result = _context2.sent;
+
+                if (result.rowCount === 0) {
+                  res.status(400).send({
+                    status: 400,
+                    error: (0, _errorHandlers.errorNoAccount)()
+                  });
+                } else if (result.rows[0].password !== reqBody.password) {
+                  res.status(400).send({
+                    status: 400,
+                    error: (0, _errorHandlers.errorInvalidEmailPass)()
+                  });
+                } else {
+                  token = UsersController.prepareToken(result.rows[0]);
+                  result.rows[0].token = token;
+                  res.status(200).send({
+                    status: 200,
+                    data: result.rows[0]
+                  });
+                }
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      function getUser(_x3, _x4) {
+        return _getUser.apply(this, arguments);
+      }
+
+      return getUser;
+    }()
+  }], [{
+    key: "prepareToken",
+    value: function prepareToken(userData) {
+      var tokenData = {
+        id: userData.id,
+        email: userData.email,
+        isAdmin: userData.is_admin
+      };
+
+      var token = _JWT["default"].signToken(tokenData);
+
+      return token;
     }
   }]);
 

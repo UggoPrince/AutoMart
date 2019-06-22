@@ -1,12 +1,13 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
-// import 'babel-polyfill';
+// import 'core-js/stable';
+// import 'regenerator-runtime/runtime';
 import dotenv from 'dotenv';
 import app from './server/index';
 import Database from './server/database/Database';
 import {
-  createTables, dropTables, seedUsers, seedCars,
+  createTables, // dropTables, seedUsers, seedCars,
 } from './server/database/Tables';
 
 dotenv.config();

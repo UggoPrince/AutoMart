@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../server/database/flags.js"],"names":["flags"],"mappings":";;;;;;;AAAA;AACA,IAAMA,KAAK,GAAG,EAAd;eAEeA,K","sourcesContent":["/* eslint-disable linebreak-style */\r\nconst flags = [];\r\n\r\nexport default flags;\r\n"],"file":"flags.js"}

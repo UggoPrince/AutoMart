@@ -5,15 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _OrdersService = _interopRequireDefault(require("../services/OrdersService"));
-
-var _CarsService = _interopRequireDefault(require("../services/CarsService"));
-
-var _UsersService = _interopRequireDefault(require("../services/UsersService"));
-
-var _ValidateOrder = _interopRequireDefault(require("../helpers/ValidateOrder"));
+var _Orders = _interopRequireDefault(require("../models/Orders"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -29,104 +27,80 @@ function () {
   }
 
   _createClass(OrdersController, [{
-    key: "makeOrder",
-    value: function makeOrder(req, res) {
-      var _req$body = req.body,
-          buyer = _req$body.buyer,
-          carId = _req$body.carId,
-          amount = _req$body.amount;
-      var validator = new _ValidateOrder["default"]();
-      var validOrderReq = validator.validateMakeOrderFields(buyer, carId, amount);
+    key: "makePurchaseOrder",
+    value: function () {
+      var _makePurchaseOrder = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee(req, res) {
+        var reqBody, result;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                reqBody = req.body;
+                _context.next = 3;
+                return _Orders["default"].makeOrder(reqBody);
 
-      if (validOrderReq.error) {
-        res.status(404).send({
-          status: 404,
-          error: validOrderReq.data
-        });
-      } else {
-        var idErrors = false;
-        var idErrorMessages = [];
-        var deBuyer = parseInt(buyer, 10);
-        var deCar = parseInt(carId, 10);
+              case 3:
+                result = _context.sent;
+                result.rows[0].price_offered = result.rows[0].amount;
+                delete result.rows[0].amount;
+                res.status(201).send({
+                  status: 201,
+                  data: result.rows[0]
+                });
 
-        if (!_UsersService["default"].getUserById(deBuyer).exist) {
-          // -1 because it's an array
-          idErrors = true;
-          idErrorMessages.push('Invalid buyer. No buyer with such id.');
-        }
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
 
-        if (!_CarsService["default"].getCarById(deCar).exist) {
-          // -1 because it's an array
-          idErrors = true;
-          idErrorMessages.push('Invalid carId. No car with such id.');
-        }
-
-        if (idErrors) {
-          res.status(404).send({
-            status: 404,
-            error: idErrorMessages
-          });
-        } else {
-          var carPrice = _CarsService["default"].getCarById(deCar).price;
-
-          var madeOrder = _OrdersService["default"].order(buyer, carId, amount, carPrice);
-
-          res.status(201).send({
-            status: 201,
-            data: madeOrder
-          });
-        }
+      function makePurchaseOrder(_x, _x2) {
+        return _makePurchaseOrder.apply(this, arguments);
       }
-    }
+
+      return makePurchaseOrder;
+    }()
   }, {
-    key: "updateOrder",
-    value: function updateOrder(req, res) {
-      var amount = req.body.newAmount;
-      var orderId = req.params.order_id;
-      var validator = new _ValidateOrder["default"]();
-      var validOrderUpdateReq = validator.validateUpdateOrderFields(amount, orderId);
+    key: "updateOrderPrice",
+    value: function () {
+      var _updateOrderPrice = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2(req, res) {
+        var reqBody, result;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                reqBody = req.body;
+                reqBody.orderId = req.params.order_id;
+                _context2.next = 4;
+                return _Orders["default"].updatePrice(reqBody);
 
-      if (validOrderUpdateReq.error) {
-        res.status(404).send({
-          status: 404,
-          error: validOrderUpdateReq.data
-        });
-      } else if (!_OrdersService["default"].getOrderById(parseInt(orderId, 10)).exist) {
-        res.status(404).send({
-          status: 404,
-          error: 'Invalid orderId. No order with such id.'
-        });
-      } else {
-        var id = parseInt(orderId, 10);
+              case 4:
+                result = _context2.sent;
+                res.status(200).send({
+                  status: 200,
+                  data: result.rows[0]
+                });
 
-        var getOrderStatus = _OrdersService["default"].getOrderById(id).data.status;
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
 
-        var statusError = false;
-        var statusErrorMessages = '';
-
-        if (getOrderStatus === 'accepted') {
-          statusError = true;
-          statusErrorMessages = 'Your order has been accepted and can not be updated anymore';
-        } else if (getOrderStatus === 'rejected') {
-          statusError = true;
-          statusErrorMessages = 'Your order was rejected and can not be updated. Make a new order.';
-        }
-
-        if (statusError) {
-          res.status(404).send({
-            status: 404,
-            error: statusErrorMessages
-          });
-        } else {
-          var update = _OrdersService["default"].update(id, amount);
-
-          res.status(200).send({
-            status: 200,
-            data: update
-          });
-        }
+      function updateOrderPrice(_x3, _x4) {
+        return _updateOrderPrice.apply(this, arguments);
       }
-    }
+
+      return updateOrderPrice;
+    }()
   }]);
 
   return OrdersController;
