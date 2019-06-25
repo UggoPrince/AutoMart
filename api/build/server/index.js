@@ -13,6 +13,8 @@ var _bodyParser = _interopRequireDefault(require("body-parser"));
 
 var _swaggerUiExpress = _interopRequireDefault(require("swagger-ui-express"));
 
+var _cors = _interopRequireDefault(require("cors"));
+
 var _swaggerDef = _interopRequireDefault(require("./swaggerDocs/config/swaggerDef"));
 
 var _usersRoutes = _interopRequireDefault(require("./routes/usersRoutes"));
@@ -27,9 +29,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 /* eslint-disable linebreak-style */
 // Set up express app
-var app = (0, _express["default"])(); // Log request to console
+var app = (0, _express["default"])();
+app.use((0, _cors["default"])()); // for cross origin requests
 
-app.use((0, _morgan["default"])('dev')); // produce api documentation
+app.use((0, _morgan["default"])('dev')); // Log request to console
+// produce api documentation
 
 app.get('/swagger.json', function (req, res) {
   res.setHeader('Content-Type', 'application/json');

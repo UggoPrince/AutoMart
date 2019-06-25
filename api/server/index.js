@@ -3,6 +3,7 @@ import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
 import swaggerSpec from './swaggerDocs/config/swaggerDef';
 import usersRouter from './routes/usersRoutes';
 import carsRouter from './routes/carsRoutes';
@@ -12,8 +13,8 @@ import flagsRouter from './routes/flagsRoutes';
 // Set up express app
 const app = express();
 
-// Log request to console
-app.use(logger('dev'));
+app.use(cors()); // for cross origin requests
+app.use(logger('dev')); // Log request to console
 
 // produce api documentation
 app.get('/swagger.json', (req, res) => {
