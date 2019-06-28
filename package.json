@@ -20,6 +20,7 @@
   "author": "uggoprince",
   "license": "ISC",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "body-parser": "^1.19.0",
     "cloudinary": "^1.14.0",
     "connect-multiparty": "^2.2.0",
@@ -30,8 +31,8 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "pg": "^7.11.0",
-    "swagger-jsdoc": "^3.2.9",
     "regenerator-runtime": "^0.13.2",
+    "swagger-jsdoc": "^3.2.9",
     "swagger-ui-express": "^4.0.5"
   },
   "devDependencies": {

@@ -1,8 +1,6 @@
 "use strict";
 
-require("core-js/stable");
-
-require("regenerator-runtime/runtime");
+require("babel-polyfill");
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
