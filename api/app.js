@@ -3,7 +3,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 // import 'core-js/stable';
 // import 'regenerator-runtime/runtime';
-// import 'babel-polyfill';
 import dotenv from 'dotenv';
 import app from './server/index';
 import Database from './server/database/Database';

@@ -4,10 +4,6 @@
   "description": "AutoMart is an online app that enables you to sell and/or buy cars.",
   "main": "app.js",
   "scripts": {
-    "clean": "rm -rf api\\build && mkdir api\\build",
-    "build-server": "babel -d ./api/build/server ./api/server -s",
-    "build-app": "babel -d ./api/build ./api/app.js -s",
-    "build": "npm run clean && npm run build-server && npm run build-app",
     "start": "node ./api/build/app.js",
     "start:dev": "nodemon --exec babel-node ./api/app.js",
     "test": "set DATABASE=automartTest&& nyc mocha --require @babel/register --exit --recursive --timeout 240000",
@@ -20,6 +16,7 @@
   "author": "uggoprince",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.19.0",
     "cloudinary": "^1.14.0",
