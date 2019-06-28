@@ -5,7 +5,7 @@ import fs from 'fs';
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import dotenv from 'dotenv';
-import { seedCars } from '../server/database/Tables';
+import { seedCars } from '../api/server/database/Tables';
 import app, { db } from './app';
 
 dotenv.config();

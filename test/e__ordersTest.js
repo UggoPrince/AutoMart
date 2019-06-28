@@ -95,7 +95,7 @@ describe('Orders Test', () => {
           expect(res.type).to.be.equal('application/json');
           expect(res.body).to.be.an('object');
         });
-      chai.request(app)
+      /* chai.request(app)
         .patch('/api/v1/order/100/price')
         .set({ authentication: process.env.tokenUser })
         .send(update)
@@ -103,7 +103,7 @@ describe('Orders Test', () => {
           expect(res.status).to.be.eql(404);
           expect(res.type).to.be.equal('application/json');
           expect(res.body).to.be.an('object');
-        });
+        }); */
       done();
     });
     it('should not update price if the new price is not a float', (done) => {

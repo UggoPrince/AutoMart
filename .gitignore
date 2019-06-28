@@ -1,5 +1,5 @@
 .vscode/
-api/node_modules/
-api/.nyc_output/
-api/package-lock.json
-api/.env
+.nyc_output/
+node_modules/
+package-lock.json
+.env
