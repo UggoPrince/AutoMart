@@ -9,7 +9,7 @@
     "build-app": "babel -d ./api/build ./api/app.js -s",
     "build": "npm run clean && npm run build-server && npm run build-app",
     "start": "node ./api/build/app.js",
-    "start:dev": "nodemon --exec babel-node app.js",
+    "start:dev": "nodemon --exec babel-node ./api/app.js",
     "test": "set DATABASE=automartTest&& nyc mocha --require @babel/register --exit --recursive --timeout 240000",
     "coverage": "nyc report --reporter=lcov --reporter=text-lcov | coveralls"
   },

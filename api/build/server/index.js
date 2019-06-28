@@ -42,7 +42,7 @@ app.get('/swagger.json', function (req, res) {
 app.use('/api/v1/api-docs', _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(_swaggerDef["default"])); // HOME PAGE
 
 app.get('/', function (req, res) {
-  res.status(200).send('<h1>Welcome to AutoMart API.</h1>' + '<span>Here is the documentation of version 1.0' + ' <a href="https://automarter.herokuapp.com/api/v1/api-docs/" target="blank">' + 'automarter.herokuapp.com/api/v1/api-docs/</a></span>');
+  res.status(200).send('<h1>Welcome to AutoMart API.</h1>' + '<span>Here is the documentation of version 1.0' + ' <a href="https://automarter.herokuapp.com/api/v1/api-docs/" target="blank">' + 'automarter.herokuapp.com/api/v1/api-docs/</a></span><br>' + 'To register with the following emails makes you an admin:<br>' + 'johndoe@gmail.com, admin@gmail.com, bestadmin@yahoo.com');
 }); // Parse incoming request data
 
 app.use(_bodyParser["default"].json());
