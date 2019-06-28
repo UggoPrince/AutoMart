@@ -1,9 +1,5 @@
 "use strict";
 
-require("core-js/stable");
-
-require("regenerator-runtime/runtime");
-
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
 var _index = _interopRequireDefault(require("./server/index"));

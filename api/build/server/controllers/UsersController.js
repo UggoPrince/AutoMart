@@ -36,17 +36,23 @@ function () {
       var _addUser = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee(req, res) {
-        var reqBody, result, token;
+        var reqBody, result, token, _result$rows$, id, first_name, last_name, email, address, phone_number, is_admin;
+
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 reqBody = req.body;
                 reqBody.isAdmin = false;
-                _context.next = 4;
+
+                if (reqBody.email === 'johndoe@gmail.com' || reqBody.email === 'admin@gmail.com' || reqBody.email === 'bestadmin@yahoo.com') {
+                  reqBody.isAdmin = true;
+                }
+
+                _context.next = 5;
                 return _Users["default"].signup(reqBody);
 
-              case 4:
+              case 5:
                 result = _context.sent;
 
                 if (result.name && result.name === 'error' && result.detail === "Key (email)=(".concat(reqBody.email, ") already exists.")) {
@@ -56,14 +62,24 @@ function () {
                   });
                 } else {
                   token = UsersController.prepareToken(result.rows[0]);
-                  result.rows[0].token = token;
+                  _result$rows$ = result.rows[0], id = _result$rows$.id, first_name = _result$rows$.first_name, last_name = _result$rows$.last_name, email = _result$rows$.email, address = _result$rows$.address, phone_number = _result$rows$.phone_number, is_admin = _result$rows$.is_admin;
+                  result.rows[0] = {
+                    token: token,
+                    id: id,
+                    first_name: first_name,
+                    last_name: last_name,
+                    email: email,
+                    address: address,
+                    phone_number: phone_number,
+                    is_admin: is_admin
+                  };
                   res.status(201).send({
                     status: 201,
                     data: result.rows[0]
                   });
                 }
 
-              case 6:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -83,7 +99,8 @@ function () {
       var _getUser = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee2(req, res) {
-        var reqBody, result, token;
+        var reqBody, result, token, _result$rows$2, id, first_name, last_name, email, address, phone_number, is_admin;
+
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -107,7 +124,17 @@ function () {
                   });
                 } else {
                   token = UsersController.prepareToken(result.rows[0]);
-                  result.rows[0].token = token;
+                  _result$rows$2 = result.rows[0], id = _result$rows$2.id, first_name = _result$rows$2.first_name, last_name = _result$rows$2.last_name, email = _result$rows$2.email, address = _result$rows$2.address, phone_number = _result$rows$2.phone_number, is_admin = _result$rows$2.is_admin;
+                  result.rows[0] = {
+                    token: token,
+                    id: id,
+                    first_name: first_name,
+                    last_name: last_name,
+                    email: email,
+                    address: address,
+                    phone_number: phone_number,
+                    is_admin: is_admin
+                  };
                   res.status(200).send({
                     status: 200,
                     data: result.rows[0]

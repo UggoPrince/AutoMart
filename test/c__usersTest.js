@@ -33,6 +33,15 @@ describe('Users Test', () => {
     phoneNumber: '07034533669',
   };
 
+  const newUser3 = {
+    firstname: 'john',
+    lastname: 'matthew',
+    email: 'admin@gmail.com',
+    password: 'k12345kljd',
+    address: 'no 3 ikorodu',
+    phoneNumber: '07034533669',
+  };
+
   const invalidData = {
     firstname: 45,
     lastname: 'matthew*-*',
@@ -81,6 +90,17 @@ describe('Users Test', () => {
         .send({})
         .end((err, res) => {
           expect(res.status).to.be.eql(400);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should sign up a user', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signup')
+        .send(newUser3)
+        .end((err, res) => {
+          expect(res.status).to.be.eql(201);
           expect(res.type).to.be.equal('application/json');
           expect(res.body).to.be.an('object');
           done();

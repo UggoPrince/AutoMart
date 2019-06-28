@@ -21,6 +21,25 @@ components:
           $ref: '#/components/schemas/is_admin'
         phone_number:
           $ref: '#/components/schemas/phone_number'
+    UserData:
+      type: object
+      properties:
+        token:
+          $ref: '#/components/schemas/token'
+        id:
+          $ref: '#/components/schemas/userId'
+        firstname:
+          $ref: '#/components/schemas/firstname'
+        lastname:
+          $ref: '#/components/schemas/lastname'
+        email:
+          $ref: '#/components/schemas/email'
+        address:
+          $ref: '#/components/schemas/address'
+        is_admin:
+          $ref: '#/components/schemas/is_admin'
+        phone_number:
+          $ref: '#/components/schemas/phone_number'
     userSignup:
       type: object
       properties:
@@ -34,7 +53,7 @@ components:
           $ref: '#/components/schemas/password'
         address:
           $ref: '#/components/schemas/address'
-        phone_number:
+        phoneNumber:
           $ref: '#/components/schemas/phone_number'
     userSignin:
       type: 'object'
@@ -107,7 +126,7 @@ paths:
                     description: 201 success status code
                     example: '201'
                   data:
-                    $ref: '#/components/schemas/User'
+                    $ref: '#/components/schemas/UserData'
         '400':
           description: Response for an unsuccessful registration
           content:
@@ -136,7 +155,7 @@ paths:
               $ref: '#/components/schemas/userSignin'
         required: true
       responses:
-        '201':
+        '200':
           description: Response data after user signs in successfully
           content:
             application/json:
@@ -145,10 +164,10 @@ paths:
                 properties:
                   status:
                     type: integer
-                    description: 202 success status code
-                    example: '202'
+                    description: 200 success status code
+                    example: '200'
                   data:
-                    $ref: '#/components/schemas/User'
+                    $ref: '#/components/schemas/UserData'
         '404':
           description: Response for an unsuccessful login
           content:
