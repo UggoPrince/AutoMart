@@ -1,0 +1,23 @@
+{
+  "name": "automart",
+  "version": "1.0.0",
+  "description": "AutoMart is an online app that enables you to sell and/or buy cars.",
+  "main": "app.js",
+  "scripts": {
+    "clean": "rm -rf build && mkdir build",
+    "build-server": "babel -d ./build/server ./server -s",
+    "build-app": "babel -d ./build app.js -s",
+    "build": "npm run clean && npm run build-server && npm run build-app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UggoPrince/AutoMart.git"
+  },
+  "author": "uggoprince",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5"
+  }
+}
