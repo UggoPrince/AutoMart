@@ -4,7 +4,7 @@
 /* global before:true, describe:true, it:true, */
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import { createTables, seedUsers } from '../server/database/Tables';
+import { createTables, seedUsers } from '../api/server/database/Tables';
 import app, { db } from './app';
 
 chai.use(chaiHttp);
