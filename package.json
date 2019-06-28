@@ -20,6 +20,7 @@
   "author": "uggoprince",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.19.0",
     "cloudinary": "^1.14.0",

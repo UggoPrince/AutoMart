@@ -1,6 +1,6 @@
 "use strict";
 
-require("babel-polyfill");
+require("@babel/polyfill");
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
@@ -19,6 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 /* eslint-disable import/no-extraneous-dependencies */
 // import 'core-js/stable';
 // import 'regenerator-runtime/runtime';
+// import 'babel-polyfill';
 _dotenv["default"].config();
 
 var port = process.env.PORT || 4000;
