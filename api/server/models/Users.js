@@ -14,7 +14,7 @@ class Users {
         '${userData.email}', '${userData.firstname}', '${userData.lastname}',
         '${userData.password}', '${userData.address}',
         ${userData.phoneNumber}, ${userData.isAdmin}
-        ) RETURNING id, first_name, last_name, email, address, phone_number, is_admin`;
+        ) RETURNING *`;
     const result = await db.query(queryString).then(res => res).catch(err => err);
     return result;
   }
