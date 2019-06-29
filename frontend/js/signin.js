@@ -1,6 +1,5 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
-/* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 
 const postData = async (url, formData) => {
@@ -11,15 +10,11 @@ const postData = async (url, formData) => {
     },
     body: JSON.stringify(formData),
   }).then(response => response.json())
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.error('Error: ', error));
   return serverRes;
 };
 
-const buildSignupFormData = form => ({
-  firstname: form.firstname.value,
-  lastname: form.lastname.value,
-  address: form.address.value,
-  phoneNumber: form.phoneNumber.value,
+const buildLoginFormData = form => ({
   email: form.email.value,
   password: form.password.value,
 });
@@ -29,14 +24,12 @@ const getNotify = () => document.getElementsByClassName('serverNotice')[0];
 const displayError = (error) => {
   const errorSpan = document.getElementsByClassName('errorSpan');
   const notify = getNotify();
-  if (error.firstname) errorSpan[0].innerHTML = error.firstname;
-  if (error.lastname) errorSpan[1].innerHTML = error.lastname;
-  if (error.address) errorSpan[2].innerHTML = error.address;
-  if (error.phoneNumber) errorSpan[3].innerHTML = error.phoneNumber;
-  if (error.email) errorSpan[4].innerHTML = error.email;
-  if (error.password) errorSpan[5].innerHTML = error.password;
-  if (error.error === 'You already have an account with this email. Login.') {
-    notify.innerHTML = 'You already have an account with this email. Login.';
+  if (error.email) errorSpan[0].innerHTML = error.email;
+  if (error.password) errorSpan[1].innerHTML = error.password;
+  if (error.error === 'You do not have an account. Sign up now.') {
+    notify.innerHTML = 'You do not have an account. Sign up now.';
+  } else if (error.error === 'Incorrect email/password') {
+    notify.innerHTML = 'Incorrect email or password.';
   }
 };
 
@@ -64,13 +57,12 @@ const handleUserError = (error) => {
 
 const handleSuccess = (data) => {
   const notify = getNotify();
-  notify.innerHTML = 'Account Successfully Created!';
+  notify.innerHTML = 'Login Successful!';
   const person = JSON.stringify(data);
   localStorage.setItem('autoMartUser', person);
 };
 
-
-const signup = async (event) => {
+const signin = async (event) => {
   event.preventDefault();
   cleanErrorDisplay();
   const notify = getNotify();
@@ -78,9 +70,9 @@ const signup = async (event) => {
   notify.style.color = 'green';
   notify.style.background = 'rgb(198, 240, 198)';
   notify.innerHTML = 'Wait... Processing.';
-  const url = 'https://automarter.herokuapp.com/api/v1/auth/signup';
+  const url = 'https://automarter.herokuapp.com/api/v1/auth/signin';
   const form = event.target;
-  const formData = buildSignupFormData(form);
+  const formData = buildLoginFormData(form);
   const req = await postData(url, formData)
     .then(data => data)
     .catch(error => error);
@@ -88,12 +80,12 @@ const signup = async (event) => {
     handleNetworkError();
   } else if (req.error) {
     handleUserError(req.error);
-  } else if (req.status === 201) {
+  } else if (req.status === 200) {
     handleSuccess(req.data);
   }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  const signupForm = document.getElementById('signupForm');
-  signupForm.addEventListener('submit', signup);
+  const signupForm = document.getElementById('signinForm');
+  signupForm.addEventListener('submit', signin);
 });
