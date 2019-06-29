@@ -108,7 +108,7 @@ form {
 .form-block input[type='submit'] {
     /*width: 385px;*/
     width: 100%;
-    border: 1px solid #BBB;
+    /* border: 1px solid #BBB; */
     border-radius: 5px;
     margin-top: 10px;
     padding: 12px;
@@ -116,11 +116,13 @@ form {
     /*background: #2581dc; /*link-hover-color*/
     color: white;
     /*border: 1px solid #2581dc;*/
-
+    border: 1px solid orangered;
 }
 
-.form-block input[type='submit']:hover {
-    background: linear-gradient(#007bff, #2581dc);
+.form-block input[type='submit']:hover, input[type='submit']:active {
+    /*background: linear-gradient(#007bff, #2581dc);*/
+    background: rgb(255, 97, 40);
+    border-color: rgb(255, 97, 40);
 }
 
 /**/

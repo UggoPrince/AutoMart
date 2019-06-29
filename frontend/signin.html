@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AutoMart-Signup</title>
+    <title>AutoMart-Signin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/form.css">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">
     <script src="js/main.js"></script>
-    <script src="js/signup.js"></script>
+    <script src="js/signin.js"></script>
 </head>
 <body>
     <header>
@@ -34,32 +34,12 @@
     <main class="ht">
         <section>
             <div class="form-container form-medium">
-                <form class="" method="POST" action="" name="signupForm" id="signupForm">
+                <form class="" method="POST" action="" name="signinForm" id="signinForm">
                     <div class="form-header col-12">
-                        <h1>Create An Account</h1>
+                        <h1>User Login</h1>
                         <span class="serverNotice"></span>
                     </div>
                     <section class="form-body">
-                        <section class="form-block">
-                            <label class="col-4 must-fill">First Name</label>
-                            <span class="errorSpan"></span>
-                            <input class="col-7-5" type="text" name="firstname" placeholder="Enter First Name" required/>
-                        </section>
-                        <section class="form-block">
-                            <label class="col-4 must-fill">Last Name</label>
-                            <span class="errorSpan"></span>
-                            <input class="col-7-5" type="text" name="lastname" placeholder="Enter Last Name" required/>
-                        </section>
-                        <section class="form-block">
-                            <label class="col-4 must-fill">Address</label>
-                            <span class="errorSpan"></span>
-                            <input class="col-7-5" type="text" name="address" placeholder="Enter Address" required/>
-                        </section>
-                        <section class="form-block">
-                            <label class="col-4 must-fill">Phone Number</label>
-                            <span class="errorSpan"></span>
-                            <input class="col-7-5" type="tel" name="phoneNumber" placeholder="Enter Phone Number" required/>
-                        </section>
                         <section class="form-block">
                             <label class="col-4 must-fill">Email Address</label>
                             <span class="errorSpan"></span>
@@ -71,13 +51,13 @@
                             <input class="col-7-5" type="password" name="password" placeholder="Enter Password" required/>
                         </section>
                         <section class="form-block">
-                            <input class="oredbutton" type="submit" value="CREATE ACCOUNT" />
+                            <input class="oredbutton" type="submit" value="LOGIN" />
                         </section>
                     </section>
                 </form>
                 <div class="form-under">
-                    <h1>Already have an account?</h1>
-                    <p><a href="signin.html">Sign in now &rarr;</a></p>
+                    <h1>Don't have an account?</h1>
+                    <p><a href="signup.html">Sign up here &rarr;</a></p><br>
                 </div>
             </div>
         </section>
