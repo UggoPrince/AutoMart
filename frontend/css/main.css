@@ -35,19 +35,23 @@ section::after,
   clear: both;
 }
 
-.brand {
+.brand, .pageName {
   position: absolute;
-  padding-left: 20px;
+  padding-left: 2%;
   float: left;
   line-height: 70px;
   /*text-transform: uppercase;*/
   font-size: 2em;
 }
 
-.brand a, a:visited {
-  color: orangered;/*rgb(255, 166, 0);*/
-  text-shadow: #343a40 -1px 0 1px;
-  /*color: orangered;*/
+.brand a, .brand a:visited {
+  color: rgb(255, 97, 40);/*rgb(255, 166, 0);*/
+  /*text-shadow: #343a40 -1px 0 1px;*/
+  font-weight: bold;
+  text-decoration: none;
+}
+.pageName a, .pageName a:visited {
+  color: #2a4b6b;
   font-weight: bold;
   text-decoration: none;
 }
@@ -81,20 +85,23 @@ section::after,
   background: linear-gradient(#fff, #fff, #eee); /*#262626;*/
 }
 
+/*
 .side-nav ul li a:hover {
   background: #039ec5;
-  color:  #ffffff; /* nav-font-color */
+  color:  #ffffff;
 }
+*/
 
 .top-nav ul li a, .side-nav ul li a {
   display: block;
   width: 100%;
   padding: 0 20px;
-  /*color: #ffffff;*/
-  color: #2581dc;
   text-decoration: none;
   font-weight: bold;
 }
+
+.top-nav ul li a {color: #2581dc;}
+.side-nav ul li a {color:white;}
 
 .top-nav ul li a:hover {
   background: orange;/*#2581dc; /*link-hover-color*/
@@ -106,19 +113,14 @@ section::after,
   /*background: transparent; /*#262626;*/
   line-height: 70px; /*nav-height*/
 }
+/*
 .side-nav ul li a {
   border-bottom:1px solid #555;
-  line-height: 50px; /*nav-height*/
+  line-height: 50px;
 }
-.dashMenu {
-  color: white;
-  display: block;
-  width: 100%;
-  padding: 0px 0px 0px 2%;
-  line-height: 30px; /*nav-height*/
-  text-align: right;
-  background: #2a4b6b;
-}
+*/
+
+/*
 .side-nav2 {
   display: none;
   background: #2e2e2e;
@@ -127,15 +129,14 @@ section::after,
   display: block;
   width: 100%;
   padding: 0px 2%;
-  background: transparent; /*#262626;*/
-  color: #ffffff; /*nav-font-color*/
+  background: transparent;
+  color: #ffffff;
   text-decoration: none;
-  /*border-bottom:1px solid #555;*/
-  line-height: 30px; /*nav-height*/
+  line-height: 30px;
 }
 .side-nav2 ul li a:hover {
   background: #039ec5;
-  color:  #ffffff; /* nav-font-color */
+  color:  #ffffff;
 }
 .side-nav-list2 {
   display: none;
@@ -145,6 +146,7 @@ section::after,
   background: #2e2e2e;
   padding: 5px 17px;
 }
+*/
 .nav-mobile {
     display: none;
     position: absolute;
@@ -210,11 +212,13 @@ section::after,
 }
 
 .ht {
-  min-height: calc(100vh - 75px);
+  min-height: calc(100vh - 70px);
+  display: inline-block;
 }
 
 .pb-10 {padding-bottom: 10px;}
 .pb-10 {padding-bottom: 100px;}
+.mt11{margin-top:15px;}
 
 .banner1 {
   width: 100%;
@@ -271,6 +275,7 @@ section::after,
   box-shadow: white 0px 0px 5px; 
 }
 
+/*
 .searchBoxForIndex {
   max-width: 700px;
   width: 95%;
@@ -374,6 +379,7 @@ section::after,
   background: orange;
   border-color: white;
 }
+*/
 
 /*adverts*/
 .ad-page, .dash-page {
@@ -532,6 +538,7 @@ section::after,
   border: 1px solid orangered;
 }
 /*dashboard page*/
+/*
 .side-bar {
   width: 15%;
   background: #2e2e2e;
@@ -539,20 +546,68 @@ section::after,
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   height: calc(100vh - 70px);
 }
+*/
 
 .dashboard {
-  width: 85%;
+  max-width: 1200px;
+  width: 100%;
   margin: 0px auto 0px;
   background: #ffffff;
   /*box-shadow: 0px 0px 8px #cccccc;*/
-  float: left;
-  height: calc(100vh - 70px);
+  min-height: calc(100vh - 70px);
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.dashMenu {
+  padding: 15px 2% 0px 2%;
+  display: none;
+  width: 100%;
+  min-height: 20px;
+}
+
+.dashMenu span {
+  color: white;
+  display: block;
+  width: 150px;
+  padding: 0px 2% 0px 2%;
+  line-height: 30px;
+  /*background: #2a4b6b;*/
+  background: #2581dc;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  text-align: center;
+}
+
+.dashMenu span::after {
+  content: ' ▾';
 }
 
 .dashboard-header {
   margin: auto;
   width: 100%;
-  padding: 10px 2%;
+  padding: 15px 2%;
+}
+
+.dashboard-header a:nth-child(1) {
+  border-top:1px solid #039ec5;
+}
+
+.dashboard-header a {
+  background: #039ec5;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  width:200px;
+  text-decoration: none;
+}
+
+.dashboard-header a:hover {
+  background: #2581dc;
 }
 
 .dashboard-header h1, h2 {
@@ -561,29 +616,30 @@ section::after,
   padding: 0px;
     /*color:#2a4b6b;*/
   color: #2581dc;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .dashboard-body {
   width: 100%;
-  height: calc(100vh - 148px);
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  min-height: 200px;
+}
+
+.all-tabs{
+  width: 100%;
+  min-height: 200px;
+  display: block;
 }
 
 .dtab {
-  width: inherit;
-  height: 450px;
-  overflow-y: scroll;
-  /*border-top: 1px solid;
-  border-color: #99c9fa;*/ /*#2581dc;*/
-  height: calc(100vh - 148px);
+  width: 100%;
+  min-height: 400px;/*calc(100vh - 148px);*/
+  display: inline-block;
 }
 
 .dtab-header {
-  padding: 5px 2% 5px 2%;
-  /*background: #039ec53b;*/
-  background: #2e2e2ec5;
+  padding: 5px 1% 5px 1%;
   background: #2a4b6b;
+  margin: auto;
+  width: 96%;
   font-weight: bold;
   color: white;
 }
@@ -685,6 +741,12 @@ footer div {
   padding: 10px;
   float: left;
 }
+
+@media screen and (max-width: 849px) {
+  .dashboard-header a {
+    width:150px;
+  }
+}
   
 @media screen and (min-width: 800px) {
     h1 { font-size: 2rem; }
@@ -733,11 +795,12 @@ footer div {
       }
 
     .top-nav ul li a {
-        padding: 15px;
-        line-height: 20px;
-      }
+      padding: 15px 2%;
+      line-height: 20px;
+    }
       .ht {
         min-height: calc(100vh - 95px);
+        display: inline-block;
       }
       .bannerBottom {
         width: 100%;
@@ -785,6 +848,35 @@ footer div {
   }
   .searchBoxBody input[type="number"] {
     width: 100%;
+  }
+}
+
+@media only screen and (max-width: 639px) {
+  .dashboard-header a {
+    width:100px;
+  }
+}
+
+@media only screen and (max-width: 431px) {
+  .dashMenu {
+    padding: 15px 2% 5px 2%;
+    display: inline-block;
+  }
+  .dashboard-header {
+    padding: 0px 2% 15px 2%;
+    display: none;
+  }
+  .dashboard-header a {
+    width:100%;
+    background: #fff;
+    color: #2a4b6b;
+    border-radius: 0px;
+    text-align: left;
+    border-bottom:1px solid #039ec5;
+  }
+  .dashboard-header a:hover {
+    background: #039ec5;
+    color:#fff;
   }
 }
 
