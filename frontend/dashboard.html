@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AutoMart-Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/form.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/makeOfferModal.css">
+    <script src="js/main.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/postAdvert.js"></script>
+</head>
+<body>
+    <header>
+        <div class="navigation">
+            <div class="nav-container">
+                <div class="pageName">
+                    <a href="">Dashboard</a>
+                </div>
+                <nav class="top-nav">
+                    <div class="nav-mobile">
+                        <a id="nav-toggle"><span></span></a>
+                    </div>
+                    <ul class="nav-list">
+                        <li><a href="">HOME</a></li>
+                        <li><a href="dashboard.html">DASHBOARD</a></li>
+                        <li><a href="" id="signoutLink">SIGN OUT</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="ht mt11">
+        <!--<section class="dash-page">
+            <div class="side-bar">
+                <nav class="side-nav">
+                    <ul class="side-nav-list">
+                        <li><a class="revealPostAdvertModal tabLink">Post Advert</a></li>
+                        <li><a class="tabLink">Adverts</a></li>
+                        <li><a class="tabLink">Orders</a></li>
+                        <li><a class="tabLink">My Purchase</a></li>
+                    </ul>
+                </nav>
+            </div>-->
+            <div class="dashboard">
+                <section>
+                    <div class="dashMenu">
+                        <span id="dashbaordMenuButton">Dashboard Menu </span>
+                    </div>
+                    <div class="dashboard-header" id="dashboard-header">
+                        <a class="revealPostAdvertModal tabLink2">Post Advert</a>
+                        <a class="tabLink2">Adverts</a>
+                        <a class="tabLink2">Orders</a>
+                        <a class="tabLink2">My Purchase</a>
+                    </div>
+                </section>
+                <section class="dashboard-body">
+                    <!--<section>
+                        <nav class="side-nav2">
+                            <div class="dashMenu"><span>Menu</span></div>
+                            <ul class="side-nav-list2">
+                                <li><a class="revealPostAdvertModal tabLink2">Post Advert</a></li>
+                                <li><a class="tabLink2">Adverts</a></li>
+                                <li><a class="tabLink2">Orders</a></li>
+                                <li><a class="tabLink2">My Purchase</a></li>
+                            </ul>
+                        </nav>
+                    </section>-->
+                    <section class="all-tabs">
+                        <section class="dtab" id="dtab1">
+                            <section>
+                                <div class="dtab-header">
+                                    <h3>Adverts</h3>
+                                </div>
+                            </section>
+                            <section>
+                                <!--<section class="ad-block">
+                                    <section class="ad-block-header">ADVERT TITLE</section>
+                                    <section class="ad-block-body">
+                                        <img src="images/c1.jpg">
+                                        <section class="ad-block-info">
+                                            <section class="ad-block-info-child">
+                                                <section><div>Price</div><div>N10,000,000.00</div></section>
+                                                <section><div>Priced</div><div>Yes</div></section>
+                                            </section>
+                                            <section class="ad-block-info-child">
+                                                <input type="number" placeholder="Enter new price" min="0" />
+                                                <button>Update Price</button>
+                                            </section>
+                                            <section class="ad-block-info-child">
+                                                <section>
+                                                    <div class="markSold">Mark as Sold</div>
+                                                    <input type="checkbox" class="soldMarker"/>
+                                                </section>
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                                <section class="ad-block">
+                                        <section class="ad-block-header">ADVERT TITLE</section>
+                                        <section class="ad-block-body">
+                                            <img src="images/c2.jpg">
+                                            <section class="ad-block-info">
+                                                <section class="ad-block-info-child">
+                                                    <section><div>Price</div><div>N5,000,000.00</div></section>
+                                                    <section><div>Priced</div><div>No</div></section>
+                                                </section>
+                                                <section class="ad-block-info-child">
+                                                    <input type="number" placeholder="Enter new price" min="0" />
+                                                    <button>Update Price</button>
+                                                </section>
+                                                <section class="ad-block-info-child">
+                                                    <section>
+                                                        <div class="markSold">Mark as Sold</div>
+                                                        <input type="checkbox" class="soldMarker"/>
+                                                    </section>
+                                                </section>
+                                            </section>
+                                        </section>
+                                </section>-->
+                            </section>
+                        </section>
+                        <section class="dtab" id="dtab2">
+                            <section class="dtab-header"><h3>Orders</h3></section>
+                            <section>
+                                <section class="ad-block">
+                                    <section class="ad-block-header">ADVERT TITLE</section>
+                                    <section class="ad-block-body">
+                                        <img src="images/c1.jpg">
+                                        <section class="ad-block-info">
+                                            <section class="ad-block-info-child">
+                                                <section><div>Price</div><div>N10,000,000.00</div></section>
+                                                <section><div>Accepted</div><div>No</div></section>
+                                            </section>
+                                            <section class="ad-block-info-child">
+                                                <input type="number" placeholder="Enter new price" min="0" />
+                                                <button>Price it Again</button>
+                                            </section>
+                                            <section class="ad-block-info-child">
+                                                <section>
+                                                    <div>Owner's Name</div>
+                                                </section>
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="dtab" id="dtab3">
+                            <section class="dtab-header"><h3>My Purchase</h3></section>
+                        </section>
+                    </section>
+                </section>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <section>
+            <div class="col-4">
+                <p>COMPANY INFO</p>
+                <span></span>
+            </div>
+            <div class="col-4">
+                <p>CONTACT US</p>
+                <span></span>
+            </div>
+            <div class="col-4">
+                <p>SOCIAL MEDIA</p>
+                <span></span>
+            </div>
+        </section>
+    </footer>
+    <section id="postAdvertModal" class="ad-modal">
+        <div class="ad-form-container form-big">
+            <form action="POST" class="modal-content advertForm" id="postAdvertForm">
+                <section class="form-header col-12">
+                    <h1>Post Advert <span class="close">&times;</span></h1>
+                    <span class="serverNotice"></span>
+                </section>
+                <section><br>
+                    <div class="ad-section-header">Product Info</div>
+                    <section>
+                        <!--<section class="ad-form-block">
+                            <label class="akol-2 must-fill">Location</label>
+                            <input class="akol-10" placeholder="Location of Product">
+                        </section>-->
+                        <section class="ad-form-block">
+                            <span class="errorSpan"></span>
+                            <label class="akol-2 must-fill">Body Type</label>
+                            <select class="akol-10" name="bodyType">
+                                <option value="select">--Select Type--</option>
+                                <option value="bus">Bus</option>
+                                <option value="convertible">Convertible</option>
+                                <option value="coupe">Coupe</option>
+                                <option value="hatchback">Hatchback</option>
+                                <option value="motorbike">Motorbike</option>
+                                <option value="sedan">Sedan</option>
+                                <option value="SUV">SUV</option>
+                                <option value="truck">Truck</option>
+                                <option value="trailer truck">Trailer Truck</option>
+                                <option value="tipper truck">Tipper truck</option>
+                                <option value="van">Van</option>
+                                <option value="wagon">Wagon</option>
+                            </select>
+                        </section>
+                        <section class="ad-form-block">
+                            <span class="errorSpan"></span>
+                            <label class="akol-2 must-fill">State</label>
+                            <select class="akol-10" name="state">
+                                <option value="select">--Select State--</option>
+                                <option value="new">New</option>
+                                <option value="used">Used</option>
+                            </select>
+                        </section>
+                        <section class="ad-form-block">
+                            <span class="errorSpan"></span>
+                            <label class="akol-2 must-fill">Manufacturer</label>
+                            <input class="akol-10" type="text" name="manufacturer" placeholder="Enter Manufacturer">
+                        </section>
+                        <section class="ad-form-block">
+                            <span class="errorSpan"></span>
+                            <label class="akol-2 must-fill">Model</label>
+                            <input class="akol-10" type="text" name="model" placeholder="Enter Model">
+                        </section>
+                        <section class="ad-form-block">
+                            <span class="errorSpan"></span>
+                            <label class="akol-2 must-fill">Photo</label>
+                            <input class="akol-10" type="file" name="photo" accept="image/*">
+                        </section>
+                    </section>
+                </section>
+                <section><br>
+                    <div class="ad-section-header">Advert Info</div>
+                    <section>
+                        <section class="ad-form-block">
+                            <span class="errorSpan"></span>
+                            <label class="akol-2 must-fill">Price</label>
+                            <input class="akol-10" name="price" type="number" min="0" placeholder="Enter Your Price">
+                        </section>
+                        <section class="ad-form-block">
+                            <span class="errorSpan"></span>
+                            <label class="akol-2 must-fill">Title</label>
+                            <input class="akol-10" type="text" name="title" placeholder="Enter Advert Title">
+                        </section>
+                    </section>
+                </section>
+                <section>
+                    <section class="ad-form-block">
+                        <input class="oredbutton" type="submit" value="POST">
+                    </section>
+                </section>
+            </form>
+        </div>
+    </section>
+</body>
+</html>

@@ -48,6 +48,7 @@ form {
 .errorSpan {
     color: red;
     font-size: 14px;
+    display: block;
 }
 
 .form-under {
@@ -192,13 +193,16 @@ form {
 .ad-form-block input[type='submit'] {
     border-radius: 2px;
     width: 150px;
-    background-color: #2581dc;
-    border-color: #2581dc;
+    border-color: rgb(255, 97, 40);
+    /*background-color: #2581dc;
+    border-color: #2581dc;*/
     color: #ffffff;
 }
 .ad-form-block input[type='submit']:hover {
-    background: #2a4b6b;
-    border-color: #2a4b6b;
+    /*background: #2a4b6b;
+    border-color: #2a4b6b;*/
+    background: rgb(255, 97, 40);
+    border-color: rgb(255, 97, 40);
 }
 
 .offer-form-block input[type='submit'] {

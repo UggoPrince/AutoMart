@@ -11,7 +11,7 @@ const postData = async (url, formData) => {
     },
     body: JSON.stringify(formData),
   }).then(response => response.json())
-    .catch(error => console.error('Error:', error));
+    .catch(error => ({ fetchError: error.message }));
   return serverRes;
 };
 
@@ -48,14 +48,14 @@ const cleanErrorDisplay = () => {
 };
 
 const handleNetworkError = () => {
-  notify = getNotify();
+  const notify = getNotify();
   notify.style.color = 'red';
   notify.style.background = 'rgb(255, 182, 182)';
   notify.innerHTML = 'Not connecting. Check your network.';
 };
 
 const handleUserError = (error) => {
-  notify = getNotify();
+  const notify = getNotify();
   notify.style.color = 'red';
   notify.style.background = 'rgb(255, 182, 182)';
   notify.innerHTML = 'Unsuccessful!';
@@ -65,8 +65,9 @@ const handleUserError = (error) => {
 const handleSuccess = (data) => {
   const notify = getNotify();
   notify.innerHTML = 'Account Successfully Created!';
-  const person = JSON.stringify(data);
-  localStorage.setItem('autoMartUser', person);
+  const user = JSON.stringify(data);
+  localStorage.setItem('autoMartUser', user);
+  window.location.replace('dashboard.html');
 };
 
 
@@ -77,14 +78,16 @@ const signup = async (event) => {
   notify.style.display = 'inline-block';
   notify.style.color = 'green';
   notify.style.background = 'rgb(198, 240, 198)';
-  notify.innerHTML = 'Wait... Processing.';
+  notify.innerHTML = 'Wait. Processing...';
   const url = 'https://automarter.herokuapp.com/api/v1/auth/signup';
   const form = event.target;
   const formData = buildSignupFormData(form);
   const req = await postData(url, formData)
     .then(data => data)
     .catch(error => error);
-  if (req === 'undefined') {
+  if (req.fetchError && req.fetchError === 'Failed to fetch') {
+    handleNetworkError();
+  } else if (req === 'undefined') {
     handleNetworkError();
   } else if (req.error) {
     handleUserError(req.error);
