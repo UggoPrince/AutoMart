@@ -80,6 +80,13 @@ class ValidateCar extends Validator {
     return ValidateCar.getErrorMessage();
   }
 
+  // validate getting all cars of a user
+  static validateViewAllCarsOfOwner(userId) {
+    ValidateCar.refresh();
+    ValidateCar.validateInt(userId, 'onwer id');
+    return ValidateCar.getErrorMessage();
+  }
+
   static isValidState(state, field) {
     if (ValidateCar.isEmptyString(state)) {
       ValidateCar.integrateError(field, `No ${field} entered.`);

@@ -166,37 +166,43 @@ function () {
       return getCarById;
     }()
   }, {
-    key: "getACar",
+    key: "getCarByOwner",
     value: function () {
-      var _getACar = _asyncToGenerator(
+      var _getCarByOwner = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee4(id) {
-        var result;
+      regeneratorRuntime.mark(function _callee4(owner) {
+        var queryString, result;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _context4.next = 2;
-                return this.getCarById(id);
+                queryString = "SELECT * FROM cars WHERE owner = ".concat(owner, ";");
+                _context4.next = 3;
+                return db.query(queryString);
 
-              case 2:
+              case 3:
                 result = _context4.sent;
                 return _context4.abrupt("return", result);
 
-              case 4:
+              case 5:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee4);
       }));
 
-      function getACar(_x5) {
-        return _getACar.apply(this, arguments);
+      function getCarByOwner(_x5) {
+        return _getCarByOwner.apply(this, arguments);
       }
 
-      return getACar;
+      return getCarByOwner;
     }()
+    /* async getACar(id) {
+      const result = await this.getCarById(id);
+      return result;
+    } */
+
   }, {
     key: "getAllCars",
     value: function () {

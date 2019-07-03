@@ -23,7 +23,7 @@ components:
           $ref: '#/components/schemas/model'
         body_type:
           $ref: '#/components/schemas/body_type'
-        photo:
+        photos:
           $ref: '#/components/schemas/photo'
     createAdvert:
       type: object
@@ -67,7 +67,7 @@ components:
           $ref: '#/components/schemas/price'
         title:
           $ref: '#/components/schemas/title'
-        photo:
+        photos:
           $ref: '#/components/schemas/photo'
     updateCarStatus:
       type: object
@@ -666,6 +666,48 @@ paths:
                   error: 
                     type: object/string
                     example: 'The status query string must be [ ?status=available ].'
+  /car?owner=userId:
+    get:
+      tags:
+        - Car
+      description: get all cars of a particular user
+      operationId: getOwnerCars
+      parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
+      responses:
+        '200':
+          description: Response data that contains all users posted cars ads
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 200 success status code
+                    example: '200'
+                  data:
+                    $ref: '#/components/schemas/Car'
+        '400':
+          description: > 
+            Error response when an invaild owner query string and value is sent 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 400 error status code
+                    example: '400'
+                  error: 
+                    type: object/string
+                    example: 'The query string (with its value) is not valid.'
   /car/car_id/status:
     patch:
       tags:

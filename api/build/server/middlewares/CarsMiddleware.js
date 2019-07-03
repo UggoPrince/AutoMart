@@ -9,6 +9,8 @@ var _ValidateCar = _interopRequireDefault(require("./validators/ValidateCar"));
 
 var _CarChecker = _interopRequireDefault(require("./database_checkers/CarChecker"));
 
+var _errorHandlers = require("../helpers/errorHandlers");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -251,26 +253,39 @@ var validateViewCars = function validateViewCars(req, res, next) {
       next();
     }
   } else if (isOne) {
-    var result = _ValidateCar["default"].validateViewUnsoldCarsQuery(rQuery.status);
+    if (rQuery.status) {
+      // getting all available cars
+      var result = _ValidateCar["default"].validateViewUnsoldCarsQuery(rQuery.status);
 
-    if (result.error) {
-      res.status(400).send(_ValidateCar["default"].Response());
-    } else {
-      req.qLength = 1;
-      next();
-    }
-  } else if (isTwo) {
-    if (rQuery.status && rQuery.state) {
-      var _result = _ValidateCar["default"].validateViewUnsoldNewCars(rQuery.status, rQuery.state);
+      if (result.error) {
+        res.status(400).send(_ValidateCar["default"].Response());
+      } else {
+        req.qLength = 1;
+        next();
+      }
+    } else if (rQuery.owner) {
+      // getting all cars of a particular owner
+      var _result = _ValidateCar["default"].validateViewAllCarsOfOwner(rQuery.owner);
+
+      var userId = parseInt(rQuery.owner, 10);
 
       if (_result.error) {
         res.status(400).send(_ValidateCar["default"].Response());
+      } else if (userId !== req.token.id) {
+        res.status(400).send({
+          status: 400,
+          error: 'invalid owner.'
+        });
       } else {
-        req.qLength = 2;
+        req.qLength = 1;
         next();
       }
-    } else if (rQuery.status && rQuery.manufacturer) {
-      var _result2 = _ValidateCar["default"].validateViewUnsoldCarsByManufacturer(rQuery.status, rQuery.manufacturer);
+    } else {
+      res.status(400).send((0, _errorHandlers.errorInvalidQueryString)());
+    }
+  } else if (isTwo) {
+    if (rQuery.status && rQuery.state) {
+      var _result2 = _ValidateCar["default"].validateViewUnsoldNewCars(rQuery.status, rQuery.state);
 
       if (_result2.error) {
         res.status(400).send(_ValidateCar["default"].Response());
@@ -278,24 +293,27 @@ var validateViewCars = function validateViewCars(req, res, next) {
         req.qLength = 2;
         next();
       }
-    } else res.status(400).send({
-      status: 400,
-      error: 'The query string (with its value) is not valid.'
-    });
-  } else if (isThree && rQuery.min_price && rQuery.max_price) {
-    var _result3 = _ValidateCar["default"].validateViewUnsoldCarsInPriceRange(rQuery.status, rQuery.min_price, rQuery.max_price);
+    } else if (rQuery.status && rQuery.manufacturer) {
+      var _result3 = _ValidateCar["default"].validateViewUnsoldCarsByManufacturer(rQuery.status, rQuery.manufacturer);
 
-    if (_result3.error) {
+      if (_result3.error) {
+        res.status(400).send(_ValidateCar["default"].Response());
+      } else {
+        req.qLength = 2;
+        next();
+      }
+    } else res.status(400).send((0, _errorHandlers.errorInvalidQueryString)());
+  } else if (isThree && rQuery.min_price && rQuery.max_price) {
+    var _result4 = _ValidateCar["default"].validateViewUnsoldCarsInPriceRange(rQuery.status, rQuery.min_price, rQuery.max_price);
+
+    if (_result4.error) {
       res.status(400).send(_ValidateCar["default"].Response());
     } else {
       req.qLength = 3;
       next();
     }
   } else {
-    res.status(400).send({
-      status: 400,
-      error: 'The query string (with its value) is not valid.'
-    });
+    res.status(400).send((0, _errorHandlers.errorInvalidQueryString)());
   }
 };
 

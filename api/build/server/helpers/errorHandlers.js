@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.errorEmailDuplicate = exports.errorInvalidEmailPass = exports.errorNoAccount = exports.errorExpiredToken = exports.errorNoHeader = void 0;
+exports.errorInvalidQueryString = exports.errorEmailDuplicate = exports.errorInvalidEmailPass = exports.errorNoAccount = exports.errorExpiredToken = exports.errorNoHeader = void 0;
 
 /* eslint-disable linebreak-style */
 var authNotsent = {
@@ -25,6 +25,10 @@ var invalidEmailPass = {
 var emailDuplicate = {
   status: 400,
   error: 'You already have an account with this email. Login.'
+};
+var invalidQueryString = {
+  status: 400,
+  error: 'The query string (with its value) is not valid.'
 };
 
 var errorNoHeader = function errorNoHeader() {
@@ -56,4 +60,10 @@ var errorEmailDuplicate = function errorEmailDuplicate() {
 };
 
 exports.errorEmailDuplicate = errorEmailDuplicate;
+
+var errorInvalidQueryString = function errorInvalidQueryString() {
+  return invalidQueryString;
+};
+
+exports.errorInvalidQueryString = errorInvalidQueryString;
 //# sourceMappingURL=errorHandlers.js.map

@@ -150,7 +150,7 @@ function () {
               case 0:
                 carId = req.params.car_id;
                 _context4.next = 3;
-                return _Cars["default"].getACar(carId);
+                return _Cars["default"].getCarById(carId);
 
               case 3:
                 result = _context4.sent;
@@ -179,7 +179,7 @@ function () {
       var _getCars = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee5(req, res) {
-        var rQuery, result, _result, _result2, _result3;
+        var rQuery, result, _result, _result2, _result3, _result4;
 
         return regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
@@ -201,11 +201,11 @@ function () {
                   status: 200,
                   data: result.rows
                 });
-                _context5.next = 33;
+                _context5.next = 40;
                 break;
 
               case 8:
-                if (!(req.qLength === 1)) {
+                if (!(req.qLength === 1 && rQuery.status)) {
                   _context5.next = 15;
                   break;
                 }
@@ -219,65 +219,83 @@ function () {
                   status: 200,
                   data: _result.rows
                 });
-                _context5.next = 33;
+                _context5.next = 40;
                 break;
 
               case 15:
-                if (!(req.qLength === 2)) {
-                  _context5.next = 28;
+                if (!(req.qLength === 1 && rQuery.owner)) {
+                  _context5.next = 22;
                   break;
                 }
 
-                _result2 = '';
+                _context5.next = 18;
+                return _Cars["default"].getCarByOwner(req.token.id);
 
-                if (!rQuery.state) {
-                  _context5.next = 21;
-                  break;
-                }
-
-                _context5.next = 20;
-                return _Cars["default"].getCarsByStatusAndState('state', rQuery.state);
-
-              case 20:
+              case 18:
                 _result2 = _context5.sent;
-
-              case 21:
-                if (!rQuery.manufacturer) {
-                  _context5.next = 25;
-                  break;
-                }
-
-                _context5.next = 24;
-                return _Cars["default"].getCarsByStatusAndManufacturer('manufacturer', rQuery.manufacturer);
-
-              case 24:
-                _result2 = _context5.sent;
-
-              case 25:
                 res.status(200).send({
                   status: 200,
                   data: _result2.rows
                 });
-                _context5.next = 33;
+                _context5.next = 40;
                 break;
 
+              case 22:
+                if (!(req.qLength === 2)) {
+                  _context5.next = 35;
+                  break;
+                }
+
+                _result3 = '';
+
+                if (!rQuery.state) {
+                  _context5.next = 28;
+                  break;
+                }
+
+                _context5.next = 27;
+                return _Cars["default"].getCarsByStatusAndState('state', rQuery.state);
+
+              case 27:
+                _result3 = _context5.sent;
+
               case 28:
-                if (!(req.qLength === 3)) {
-                  _context5.next = 33;
+                if (!rQuery.manufacturer) {
+                  _context5.next = 32;
                   break;
                 }
 
                 _context5.next = 31;
-                return _Cars["default"].getCarsByStatusAndPriceRange(rQuery.min_price, rQuery.max_price);
+                return _Cars["default"].getCarsByStatusAndManufacturer('manufacturer', rQuery.manufacturer);
 
               case 31:
                 _result3 = _context5.sent;
+
+              case 32:
                 res.status(200).send({
                   status: 200,
                   data: _result3.rows
                 });
+                _context5.next = 40;
+                break;
 
-              case 33:
+              case 35:
+                if (!(req.qLength === 3)) {
+                  _context5.next = 40;
+                  break;
+                }
+
+                _context5.next = 38;
+                return _Cars["default"].getCarsByStatusAndPriceRange(rQuery.min_price, rQuery.max_price);
+
+              case 38:
+                _result4 = _context5.sent;
+                res.status(200).send({
+                  status: 200,
+                  data: _result4.rows
+                });
+
+              case 40:
               case "end":
                 return _context5.stop();
             }

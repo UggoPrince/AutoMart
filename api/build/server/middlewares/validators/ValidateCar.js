@@ -131,6 +131,14 @@ function (_Validator) {
       ValidateCar.isValidStatusQuery(status, 'status');
       ValidateCar.validateString(manufacturer, 'manufacturer');
       return ValidateCar.getErrorMessage();
+    } // validate getting all cars of a user
+
+  }, {
+    key: "validateViewAllCarsOfOwner",
+    value: function validateViewAllCarsOfOwner(userId) {
+      ValidateCar.refresh();
+      ValidateCar.validateInt(userId, 'onwer id');
+      return ValidateCar.getErrorMessage();
     }
   }, {
     key: "isValidState",
