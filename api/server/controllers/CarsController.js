@@ -36,7 +36,7 @@ class CarsController {
 
   async getSpecificCar(req, res) {
     const carId = req.params.car_id;
-    const result = await Cars.getACar(carId);
+    const result = await Cars.getCarById(carId);
     res.status(200).send({
       status: 200,
       data: result.rows[0],
@@ -51,8 +51,14 @@ class CarsController {
         status: 200,
         data: result.rows,
       });
-    } else if (req.qLength === 1) {
+    } else if (req.qLength === 1 && rQuery.status) {
       const result = await Cars.getCarsByStatusAvailable();
+      res.status(200).send({
+        status: 200,
+        data: result.rows,
+      });
+    } else if (req.qLength === 1 && rQuery.owner) {
+      const result = await Cars.getCarByOwner(req.token.id);
       res.status(200).send({
         status: 200,
         data: result.rows,

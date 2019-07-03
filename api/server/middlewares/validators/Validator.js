@@ -35,7 +35,7 @@ class Validator {
   }
 
   static validateString(str, field) {
-    const regExp = /^[\w ]+[^_]$/;
+    const regExp = /^[\w -]+[^_]$/;
     if (Validator.isEmptyString(str)) {
       Validator.integrateError(field, `No ${field} entered.`);
     } else if (!regExp.test(str)) {

@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style */
 import Validator from './validators/ValidateCar';
 import CarChecker from './database_checkers/CarChecker';
+import { errorInvalidQueryString } from '../helpers/errorHandlers';
 
 export const validateCreateAdvert = async (req, res, next) => {
   const {
@@ -86,12 +87,27 @@ export const validateViewCars = (req, res, next) => {
       next();
     }
   } else if (isOne) {
-    const result = Validator.validateViewUnsoldCarsQuery(rQuery.status);
-    if (result.error) {
-      res.status(400).send(Validator.Response());
+    if (rQuery.status) { // getting all available cars
+      const result = Validator.validateViewUnsoldCarsQuery(rQuery.status);
+      if (result.error) {
+        res.status(400).send(Validator.Response());
+      } else {
+        req.qLength = 1;
+        next();
+      }
+    } else if (rQuery.owner) { // getting all cars of a particular owner
+      const result = Validator.validateViewAllCarsOfOwner(rQuery.owner);
+      const userId = parseInt(rQuery.owner, 10);
+      if (result.error) {
+        res.status(400).send(Validator.Response());
+      } else if (userId !== req.token.id) {
+        res.status(400).send({ status: 400, error: 'invalid owner.' });
+      } else {
+        req.qLength = 1;
+        next();
+      }
     } else {
-      req.qLength = 1;
-      next();
+      res.status(400).send(errorInvalidQueryString());
     }
   } else if (isTwo) {
     if (rQuery.status && rQuery.state) {
@@ -112,7 +128,7 @@ export const validateViewCars = (req, res, next) => {
         req.qLength = 2;
         next();
       }
-    } else res.status(400).send({ status: 400, error: 'The query string (with its value) is not valid.' });
+    } else res.status(400).send(errorInvalidQueryString());
   } else if (isThree && rQuery.min_price && rQuery.max_price) {
     const result = Validator.validateViewUnsoldCarsInPriceRange(
       rQuery.status, rQuery.min_price, rQuery.max_price,
@@ -124,10 +140,7 @@ export const validateViewCars = (req, res, next) => {
       next();
     }
   } else {
-    res.status(400).send({
-      status: 400,
-      error: 'The query string (with its value) is not valid.',
-    });
+    res.status(400).send(errorInvalidQueryString());
   }
 };
 

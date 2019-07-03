@@ -66,10 +66,16 @@ class Cars {
     return result;
   }
 
-  async getACar(id) {
-    const result = await this.getCarById(id);
+  async getCarByOwner(owner) {
+    const queryString = `SELECT * FROM cars WHERE owner = ${owner};`;
+    const result = await db.query(queryString);
     return result;
   }
+
+  /* async getACar(id) {
+    const result = await this.getCarById(id);
+    return result;
+  } */
 
   async getAllCars() {
     const queryString = 'SELECT * FROM cars;';

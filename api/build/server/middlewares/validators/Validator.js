@@ -66,7 +66,7 @@ function () {
   }, {
     key: "validateString",
     value: function validateString(str, field) {
-      var regExp = /^[\w ]+[^_]$/;
+      var regExp = /^[\w -]+[^_]$/;
 
       if (Validator.isEmptyString(str)) {
         Validator.integrateError(field, "No ".concat(field, " entered."));

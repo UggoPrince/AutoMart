@@ -425,4 +425,51 @@ describe('Cars Test', () => {
         });
     });
   });
+
+  describe('GET /api/v1/car?owner=userId', () => {
+    it('should get all cars of the user', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?owner=1')
+        .set({ authentication: process.env.tokenUser })
+        .end((err, res) => {
+          expect(res.status).to.be.equal(200);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not get cars if the id sent is not that of the user', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?owner=8')
+        .set({ authentication: process.env.tokenUser })
+        .end((err, res) => {
+          expect(res.status).to.be.equal(400);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not get cars if the owner id sent is not an integer', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?owner=8k')
+        .set({ authentication: process.env.tokenUser })
+        .end((err, res) => {
+          expect(res.status).to.be.equal(400);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not get cars if the query string is not (owner) or its empty', (done) => {
+      chai.request(app)
+        .get('/api/v1/car?owner')
+        .set({ authentication: process.env.tokenUser })
+        .end((err, res) => {
+          expect(res.status).to.be.equal(400);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+  });
 });
