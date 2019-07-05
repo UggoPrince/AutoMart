@@ -621,6 +621,7 @@ section::after,
 .dashboard-body {
   width: 100%;
   min-height: 200px;
+  padding: 0px 2% 0px 2%;
 }
 
 .all-tabs{
@@ -639,7 +640,7 @@ section::after,
   padding: 5px 1% 5px 1%;
   background: #2a4b6b;
   margin: auto;
-  width: 96%;
+  width: 100%;
   font-weight: bold;
   color: white;
 }
@@ -653,39 +654,182 @@ section::after,
   display: none;
 }
 
+#myAdsDiv {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  width: 100%;
+  min-height: 10px;
+  margin-bottom: 20px;
+}
+
+.ad-block-container {
+  display: block;
+}
+
 .ad-block {
-  max-width: 500px;
-  width: 96%;
+  max-width: 270px;
+  width: 100%;
+  box-shadow: 0px 0px 8px #cccccc;
+  border-radius: 3px;
+  margin: 5px 1rem 0px auto;
+  padding-bottom: 5px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.ad-block div {
+  max-width: 100%;
+}
+
+.ad-block-img {
+  height: 170px;
+}
+
+.ad-block-img img {
+  border-radius: 3px 3px 0px 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.ad-block-title,
+.ad-block-price,
+.ad-block-update-price-form,
+.ad-block-update-buttons,
+.ad-block-details {
+  text-align: left;
+  padding: 2px;
+  width:100%;
+  display: inline-block;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.ad-block-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ad-block-title a {
+  width: 100%;
+  color: #039ec5;
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.ad-block-title a:hover {
+  text-decoration: underline;
+}
+.ad-block-price span{font-weight:bold;}
+.ad-block-price span:nth-of-type(1) {
+  color: #2a4b6b;
+}
+
+.ad-block-update-price-form {
+  display: none;
+}
+
+#updatePriceForm {
+  width:100%;
+  padding: 2px 2px 4px 2px;
+  min-height: 20px;
+  background: #d6e1ec;
+  margin: auto;
+  text-align: center;
+}
+
+/*#updatePriceForm span {
+  color: white;
+  background: red;
+  border:1px solid red;
+  border-radius: 2px;
+  cursor: pointer;
+  width: 46%;
+  display: inline-block;
+  text-align: center;
+  padding: 0px;
+  vertical-align: middle;
+  margin: 1px 2% 0px 2%;
+  line-height: 17px;
+}*/
+
+#updatePriceForm input[type="number"] {
+  vertical-align: middle;
+  display: inline-block;
+  width: 100%;
+  margin: auto;
+}
+
+#updatePriceForm input[type="submit"] {
+  vertical-align: middle;
+  display: inline-block;
+  width: 60%;
+  margin: 0px auto;
+  background: rgb(255, 97, 40);
+  border:1px solid rgb(255, 97, 40);
+  border-radius: 2px;
+  color: white;
+  cursor: pointer;
+  padding: 1px 0px 1px 0px;
+  line-height: 15px;
+}
+
+.ad-block-price span:nth-of-type(2) {
+  color: #039ec5;
+}
+
+/*.ad-block-update-price-form{
+  
+}*/
+
+.ad-block-update-buttons {
+  text-align: center;;
+}
+
+.ad-block-update-buttons button {
+  margin: auto;
+  background: rgb(255, 97, 40);
+  padding: 3px;
+  border: 1px solid rgb(255, 97, 40);
+  border-radius: 2px;
+  color: white;
+  cursor: pointer;
+  width: 60%
+}
+
+/*.ad-block {
   padding: 4px;
   box-shadow: 0px 0px 8px #eeeeee;
   border: 1px solid #dddddd;
   border-radius: 3px;
-  margin: 10px 2% 0px 2%;
+  margin: 10px 0% 0px 0%;
   vertical-align: top;
-  display: inline-block;
+  width: auto;
+  text-align: center;
 }
 
 .ad-block img {
-  width: 190px;
-  height: 125px;
+  max-width: 300px;
+  width: 100%;
   border-radius: 3px;
-  float: left;
+  padding-bottom: 3px;
 }
 
 .ad-block-header {
   width: 100%;
-  /*background: blue;*/
+  padding: 3px;
+  color: #2581dc;
 }
 
 .ad-block-body {
   vertical-align: middle;
   min-height:70px;
-  /*background: red;*/
+  padding: 3px;
 }
 
 .ad-block-info {
   padding-left: 5px;
-  /*background: green;*/
   min-height: 70px;
   float: left;
 }
@@ -693,29 +837,20 @@ section::after,
 .ad-block-info-child {
   margin-bottom: 4px;
   display: block;
-  /*background: red;*/
-  width: 290px;
 }
 
-.ad-block-info-child section {
-  border: 1px solid #ccc;
-}
 .ad-block-info-child input {padding: 5px;}
 .ad-block-info-child input[type='number'] {width: 160px;}
-.ad-block-info-child section, 
+.ad-block-info-child section,
 .ad-block-info-child section div {
   display: inline-block;
-}
-
-.ad-block-info-child section div:first-of-type {
-    background-color: #ddd;
-    width: 160px;
-    padding: 4px;
-}
-
-.ad-block-info-child section div:nth-of-type(2) {
   padding: 4px;
-  /*background: brown;*/
+}
+
+.ad-block-info-child div:first-of-type {
+    background-color: #ddd;
+    display: inline-block;
+    padding: 4px;
 }
 
 .ad-block-info button {
@@ -726,6 +861,7 @@ section::after,
   cursor: pointer;
   border-radius: 4px;
 }
+*/
 
 .bw {background: white;}
 
@@ -742,7 +878,7 @@ footer div {
   float: left;
 }
 
-@media screen and (max-width: 849px) {
+@media screen and (max-width: 864px) {
   .dashboard-header a {
     width:150px;
   }
@@ -810,13 +946,7 @@ footer div {
         padding-top: 50px;
         font-size: 4.5rem;
       }
-    
-    .side-bar {
-      display: none;
-    }
-    .side-nav2 {
-      display: block;
-    }
+
     .dashboard {
       width:100%;
     }
@@ -824,22 +954,19 @@ footer div {
     .nav-mobile {
         display: block;
     }
-
-    .ad-block {
-      max-width: 96%;
-      width: 96%;
-    }
-    .ad-block-info {
-      width: 230px;
-      padding-left: 5px;
-    }
-
+/*
     .ad-block-info-child section div:first-of-type {
       width: 100px;
       padding: 4px;
     }
 
-    .ad-block-info-child input[type='number'] {width: 122px;}
+    .ad-block-info-child input[type='number'] {width: 122px;}*/
+}
+
+@media only screen and (max-width: 659px) {
+  .dashboard-header a {
+    width:100px;
+  }
 }
 
 @media only screen and (max-width: 640px) {
@@ -851,13 +978,13 @@ footer div {
   }
 }
 
-@media only screen and (max-width: 639px) {
-  .dashboard-header a {
-    width:100px;
+@media only screen and (max-width: 615px) {
+  .ad-block-container {
+    text-align: center;
   }
 }
 
-@media only screen and (max-width: 431px) {
+@media only screen and (max-width: 447px) {
   .dashMenu {
     padding: 15px 2% 5px 2%;
     display: inline-block;
