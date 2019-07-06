@@ -35,6 +35,12 @@ section::after,
   clear: both;
 }
 
+.brand img {
+  width: 70px;
+  display: inline;
+  vertical-align: middle;
+}
+
 .brand, .pageName {
   position: absolute;
   padding-left: 2%;
@@ -218,7 +224,7 @@ section::after,
 
 .pb-10 {padding-bottom: 10px;}
 .pb-10 {padding-bottom: 100px;}
-.mt11{margin-top:15px;}
+.mt15{margin-top:15px;}
 
 .banner1 {
   width: 100%;
@@ -274,112 +280,6 @@ section::after,
   background: orange;
   box-shadow: white 0px 0px 5px; 
 }
-
-/*
-.searchBoxForIndex {
-  max-width: 700px;
-  width: 95%;
-  padding: 20px;
-  margin: auto;
-  background: url('../images/smoke.png');
-  background-position: center;
-  background-size: cover;
-  font-size: 1rem;
-  font-style: normal;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.searchBox {
-  float: right;
-  max-width: 600px;
-  width: 95%;
-  padding: 10px 10px 0px 10px;
-  margin: auto;
-  background: #ccc;
-  font-size: 1rem;
-  font-style: normal;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.searchBoxHeader {
-  width: 100%;
-  background: url('../images/smoke.png');
-  background-position: center;
-  background-size: cover;
-  padding: 5px;
-}
-
-.searchBox .searchBoxHeader {background: #ccc;}
-.searchBox input[type="submit"] {
-  padding: 5px;
-}
-
-.searchBoxHeader div:nth-child(1) {float: left;}
-.searchBoxHeader div:nth-child(2) {
-  float: left;
-  color: white;
-  margin: 0px 5px 0px 5px;
-  vertical-align: text-bottom;
-}
-
-.searchBoxHeader select {
-  width: 250px;
-  padding: 5px;
-}
-
-.searchBox #searchTypeOfState {
-  float: left;
-}
-
-.searchBoxBody{
-  width: 100%;
-  background: url('../images/smoke.png');
-  background-position: center;
-  background-size: cover;
-  padding: 10px;
-}
-
-.searchBox .searchBoxBody {
-  background: #ccc;
-  padding: 10px 10px 0px 10px;
-}
-
-.searchBoxBodyDiv {
-  display: none;
-  text-align: left;
-}
-
-.searchBoxBody section {
-  margin-bottom: 5px;
-}
-
-.searchBoxBody select {
-  width:270px;
-  padding: 5px;
-}
-.searchBoxBody input[type="number"] {
-  margin-bottom: 3px;
-  width: 270px;
-}
-.searchBoxBody input {
-  padding: 5px;
-}
-
-.searchBoxBody input[id="searchTypeOfManufacturer"] {
-  width:100%;
-}
-
-.searchBoxBody input[type="submit"], .searchBox input[type="submit"] {
-  background: linear-gradient(#5786b6, #2a4b6b);
-  color: white;
-  border: 1px solid orange;
-  width:150px;
-}
-.searchBoxBody input[type="submit"]:hover, .searchBox input[type="submit"]:hover {
-  background: orange;
-  border-color: white;
-}
-*/
 
 /*adverts*/
 .ad-page, .dash-page {
@@ -586,7 +486,8 @@ section::after,
 .dashboard-header {
   margin: auto;
   width: 100%;
-  padding: 15px 2%;
+  max-width: 1200px;
+  padding: 15px 2% 15px 2%;
 }
 
 .dashboard-header a:nth-child(1) {
@@ -638,16 +539,36 @@ section::after,
 
 .dtab-header {
   padding: 5px 1% 5px 1%;
-  background: #2a4b6b;
+  /*background: #2a4b6b;*/
+  background: #039ec5;
   margin: auto;
   width: 100%;
   font-weight: bold;
   color: white;
+  display: inline-block;
 }
 
 .dtab-header h3 {
   margin: 0px;
   padding: 0px;
+  display: block;
+}
+
+.dtab-header button {
+  margin: 2px 0%;
+  width: 100px;
+  padding: 4px;
+  border: 1px solid white;
+  border-radius: 2px;
+}
+
+.dtab-header button:hover {
+  color: white;
+  background: rgb(255, 97, 40);
+}
+
+.dtab-header button:active {
+  border-color: white;
 }
 
 #dtab2, #dtab3 {
@@ -693,6 +614,10 @@ section::after,
   height: 100%;
 }
 
+.ad-block-info {
+  display: block;
+}
+
 .ad-block-title,
 .ad-block-price,
 .ad-block-update-price-form,
@@ -728,6 +653,7 @@ section::after,
 
 .ad-block-update-price-form {
   display: none;
+  padding: 12px 2px;
 }
 
 #updatePriceForm {
@@ -738,21 +664,6 @@ section::after,
   margin: auto;
   text-align: center;
 }
-
-/*#updatePriceForm span {
-  color: white;
-  background: red;
-  border:1px solid red;
-  border-radius: 2px;
-  cursor: pointer;
-  width: 46%;
-  display: inline-block;
-  text-align: center;
-  padding: 0px;
-  vertical-align: middle;
-  margin: 1px 2% 0px 2%;
-  line-height: 17px;
-}*/
 
 #updatePriceForm input[type="number"] {
   vertical-align: middle;
@@ -784,84 +695,27 @@ section::after,
 }*/
 
 .ad-block-update-buttons {
-  text-align: center;;
-}
-
-.ad-block-update-buttons button {
-  margin: auto;
-  background: rgb(255, 97, 40);
-  padding: 3px;
-  border: 1px solid rgb(255, 97, 40);
-  border-radius: 2px;
-  color: white;
-  cursor: pointer;
-  width: 60%
-}
-
-/*.ad-block {
-  padding: 4px;
-  box-shadow: 0px 0px 8px #eeeeee;
-  border: 1px solid #dddddd;
-  border-radius: 3px;
-  margin: 10px 0% 0px 0%;
-  vertical-align: top;
-  width: auto;
   text-align: center;
 }
 
-.ad-block img {
-  max-width: 300px;
-  width: 100%;
-  border-radius: 3px;
-  padding-bottom: 3px;
+.ad-block-update-buttons button {
+  width: 44%;
+  margin: auto 2% auto 2%;
 }
 
-.ad-block-header {
-  width: 100%;
+.ad-block-update-buttons button {
   padding: 3px;
-  color: #2581dc;
-}
-
-.ad-block-body {
-  vertical-align: middle;
-  min-height:70px;
-  padding: 3px;
-}
-
-.ad-block-info {
-  padding-left: 5px;
-  min-height: 70px;
-  float: left;
-}
-
-.ad-block-info-child {
-  margin-bottom: 4px;
-  display: block;
-}
-
-.ad-block-info-child input {padding: 5px;}
-.ad-block-info-child input[type='number'] {width: 160px;}
-.ad-block-info-child section,
-.ad-block-info-child section div {
-  display: inline-block;
-  padding: 4px;
-}
-
-.ad-block-info-child div:first-of-type {
-    background-color: #ddd;
-    display: inline-block;
-    padding: 4px;
-}
-
-.ad-block-info button {
-  padding: 6px;
-  background: #2581dc;
+  border-radius: 2px;
   color: white;
-  border: 1px solid #2581dc;
   cursor: pointer;
-  border-radius: 4px;
+  background: rgb(255, 97, 40);
+  border: 1px solid rgb(255, 97, 40);
 }
-*/
+
+.ad-block-update-buttons button:nth-child(2):hover {
+  background: #039ec5;
+  border: 1px solid #039ec5;
+}
 
 .bw {background: white;}
 
