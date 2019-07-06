@@ -23,6 +23,12 @@ class AdvertUpdater {
     return { newPrice: form.newPrice.value };
   }
 
+  appendToAds(data) {
+    const container = document.getElementsByClassName('ad-block-container')[1];
+    // eslint-disable-next-line no-use-before-define
+    container.prepend(buildAdBlock(data));
+  }
+
   async updateAdPrice(event, carId) {
     event.preventDefault();
     const url = `https://automarter.herokuapp.com/api/v1/car/${carId}/price`;
@@ -35,14 +41,30 @@ class AdvertUpdater {
       document.getElementById(`adPrice${carId}`).innerHTML = req.data.price;
     }
   }
+
+  async updateAdStatus(event, carId) {
+    const url = `https://automarter.herokuapp.com/api/v1/car/${carId}/status`;
+    const formData = { newStatus: 'sold' };
+    const req = await this.patchData(url, formData)
+      .then(data => data)
+      .catch(error => error);
+    if (req.error) {
+      // eslint-disable-next-line no-console
+      console.log(req.error);
+    } else if (req.status && req.status === 200) {
+      document.getElementById(`ad-block${carId}`).style.display = 'none';
+      this.appendToAds(req.data);
+    }
+  }
 }
 const advertUpdater = new AdvertUpdater();
-let MyAdverts = '';
+let MyAdverts = [];
 
 const buildAdBlock = (ad) => { // adBlock builder
   // ad block
   const adBlock = document.createElement('div');
   adBlock.className = 'ad-block';
+  adBlock.id = `ad-block${ad.id}`;
 
   // image section
   const adBlockImg = document.createElement('div');
@@ -51,6 +73,12 @@ const buildAdBlock = (ad) => { // adBlock builder
   // eslint-disable-next-line prefer-destructuring
   img.src = ad.photos[0];
   adBlockImg.append(img); // coupling
+
+  /**
+   * info sections
+   */
+  const adBlockInfo = document.createElement('div');
+  adBlockInfo.className = 'ad-block-info';
 
   // title section
   const adBlockTitle = document.createElement('div');
@@ -68,61 +96,74 @@ const buildAdBlock = (ad) => { // adBlock builder
   adBlockDetails.innerHTML = `
       <span>${ad.manufacturer} </span>|<span> ${ad.model} </span>|<span> ${ad.state}</span>`;
 
-  // update price form section
-  const adBlockUpdatePriceForm = document.createElement('section');
-  adBlockUpdatePriceForm.className = 'ad-block-update-price-form';
-  const updatePriceForm = document.createElement('form');
-  updatePriceForm.id = 'updatePriceForm';
-  updatePriceForm.name = 'updatePriceForm';
-  updatePriceForm.method = 'POST';
-  updatePriceForm.addEventListener('submit', async (event) => {
-    await advertUpdater.updateAdPrice(event, ad.id);
-  });
+  // coupling infos
+  adBlockInfo.append(adBlockTitle, adBlockPrice, adBlockDetails);
 
-  const updatePriceInput = document.createElement('input');
-  updatePriceInput.type = 'number';
-  updatePriceInput.name = 'newPrice';
-  updatePriceInput.min = 0;
-  updatePriceInput.placeholder = 'Enter new Price';
+  /**
+   * update sections
+  */
+  let adBlockUpdatePriceForm = '';
+  let adBlockUpdateButtons = '';
+  if (ad.status === 'available') {
+    // update price form section
+    adBlockUpdatePriceForm = document.createElement('section');
+    adBlockUpdatePriceForm.className = 'ad-block-update-price-form';
+    const updatePriceForm = document.createElement('form');
+    updatePriceForm.id = 'updatePriceForm';
+    updatePriceForm.name = 'updatePriceForm';
+    updatePriceForm.method = 'POST';
+    updatePriceForm.addEventListener('submit', async (event) => {
+      await advertUpdater.updateAdPrice(event, ad.id);
+    });
 
-  /* const closeButton = document.createElement('span');
-    closeButton.innerHTML = 'Close';
-    // eslint-disable-next-line no-loop-func
-    closeButton.addEventListener('click', () => {
-      const closeB = document.getElementById('ad-block-update-buttons');
-      closeB.style.display = 'inline-block';
-      adBlockUpdatePriceForm.style.display = 'none';
-    }); */
-  const submitNewPriceButton = document.createElement('input');
-  submitNewPriceButton.value = 'Update';
-  submitNewPriceButton.type = 'submit';
-  updatePriceForm.append(updatePriceInput, submitNewPriceButton); // coupling
-  adBlockUpdatePriceForm.append(updatePriceForm); // coupling
-  adBlockUpdatePriceForm.style.display = 'none';
+    const updatePriceInput = document.createElement('input');
+    updatePriceInput.type = 'number';
+    updatePriceInput.name = 'newPrice';
+    updatePriceInput.min = 0;
+    updatePriceInput.placeholder = 'Enter new Price';
 
-  // update button sections
-  const adBlockUpdateButtons = document.createElement('section');
-  adBlockUpdateButtons.className = 'ad-block-update-buttons';
-  adBlockUpdateButtons.id = 'ad-block-update-buttons';
-  const updatePriceButton = document.createElement('button');
-  updatePriceButton.innerHTML = 'Update Price';
-  updatePriceButton.addEventListener('click', () => {
-    if (adBlockUpdatePriceForm.style.display === 'none') {
-      updatePriceButton.innerHTML = 'Close';
-      adBlockUpdatePriceForm.style.display = 'block';
-      updatePriceButton.style.background = 'red';
-    } else {
-      adBlockUpdatePriceForm.style.display = 'none';
-      updatePriceButton.innerHTML = 'Update Price';
-      updatePriceButton.style.background = 'rgb(255, 97, 40)';
-    }
-  });
-  adBlockUpdateButtons.append(updatePriceButton); // coupling
+    const submitNewPriceButton = document.createElement('input');
+    submitNewPriceButton.value = 'Update';
+    submitNewPriceButton.type = 'submit';
+    updatePriceForm.append(updatePriceInput, submitNewPriceButton); // coupling
+    adBlockUpdatePriceForm.append(updatePriceForm); // coupling
+    adBlockUpdatePriceForm.style.display = 'none';
+
+    // update button sections
+    adBlockUpdateButtons = document.createElement('section');
+    adBlockUpdateButtons.className = 'ad-block-update-buttons';
+    adBlockUpdateButtons.id = 'ad-block-update-buttons';
+
+    const updateStatusButton = document.createElement('button'); // update status button
+    updateStatusButton.innerHTML = 'Mark Sold';
+    updateStatusButton.addEventListener('click', async (event) => {
+      await advertUpdater.updateAdStatus(event, ad.id);
+    });
+
+    const updatePriceButton = document.createElement('button'); // update price button
+    updatePriceButton.innerHTML = 'Update Price';
+    updatePriceButton.addEventListener('click', () => {
+      if (adBlockUpdatePriceForm.style.display === 'none') {
+        updatePriceButton.innerHTML = 'Close';
+        updateStatusButton.style.display = 'none'; // hide update status button
+        adBlockInfo.style.display = 'none'; // hide info section
+        adBlockUpdatePriceForm.style.display = 'block'; // show form
+        updatePriceButton.style.background = 'red';
+      } else {
+        adBlockUpdatePriceForm.style.display = 'none'; // hide form
+        updateStatusButton.style.display = 'inline-block'; // show update status button
+        adBlockInfo.style.display = 'block'; // show info section
+        updatePriceButton.innerHTML = 'Update Price';
+        updatePriceButton.style.background = 'rgb(255, 97, 40)';
+      }
+    });
+    adBlockUpdateButtons.append(updatePriceButton, updateStatusButton); // coupling
+  }
 
   /**
    * Total coupling of the advert
    */
-  adBlock.append(adBlockImg, adBlockTitle, adBlockPrice, adBlockDetails, adBlockUpdatePriceForm,
+  adBlock.append(adBlockImg, adBlockInfo, adBlockUpdatePriceForm,
     adBlockUpdateButtons);
   return adBlock;
 };
@@ -259,20 +300,28 @@ const getAllMyAdverts = async () => {
 
 const arrangeMyAdverts = (ads) => {
   const container = document.createElement('div');
+  const container2 = document.createElement('div');
   container.className = 'ad-block-container';
+  container2.className = 'ad-block-container';
+  container2.style.display = 'none';
   for (let i = ads.length - 1; i > -1; i -= 1) {
-    container.append(buildAdBlock(ads[i]));
+    if (ads[i].status === 'available') {
+      container.append(buildAdBlock(ads[i]));
+    } else {
+      container2.append(buildAdBlock(ads[i]));
+    }
   }
-  MyAdverts = container;
+  // MyAdverts[0] = container;
+  MyAdverts.push(container, container2);
 };
 
 const displayMyAdverts = () => {
   const adsDiv = document.getElementById('myAdsDiv');
-  if (MyAdverts === '') {
+  if (MyAdverts.length === 0) {
     adsDiv.style.backgroundImage = "url('images/noAds.png')";
   } else {
-    adsDiv.append(MyAdverts);
-    MyAdverts = '';
+    adsDiv.append(MyAdverts[0], MyAdverts[1]);
+    MyAdverts = [];
   }
 };
 
@@ -308,6 +357,13 @@ const togglePostAdvertModal = () => {
   });
 };
 
+const showSoldAndUnsold = (i, j) => {
+  const m = document.getElementsByClassName('ad-block-container')[i];
+  const n = document.getElementsByClassName('ad-block-container')[j];
+  m.style.display = 'block';
+  n.style.display = 'none';
+};
+
 document.addEventListener('DOMContentLoaded', async () => {
   // get all my posted ads
   const MyAds = await getAllMyAdverts();
@@ -324,6 +380,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   const dashboardMenu = document.getElementById('dashboard-header');
   menuButtonForMobile.addEventListener('click', () => {
     toggleDashboardMenu(dashboardMenu);
+  });
+  const unsoldAndSoldButtons = document.getElementsByClassName('unsold&SoldButtons');
+  const indicateUnsoldOrSold = document.getElementById('indicateUnsoldOrSold');
+  indicateUnsoldOrSold.innerHTML = '- Available';
+  unsoldAndSoldButtons[0].addEventListener('click', () => {
+    indicateUnsoldOrSold.innerHTML = '- Available';
+    showSoldAndUnsold(0, 1);
+  });
+  unsoldAndSoldButtons[1].addEventListener('click', () => {
+    indicateUnsoldOrSold.innerHTML = '- Sold';
+    showSoldAndUnsold(1, 0);
   });
   togglePostAdvertModal();
 });
