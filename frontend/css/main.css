@@ -67,8 +67,6 @@ section::after,
   height: 70px;
   margin: 0 auto;
   width: 100%;
-  /*background: #2a4b6b; /*#262626;*/
-  /* background: linear-gradient(#5786b6, #2a4b6b);*/
   background: white;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   box-shadow: 0px 0px 2px #444;
@@ -304,6 +302,7 @@ section::after,
   font-weight: bold;  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .home-page {
+  width: 100%;
   min-height: calc(100vh - 70px);
 }
 
@@ -318,20 +317,30 @@ section::after,
 }
 
 .home-page-body {
-  padding-top:20px;
-  /*background: red;*/
+  padding: 20px 2% 0px 2%;
   width: 100%;
-  text-align: center;
-  margin: auto;
+  display: inline-block;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  min-height: 10px;
+  margin-bottom: 20px;
+}
+
+.ad-box-container {
+  display: block;
 }
 
 .ad-box {
-  max-width: 300px;
+  max-width: 270px;
+  width: 100%;
   box-shadow: 0px 0px 8px #cccccc;
   border-radius: 3px;
-  margin: 0px 10px 10px;
+  margin: 5px 1rem 0px auto;
   padding-bottom: 5px;
   display: inline-block;
+  vertical-align: top;
 }
 
 .ad-box div {
@@ -348,11 +357,15 @@ section::after,
   height: 100%;
 }
 
+.ad-box-info {
+  display: block;
+}
+
 .ad-box-title,
 .ad-box-price,
 .ad-box-available,
-.ad-box-price-button,
-.ad-box-report-button,
+.ad-box-buttons,
+.ad-box-button,
 .ad-box-delete-button,
 .ad-box-details {
   text-align: left;
@@ -391,39 +404,51 @@ section::after,
   text-transform: capitalize;
   font-weight: 700;
 }
-.ad-box-price-button,
-.ad-box-report-button,
-.ad-box-delete-button {text-align: center;}
-.ad-box-price-button button {
-  width: 80%;
-  padding: 4px;
-  background: #2581dc;
-  color: white;
-  border: 1px solid #2581dc;
-  border-radius: 2px;
+.ad-box-buttons {
+  width: 100%;
+  display: block;
 }
-
-.ad-box-price-button button:hover, 
-.ad-box-price-button button:visited {
-  background: #039ec5;
-  border-color:#039ec5;
-}
-
-.ad-box-report-button button {
-  width: 80%;
+/*.ad-box-button,
+.ad-box-delete-button {text-align: center;}*/
+.ad-box-buttons button {
+  width: 46%;
   padding: 4px;
-  background: #039ec5;
   color: white;
-  border: 1px solid #039ec5;
   border-radius: 2px;
   cursor: pointer;
+  /*background: rgb(255, 97, 40);
+  border: 1px solid rgb(255, 97, 40);*/
+  margin: 2px 2%;
 }
-.ad-box-report-button button:hover,
-.ad-box-report-button button:hover {
+
+.ad-box-buttons button:nth-child(1) {
+  background: #2581dc;
+  border: 1px solid #2581dc;
+}
+
+.ad-box-buttons button:nth-child(1):hover {
+  background: #007bff;
+}
+
+/*.ad-box-buttons button:hover, 
+.ad-box-buttons button:visited {
+  background: #2581dc;
+  border-color:#039ec5;
+}*/
+
+.ad-box-buttons button:nth-child(2) {
+  padding: 4px;
+  color: black;
+  border: 1px solid #343a40;
+  border-radius: 2px;
+}
+.ad-box-buttons button:nth-child(2):hover {
+  color: white;
   background: orangered;
-  border: 1px solid orangered;
+  
+  border: 1px solid rgb(255, 97, 40);
 }
-.ad-box-delete-button button {
+/*.ad-box-delete-button button {
   width: 80%;
   padding: 4px;
   background: #039ec5;
@@ -436,17 +461,8 @@ section::after,
 .ad-box-delete-button button:hover {
   background: rgb(212, 57, 0);
   border: 1px solid orangered;
-}
+}*/
 /*dashboard page*/
-/*
-.side-bar {
-  width: 15%;
-  background: #2e2e2e;
-  float: left;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  height: calc(100vh - 70px);
-}
-*/
 
 .dashboard {
   max-width: 1200px;
@@ -833,7 +849,7 @@ footer div {
 }
 
 @media only screen and (max-width: 615px) {
-  .ad-block-container {
+  .ad-block-container, .ad-box-container {
     text-align: center;
   }
 }

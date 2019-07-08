@@ -19,9 +19,9 @@ const getPageName = () => {
   return page;
 };
 
-const signOut = () => {
+const signOut = (page = 'index.html') => {
   localStorage.removeItem('autoMartUser');
-  window.location.replace('index.html');
+  window.location.replace(page);
 };
 
 const signOutSetup = () => {
@@ -44,6 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
   navToggle.addEventListener('click', slideToggle);
   // toggleSoldOnDashboard(); // marks your Ads Sold or not
   if (((pageName === 'signup.html' || pageName === 'signin.html' || pageName === 'index.html') && user !== '')) {
-    window.location.replace('dashboard.html');
+    window.location.replace('home.html');
   }
 });

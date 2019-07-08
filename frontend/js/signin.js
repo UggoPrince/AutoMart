@@ -60,7 +60,7 @@ const handleSuccess = (data) => {
   notify.innerHTML = 'Login Successful!';
   const user = JSON.stringify(data);
   localStorage.setItem('autoMartUser', user);
-  window.location.replace('dashboard.html');
+  window.location.replace('home.html');
 };
 
 const signin = async (event) => {
