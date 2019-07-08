@@ -67,7 +67,7 @@ const handleSuccess = (data) => {
   notify.innerHTML = 'Account Successfully Created!';
   const user = JSON.stringify(data);
   localStorage.setItem('autoMartUser', user);
-  window.location.replace('dashboard.html');
+  window.location.replace('home.html');
 };
 
 

@@ -34,11 +34,13 @@ class AdvertUpdater {
     const url = `https://automarter.herokuapp.com/api/v1/car/${carId}/price`;
     const form = event.target;
     const formData = this.buildUpdatePriceData(form);
-    const req = await this.patchData(url, formData)
+    const result = await this.patchData(url, formData)
       .then(data => data)
       .catch(error => error);
-    if (req.status && req.status === 200) {
+    if (result.status && result.status === 200) {
       document.getElementById(`adPrice${carId}`).innerHTML = req.data.price;
+    } else if (result.status === 401) {
+      signOut('signin.html'); // from main.js
     }
   }
 
@@ -48,12 +50,14 @@ class AdvertUpdater {
     const req = await this.patchData(url, formData)
       .then(data => data)
       .catch(error => error);
-    if (req.error) {
+    if (result.error) {
       // eslint-disable-next-line no-console
       console.log(req.error);
-    } else if (req.status && req.status === 200) {
+    } else if (result.status && result.status === 200) {
       document.getElementById(`ad-block${carId}`).style.display = 'none';
-      this.appendToAds(req.data);
+      this.appendToAds(result.data);
+    } else if (result.status === 401) {
+      signOut('signin.html'); // from main.js
     }
   }
 }
@@ -269,18 +273,20 @@ class AdvertPoster {
     const url = 'https://automarter.herokuapp.com/api/v1/car/';
     const form = event.target;
     const formData = this.buildPostAdvertData(form);
-    const req = await this.postData(url, formData)
+    const result = await this.postData(url, formData)
       .then(data => data)
       .catch(error => error);
     // console.log(req);
-    if (req.fetchError && req.fetchError === 'Failed to fetch') {
+    if (result.fetchError && result.fetchError === 'Failed to fetch') {
       this.handleNetworkError();
-    } else if (req === 'undefined') {
+    } else if (result === 'undefined') {
       this.handleNetworkError();
-    } else if (req.error) {
+    } else if (result.error && result.status !== 401) {
       this.handleUserError(req);
-    } else if (req.status === 201) {
-      this.handleSuccess(req.data);
+    } else if (result.status === 201) {
+      this.handleSuccess(result.data);
+    } else if (result.status === 401) {
+      signOut('signin.html'); // from main.js
     }
   }
 }
@@ -367,6 +373,9 @@ const showSoldAndUnsold = (i, j) => {
 document.addEventListener('DOMContentLoaded', async () => {
   // get all my posted ads
   const MyAds = await getAllMyAdverts();
+  if (MyAds.status === 401) {
+    signOut('signin.html'); // from main.js
+  }
   if (MyAds.data.length !== 0) arrangeMyAdverts(MyAds.data);
   displayMyAdverts(MyAds);
   // prepare post advert engine
