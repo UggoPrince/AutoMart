@@ -47,12 +47,12 @@ class AdvertUpdater {
   async updateAdStatus(event, carId) {
     const url = `https://automarter.herokuapp.com/api/v1/car/${carId}/status`;
     const formData = { newStatus: 'sold' };
-    const req = await this.patchData(url, formData)
+    const result = await this.patchData(url, formData)
       .then(data => data)
       .catch(error => error);
-    if (result.error) {
+    if (result.error && result.status && result.status !== 401) {
       // eslint-disable-next-line no-console
-      console.log(req.error);
+      console.log(result.error);
     } else if (result.status && result.status === 200) {
       document.getElementById(`ad-block${carId}`).style.display = 'none';
       this.appendToAds(result.data);
@@ -233,20 +233,26 @@ class AdvertPoster {
     notify.innerHTML = 'Not connecting. Check your network.';
   }
 
-  handleUserError(reqError) {
+  handleUserError(resultError) {
     const notify = this.getNotify();
     notify.style.color = 'red';
     notify.style.background = 'rgb(255, 182, 182)';
-    if (reqError.status === 401 && reqError.status === 'Session expired, login') {
+    if (resultError.status === 401) {
       notify.innerHTML = 'Session expired, login to continue.';
+      setTimeout(() => {
+        signOut('signin.html'); // from main.js
+      }, 1500);
     } else notify.innerHTML = 'Unsuccessful!';
-    this.displayError(reqError.error);
+    this.displayError(resultError.error);
   }
 
   closeModalAfterSuccess() {
     setTimeout(() => {
       const postAdvertModal = document.getElementById('postAdvertModal');
       postAdvertModal.style.display = 'none';
+      const notify = this.getNotify();
+      notify.style.display = 'none';
+      notify.innerHTML = '';
     }, 1000);
   }
 
@@ -282,11 +288,9 @@ class AdvertPoster {
     } else if (result === 'undefined') {
       this.handleNetworkError();
     } else if (result.error && result.status !== 401) {
-      this.handleUserError(req);
+      this.handleUserError(result);
     } else if (result.status === 201) {
       this.handleSuccess(result.data);
-    } else if (result.status === 401) {
-      signOut('signin.html'); // from main.js
     }
   }
 }
@@ -346,9 +350,14 @@ const togglePostAdvertModal = () => {
   const postAdvertModal = document.getElementById('postAdvertModal');
   const revealPostAdvertModal = document.getElementsByClassName('revealPostAdvertModal')[0];
   const span = document.getElementsByClassName('close')[0]; // Get the <span> element that closes the modal
+  const advertPosta = new AdvertPoster();
+  const notify = advertPosta.getNotify();
 
   span.addEventListener('click', () => { // When the user clicks on <span> (x), close the modal
     postAdvertModal.style.display = 'none';
+    notify.style.display = 'none';
+    notify.innerHTML = '';
+    advertPosta.cleanErrorDisplay();
   });
 
   // When the user clicks the tab, open the modal
@@ -359,6 +368,9 @@ const togglePostAdvertModal = () => {
   window.addEventListener('click', (event) => {
     if (event.target === postAdvertModal) {
       postAdvertModal.style.display = 'none';
+      notify.style.display = 'none';
+      notify.innerHTML = '';
+      advertPosta.cleanErrorDisplay();
     }
   });
 };

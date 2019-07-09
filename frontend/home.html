@@ -79,6 +79,7 @@
             <section class="modal-header form-header">
                 <span class="close">&times;</span><br>
                 <h2>Make An Offer</h2>
+                <span class="serverNotice"></span>
             </section>
 
             <section class="modal-body">
@@ -88,12 +89,15 @@
                 </section>
                 <section class="offer-form-block">
                     <label class="akol-3">Enter Amount</label>
-                    <input class="akol-9" type="number" min="0"/>
+                    <input class="akol-9" type="number" name="amount" min="0"/>
+                </section>
+                <section>
+                    <input id="carIdForOffer" value="" name="carId" hidden>
                 </section>
             </section>
             <section class="modal-footer">
                 <section class="offer-form-block">
-                    <input class="sendOffer" type="submit" value="SEND"/>
+                    <input id="makeOfferButton" class="sendOffer" type="submit" value="SEND"/>
                 </section>
             </section>
             </form>
@@ -108,6 +112,7 @@
             <section class="modal-header form-header">
                 <span class="close">&times;</span><br>
                 <h2 class="rocolor">Report As Fraud</h2>
+                <span class="serverNotice"></span>
             </section>
 
             <section class="modal-body">
@@ -122,7 +127,7 @@
             </section>
             <section class="modal-footer">
                 <section class="offer-form-block">
-                    <input class="sendOffer" type="submit" value="SEND REPORT"/>
+                    <input id="reportAdvertButton" class="sendOffer" type="submit" value="SEND REPORT"/>
                 </section>
             </section>
             </form>
