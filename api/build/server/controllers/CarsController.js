@@ -32,15 +32,15 @@ function () {
       var _addCar = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee(req, res) {
-        var reqBody, carPhoto, result;
+        var reqBody, car_photo, result;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 reqBody = req.body;
-                carPhoto = req.files;
+                car_photo = req.files;
                 _context.next = 4;
-                return _Cars["default"].postAdvert(reqBody, carPhoto);
+                return _Cars["default"].postAdvert(reqBody, car_photo);
 
               case 4:
                 result = _context.sent;
@@ -75,7 +75,7 @@ function () {
             switch (_context2.prev = _context2.next) {
               case 0:
                 reqBody = req.body;
-                reqBody.carId = req.params.car_id;
+                reqBody.car_id = req.params.car_id;
                 _context2.next = 4;
                 return _Cars["default"].updateStatus(reqBody);
 
@@ -112,7 +112,7 @@ function () {
             switch (_context3.prev = _context3.next) {
               case 0:
                 reqBody = req.body;
-                reqBody.carId = req.params.car_id;
+                reqBody.car_id = req.params.car_id;
                 _context3.next = 4;
                 return _Cars["default"].updatePrice(reqBody);
 
@@ -143,14 +143,14 @@ function () {
       var _getSpecificCar = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee4(req, res) {
-        var carId, result;
+        var car_id, result;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                carId = req.params.car_id;
+                car_id = req.params.car_id;
                 _context4.next = 3;
-                return _Cars["default"].getCarById(carId);
+                return _Cars["default"].getCarById(car_id);
 
               case 3:
                 result = _context4.sent;
@@ -315,14 +315,14 @@ function () {
       var _deleteCar = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee6(req, res) {
-        var carId;
+        var car_id;
         return regeneratorRuntime.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                carId = req.params.car_id;
+                car_id = req.params.car_id;
                 _context6.next = 3;
-                return _Cars["default"].deleteAdvert(carId);
+                return _Cars["default"].deleteAdvert(car_id);
 
               case 3:
                 res.status(200).send({

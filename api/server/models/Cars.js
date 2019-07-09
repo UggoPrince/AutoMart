@@ -17,9 +17,9 @@ cloudinary.config({
 const db = new Database();
 
 class Cars {
-  async postAdvert(carData, carPhoto) {
+  async postAdvert(carData, car_photo) {
     // check if user for this car exist
-    const uploadedImg = await this.uploadImage(carPhoto);
+    const uploadedImg = await this.uploadImage(car_photo);
     const queryString = `
       INSERT INTO cars (
         owner, state, status, price, title, manufacturer, model, body_type, photos
@@ -27,7 +27,7 @@ class Cars {
       VALUES (
         '${carData.owner}', '${carData.state}', '${carData.status}',
         '${carData.price}', '${carData.title}', '${carData.manufacturer}',
-        '${carData.model}', '${carData.bodyType}', '{${uploadedImg.url}}'
+        '${carData.model}', '${carData.body_type}', '{${uploadedImg.url}}'
       )
       RETURNING *;
     `;
@@ -51,8 +51,8 @@ class Cars {
     return result;
   }
 
-  async uploadImage(carPhoto) {
-    const filePath = carPhoto.photo.path;
+  async uploadImage(car_photo) {
+    const filePath = car_photo.photo.path;
     const uploadedImg = await cloudinary.uploader.upload(filePath, {
       folder: process.env.CLOUDINARY_AUTOMART_FOLDER,
       use_filename: true,
@@ -110,9 +110,9 @@ class Cars {
     return result;
   }
 
-  async updater(carId, field, value, ownerEmail) {
+  async updater(car_id, field, value, ownerEmail) {
     const queryString = `UPDATE cars SET ${field} = '${value}'
-    WHERE id = '${carId}' RETURNING *;`;
+    WHERE id = '${car_id}' RETURNING *;`;
     const result = await db.query(queryString);
     const {
       // eslint-disable-next-line no-unused-vars
@@ -135,18 +135,18 @@ class Cars {
   }
 
   async updateStatus(carData) {
-    const carStatus = carData.newStatus.toLowerCase();
-    const result = await this.updater(carData.carId, 'status', carStatus, carData.email);
+    const status = carData.status.toLowerCase();
+    const result = await this.updater(carData.car_id, 'status', status, carData.email);
     return result;
   }
 
   async updatePrice(carData) {
-    const result = await this.updater(carData.carId, 'price', carData.newPrice, carData.email);
+    const result = await this.updater(carData.car_id, 'price', carData.price, carData.email);
     return result;
   }
 
-  async deleteAdvert(carId) {
-    const queryString = `DELETE FROM cars WHERE id ='${carId}';`;
+  async deleteAdvert(car_id) {
+    const queryString = `DELETE FROM cars WHERE id ='${car_id}';`;
     const result = await db.query(queryString);
     return result;
   }

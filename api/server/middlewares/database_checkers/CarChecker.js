@@ -1,16 +1,17 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable class-methods-use-this */
+/* eslint-disable camelcase */
 import Cars from '../../models/Cars';
 
 class CarCheck {
   constructor() {
-    this.ownerId = '';
+    this.owner_id = '';
   }
 
-  async checkId(carId) {
-    const car = await Cars.getCarById(carId);
+  async checkId(car_id) {
+    const car = await Cars.getCarById(car_id);
     if (car.rowCount > 0) {
-      this.ownerId = car.rows[0].owner;
+      this.owner_id = car.rows[0].owner;
       return true;
     }
     return false;

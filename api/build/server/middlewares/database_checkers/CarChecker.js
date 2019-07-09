@@ -25,7 +25,7 @@ function () {
   function CarCheck() {
     _classCallCheck(this, CarCheck);
 
-    this.ownerId = '';
+    this.owner_id = '';
   }
 
   _createClass(CarCheck, [{
@@ -33,14 +33,14 @@ function () {
     value: function () {
       var _checkId = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee(carId) {
+      regeneratorRuntime.mark(function _callee(car_id) {
         var car;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _Cars["default"].getCarById(carId);
+                return _Cars["default"].getCarById(car_id);
 
               case 2:
                 car = _context.sent;
@@ -50,7 +50,7 @@ function () {
                   break;
                 }
 
-                this.ownerId = car.rows[0].owner;
+                this.owner_id = car.rows[0].owner;
                 return _context.abrupt("return", true);
 
               case 6:

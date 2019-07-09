@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable camelcase */
 /* global before:true, describe:true, it:true, */
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
@@ -16,39 +17,39 @@ before('Create Tables', async () => {
 
 describe('Users Test', () => {
   const newUser = {
-    firstname: 'john',
-    lastname: 'matthew',
+    first_name: 'john',
+    last_name: 'matthew',
     email: 'johnmatthew@gmail.com',
     password: 'k12345kljd',
     address: 'no 3 ikorodu',
-    phoneNumber: '07034533669',
+    phone_number: '07034533669',
   };
 
   const newUser2 = {
-    firstname: 'john',
-    lastname: 'matthew',
+    first_name: 'john',
+    last_name: 'matthew',
     email: 'joshua@gmail.com',
     password: 'k12345kljd',
     address: 'no 3 ikorodu',
-    phoneNumber: '07034533669',
+    phone_number: '07034533669',
   };
 
   const newUser3 = {
-    firstname: 'john',
-    lastname: 'matthew',
+    first_name: 'john',
+    last_name: 'matthew',
     email: 'admin@gmail.com',
     password: 'k12345kljd',
     address: 'no 3 ikorodu',
-    phoneNumber: '07034533669',
+    phone_number: '07034533669',
   };
 
   const invalidData = {
-    firstname: 45,
-    lastname: 'matthew*-*',
+    first_name: 45,
+    last_name: 'matthew*-*',
     email: 'johnmatthewgmail.com',
     password: 'k123',
     address: '12****---',
-    phoneNumber: '07kk',
+    phone_number: '07kk',
   };
   describe('POST /api/v1/auth/signup', () => {
     it('should sign up a user', (done) => {

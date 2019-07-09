@@ -41,7 +41,7 @@ function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                queryString = "INSERT INTO flags (car_id, reason, description)\n      VALUES (".concat(flagData.carId, ", '").concat(flagData.reason, "', '").concat(flagData.description, "')\n      RETURNING id, car_id, reason, description;");
+                queryString = "INSERT INTO flags (car_id, reason, description)\n      VALUES (".concat(flagData.car_id, ", '").concat(flagData.reason, "', '").concat(flagData.description, "')\n      RETURNING id, car_id, reason, description;");
                 _context.next = 3;
                 return db.query(queryString);
 

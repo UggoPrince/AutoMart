@@ -8,7 +8,7 @@ class Orders {
   async makeOrder(orderData) {
     const queryString = `
       INSERT INTO orders (buyer, car_id, amount)
-      VALUES ('${orderData.buyer}', '${orderData.carId}', '${orderData.amount}')
+      VALUES ('${orderData.buyer}', '${orderData.car_id}', '${orderData.amount}')
       RETURNING id, car_id, created_on, status, amount;`;
     const result = await db.query(queryString);
     result.rows[0].price = orderData.price;
@@ -28,13 +28,10 @@ class Orders {
 
   async updatePrice(orderData) {
     const queryString = `
-    UPDATE orders SET amount = '${orderData.newAmount}'
-    WHERE id = '${orderData.orderId}' AND status = 'pending'
+    UPDATE orders SET amount = '${orderData.amount}'
+    WHERE id = '${orderData.order_id}' AND status = 'pending'
     RETURNING id, car_id, status, amount;`;
     const result = await db.query(queryString);
-    result.rows[0].old_price_offered = orderData.amount;
-    result.rows[0].new_price_offered = result.rows[0].amount;
-    delete result.rows[0].amount;
     return result;
   }
 }

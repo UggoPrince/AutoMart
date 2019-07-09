@@ -1,5 +1,6 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable camelcase */
 /* global describe:true, it:true, */
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
@@ -11,7 +12,7 @@ chai.use(chaiHttp);
 describe('Orders Test', () => {
   const newOrder = {
     buyer: 1,
-    carId: 1,
+    car_id: 1,
     amount: 600000.13,
   };
   describe('POST /api/v1/order', () => {
@@ -33,7 +34,7 @@ describe('Orders Test', () => {
         .set({ authentication: process.env.tokenUser })
         .send({
           buyer: 22,
-          carId: 33,
+          car_id: 33,
           amount: 1200000,
         })
         .end((err, res) => {
@@ -71,7 +72,7 @@ describe('Orders Test', () => {
 
   describe('PATCH /api/v1/order/:order_id/price', () => {
     const update = {
-      newAmount: 1200000.001,
+      amount: 1200000.001,
     };
     it('should update the price of a purchase order', (done) => {
       chai.request(app)
@@ -110,7 +111,7 @@ describe('Orders Test', () => {
       chai.request(app)
         .patch('/api/v1/order/3/price')
         .set({ authentication: process.env.tokenUser })
-        .send({ newAmount: '1222kl' })
+        .send({ amount: '1222kl' })
         .end((err, res) => {
           expect(res.status).to.be.eql(400);
           expect(res.type).to.be.equal('application/json');

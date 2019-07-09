@@ -46,7 +46,7 @@ function () {
     value: function () {
       var _postAdvert = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee(carData, carPhoto) {
+      regeneratorRuntime.mark(function _callee(carData, car_photo) {
         var uploadedImg, queryString, result, _result$rows$, id, created_on, state, status, price, title, manufacturer, model, body_type, photos;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -54,11 +54,11 @@ function () {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return this.uploadImage(carPhoto);
+                return this.uploadImage(car_photo);
 
               case 2:
                 uploadedImg = _context.sent;
-                queryString = "\n      INSERT INTO cars (\n        owner, state, status, price, title, manufacturer, model, body_type, photos\n        )\n      VALUES (\n        '".concat(carData.owner, "', '").concat(carData.state, "', '").concat(carData.status, "',\n        '").concat(carData.price, "', '").concat(carData.title, "', '").concat(carData.manufacturer, "',\n        '").concat(carData.model, "', '").concat(carData.bodyType, "', '{").concat(uploadedImg.url, "}'\n      )\n      RETURNING *;\n    ");
+                queryString = "\n      INSERT INTO cars (\n        owner, state, status, price, title, manufacturer, model, body_type, photos\n        )\n      VALUES (\n        '".concat(carData.owner, "', '").concat(carData.state, "', '").concat(carData.status, "',\n        '").concat(carData.price, "', '").concat(carData.title, "', '").concat(carData.manufacturer, "',\n        '").concat(carData.model, "', '").concat(carData.body_type, "', '{").concat(uploadedImg.url, "}'\n      )\n      RETURNING *;\n    ");
                 _context.next = 6;
                 return db.query(queryString);
 
@@ -99,13 +99,13 @@ function () {
     value: function () {
       var _uploadImage = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2(carPhoto) {
+      regeneratorRuntime.mark(function _callee2(car_photo) {
         var filePath, uploadedImg;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                filePath = carPhoto.photo.path;
+                filePath = car_photo.photo.path;
                 _context2.next = 3;
                 return cloudinary.uploader.upload(filePath, {
                   folder: process.env.CLOUDINARY_AUTOMART_FOLDER,
@@ -357,14 +357,14 @@ function () {
     value: function () {
       var _updater = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee10(carId, field, value, ownerEmail) {
+      regeneratorRuntime.mark(function _callee10(car_id, field, value, ownerEmail) {
         var queryString, result, _result$rows$2, id, created_on, state, status, price, title, manufacturer, model, body_type, photos;
 
         return regeneratorRuntime.wrap(function _callee10$(_context10) {
           while (1) {
             switch (_context10.prev = _context10.next) {
               case 0:
-                queryString = "UPDATE cars SET ".concat(field, " = '").concat(value, "'\n    WHERE id = '").concat(carId, "' RETURNING *;");
+                queryString = "UPDATE cars SET ".concat(field, " = '").concat(value, "'\n    WHERE id = '").concat(car_id, "' RETURNING *;");
                 _context10.next = 3;
                 return db.query(queryString);
 
@@ -406,14 +406,14 @@ function () {
       var _updateStatus = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee11(carData) {
-        var carStatus, result;
+        var status, result;
         return regeneratorRuntime.wrap(function _callee11$(_context11) {
           while (1) {
             switch (_context11.prev = _context11.next) {
               case 0:
-                carStatus = carData.newStatus.toLowerCase();
+                status = carData.status.toLowerCase();
                 _context11.next = 3;
-                return this.updater(carData.carId, 'status', carStatus, carData.email);
+                return this.updater(carData.car_id, 'status', status, carData.email);
 
               case 3:
                 result = _context11.sent;
@@ -445,7 +445,7 @@ function () {
             switch (_context12.prev = _context12.next) {
               case 0:
                 _context12.next = 2;
-                return this.updater(carData.carId, 'price', carData.newPrice, carData.email);
+                return this.updater(carData.car_id, 'price', carData.price, carData.email);
 
               case 2:
                 result = _context12.sent;
@@ -470,13 +470,13 @@ function () {
     value: function () {
       var _deleteAdvert = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee13(carId) {
+      regeneratorRuntime.mark(function _callee13(car_id) {
         var queryString, result;
         return regeneratorRuntime.wrap(function _callee13$(_context13) {
           while (1) {
             switch (_context13.prev = _context13.next) {
               case 0:
-                queryString = "DELETE FROM cars WHERE id ='".concat(carId, "';");
+                queryString = "DELETE FROM cars WHERE id ='".concat(car_id, "';");
                 _context13.next = 3;
                 return db.query(queryString);
 

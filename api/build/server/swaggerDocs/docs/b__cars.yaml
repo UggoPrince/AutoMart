@@ -4,7 +4,7 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/carId'
+          $ref: '#/components/schemas/car_id'
         onwer:
           $ref: '#/components/schemas/owner'
         created_on:
@@ -40,7 +40,7 @@ components:
           $ref: '#/components/schemas/manufacturer'
         model:
           $ref: '#/components/schemas/model'
-        bodyType:
+        body_type:
           $ref: '#/components/schemas/body_type'
         photo:
           $ref: '#/components/schemas/image'
@@ -48,7 +48,7 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/carId'
+          $ref: '#/components/schemas/car_id'
         email:
           $ref: '#/components/schemas/email'
         created_on:
@@ -72,7 +72,7 @@ components:
     updateCarStatus:
       type: object
       properties:
-        newStatus:
+        status:
           type: string
           description: update car status to sold
           example: sold
@@ -80,7 +80,7 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/carId'
+          $ref: '#/components/schemas/car_id'
         email:
           $ref: '#/components/schemas/email'
         created_on:
@@ -98,11 +98,11 @@ components:
     updateCarPrice:
       type: object
       properties:
-        newPrice:
+        price:
           type: float
           description: update car price to a new price
           example: '18000000'
-    carId:
+    car_id:
       type: integer
       description: Car identifaction number
       example: '6'
@@ -217,7 +217,7 @@ paths:
           description: id of the specific car in database
           required: true
           schema:
-            $ref: '#/components/schemas/carId'
+            $ref: '#/components/schemas/car_id'
       responses:
         '200':
           description: Response data that contains details about a car
@@ -277,7 +277,7 @@ paths:
           description: id of the specific car in database
           required: true
           schema:
-            $ref: '#/components/schemas/carId'
+            $ref: '#/components/schemas/car_id'
       responses:
         '200':
           description: Response data that contains success message
@@ -726,7 +726,7 @@ paths:
           description: specific car id
           required: true
           schema:
-            $ref: '#/components/schemas/carId'
+            $ref: '#/components/schemas/car_id'
       requestBody:
         content:
           'application/json':
@@ -795,7 +795,7 @@ paths:
           description: specific car id
           required: true
           schema:
-            $ref: '#/components/schemas/carId'
+            $ref: '#/components/schemas/car_id'
       requestBody:
         content:
           'application/json':

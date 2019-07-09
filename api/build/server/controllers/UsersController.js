@@ -43,10 +43,10 @@ function () {
             switch (_context.prev = _context.next) {
               case 0:
                 reqBody = req.body;
-                reqBody.isAdmin = false;
+                reqBody.is_admin = false;
 
                 if (reqBody.email === 'johndoe@gmail.com' || reqBody.email === 'admin@gmail.com' || reqBody.email === 'bestadmin@yahoo.com') {
-                  reqBody.isAdmin = true;
+                  reqBody.is_admin = true;
                 }
 
                 _context.next = 5;
@@ -161,7 +161,7 @@ function () {
       var tokenData = {
         id: userData.id,
         email: userData.email,
-        isAdmin: userData.is_admin
+        is_admin: userData.is_admin
       };
 
       var token = _JWT["default"].signToken(tokenData);

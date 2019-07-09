@@ -40,17 +40,17 @@ function (_Validator) {
 
   _createClass(ValidateUser, null, [{
     key: "validateSignupFields",
-    value: function validateSignupFields(firstname, lastname, email, password, address, phoneNumber) {
+    value: function validateSignupFields(first_name, last_name, email, password, address, phone_number) {
       ValidateUser.refresh();
-      ValidateUser.isValidName(firstname, 'firstname'); // validate firstname
+      ValidateUser.isValidName(first_name, 'first_name'); // validate firstname
 
-      ValidateUser.isValidName(lastname, 'lastname'); // validate lastname
+      ValidateUser.isValidName(last_name, 'last_name'); // validate lastname
 
       ValidateUser.isValidAddress(address, 'address'); // validate address
 
       ValidateUser.isValidEmail(email, 'email'); // validate email
 
-      ValidateUser.isValidPhoneNumber(phoneNumber, 'phoneNumber'); // validate phone number
+      ValidateUser.isValidPhoneNumber(phone_number, 'phone_number'); // validate phone number
 
       ValidateUser.isValidPassword(password, 'password'); // validate password
 
@@ -112,12 +112,12 @@ function (_Validator) {
     }
   }, {
     key: "isValidPhoneNumber",
-    value: function isValidPhoneNumber(phoneNumber, field) {
+    value: function isValidPhoneNumber(phone_number, field) {
       var telRegExp = /^(\+\d{1,3} ?)?(\(\d{1,5}\)|\d{1,5}) ?\d{3}?\d{0,7}( (x|xtn|ext|extn|pax|pbx|extension)?\.? ?\d{2-5})?$/i;
 
-      if (ValidateUser.isEmptyString(phoneNumber)) {
+      if (ValidateUser.isEmptyString(phone_number)) {
         ValidateUser.integrateError(field, "No ".concat(field, " entered."));
-      } else if (!telRegExp.test(phoneNumber)) {
+      } else if (!telRegExp.test(phone_number)) {
         ValidateUser.integrateError(field, "Invalid ".concat(field, "."));
       }
     }

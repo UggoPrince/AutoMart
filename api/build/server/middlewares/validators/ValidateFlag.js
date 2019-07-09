@@ -40,9 +40,9 @@ function (_Validator) {
 
   _createClass(ValidateFlag, null, [{
     key: "validateReportAdvertFields",
-    value: function validateReportAdvertFields(carId, reason, description) {
+    value: function validateReportAdvertFields(car_id, reason, description) {
       ValidateFlag.refresh();
-      ValidateFlag.validateInt(carId, 'carId');
+      ValidateFlag.validateInt(car_id, 'carId');
       ValidateFlag.validateString(reason, 'reason');
       ValidateFlag.validateString(description, 'description');
       return ValidateFlag.getErrorMessage();

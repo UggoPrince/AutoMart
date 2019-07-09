@@ -1,5 +1,6 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable class-methods-use-this */
+/* eslint-disable camelcase */
 import Orders from '../models/Orders';
 
 class OrdersController {
@@ -16,8 +17,14 @@ class OrdersController {
 
   async updateOrderPrice(req, res) {
     const reqBody = req.body;
-    reqBody.orderId = req.params.order_id;
+    reqBody.order_id = req.params.order_id;
     const result = await Orders.updatePrice(reqBody);
+    const {
+      id, car_id, status, amount,
+    } = result.rows[0];
+    result.rows[0] = {
+      id, car_id, status, old_price_offered: reqBody.old_amount, new_price_offered: amount,
+    };
     res.status(200).send({
       status: 200,
       data: result.rows[0],

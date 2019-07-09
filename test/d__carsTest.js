@@ -41,7 +41,7 @@ describe('Cars Test', () => {
         .field('title', carAdvert.title)
         .field('manufacturer', carAdvert.manufacturer)
         .field('model', carAdvert.model)
-        .field('bodyType', carAdvert.body_type)
+        .field('body_type', carAdvert.body_type)
         .attach('photo', fs.readFileSync(`${__dirname}/testImages/c1.jpg`), 'c1.jpg')
         .end((err, res) => {
           expect(res.status).to.be.eql(201);
@@ -62,7 +62,7 @@ describe('Cars Test', () => {
         .field('title', 1)
         .field('manufacturer', 1)
         .field('model', 1)
-        .field('bodyType', 'kl')
+        .field('body_type', 'kl')
         .attach('photo', ''/* fs.readFileSync(`${__dirname}/testImages/c1.jpg`) */, 'c1.jpg')
         .end((err, res) => {
           expect(res.status).to.be.eql(400);
@@ -83,7 +83,7 @@ describe('Cars Test', () => {
         .field('title', '')
         .field('manufacturer', '')
         .field('model', '')
-        .field('bodyType', '')
+        .field('body_type', '')
         .attach('photo', fs.readFileSync(`${__dirname}/testImages/mypdf.pdf`), 'mypdf.pdf')
         .end((err, res) => {
           expect(res.status).to.be.eql(400);
@@ -99,7 +99,7 @@ describe('Cars Test', () => {
       chai.request(app)
         .patch('/api/v1/car/1/status')
         .set({ authentication: process.env.tokenUser })
-        .send({ newStatus: 'sold' })
+        .send({ status: 'sold' })
         .end((err, res) => {
           expect(res.status).to.be.equal(200);
           expect(res.type).to.be.equal('application/json');
@@ -111,7 +111,7 @@ describe('Cars Test', () => {
       chai.request(app)
         .patch('/api/v1/car/p/status')
         .set({ authentication: process.env.tokenUser })
-        .send({ newStatus: 'solds' })
+        .send({ status: 'solds' })
         .end((err, res) => {
           expect(res.status).to.be.equal(400);
           expect(res.type).to.be.equal('application/json');
@@ -123,7 +123,7 @@ describe('Cars Test', () => {
       chai.request(app)
         .patch('/api/v1/car/22/status')
         .set({ authentication: process.env.tokenUser })
-        .send({ newStatus: 'sold' })
+        .send({ status: 'sold' })
         .end((err, res) => {
           expect(res.status).to.be.equal(404);
           expect(res.type).to.be.equal('application/json');
@@ -150,7 +150,7 @@ describe('Cars Test', () => {
       chai.request(app)
         .patch('/api/v1/car/1/price')
         .set({ authentication: process.env.tokenUser })
-        .send({ newPrice: 120000.12 })
+        .send({ price: 120000.12 })
         .end((err, res) => {
           expect(res.status).to.be.equal(200);
           expect(res.type).to.be.equal('application/json');
@@ -162,7 +162,7 @@ describe('Cars Test', () => {
       chai.request(app)
         .patch('/api/v1/car/p/price')
         .set({ authentication: process.env.tokenUser })
-        .send({ newPrice: 'solds' })
+        .send({ price: 'solds' })
         .end((err, res) => {
           expect(res.status).to.be.equal(400);
           expect(res.type).to.be.equal('application/json');
@@ -186,7 +186,7 @@ describe('Cars Test', () => {
       chai.request(app)
         .patch('/api/v1/car/120/price')
         .set({ authentication: process.env.tokenUser })
-        .send({ newPrice: 121212 })
+        .send({ price: 121212 })
         .end((err, res) => {
           expect(res.status).to.be.equal(404);
           expect(res.type).to.be.equal('application/json');
@@ -426,7 +426,7 @@ describe('Cars Test', () => {
     });
   });
 
-  describe('GET /api/v1/car?owner=userId', () => {
+  describe('GET /api/v1/car?owner=user_id', () => {
     it('should get all cars of the user', (done) => {
       chai.request(app)
         .get('/api/v1/car?owner=1')

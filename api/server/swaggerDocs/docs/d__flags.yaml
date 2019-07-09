@@ -4,9 +4,9 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/flagId'
+          $ref: '#/components/schemas/flag_id'
         car_id:
-          $ref: '#/components/schemas/carId'
+          $ref: '#/components/schemas/car_id'
         created_on:
           $ref: '#/components/schemas/created_on'
         reason:
@@ -17,7 +17,7 @@ components:
       type: object
       properties:
         car_id:
-          $ref: '#/components/schemas/carId'
+          $ref: '#/components/schemas/car_id'
         reason:
           $ref: '#/components/schemas/reason'
         description:
@@ -26,14 +26,14 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/flagId'
+          $ref: '#/components/schemas/flag_id'
         car_id:
-          $ref: '#/components/schemas/carId'
+          $ref: '#/components/schemas/car_id'
         reason:
           $ref: '#/components/schemas/reason'
         description:
           $ref: '#/components/schemas/description'
-    flagId:
+    flag_id:
       type: integer
       description: Flag identification number
       example: '9'

@@ -1,5 +1,6 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable class-methods-use-this */
+/* eslint-disable camelcase */
 import Users from '../models/Users';
 import JWT from '../authentication/JWT';
 import {
@@ -11,11 +12,11 @@ import {
 class UsersController {
   async addUser(req, res) {
     const reqBody = req.body;
-    reqBody.isAdmin = false;
+    reqBody.is_admin = false;
     if (reqBody.email === 'johndoe@gmail.com'
     || reqBody.email === 'admin@gmail.com'
     || reqBody.email === 'bestadmin@yahoo.com') {
-      reqBody.isAdmin = true;
+      reqBody.is_admin = true;
     }
 
     const result = await Users.signup(reqBody);
@@ -75,7 +76,7 @@ class UsersController {
     const tokenData = {
       id: userData.id,
       email: userData.email,
-      isAdmin: userData.is_admin,
+      is_admin: userData.is_admin,
     };
     const token = JWT.signToken(tokenData);
     return token;
