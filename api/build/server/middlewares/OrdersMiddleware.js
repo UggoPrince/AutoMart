@@ -21,14 +21,14 @@ function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(req, res, next) {
-    var _req$body, carId, amount, result, error, errorMessage, car;
+    var _req$body, car_id, amount, result, error, errorMessage, car;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _req$body = req.body, carId = _req$body.carId, amount = _req$body.amount;
-            result = _ValidateOrder["default"].validateMakeOrderFields(carId, amount);
+            _req$body = req.body, car_id = _req$body.car_id, amount = _req$body.amount;
+            result = _ValidateOrder["default"].validateMakeOrderFields(car_id, amount);
 
             if (!result.error) {
               _context.next = 6;
@@ -43,14 +43,14 @@ function () {
             error = false;
             errorMessage = {};
             _context.next = 10;
-            return _OrderChecker["default"].checkOrderedCar(carId);
+            return _OrderChecker["default"].checkOrderedCar(car_id);
 
           case 10:
             car = _context.sent;
 
             if (car.error) {
               error = true;
-              errorMessage.carId = "Car with id (".concat(carId, ") does not exist.");
+              errorMessage.car_id = "Car with id (".concat(car_id, ") does not exist.");
             }
 
             if (error) {
@@ -85,14 +85,14 @@ function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee2(req, res, next) {
-    var newAmount, orderId, result, order;
+    var amount, order_id, result, order;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            newAmount = req.body.newAmount;
-            orderId = req.params.order_id;
-            result = _ValidateOrder["default"].validateUpdateOrderFields(newAmount, orderId);
+            amount = req.body.amount;
+            order_id = req.params.order_id;
+            result = _ValidateOrder["default"].validateUpdateOrderFields(amount, order_id);
 
             if (!result.error) {
               _context2.next = 7;
@@ -105,7 +105,7 @@ function () {
 
           case 7:
             _context2.next = 9;
-            return _OrderChecker["default"].checkId(orderId);
+            return _OrderChecker["default"].checkId(order_id);
 
           case 9:
             order = _context2.sent;
@@ -113,10 +113,10 @@ function () {
             if (order.error) {
               res.status(404).send({
                 status: 404,
-                error: "Order with id (".concat(orderId, ") does not exist.")
+                error: "Order with id (".concat(order_id, ") does not exist.")
               });
             } else {
-              req.body.amount = order.data.amount;
+              req.body.old_amount = order.data.amount;
               next();
             }
 

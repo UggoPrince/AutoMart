@@ -15,14 +15,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var validateUserSignup = function validateUserSignup(req, res, next) {
   var _req$body = req.body,
-      firstname = _req$body.firstname,
-      lastname = _req$body.lastname,
+      first_name = _req$body.first_name,
+      last_name = _req$body.last_name,
       email = _req$body.email,
       password = _req$body.password,
       address = _req$body.address,
-      phoneNumber = _req$body.phoneNumber;
+      phone_number = _req$body.phone_number;
 
-  var result = _ValidateUser["default"].validateSignupFields(firstname, lastname, email, password, address, phoneNumber);
+  var result = _ValidateUser["default"].validateSignupFields(first_name, last_name, email, password, address, phone_number);
 
   if (result.error) {
     res.status(400).send(_ValidateUser["default"].Response());

@@ -1,12 +1,13 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable camelcase */
 import Validator from './validators/ValidateUser';
 
 export const validateUserSignup = (req, res, next) => {
   const {
-    firstname, lastname, email, password, address, phoneNumber,
+    first_name, last_name, email, password, address, phone_number,
   } = req.body;
   const result = Validator.validateSignupFields(
-    firstname, lastname, email, password, address, phoneNumber,
+    first_name, last_name, email, password, address, phone_number,
   );
   if (result.error) {
     res.status(400).send(Validator.Response());

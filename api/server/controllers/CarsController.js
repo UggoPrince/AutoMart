@@ -1,13 +1,15 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable class-methods-use-this */
+/* eslint-disable camelcase */
+
 import Cars from '../models/Cars';
 
 class CarsController {
   async addCar(req, res) {
     const reqBody = req.body;
-    const carPhoto = req.files;
+    const car_photo = req.files;
 
-    const result = await Cars.postAdvert(reqBody, carPhoto);
+    const result = await Cars.postAdvert(reqBody, car_photo);
     res.status(201).send({
       status: 201,
       data: result.rows[0],
@@ -16,7 +18,7 @@ class CarsController {
 
   async updateCarStatus(req, res) {
     const reqBody = req.body;
-    reqBody.carId = req.params.car_id;
+    reqBody.car_id = req.params.car_id;
     const result = await Cars.updateStatus(reqBody);
     res.status(200).send({
       status: 200,
@@ -26,7 +28,7 @@ class CarsController {
 
   async updateCarPrice(req, res) {
     const reqBody = req.body;
-    reqBody.carId = req.params.car_id;
+    reqBody.car_id = req.params.car_id;
     const result = await Cars.updatePrice(reqBody);
     res.status(200).send({
       status: 200,
@@ -35,8 +37,8 @@ class CarsController {
   }
 
   async getSpecificCar(req, res) {
-    const carId = req.params.car_id;
-    const result = await Cars.getCarById(carId);
+    const { car_id } = req.params;
+    const result = await Cars.getCarById(car_id);
     res.status(200).send({
       status: 200,
       data: result.rows[0],
@@ -83,8 +85,8 @@ class CarsController {
   }
 
   async deleteCar(req, res) {
-    const carId = req.params.car_id;
-    await Cars.deleteAdvert(carId);
+    const { car_id } = req.params;
+    await Cars.deleteAdvert(car_id);
     res.status(200).send({
       status: 200,
       data: 'Car Ad successfully deleted',

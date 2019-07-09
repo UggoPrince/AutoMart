@@ -2,16 +2,17 @@
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-control-regex */
 /* eslint-disable class-methods-use-ValidateUser */
+/* eslint-disable camelcase */
 import Validator from './Validator';
 
 class ValidateUser extends Validator {
-  static validateSignupFields(firstname, lastname, email, password, address, phoneNumber) {
+  static validateSignupFields(first_name, last_name, email, password, address, phone_number) {
     ValidateUser.refresh();
-    ValidateUser.isValidName(firstname, 'firstname'); // validate firstname
-    ValidateUser.isValidName(lastname, 'lastname'); // validate lastname
+    ValidateUser.isValidName(first_name, 'first_name'); // validate firstname
+    ValidateUser.isValidName(last_name, 'last_name'); // validate lastname
     ValidateUser.isValidAddress(address, 'address'); // validate address
     ValidateUser.isValidEmail(email, 'email'); // validate email
-    ValidateUser.isValidPhoneNumber(phoneNumber, 'phoneNumber'); // validate phone number
+    ValidateUser.isValidPhoneNumber(phone_number, 'phone_number'); // validate phone number
     ValidateUser.isValidPassword(password, 'password'); // validate password
     return ValidateUser.getErrorMessage();
   }
@@ -59,11 +60,11 @@ class ValidateUser extends Validator {
     }
   }
 
-  static isValidPhoneNumber(phoneNumber, field) {
+  static isValidPhoneNumber(phone_number, field) {
     const telRegExp = /^(\+\d{1,3} ?)?(\(\d{1,5}\)|\d{1,5}) ?\d{3}?\d{0,7}( (x|xtn|ext|extn|pax|pbx|extension)?\.? ?\d{2-5})?$/i;
-    if (ValidateUser.isEmptyString(phoneNumber)) {
+    if (ValidateUser.isEmptyString(phone_number)) {
       ValidateUser.integrateError(field, `No ${field} entered.`);
-    } else if (!telRegExp.test(phoneNumber)) {
+    } else if (!telRegExp.test(phone_number)) {
       ValidateUser.integrateError(field, `Invalid ${field}.`);
     }
   }

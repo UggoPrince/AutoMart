@@ -70,24 +70,33 @@ function () {
       var _updateOrderPrice = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee2(req, res) {
-        var reqBody, result;
+        var reqBody, result, _result$rows$, id, car_id, status, amount;
+
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 reqBody = req.body;
-                reqBody.orderId = req.params.order_id;
+                reqBody.order_id = req.params.order_id;
                 _context2.next = 4;
                 return _Orders["default"].updatePrice(reqBody);
 
               case 4:
                 result = _context2.sent;
+                _result$rows$ = result.rows[0], id = _result$rows$.id, car_id = _result$rows$.car_id, status = _result$rows$.status, amount = _result$rows$.amount;
+                result.rows[0] = {
+                  id: id,
+                  car_id: car_id,
+                  status: status,
+                  old_price_offered: reqBody.old_amount,
+                  new_price_offered: amount
+                };
                 res.status(200).send({
                   status: 200,
                   data: result.rows[0]
                 });
 
-              case 6:
+              case 8:
               case "end":
                 return _context2.stop();
             }

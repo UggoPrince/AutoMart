@@ -39,7 +39,7 @@ function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                queryString = "\n      INSERT INTO users (\n        email, first_name, last_name, password, address, phone_number, is_admin\n        )\n      VALUES (\n        '".concat(userData.email, "', '").concat(userData.firstname, "', '").concat(userData.lastname, "',\n        '").concat(userData.password, "', '").concat(userData.address, "',\n        ").concat(userData.phoneNumber, ", ").concat(userData.isAdmin, "\n        ) RETURNING *");
+                queryString = "\n      INSERT INTO users (\n        email, first_name, last_name, password, address, phone_number, is_admin\n        )\n      VALUES (\n        '".concat(userData.email, "', '").concat(userData.first_name, "', '").concat(userData.last_name, "',\n        '").concat(userData.password, "', '").concat(userData.address, "',\n        ").concat(userData.phone_number, ", ").concat(userData.is_admin, "\n        ) RETURNING *");
                 _context.next = 3;
                 return db.query(queryString).then(function (res) {
                   return res;

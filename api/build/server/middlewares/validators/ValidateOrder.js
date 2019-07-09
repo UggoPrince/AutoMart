@@ -40,9 +40,9 @@ function (_Validator) {
 
   _createClass(ValidateOrder, null, [{
     key: "validateMakeOrderFields",
-    value: function validateMakeOrderFields(carId, amount) {
+    value: function validateMakeOrderFields(car_id, amount) {
       ValidateOrder.refresh();
-      ValidateOrder.isValidCarId(carId, 'carId'); // validate car id
+      ValidateOrder.isValidCarId(car_id, 'car_id'); // validate car id
 
       ValidateOrder.isValidAmount(amount, 'amount'); // validate buyer's price
 
@@ -50,17 +50,17 @@ function (_Validator) {
     }
   }, {
     key: "validateUpdateOrderFields",
-    value: function validateUpdateOrderFields(newAmount, orderId) {
-      ValidateOrder.isValidAmount(newAmount, 'newAmount'); // validate the new price that's to update old price
+    value: function validateUpdateOrderFields(amount, order_id) {
+      ValidateOrder.isValidAmount(amount, 'amount'); // validate the new price that's to update old price
 
-      ValidateOrder.isValidOrderId(orderId, 'orderId'); // validate the order's id
+      ValidateOrder.isValidOrderId(order_id, 'order_id'); // validate the order's id
 
       return ValidateOrder.getErrorMessage();
     }
   }, {
     key: "isValidCarId",
-    value: function isValidCarId(carId, field) {
-      ValidateOrder.validateInt(carId, field);
+    value: function isValidCarId(car_id, field) {
+      ValidateOrder.validateInt(car_id, field);
     }
   }, {
     key: "isValidAmount",
@@ -69,8 +69,8 @@ function (_Validator) {
     }
   }, {
     key: "isValidOrderId",
-    value: function isValidOrderId(orderId, field) {
-      this.validateInt(orderId, field);
+    value: function isValidOrderId(id, field) {
+      this.validateInt(id, field);
     }
   }]);
 

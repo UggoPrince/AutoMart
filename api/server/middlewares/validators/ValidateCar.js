@@ -5,7 +5,7 @@ import Validator from './Validator';
 
 class ValidateCar extends Validator {
   static validateCreateAdvertFields( // validates the fields that would creat an advert
-    state, status, price, title, manufacturer, model, bodyType, photo,
+    state, status, price, title, manufacturer, model, body_type, photo,
   ) {
     ValidateCar.refresh();
     ValidateCar.isValidState(state, 'state'); // validate state
@@ -14,31 +14,31 @@ class ValidateCar extends Validator {
     ValidateCar.isValidTitle(title, 'title'); // validate title
     ValidateCar.isValidManufacturer(manufacturer, 'manufacturer'); // validate manufacturer
     ValidateCar.isValidModel(model, 'model'); // validate model
-    ValidateCar.isValidBodyType(bodyType, 'bodyType'); // validate body_type
+    ValidateCar.isValidBodyType(body_type, 'body_type'); // validate body_type
     ValidateCar.isValidPhoto(photo, 'image'); // validate photo
     return ValidateCar.getErrorMessage();
   }
 
   // validates the field and url parameter sent to update a car status
-  static validateUpdateCarStatusFields(carId, newStatus) {
+  static validateUpdateCarStatusFields(car_id, status) {
     ValidateCar.refresh();
-    ValidateCar.validateInt(carId, 'carId');
-    ValidateCar.isValidNewStatus(newStatus, 'newStatus');
+    ValidateCar.validateInt(car_id, 'car_id');
+    ValidateCar.isValidNewStatus(status, 'status');
     return ValidateCar.getErrorMessage();
   }
 
   // validates the field and url parameter that updates a car price
-  static validatUpdateCarPriceFields(carId, newPrice) {
+  static validatUpdateCarPriceFields(car_id, price) {
     ValidateCar.refresh();
-    ValidateCar.validateInt(carId, 'carId'); // validate car id
-    ValidateCar.isValidPrice(newPrice, 'newPrice'); // validate the new price
+    ValidateCar.validateInt(car_id, 'car_id'); // validate car id
+    ValidateCar.isValidPrice(price, 'price'); // validate the new price
     return ValidateCar.getErrorMessage();
   }
 
   // validate the url parameter for car id sent to retrieve a car
-  static validateViewSpecficCarParams(carId) {
+  static validateViewSpecficCarParams(car_id) {
     ValidateCar.refresh();
-    ValidateCar.validateInt(carId, 'carId');
+    ValidateCar.validateInt(car_id, 'car_id');
     return ValidateCar.getErrorMessage();
   }
 
@@ -50,18 +50,18 @@ class ValidateCar extends Validator {
   }
 
   // validate the query string for getting cars in a certain price range
-  static validateViewUnsoldCarsInPriceRange(status, minPrice, maxPrice) {
+  static validateViewUnsoldCarsInPriceRange(status, min_price, max_price) {
     ValidateCar.refresh();
     ValidateCar.isValidStatusQuery(status, 'status');
-    ValidateCar.isValidPrice(minPrice, 'min_price');
-    ValidateCar.isValidPrice(maxPrice, 'max_price');
+    ValidateCar.isValidPrice(min_price, 'min_price');
+    ValidateCar.isValidPrice(max_price, 'max_price');
     return ValidateCar.getErrorMessage();
   }
 
   // validate the url parameter for car id sent to delete a car
-  static validateDeleteACarParams(carId) {
+  static validateDeleteACarParams(car_id) {
     ValidateCar.refresh();
-    ValidateCar.validateInt(carId, 'carId');
+    ValidateCar.validateInt(car_id, 'car_id');
     return ValidateCar.getErrorMessage();
   }
 
@@ -81,9 +81,9 @@ class ValidateCar extends Validator {
   }
 
   // validate getting all cars of a user
-  static validateViewAllCarsOfOwner(userId) {
+  static validateViewAllCarsOfOwner(user_id) {
     ValidateCar.refresh();
-    ValidateCar.validateInt(userId, 'onwer id');
+    ValidateCar.validateInt(user_id, 'onwer id');
     return ValidateCar.getErrorMessage();
   }
 
@@ -136,11 +136,11 @@ class ValidateCar extends Validator {
     ValidateCar.validateString(model, field);
   }
 
-  static isValidBodyType(bodyType, field) {
-    if (ValidateCar.isEmptyString(bodyType)) {
+  static isValidBodyType(body_type, field) {
+    if (ValidateCar.isEmptyString(body_type)) {
       ValidateCar.integrateError(field, `No ${field} entered.`);
     } else {
-      const str = bodyType.toLowerCase();
+      const str = body_type.toLowerCase();
       const bodyT = [' Convertibles', ' Coupe',
         ' SUV', ' Hatchback',
         ' Sedan', ' Wagon',
@@ -159,11 +159,11 @@ class ValidateCar extends Validator {
     }
   }
 
-  static isValidPhoto(myPhoto, str) {
+  static isValidPhoto(car_photo, str) {
     // console.log(myPhoto.photo.length === undefined);
-    if (!myPhoto.photo) {
+    if (!car_photo.photo) {
       ValidateCar.integrateError(str, `No ${str} submited.`);
-    } else if (myPhoto.photo.type !== 'image/jpeg' && myPhoto.photo.type !== 'image/png') {
+    } else if (car_photo.photo.type !== 'image/jpeg' && car_photo.photo.type !== 'image/png') {
       ValidateCar.integrateError(str, `You didn't submit an ${str} type. jpg/png is accepted.`);
     }
   }

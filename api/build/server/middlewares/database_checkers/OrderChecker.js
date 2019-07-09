@@ -31,14 +31,14 @@ function () {
     value: function () {
       var _checkId = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee(orderId) {
+      regeneratorRuntime.mark(function _callee(order_Id) {
         var order;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _Orders["default"].getOrderById(orderId);
+                return _Orders["default"].getOrderById(order_Id);
 
               case 2:
                 order = _context.sent;
@@ -77,14 +77,14 @@ function () {
     value: function () {
       var _checkOrderedCar = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2(carId) {
+      regeneratorRuntime.mark(function _callee2(car_id) {
         var car;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _Orders["default"].getOrderedCar(carId);
+                return _Orders["default"].getOrderedCar(car_id);
 
               case 2:
                 car = _context2.sent;

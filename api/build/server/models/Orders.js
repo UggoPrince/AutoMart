@@ -41,7 +41,7 @@ function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                queryString = "\n      INSERT INTO orders (buyer, car_id, amount)\n      VALUES ('".concat(orderData.buyer, "', '").concat(orderData.carId, "', '").concat(orderData.amount, "')\n      RETURNING id, car_id, created_on, status, amount;");
+                queryString = "\n      INSERT INTO orders (buyer, car_id, amount)\n      VALUES ('".concat(orderData.buyer, "', '").concat(orderData.car_id, "', '").concat(orderData.amount, "')\n      RETURNING id, car_id, created_on, status, amount;");
                 _context.next = 3;
                 return db.query(queryString);
 
@@ -140,18 +140,15 @@ function () {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                queryString = "\n    UPDATE orders SET amount = '".concat(orderData.newAmount, "'\n    WHERE id = '").concat(orderData.orderId, "' AND status = 'pending'\n    RETURNING id, car_id, status, amount;");
+                queryString = "\n    UPDATE orders SET amount = '".concat(orderData.amount, "'\n    WHERE id = '").concat(orderData.order_id, "' AND status = 'pending'\n    RETURNING id, car_id, status, amount;");
                 _context4.next = 3;
                 return db.query(queryString);
 
               case 3:
                 result = _context4.sent;
-                result.rows[0].old_price_offered = orderData.amount;
-                result.rows[0].new_price_offered = result.rows[0].amount;
-                delete result.rows[0].amount;
                 return _context4.abrupt("return", result);
 
-              case 8:
+              case 5:
               case "end":
                 return _context4.stop();
             }

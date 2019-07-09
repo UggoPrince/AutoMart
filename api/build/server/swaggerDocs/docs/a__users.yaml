@@ -7,10 +7,10 @@ components:
           $ref: '#/components/schemas/token'
         id:
           $ref: '#/components/schemas/userId'
-        firstname:
-          $ref: '#/components/schemas/firstname'
-        lastname:
-          $ref: '#/components/schemas/lastname'
+        first_name:
+          $ref: '#/components/schemas/first_name'
+        last_name:
+          $ref: '#/components/schemas/last_name'
         email:
           $ref: '#/components/schemas/email'
         password:
@@ -28,10 +28,10 @@ components:
           $ref: '#/components/schemas/token'
         id:
           $ref: '#/components/schemas/userId'
-        firstname:
-          $ref: '#/components/schemas/firstname'
-        lastname:
-          $ref: '#/components/schemas/lastname'
+        first_name:
+          $ref: '#/components/schemas/first_name'
+        last_name:
+          $ref: '#/components/schemas/last_name'
         email:
           $ref: '#/components/schemas/email'
         address:
@@ -43,17 +43,17 @@ components:
     userSignup:
       type: object
       properties:
-        firstname:
-          $ref: '#/components/schemas/firstname'
-        lastname:
-          $ref: '#/components/schemas/lastname'
+        first_name:
+          $ref: '#/components/schemas/first_name'
+        last_name:
+          $ref: '#/components/schemas/last_name'
         email:
           $ref: '#/components/schemas/email'
         password:
           $ref: '#/components/schemas/password'
         address:
           $ref: '#/components/schemas/address'
-        phoneNumber:
+        phone_number:
           $ref: '#/components/schemas/phone_number'
     userSignin:
       type: 'object'
@@ -70,11 +70,11 @@ components:
       type: integer
       description: User identification number
       example: '1234'
-    firstname:
+    first_name:
       type: string
       description: User's first name
       example: john
-    lastname:
+    last_name:
       type: string
       description: User's last name
       example: doe

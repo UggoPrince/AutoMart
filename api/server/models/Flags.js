@@ -7,7 +7,7 @@ const db = new Database();
 class Flags {
   async report(flagData) {
     const queryString = `INSERT INTO flags (car_id, reason, description)
-      VALUES (${flagData.carId}, '${flagData.reason}', '${flagData.description}')
+      VALUES (${flagData.car_id}, '${flagData.reason}', '${flagData.description}')
       RETURNING id, car_id, reason, description;`;
     const result = await db.query(queryString);
     return result;

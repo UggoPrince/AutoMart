@@ -23,15 +23,15 @@ function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(req, res, next) {
-    var _req$body, state, status, price, title, manufacturer, model, bodyType, myPhoto, result;
+    var _req$body, state, status, price, title, manufacturer, model, body_type, car_photo, result;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _req$body = req.body, state = _req$body.state, status = _req$body.status, price = _req$body.price, title = _req$body.title, manufacturer = _req$body.manufacturer, model = _req$body.model, bodyType = _req$body.bodyType;
-            myPhoto = req.files;
-            result = _ValidateCar["default"].validateCreateAdvertFields(state, status, price, title, manufacturer, model, bodyType, myPhoto);
+            _req$body = req.body, state = _req$body.state, status = _req$body.status, price = _req$body.price, title = _req$body.title, manufacturer = _req$body.manufacturer, model = _req$body.model, body_type = _req$body.body_type;
+            car_photo = req.files;
+            result = _ValidateCar["default"].validateCreateAdvertFields(state, status, price, title, manufacturer, model, body_type, car_photo);
 
             if (result.error) {
               res.status(400).send(_ValidateCar["default"].Response());
@@ -62,14 +62,14 @@ function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee2(req, res, next) {
-    var newStatus, carId, result;
+    var status, car_id, result;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            newStatus = req.body.newStatus;
-            carId = req.params.car_id;
-            result = _ValidateCar["default"].validateUpdateCarStatusFields(carId, newStatus);
+            status = req.body.status;
+            car_id = req.params.car_id;
+            result = _ValidateCar["default"].validateUpdateCarStatusFields(car_id, status);
 
             if (!result.error) {
               _context2.next = 7;
@@ -82,7 +82,7 @@ function () {
 
           case 7:
             _context2.next = 9;
-            return _CarChecker["default"].checkId(carId);
+            return _CarChecker["default"].checkId(car_id);
 
           case 9:
             if (_context2.sent) {
@@ -92,7 +92,7 @@ function () {
 
             res.status(404).send({
               status: 404,
-              error: "Car with id (".concat(carId, ") does not exist.")
+              error: "Car with id (".concat(car_id, ") does not exist.")
             });
             _context2.next = 15;
             break;
@@ -122,14 +122,14 @@ function () {
   var _ref3 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee3(req, res, next) {
-    var newPrice, carId, result;
+    var price, car_id, result;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            newPrice = req.body.newPrice;
-            carId = req.params.car_id;
-            result = _ValidateCar["default"].validatUpdateCarPriceFields(carId, newPrice);
+            price = req.body.price;
+            car_id = req.params.car_id;
+            result = _ValidateCar["default"].validatUpdateCarPriceFields(car_id, price);
 
             if (!result.error) {
               _context3.next = 7;
@@ -142,7 +142,7 @@ function () {
 
           case 7:
             _context3.next = 9;
-            return _CarChecker["default"].checkId(carId);
+            return _CarChecker["default"].checkId(car_id);
 
           case 9:
             if (_context3.sent) {
@@ -152,7 +152,7 @@ function () {
 
             res.status(404).send({
               status: 404,
-              error: "Car with id (".concat(carId, ") does not exist.")
+              error: "Car with id (".concat(car_id, ") does not exist.")
             });
             _context3.next = 15;
             break;
@@ -182,13 +182,13 @@ function () {
   var _ref4 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee4(req, res, next) {
-    var carId, result;
+    var car_id, result;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            carId = req.params.car_id;
-            result = _ValidateCar["default"].validateViewSpecficCarParams(carId);
+            car_id = req.params.car_id;
+            result = _ValidateCar["default"].validateViewSpecficCarParams(car_id);
 
             if (!result.error) {
               _context4.next = 6;
@@ -201,7 +201,7 @@ function () {
 
           case 6:
             _context4.next = 8;
-            return _CarChecker["default"].checkId(carId);
+            return _CarChecker["default"].checkId(car_id);
 
           case 8:
             if (_context4.sent) {
@@ -211,7 +211,7 @@ function () {
 
             res.status(404).send({
               status: 404,
-              error: "Car with id (".concat(carId, ") do not exist.")
+              error: "Car with id (".concat(car_id, ") do not exist.")
             });
             _context4.next = 13;
             break;
@@ -243,7 +243,7 @@ var validateViewCars = function validateViewCars(req, res, next) {
   var isThree = qLength > 0 && qLength === 3;
 
   if (isZero) {
-    if (!req.token.isAdmin) {
+    if (!req.token.is_admin) {
       res.status(403).send({
         status: 403,
         error: 'You are not an admin. Only admins are allowed to view both sold and unsold cars.'
@@ -325,13 +325,13 @@ function () {
   var _ref5 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee5(req, res, next) {
-    var carId, result;
+    var car_id, result;
     return regeneratorRuntime.wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            carId = req.params.car_id;
-            result = _ValidateCar["default"].validateDeleteACarParams(carId);
+            car_id = req.params.car_id;
+            result = _ValidateCar["default"].validateDeleteACarParams(car_id);
 
             if (!result.error) {
               _context5.next = 6;
@@ -343,7 +343,7 @@ function () {
             break;
 
           case 6:
-            if (req.token.isAdmin) {
+            if (req.token.is_admin) {
               _context5.next = 10;
               break;
             }
@@ -357,7 +357,7 @@ function () {
 
           case 10:
             _context5.next = 12;
-            return _CarChecker["default"].checkId(carId);
+            return _CarChecker["default"].checkId(car_id);
 
           case 12:
             if (_context5.sent) {
@@ -367,7 +367,7 @@ function () {
 
             res.status(404).send({
               status: 404,
-              error: "Car with id (".concat(carId, ") does not exist.")
+              error: "Car with id (".concat(car_id, ") does not exist.")
             });
             _context5.next = 17;
             break;

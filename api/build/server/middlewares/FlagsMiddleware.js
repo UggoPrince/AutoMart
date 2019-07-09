@@ -21,14 +21,14 @@ function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(req, res, next) {
-    var _req$body, carId, reason, description, result;
+    var _req$body, car_id, reason, description, result;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _req$body = req.body, carId = _req$body.carId, reason = _req$body.reason, description = _req$body.description;
-            result = _ValidateFlag["default"].validateReportAdvertFields(carId, reason, description);
+            _req$body = req.body, car_id = _req$body.car_id, reason = _req$body.reason, description = _req$body.description;
+            result = _ValidateFlag["default"].validateReportAdvertFields(car_id, reason, description);
 
             if (!result.error) {
               _context.next = 6;
@@ -44,7 +44,7 @@ function () {
 
           case 6:
             _context.next = 8;
-            return _FlagChecker["default"].checkFlaggedCar(carId);
+            return _FlagChecker["default"].checkFlaggedCar(car_id);
 
           case 8:
             if (_context.sent) {
@@ -54,7 +54,7 @@ function () {
 
             res.status(404).send({
               status: 404,
-              error: "Car with id (".concat(carId, ") does not exist.")
+              error: "Car with id (".concat(car_id, ") does not exist.")
             });
             _context.next = 13;
             break;

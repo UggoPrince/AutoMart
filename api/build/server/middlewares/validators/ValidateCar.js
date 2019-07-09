@@ -41,7 +41,7 @@ function (_Validator) {
   _createClass(ValidateCar, null, [{
     key: "validateCreateAdvertFields",
     value: function validateCreateAdvertFields( // validates the fields that would creat an advert
-    state, status, price, title, manufacturer, model, bodyType, photo) {
+    state, status, price, title, manufacturer, model, body_type, photo) {
       ValidateCar.refresh();
       ValidateCar.isValidState(state, 'state'); // validate state
 
@@ -55,7 +55,7 @@ function (_Validator) {
 
       ValidateCar.isValidModel(model, 'model'); // validate model
 
-      ValidateCar.isValidBodyType(bodyType, 'bodyType'); // validate body_type
+      ValidateCar.isValidBodyType(body_type, 'body_type'); // validate body_type
 
       ValidateCar.isValidPhoto(photo, 'image'); // validate photo
 
@@ -64,29 +64,29 @@ function (_Validator) {
 
   }, {
     key: "validateUpdateCarStatusFields",
-    value: function validateUpdateCarStatusFields(carId, newStatus) {
+    value: function validateUpdateCarStatusFields(car_id, status) {
       ValidateCar.refresh();
-      ValidateCar.validateInt(carId, 'carId');
-      ValidateCar.isValidNewStatus(newStatus, 'newStatus');
+      ValidateCar.validateInt(car_id, 'car_id');
+      ValidateCar.isValidNewStatus(status, 'status');
       return ValidateCar.getErrorMessage();
     } // validates the field and url parameter that updates a car price
 
   }, {
     key: "validatUpdateCarPriceFields",
-    value: function validatUpdateCarPriceFields(carId, newPrice) {
+    value: function validatUpdateCarPriceFields(car_id, price) {
       ValidateCar.refresh();
-      ValidateCar.validateInt(carId, 'carId'); // validate car id
+      ValidateCar.validateInt(car_id, 'car_id'); // validate car id
 
-      ValidateCar.isValidPrice(newPrice, 'newPrice'); // validate the new price
+      ValidateCar.isValidPrice(price, 'price'); // validate the new price
 
       return ValidateCar.getErrorMessage();
     } // validate the url parameter for car id sent to retrieve a car
 
   }, {
     key: "validateViewSpecficCarParams",
-    value: function validateViewSpecficCarParams(carId) {
+    value: function validateViewSpecficCarParams(car_id) {
       ValidateCar.refresh();
-      ValidateCar.validateInt(carId, 'carId');
+      ValidateCar.validateInt(car_id, 'car_id');
       return ValidateCar.getErrorMessage();
     } // validate the query string sent for status
 
@@ -100,19 +100,19 @@ function (_Validator) {
 
   }, {
     key: "validateViewUnsoldCarsInPriceRange",
-    value: function validateViewUnsoldCarsInPriceRange(status, minPrice, maxPrice) {
+    value: function validateViewUnsoldCarsInPriceRange(status, min_price, max_price) {
       ValidateCar.refresh();
       ValidateCar.isValidStatusQuery(status, 'status');
-      ValidateCar.isValidPrice(minPrice, 'min_price');
-      ValidateCar.isValidPrice(maxPrice, 'max_price');
+      ValidateCar.isValidPrice(min_price, 'min_price');
+      ValidateCar.isValidPrice(max_price, 'max_price');
       return ValidateCar.getErrorMessage();
     } // validate the url parameter for car id sent to delete a car
 
   }, {
     key: "validateDeleteACarParams",
-    value: function validateDeleteACarParams(carId) {
+    value: function validateDeleteACarParams(car_id) {
       ValidateCar.refresh();
-      ValidateCar.validateInt(carId, 'carId');
+      ValidateCar.validateInt(car_id, 'car_id');
       return ValidateCar.getErrorMessage();
     } // validate the query string for getting cars that are used
 
@@ -135,9 +135,9 @@ function (_Validator) {
 
   }, {
     key: "validateViewAllCarsOfOwner",
-    value: function validateViewAllCarsOfOwner(userId) {
+    value: function validateViewAllCarsOfOwner(user_id) {
       ValidateCar.refresh();
-      ValidateCar.validateInt(userId, 'onwer id');
+      ValidateCar.validateInt(user_id, 'onwer id');
       return ValidateCar.getErrorMessage();
     }
   }, {
@@ -201,11 +201,11 @@ function (_Validator) {
     }
   }, {
     key: "isValidBodyType",
-    value: function isValidBodyType(bodyType, field) {
-      if (ValidateCar.isEmptyString(bodyType)) {
+    value: function isValidBodyType(body_type, field) {
+      if (ValidateCar.isEmptyString(body_type)) {
         ValidateCar.integrateError(field, "No ".concat(field, " entered."));
       } else {
-        var str = bodyType.toLowerCase();
+        var str = body_type.toLowerCase();
         var bodyT = [' Convertibles', ' Coupe', ' SUV', ' Hatchback', ' Sedan', ' Wagon', ' Van', ' Truck', ' Trailer truck', ' Tipper truck', ' Bus', ' Motorbike'];
 
         if (str !== 'convertibles' && str !== 'coupe' && str !== 'suv' && str !== 'hatchback' && str !== 'sedan' && str !== 'wagon' && str !== 'van' && str !== 'truck' && str !== 'trailer truck' && str !== 'tipper truck' && str !== 'bus' && str !== 'motorbike') {
@@ -215,11 +215,11 @@ function (_Validator) {
     }
   }, {
     key: "isValidPhoto",
-    value: function isValidPhoto(myPhoto, str) {
+    value: function isValidPhoto(car_photo, str) {
       // console.log(myPhoto.photo.length === undefined);
-      if (!myPhoto.photo) {
+      if (!car_photo.photo) {
         ValidateCar.integrateError(str, "No ".concat(str, " submited."));
-      } else if (myPhoto.photo.type !== 'image/jpeg' && myPhoto.photo.type !== 'image/png') {
+      } else if (car_photo.photo.type !== 'image/jpeg' && car_photo.photo.type !== 'image/png') {
         ValidateCar.integrateError(str, "You didn't submit an ".concat(str, " type. jpg/png is accepted."));
       }
     }

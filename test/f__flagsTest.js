@@ -9,7 +9,7 @@ chai.use(chaiHttp);
 
 describe('Flags Test', () => {
   const flag = {
-    carId: 2,
+    car_id: 2,
     reason: 'repeated',
     description: 'I have seen this in so many ocassions by differnt accounts',
   };
@@ -31,7 +31,7 @@ describe('Flags Test', () => {
         .post('/api/v1/flag')
         .set({ authentication: process.env.tokenUser2 })
         .send({
-          carId: 'k',
+          car_id: 'k',
           reason: 'repeated **--)()',
           description: 'I have seen this in so many ocassions by differnt accounts',
         })
@@ -47,7 +47,7 @@ describe('Flags Test', () => {
         .post('/api/v1/flag')
         .set({ authentication: process.env.tokenUser2 })
         .send({
-          carId: 100,
+          car_id: 100,
           reason: 'repeated',
           description: 'I have seen this in so many ocassions by differnt accounts',
         })

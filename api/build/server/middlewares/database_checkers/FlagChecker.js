@@ -31,14 +31,14 @@ function () {
     value: function () {
       var _checkFlaggedCar = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee(carId) {
+      regeneratorRuntime.mark(function _callee(car_id) {
         var car;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _Flags["default"].getFlaggedCar(carId);
+                return _Flags["default"].getFlaggedCar(car_id);
 
               case 2:
                 car = _context.sent;

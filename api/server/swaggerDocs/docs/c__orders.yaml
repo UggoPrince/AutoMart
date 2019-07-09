@@ -4,11 +4,11 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/orderId'
+          $ref: '#/components/schemas/order_id'
         buyer:
           $ref: '#/components/schemas/buyer'
         car_id:
-          $ref: '#/components/schemas/carId'
+          $ref: '#/components/schemas/car_id'
         amount:
           $ref: '#/components/schemas/orderStatus'
         status:
@@ -17,7 +17,7 @@ components:
       type: object
       properties:
         car_id:
-          $ref: '#/components/schemas/carId'
+          $ref: '#/components/schemas/car_id'
         amount:
           type: float
           description: Price the buyer is offering.
@@ -26,9 +26,9 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/orderId'
+          $ref: '#/components/schemas/order_id'
         car_id:
-          $ref: '#/components/schemas/carId'
+          $ref: '#/components/schemas/car_id'
         created_on:
           $ref: '#/components/schemas/created_on'
         status:
@@ -42,7 +42,7 @@ components:
     updateOrder:
       type: object
       properties:
-        newAmount:
+        amount:
           type: float
           description: Pew price the buyer is offering.
           example: '14500000.00'
@@ -50,9 +50,9 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/orderId'
+          $ref: '#/components/schemas/order_id'
         car_id:
-          $ref: '#/components/schemas/carId'
+          $ref: '#/components/schemas/car_id'
         status:
           $ref: '#/components/schemas/orderStatus'
         old_price_offered:
@@ -61,7 +61,7 @@ components:
           type: float
           description: New Price the buyer want to buy the car
           example: '11500000.00'
-    orderId:
+    order_id:
       type: integer
       description: Order identification number
       example: '1'
@@ -159,7 +159,7 @@ paths:
           description: order id
           required: true
           schema:
-            $ref: '#/components/schemas/orderId'
+            $ref: '#/components/schemas/order_id'
       requestBody:
         content:
           'application/json':
@@ -194,7 +194,7 @@ paths:
                     example: '400'
                   error: 
                     type: object/string
-                    example: 'Invalid newAmount'
+                    example: 'Invalid amount'
         '404':
           description: > 
             Response when the order does not exist
