@@ -214,10 +214,16 @@ form {
     color: #ffffff;
 }
 
-.offer-form-block input[type='submit']:hover {
-    background: #039ec5;
-    border-color:#039ec5;
+.offer-form-block input[id='makeOfferButton']:hover {
+    background: #007bff;
+    border-color:#007bff;
 }
+
+.offer-form-block input[id='reportAdvertButton']:hover {
+    background: rgb(255, 97, 40);
+    border-color: rgb(255, 97, 40);
+}
+
 
 #searchBoxForm {
     padding: 0px;
