@@ -110,6 +110,42 @@ function () {
 
       return updateOrderPrice;
     }()
+  }, {
+    key: "getOrders",
+    value: function () {
+      var _getOrders = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee3(req, res) {
+        var rQuery, result;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                rQuery = req.query;
+                _context3.next = 3;
+                return _Orders["default"].getOrderByBuyer(rQuery.buyer);
+
+              case 3:
+                result = _context3.sent;
+                res.status(200).send({
+                  status: 200,
+                  data: result.rows
+                });
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      function getOrders(_x5, _x6) {
+        return _getOrders.apply(this, arguments);
+      }
+
+      return getOrders;
+    }()
   }]);
 
   return OrdersController;

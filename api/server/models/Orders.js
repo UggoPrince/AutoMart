@@ -26,6 +26,17 @@ class Orders {
     return result;
   }
 
+  async getOrderByBuyer(buyer) {
+    const queryString = `
+      SELECT orders.id, car_id, orders.created_on, amount, orders.status,
+      cars.state car_state, cars.status car_status, cars.price car_price, title,
+      manufacturer, model, body_type, photos
+      FROM cars FULL JOIN orders ON cars.id = orders.car_id
+      WHERE orders.buyer=${buyer};`;
+    const result = await db.query(queryString);
+    return result;
+  }
+
   async updatePrice(orderData) {
     const queryString = `
     UPDATE orders SET amount = '${orderData.amount}'

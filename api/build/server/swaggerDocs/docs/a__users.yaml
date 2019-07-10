@@ -6,7 +6,7 @@ components:
         token:
           $ref: '#/components/schemas/token'
         id:
-          $ref: '#/components/schemas/userId'
+          $ref: '#/components/schemas/user_id'
         first_name:
           $ref: '#/components/schemas/first_name'
         last_name:
@@ -27,7 +27,7 @@ components:
         token:
           $ref: '#/components/schemas/token'
         id:
-          $ref: '#/components/schemas/userId'
+          $ref: '#/components/schemas/user_id'
         first_name:
           $ref: '#/components/schemas/first_name'
         last_name:
@@ -66,7 +66,7 @@ components:
       type: string
       description: Authentication token
       example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0aG9ueUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTYxMTYyMTY0LCJleHAiOjE1NjEyNDg1NjR9.jx2qbXyui03Dhb9F8iwwbMel9LMYIShLYr5Y5y94BtU
-    userId:
+    user_id:
       type: integer
       description: User identification number
       example: '1234'

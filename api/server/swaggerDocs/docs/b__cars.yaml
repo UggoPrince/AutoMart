@@ -24,7 +24,9 @@ components:
         body_type:
           $ref: '#/components/schemas/body_type'
         photos:
-          $ref: '#/components/schemas/photo'
+          type: array
+          items:
+            $ref: '#/components/schemas/photo'
     createAdvert:
       type: object
       properties:
@@ -42,7 +44,7 @@ components:
           $ref: '#/components/schemas/model'
         body_type:
           $ref: '#/components/schemas/body_type'
-        photo:
+        photos:
           $ref: '#/components/schemas/image'
     createdAdvert:
       type: object
@@ -68,7 +70,9 @@ components:
         title:
           $ref: '#/components/schemas/title'
         photos:
-          $ref: '#/components/schemas/photo'
+          type: array
+          items:
+            $ref: '#/components/schemas/photo'
     updateCarStatus:
       type: object
       properties:
@@ -199,6 +203,48 @@ paths:
                   error: 
                     type: object/string
                     example: 'Invalid Price'
+    get:
+      tags:
+        - Car
+      description: Admin get a all cars
+      operationId: getCars
+      parameters:
+        - name: authentication
+          in: header
+          description: authentication header with jwt token
+          required: true
+          schema:
+            $ref: '#/components/schemas/token'
+      responses:
+        '200':
+          description: Response data that contains all cars
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 200 success status code
+                    example: '200'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Car'
+        '403':
+          description: Response gotten when the user is not an admin
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 403 error status code
+                    example: '403'
+                  error: 
+                    type: object/string
+                    example: 'You are not an admin. Only admins are allowed to view both sold and unsold cars.'
   /car/car_id:
     get:
       tags:
@@ -336,49 +382,6 @@ paths:
                   error: 
                     type: object/string
                     example: 'Car with id (carId) does not exist.'
-  /car/:
-    get:
-      tags:
-        - Car
-      description: Admin get a all cars
-      operationId: getCars
-      parameters:
-        - name: authentication
-          in: header
-          description: authentication header with jwt token
-          required: true
-          schema:
-            $ref: '#/components/schemas/token'
-      responses:
-        '200':
-          description: Response data that contains all cars
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                    description: 200 success status code
-                    example: '200'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Car'
-        '403':
-          description: Response gotten when the user is not an admin
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                    description: 403 error status code
-                    example: '403'
-                  error: 
-                    type: object/string
-                    example: 'You are not an admin. Only admins are allowed to view both sold and unsold cars.'
   /car?status=available:
     get:
       tags:

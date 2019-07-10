@@ -51,10 +51,18 @@ function (_Validator) {
   }, {
     key: "validateUpdateOrderFields",
     value: function validateUpdateOrderFields(amount, order_id) {
+      ValidateOrder.refresh();
       ValidateOrder.isValidAmount(amount, 'amount'); // validate the new price that's to update old price
 
       ValidateOrder.isValidOrderId(order_id, 'order_id'); // validate the order's id
 
+      return ValidateOrder.getErrorMessage();
+    }
+  }, {
+    key: "validateGetOrdersOfAUser",
+    value: function validateGetOrdersOfAUser(buyer) {
+      ValidateOrder.refresh();
+      ValidateOrder.isValidBuyer(buyer, 'buyer');
       return ValidateOrder.getErrorMessage();
     }
   }, {
@@ -70,7 +78,12 @@ function (_Validator) {
   }, {
     key: "isValidOrderId",
     value: function isValidOrderId(id, field) {
-      this.validateInt(id, field);
+      ValidateOrder.validateInt(id, field);
+    }
+  }, {
+    key: "isValidBuyer",
+    value: function isValidBuyer(buyer, field) {
+      ValidateOrder.validateInt(buyer, field);
     }
   }]);
 

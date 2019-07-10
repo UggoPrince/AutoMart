@@ -21,7 +21,9 @@ var Router = _express["default"].Router(); // makes a purchase order
 
 Router.post('/order/', [_AuthMiddleware["default"], _OrdersMiddleware.validatePurchaseOrder], _OrdersController["default"].makePurchaseOrder); // update a purchase order's price
 
-Router.patch('/order/:order_id/price', [_AuthMiddleware["default"], _OrdersMiddleware.validateUpdateOrderPrice], _OrdersController["default"].updateOrderPrice);
+Router.patch('/order/:order_id/price', [_AuthMiddleware["default"], _OrdersMiddleware.validateUpdateOrderPrice], _OrdersController["default"].updateOrderPrice); // get all orders of a user
+
+Router.get('/order', [_AuthMiddleware["default"], _OrdersMiddleware.validateGetOrders], _OrdersController["default"].getOrders);
 var _default = Router;
 exports["default"] = _default;
 //# sourceMappingURL=ordersRoutes.js.map
