@@ -16,10 +16,10 @@ const postData = async (url, formData) => {
 };
 
 const buildSignupFormData = form => ({
-  firstname: form.firstname.value,
-  lastname: form.lastname.value,
+  first_name: form.first_name.value,
+  last_name: form.last_name.value,
   address: form.address.value,
-  phoneNumber: form.phoneNumber.value,
+  phone_number: form.phone_number.value,
   email: form.email.value,
   password: form.password.value,
 });
@@ -29,10 +29,10 @@ const getNotify = () => document.getElementsByClassName('serverNotice')[0];
 const displayError = (error) => {
   const errorSpan = document.getElementsByClassName('errorSpan');
   const notify = getNotify();
-  if (error.firstname) errorSpan[0].innerHTML = error.firstname;
-  if (error.lastname) errorSpan[1].innerHTML = error.lastname;
+  if (error.first_name) errorSpan[0].innerHTML = error.first_name;
+  if (error.last_name) errorSpan[1].innerHTML = error.last_name;
   if (error.address) errorSpan[2].innerHTML = error.address;
-  if (error.phoneNumber) errorSpan[3].innerHTML = error.phoneNumber;
+  if (error.phone_number) errorSpan[3].innerHTML = error.phone_number;
   if (error.email) errorSpan[4].innerHTML = error.email;
   if (error.password) errorSpan[5].innerHTML = error.password;
   if (error.error === 'You already have an account with this email. Login.') {

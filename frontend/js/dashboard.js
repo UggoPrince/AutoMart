@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
 /* eslint-disable class-methods-use-this */
-
+/* eslint-disable camelcase */
 
 class AdvertUpdater {
   async patchData(url, formData) {
@@ -20,7 +20,7 @@ class AdvertUpdater {
   }
 
   buildUpdatePriceData(form) {
-    return { newPrice: form.newPrice.value };
+    return { price: form.price.value };
   }
 
   appendToAds(data) {
@@ -29,24 +29,24 @@ class AdvertUpdater {
     container.prepend(buildAdBlock(data));
   }
 
-  async updateAdPrice(event, carId) {
+  async updateAdPrice(event, car_id) {
     event.preventDefault();
-    const url = `https://automarter.herokuapp.com/api/v1/car/${carId}/price`;
+    const url = `https://automarter.herokuapp.com/api/v1/car/${car_id}/price`;
     const form = event.target;
     const formData = this.buildUpdatePriceData(form);
     const result = await this.patchData(url, formData)
       .then(data => data)
       .catch(error => error);
     if (result.status && result.status === 200) {
-      document.getElementById(`adPrice${carId}`).innerHTML = req.data.price;
+      document.getElementById(`adPrice${car_id}`).innerHTML = result.data.price;
     } else if (result.status === 401) {
       signOut('signin.html'); // from main.js
     }
   }
 
-  async updateAdStatus(event, carId) {
-    const url = `https://automarter.herokuapp.com/api/v1/car/${carId}/status`;
-    const formData = { newStatus: 'sold' };
+  async updateAdStatus(event, car_id) {
+    const url = `https://automarter.herokuapp.com/api/v1/car/${car_id}/status`;
+    const formData = { status: 'sold' };
     const result = await this.patchData(url, formData)
       .then(data => data)
       .catch(error => error);
@@ -54,7 +54,7 @@ class AdvertUpdater {
       // eslint-disable-next-line no-console
       console.log(result.error);
     } else if (result.status && result.status === 200) {
-      document.getElementById(`ad-block${carId}`).style.display = 'none';
+      document.getElementById(`ad-block${car_id}`).style.display = 'none';
       this.appendToAds(result.data);
     } else if (result.status === 401) {
       signOut('signin.html'); // from main.js
@@ -122,7 +122,7 @@ const buildAdBlock = (ad) => { // adBlock builder
 
     const updatePriceInput = document.createElement('input');
     updatePriceInput.type = 'number';
-    updatePriceInput.name = 'newPrice';
+    updatePriceInput.name = 'price';
     updatePriceInput.min = 0;
     updatePriceInput.placeholder = 'Enter new Price';
 
@@ -189,7 +189,7 @@ class AdvertPoster {
 
   buildPostAdvertData(form) {
     const formData = new FormData();
-    formData.append('bodyType', form.bodyType.value);
+    formData.append('body_type', form.body_type.value);
     formData.append('state', form.state.value);
     formData.append('status', 'available');
     formData.append('manufacturer', form.manufacturer.value);
@@ -207,7 +207,7 @@ class AdvertPoster {
   displayError(error) {
     const errorSpan = document.getElementsByClassName('errorSpan');
     const notify = this.getNotify();
-    if (error.bodyType) errorSpan[0].innerHTML = error.bodyType;
+    if (error.body_type) errorSpan[0].innerHTML = error.body_type;
     if (error.state) errorSpan[1].innerHTML = error.state;
     if (error.manufacturer) errorSpan[2].innerHTML = error.manufacturer;
     if (error.model) errorSpan[3].innerHTML = error.model;

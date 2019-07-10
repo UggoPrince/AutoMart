@@ -65,7 +65,7 @@ class Order {
   }
 
   buildOrderData(form) {
-    return { carId: form.carId.value, amount: form.amount.value };
+    return { car_id: form.car_id.value, amount: form.amount.value };
   }
 
   getNotify() {
