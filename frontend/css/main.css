@@ -37,7 +37,7 @@ section::after,
 
 .brand img {
   width: 70px;
-  display: inline;
+  /*display: inline;*/
   vertical-align: middle;
 }
 
@@ -117,40 +117,7 @@ section::after,
   /*background: transparent; /*#262626;*/
   line-height: 70px; /*nav-height*/
 }
-/*
-.side-nav ul li a {
-  border-bottom:1px solid #555;
-  line-height: 50px;
-}
-*/
 
-/*
-.side-nav2 {
-  display: none;
-  background: #2e2e2e;
-}
-.side-nav2 ul li a {
-  display: block;
-  width: 100%;
-  padding: 0px 2%;
-  background: transparent;
-  color: #ffffff;
-  text-decoration: none;
-  line-height: 30px;
-}
-.side-nav2 ul li a:hover {
-  background: #039ec5;
-  color:  #ffffff;
-}
-.side-nav-list2 {
-  display: none;
-}
-.side-nav2 span {
-  cursor: pointer;
-  background: #2e2e2e;
-  padding: 5px 17px;
-}
-*/
 .nav-mobile {
     display: none;
     position: absolute;
@@ -732,6 +699,149 @@ section::after,
   background: #039ec5;
   border: 1px solid #039ec5;
 }
+
+/* purchase order section*/
+#myPurchaseDiv {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  width: 100%;
+  min-height: 10px;
+  margin-bottom: 20px;
+}
+
+.po-block-container {
+  display: block;
+}
+
+.po-block {
+  max-width: 270px;
+  width: 100%;
+  box-shadow: 0px 0px 8px #cccccc;
+  border-radius: 3px;
+  margin: 5px 1rem 0px auto;
+  padding-bottom: 5px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.po-block div {
+  max-width: 100%;
+}
+
+.po-block-img {
+  height: 170px;
+}
+
+.po-block-img img {
+  border-radius: 3px 3px 0px 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.po-block-info {
+  display: block;
+}
+
+.po-block-title,
+.po-block-price,
+.po-block-update-price-form,
+.po-block-update-buttons,
+.po-block-details {
+  text-align: left;
+  padding: 2px;
+  width:100%;
+  display: inline-block;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.po-block-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.po-block-title a {
+  width: 100%;
+  color: #039ec5;
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.po-block-price {
+  font-size: 15px;
+}
+
+.po-block-price span:nth-of-type(1) {
+  color: #2a4b6b;
+}
+
+.po-block-price span:nth-of-type(2) {
+  color: #039ec5;
+}
+
+.po-block-details {
+  font-size: 15px;
+}
+
+.po-block-details div span:nth-child(1) {
+  color: #2a4b6b;
+}
+
+.po-block-details div span:nth-child(2) {
+  color: #039ec5;
+  text-transform: capitalize;
+}
+
+.po-block-details div button {
+  float: right;
+  width: 44%;
+  margin: auto 2% auto 2%;
+  padding: 3px;
+  border-radius: 2px;
+  color: white;
+  cursor: pointer;
+  background: rgb(255, 97, 40);
+  border: 1px solid rgb(255, 97, 40);
+}
+
+.po-block-update-price-form {
+  display: none;
+  padding: 2px 2px 4px 2px;
+}
+
+#updatepoPriceForm {
+  width:100%;
+  padding: 2px 2px 4px 2px;
+  min-height: 20px;
+  background: #d6e1ec;
+  margin: auto;
+  text-align: center;
+}
+
+#updatepoPriceForm input[type="number"] {
+  vertical-align: middle;
+  display: inline-block;
+  width: 100%;
+  margin: auto;
+}
+
+#updatepoPriceForm input[type="submit"] {
+  vertical-align: middle;
+  display: inline-block;
+  width: 60%;
+  margin: 0px auto;
+  background: rgb(255, 97, 40);
+  border:1px solid rgb(255, 97, 40);
+  border-radius: 2px;
+  color: white;
+  cursor: pointer;
+  padding: 1px 0px 1px 0px;
+  line-height: 15px;
+}
+
+/*End purchase order section*/
 
 .bw {background: white;}
 

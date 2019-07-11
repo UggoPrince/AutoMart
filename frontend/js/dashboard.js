@@ -29,6 +29,13 @@ class AdvertUpdater {
     container.prepend(buildAdBlock(data));
   }
 
+  closeForm(id) {
+    getElemId(`adBlockUpdatePriceForm${id}`).style.display = 'none';
+    getElemId(`adBlockInfo${id}`).style.display = 'block';
+    getElemId(`updatePriceButton${id}`).style.background = 'rgb(255, 97, 40)';
+    getElemId(`updateStatusButton${id}`).style.display = 'inline-block';
+  }
+
   async updateAdPrice(event, car_id) {
     event.preventDefault();
     const url = `https://automarter.herokuapp.com/api/v1/car/${car_id}/price`;
@@ -38,7 +45,8 @@ class AdvertUpdater {
       .then(data => data)
       .catch(error => error);
     if (result.status && result.status === 200) {
-      document.getElementById(`adPrice${car_id}`).innerHTML = result.data.price;
+      getElemId(`adPrice${car_id}`).innerHTML = result.data.price;
+      this.closeForm(car_id);
     } else if (result.status === 401) {
       signOut('signin.html'); // from main.js
     }
@@ -54,7 +62,7 @@ class AdvertUpdater {
       // eslint-disable-next-line no-console
       console.log(result.error);
     } else if (result.status && result.status === 200) {
-      document.getElementById(`ad-block${car_id}`).style.display = 'none';
+      getElemId(`ad-block${car_id}`).style.display = 'none';
       this.appendToAds(result.data);
     } else if (result.status === 401) {
       signOut('signin.html'); // from main.js
@@ -63,6 +71,7 @@ class AdvertUpdater {
 }
 const advertUpdater = new AdvertUpdater();
 let MyAdverts = [];
+let MyPurOrders = [];
 
 const buildAdBlock = (ad) => { // adBlock builder
   // ad block
@@ -83,6 +92,7 @@ const buildAdBlock = (ad) => { // adBlock builder
    */
   const adBlockInfo = document.createElement('div');
   adBlockInfo.className = 'ad-block-info';
+  adBlockInfo.id = `adBlockInfo${ad.id}`;
 
   // title section
   const adBlockTitle = document.createElement('div');
@@ -112,6 +122,7 @@ const buildAdBlock = (ad) => { // adBlock builder
     // update price form section
     adBlockUpdatePriceForm = document.createElement('section');
     adBlockUpdatePriceForm.className = 'ad-block-update-price-form';
+    adBlockUpdatePriceForm.id = `adBlockUpdatePriceForm${ad.id}`;
     const updatePriceForm = document.createElement('form');
     updatePriceForm.id = 'updatePriceForm';
     updatePriceForm.name = 'updatePriceForm';
@@ -121,6 +132,7 @@ const buildAdBlock = (ad) => { // adBlock builder
     });
 
     const updatePriceInput = document.createElement('input');
+    updatePriceInput.id = `updatePriceInput${ad.id}`;
     updatePriceInput.type = 'number';
     updatePriceInput.name = 'price';
     updatePriceInput.min = 0;
@@ -140,25 +152,30 @@ const buildAdBlock = (ad) => { // adBlock builder
 
     const updateStatusButton = document.createElement('button'); // update status button
     updateStatusButton.innerHTML = 'Mark Sold';
+    updateStatusButton.id = `updateStatusButton${ad.id}`;
     updateStatusButton.addEventListener('click', async (event) => {
       await advertUpdater.updateAdStatus(event, ad.id);
     });
 
     const updatePriceButton = document.createElement('button'); // update price button
     updatePriceButton.innerHTML = 'Update Price';
+    updatePriceButton.id = `updatePriceButton${ad.id}`;
     updatePriceButton.addEventListener('click', () => {
       if (adBlockUpdatePriceForm.style.display === 'none') {
         updatePriceButton.innerHTML = 'Close';
         updateStatusButton.style.display = 'none'; // hide update status button
         adBlockInfo.style.display = 'none'; // hide info section
         adBlockUpdatePriceForm.style.display = 'block'; // show form
-        updatePriceButton.style.background = 'red';
+        updatePriceButton.style.background = '#039ec5';
+        updatePriceButton.style.borderColor = '#039ec5';
       } else {
         adBlockUpdatePriceForm.style.display = 'none'; // hide form
         updateStatusButton.style.display = 'inline-block'; // show update status button
         adBlockInfo.style.display = 'block'; // show info section
         updatePriceButton.innerHTML = 'Update Price';
         updatePriceButton.style.background = 'rgb(255, 97, 40)';
+        updatePriceButton.style.borderColor = 'rgb(255, 97, 40)';
+        getElemId(`updatePriceInput${ad.id}`).value = '';
       }
     });
     adBlockUpdateButtons.append(updatePriceButton, updateStatusButton); // coupling
@@ -295,6 +312,183 @@ class AdvertPoster {
   }
 }
 
+class Orders {
+  async getData() {
+    const { id, token } = JSON.parse(localStorage.getItem('autoMartUser'));
+    const orders = await fetch(`https://automarter.herokuapp.com/api/v1/order?buyer=${id}`, {
+      method: 'GET',
+      headers: {
+        Authentication: `${token}`,
+      // 'Content-Type': 'application/json',
+      },
+    }).then(response => response.json())
+      .catch(error => ({ fetchError: error.message }));
+    return orders;
+  }
+
+  async patchData(url, formData) {
+    const { token } = JSON.parse(localStorage.getItem('autoMartUser'));
+    const serverRes = await fetch(url, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authentication: `${token}`,
+      },
+      body: JSON.stringify(formData),
+    }).then(response => response.json())
+      .catch(error => ({ fetchError: error.message }));
+    return serverRes;
+  }
+
+  async getMyPurchaseOrders() {
+    const result = await this.getData()
+      .then(data => data)
+      .catch(error => error);
+    return result;
+  }
+
+  buildUpdateAmountData(form) {
+    return { amount: form.amount.value };
+  }
+
+  closeForm(id) {
+    getElemId(`updatepoPriceFormBlock${id}`).style.display = 'none';
+    getElemId(`poPrice${id}`).style.display = 'block';
+    getElemId(`poStatusBlock${id}`).style.display = 'block';
+    getElemId(`poAmountBlock${id}`).style.display = 'block';
+    const button = getElemId(`updateOrderPriceButton${id}`);
+    button.innerHTML = 'Update Order';
+    button.style.background = 'rgb(255, 97, 40)';
+  }
+
+  async updateOrderAmount(event, order_id) {
+    event.preventDefault();
+    const url = `https://automarter.herokuapp.com/api/v1/order/${order_id}/price`;
+    const form = event.target;
+    const formData = this.buildUpdateAmountData(form);
+    const result = await this.patchData(url, formData)
+      .then(data => data)
+      .catch(error => error);
+    if (result.status && result.status === 200) {
+      getElemId(`opAmount${order_id}`).innerHTML = result.data.new_price_offered;
+      this.closeForm(order_id);
+    } else if (result.status === 401) {
+      signOut('signin.html'); // from main.js
+    }
+  }
+}
+
+const buildPurchaseBlock = (po) => { // adBlock builder
+  // order
+  const orders = new Orders();
+  // ad block
+  const poBlock = document.createElement('div');
+  poBlock.className = 'po-block';
+  poBlock.id = `po-block${po.id}`;
+
+  // image section
+  const poBlockImg = document.createElement('div');
+  poBlockImg.className = 'po-block-img';
+  const img = document.createElement('img');
+  // eslint-disable-next-line prefer-destructuring
+  img.src = po.photos[0];
+  poBlockImg.append(img); // coupling
+
+  /**
+   * info sections
+   */
+  const poBlockInfo = document.createElement('div');
+  poBlockInfo.className = 'po-block-info';
+
+  // title section
+  const poBlockTitle = document.createElement('div');
+  poBlockTitle.className = 'po-block-title';
+  poBlockTitle.innerHTML = `<a>${po.title}</a>`;
+
+  // price section
+  const poBlockPrice = document.createElement('div');
+  poBlockPrice.className = 'po-block-price';
+  poBlockPrice.innerHTML = `<span>Price: </span><span>N${po.car_price}</span>`;
+  poBlockPrice.id = `poPrice${po.id}`;
+
+  // update form section
+  let poBlockUpdatePriceForm = '';
+  if (po.status === 'pending') {
+    // update price form section
+    poBlockUpdatePriceForm = document.createElement('section');
+    poBlockUpdatePriceForm.id = `updatepoPriceFormBlock${po.id}`;
+    poBlockUpdatePriceForm.className = 'po-block-update-price-form';
+    const updateAmountForm = document.createElement('form');
+    updateAmountForm.id = 'updatepoPriceForm';
+    updateAmountForm.name = 'updatepoPriceForm';
+    updateAmountForm.method = 'POST';
+    updateAmountForm.addEventListener('submit', async (event) => {
+      await orders.updateOrderAmount(event, po.id);
+    });
+
+    const updateAmountInput = document.createElement('input');
+    updateAmountInput.id = `updateAmountInput${po.id}`;
+    updateAmountInput.type = 'number';
+    updateAmountInput.name = 'amount';
+    updateAmountInput.min = 0;
+    updateAmountInput.placeholder = 'Enter new Amount';
+
+    const submitNewAmountButton = document.createElement('input');
+    submitNewAmountButton.value = 'Update';
+    submitNewAmountButton.type = 'submit';
+    updateAmountForm.append(updateAmountInput, submitNewAmountButton); // coupling
+    poBlockUpdatePriceForm.append(updateAmountForm);
+  }
+
+  // details section
+  const poBlockDetails = document.createElement('div');
+  poBlockDetails.className = 'po-block-details';
+  const d1 = createElement('div');
+  const d2 = createElement('div');
+  const d3 = createElement('div');
+  d1.id = `poStatusBlock${po.id}`;
+  d2.id = `poAmountBlock${po.id}`;
+  d1.innerHTML = `<span>Advert: </span><span>${po.car_status}</span>`;
+  d2.innerHTML = `<span>Amount: </span><span id="opAmount${po.id}">${po.amount}</span>`;
+  d3.innerHTML = `<span>Status: </span><span>${po.status}</span>`;
+  d1.style.display = 'block';
+  d2.style.display = 'block';
+  d3.style.display = 'block';
+  let updateOrderPriceButton = '';
+  if (po.status === 'pending') {
+    updateOrderPriceButton = createElement('button');
+    updateOrderPriceButton.innerHTML = 'Update Order';
+    updateOrderPriceButton.id = `updateOrderPriceButton${po.id}`;
+    updateOrderPriceButton.addEventListener('click', () => {
+      if (d1.style.display === 'block') {
+        poBlockPrice.style.display = 'none';
+        d1.style.display = 'none';
+        d2.style.display = 'none';
+        poBlockUpdatePriceForm.style.display = 'block';
+        updateOrderPriceButton.innerHTML = 'Close';
+        updateOrderPriceButton.style.background = '#039ec5';
+        updateOrderPriceButton.style.borderColor = '#039ec5';
+      } else {
+        poBlockUpdatePriceForm.style.display = 'none';
+        poBlockPrice.style.display = 'block';
+        d1.style.display = 'block';
+        d2.style.display = 'block';
+        updateOrderPriceButton.innerHTML = 'Update Order';
+        updateOrderPriceButton.style.background = 'rgb(255, 97, 40)';
+        updateOrderPriceButton.style.borderColor = 'rgb(255, 97, 40)';
+        getElemId(`updateAmountInput${po.id}`).value = '';
+      }
+    });
+  }
+  d3.append(updateOrderPriceButton);
+  poBlockDetails.append(d1, d2, d3);
+
+  // coupling infos
+  poBlockInfo.append(poBlockTitle, poBlockUpdatePriceForm, poBlockPrice, poBlockDetails);
+  poBlock.append(poBlockImg, poBlockInfo);
+  return poBlock;
+};
+
 const getAllMyAdverts = async () => {
   const { id, token } = JSON.parse(localStorage.getItem('autoMartUser'));
   const cars = await fetch(`https://automarter.herokuapp.com/api/v1/car?owner=${id}`, {
@@ -321,7 +515,6 @@ const arrangeMyAdverts = (ads) => {
       container2.append(buildAdBlock(ads[i]));
     }
   }
-  // MyAdverts[0] = container;
   MyAdverts.push(container, container2);
 };
 
@@ -332,6 +525,25 @@ const displayMyAdverts = () => {
   } else {
     adsDiv.append(MyAdverts[0], MyAdverts[1]);
     MyAdverts = [];
+  }
+};
+
+const arrangeMyPurchase = (po) => {
+  const container = document.createElement('div');
+  container.className = 'po-block-container';
+  for (let i = po.length - 1; i > -1; i -= 1) {
+    container.append(buildPurchaseBlock(po[i]));
+  }
+  MyPurOrders.push(container);
+};
+
+const displayPurchaseOrders = () => {
+  const poDiv = document.getElementById('myPurchaseDiv');
+  if (MyPurOrders.length === 0) {
+    poDiv.style.backgroundImage = "url('images/noAds.png')";
+  } else {
+    poDiv.append(MyPurOrders[0]);
+    MyPurOrders = [];
   }
 };
 
@@ -382,14 +594,34 @@ const showSoldAndUnsold = (i, j) => {
   n.style.display = 'none';
 };
 
+const hideAndShowTabs = (tabs, a, b, c) => {
+  tabs[b].style.display = 'none';
+  tabs[c].style.display = 'none';
+  tabs[a].style.display = 'block';
+};
+
+const toggleDashboardTabs = () => {
+  const tabs = document.getElementsByClassName('dtab');
+  const tablink = document.getElementsByClassName('tabLink');
+  tablink[0].addEventListener('click', () => { hideAndShowTabs(tabs, 0, 1, 2); });
+  tablink[1].addEventListener('click', () => { hideAndShowTabs(tabs, 1, 0, 2); });
+  tablink[2].addEventListener('click', () => { hideAndShowTabs(tabs, 2, 0, 1); });
+};
+
 document.addEventListener('DOMContentLoaded', async () => {
+  const orders = new Orders();
   // get all my posted ads
   const MyAds = await getAllMyAdverts();
+  const MyPurchase = await orders.getMyPurchaseOrders();
   if (MyAds.status === 401) {
     signOut('signin.html'); // from main.js
   }
   if (MyAds.data.length !== 0) arrangeMyAdverts(MyAds.data);
+  if (MyPurchase.length !== 0) arrangeMyPurchase(MyPurchase.data);
   displayMyAdverts(MyAds);
+  displayPurchaseOrders(MyPurchase);
+
+
   // prepare post advert engine
   const advertPoster = new AdvertPoster();
   const signupForm = document.getElementById('postAdvertForm');
@@ -414,4 +646,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     showSoldAndUnsold(1, 0);
   });
   togglePostAdvertModal();
+  toggleDashboardTabs();
 });

@@ -2,6 +2,12 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
 
+// eslint-disable-next-line no-unused-vars
+const createElement = tag => document.createElement(tag);
+
+// eslint-disable-next-line no-unused-vars
+const getElemId = id => document.getElementById(id);
+
 function slideToggle() {
   const navList = document.getElementsByClassName('nav-list')[0];
   this.classList.toggle('active');
