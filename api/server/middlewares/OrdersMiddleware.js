@@ -48,3 +48,17 @@ export const validateUpdateOrderPrice = async (req, res, next) => {
     }
   }
 };
+
+export const validateGetOrders = (req, res, next) => {
+  const rQuery = req.query;
+  const result = Validator.validateGetOrdersOfAUser(rQuery.buyer);
+  const user_id = parseInt(rQuery.buyer, 10);
+  if (result.error) {
+    res.status(400).send(Validator.Response());
+  } else if (user_id !== req.token.id) {
+    res.status(400).send({ status: 400, error: 'invalid buyer.' });
+  } else {
+    req.qLength = 1;
+    next();
+  }
+};

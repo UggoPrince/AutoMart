@@ -130,17 +130,17 @@ function () {
       return getOrderById;
     }()
   }, {
-    key: "updatePrice",
+    key: "getOrderByBuyer",
     value: function () {
-      var _updatePrice = _asyncToGenerator(
+      var _getOrderByBuyer = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee4(orderData) {
+      regeneratorRuntime.mark(function _callee4(buyer) {
         var queryString, result;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                queryString = "\n    UPDATE orders SET amount = '".concat(orderData.amount, "'\n    WHERE id = '").concat(orderData.order_id, "' AND status = 'pending'\n    RETURNING id, car_id, status, amount;");
+                queryString = "\n      SELECT orders.id, car_id, orders.created_on, amount, orders.status,\n      cars.state car_state, cars.status car_status, cars.price car_price, title,\n      manufacturer, model, body_type, photos\n      FROM cars FULL JOIN orders ON cars.id = orders.car_id\n      WHERE orders.buyer=".concat(buyer, ";");
                 _context4.next = 3;
                 return db.query(queryString);
 
@@ -156,7 +156,40 @@ function () {
         }, _callee4);
       }));
 
-      function updatePrice(_x4) {
+      function getOrderByBuyer(_x4) {
+        return _getOrderByBuyer.apply(this, arguments);
+      }
+
+      return getOrderByBuyer;
+    }()
+  }, {
+    key: "updatePrice",
+    value: function () {
+      var _updatePrice = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee5(orderData) {
+        var queryString, result;
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                queryString = "\n    UPDATE orders SET amount = '".concat(orderData.amount, "'\n    WHERE id = '").concat(orderData.order_id, "' AND status = 'pending'\n    RETURNING id, car_id, status, amount;");
+                _context5.next = 3;
+                return db.query(queryString);
+
+              case 3:
+                result = _context5.sent;
+                return _context5.abrupt("return", result);
+
+              case 5:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }));
+
+      function updatePrice(_x5) {
         return _updatePrice.apply(this, arguments);
       }
 

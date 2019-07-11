@@ -70,6 +70,43 @@ describe('Orders Test', () => {
     });
   });
 
+  describe('GET /api/v1/order?buyer=value', () => {
+    it('should get all the orders made by the user', (done) => {
+      chai.request(app)
+        .get('/api/v1/order?buyer=1')
+        .set({ authentication: process.env.tokenUser })
+        .end((err, res) => {
+          expect(res.status).to.be.eql(200);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not get all the orders made by the user if a wrong id is sent', (done) => {
+      chai.request(app)
+        .get('/api/v1/order?buyer=15')
+        .set({ authentication: process.env.tokenUser })
+        .end((err, res) => {
+          expect(res.status).to.be.eql(400);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not get all the orders made by the user if url has wrong query string or  incorrect id is sent',
+      (done) => {
+        chai.request(app)
+          .get('/api/v1/order?buyer=15k')
+          .set({ authentication: process.env.tokenUser })
+          .end((err, res) => {
+            expect(res.status).to.be.eql(400);
+            expect(res.type).to.be.equal('application/json');
+            expect(res.body).to.be.an('object');
+            done();
+          });
+      });
+  });
+
   describe('PATCH /api/v1/order/:order_id/price', () => {
     const update = {
       amount: 1200000.001,
@@ -96,15 +133,6 @@ describe('Orders Test', () => {
           expect(res.type).to.be.equal('application/json');
           expect(res.body).to.be.an('object');
         });
-      /* chai.request(app)
-        .patch('/api/v1/order/100/price')
-        .set({ authentication: process.env.tokenUser })
-        .send(update)
-        .end((err, res) => {
-          expect(res.status).to.be.eql(404);
-          expect(res.type).to.be.equal('application/json');
-          expect(res.body).to.be.an('object');
-        }); */
       done();
     });
     it('should not update price if the new price is not a float', (done) => {
@@ -119,16 +147,5 @@ describe('Orders Test', () => {
           done();
         });
     });
-    /* it('should not update price if the order id is not valid', (done) => {
-      chai.request(app)
-        .patch('/api/v1/order/33/price')
-        .send(update)
-        .end((err, res) => {
-          expect(res.status).to.be.eql(404);
-          expect(res.type).to.be.equal('application/json');
-          expect(res.body).to.be.an('object');
-          done();
-        });
-    }); */
   });
 });

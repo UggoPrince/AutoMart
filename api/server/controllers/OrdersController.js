@@ -30,6 +30,15 @@ class OrdersController {
       data: result.rows[0],
     });
   }
+
+  async getOrders(req, res) {
+    const rQuery = req.query;
+    const result = await Orders.getOrderByBuyer(rQuery.buyer);
+    res.status(200).send({
+      status: 200,
+      data: result.rows,
+    });
+  }
 }
 
 export default new OrdersController();

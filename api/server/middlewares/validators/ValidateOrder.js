@@ -12,8 +12,15 @@ class ValidateOrder extends Validator {
   }
 
   static validateUpdateOrderFields(amount, order_id) {
+    ValidateOrder.refresh();
     ValidateOrder.isValidAmount(amount, 'amount'); // validate the new price that's to update old price
     ValidateOrder.isValidOrderId(order_id, 'order_id'); // validate the order's id
+    return ValidateOrder.getErrorMessage();
+  }
+
+  static validateGetOrdersOfAUser(buyer) {
+    ValidateOrder.refresh();
+    ValidateOrder.isValidBuyer(buyer, 'buyer');
     return ValidateOrder.getErrorMessage();
   }
 
@@ -26,7 +33,11 @@ class ValidateOrder extends Validator {
   }
 
   static isValidOrderId(id, field) {
-    this.validateInt(id, field);
+    ValidateOrder.validateInt(id, field);
+  }
+
+  static isValidBuyer(buyer, field) {
+    ValidateOrder.validateInt(buyer, field);
   }
 }
 

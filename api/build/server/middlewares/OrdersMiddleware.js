@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.validateUpdateOrderPrice = exports.validatePurchaseOrder = void 0;
+exports.validateGetOrders = exports.validateUpdateOrderPrice = exports.validatePurchaseOrder = void 0;
 
 var _ValidateOrder = _interopRequireDefault(require("./validators/ValidateOrder"));
 
@@ -134,4 +134,26 @@ function () {
 }();
 
 exports.validateUpdateOrderPrice = validateUpdateOrderPrice;
+
+var validateGetOrders = function validateGetOrders(req, res, next) {
+  var rQuery = req.query;
+
+  var result = _ValidateOrder["default"].validateGetOrdersOfAUser(rQuery.buyer);
+
+  var user_id = parseInt(rQuery.buyer, 10);
+
+  if (result.error) {
+    res.status(400).send(_ValidateOrder["default"].Response());
+  } else if (user_id !== req.token.id) {
+    res.status(400).send({
+      status: 400,
+      error: 'invalid buyer.'
+    });
+  } else {
+    req.qLength = 1;
+    next();
+  }
+};
+
+exports.validateGetOrders = validateGetOrders;
 //# sourceMappingURL=OrdersMiddleware.js.map
