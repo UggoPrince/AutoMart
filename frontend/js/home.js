@@ -3,6 +3,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable camelcase */
+
+const isAdmin = JSON.parse(localStorage.getItem('autoMartUser')).is_admin;
 const showMakeOfferModal = (car_id) => {
   const makeOfferModal = document.getElementById('makeOfferModal'); // Get the modal
   const nameOfOrderPersonInput = document.getElementById('nameOfOrderPerson');
@@ -215,9 +217,15 @@ const buildAdBox = (ad) => { // adBox builder
   adBoxDetails.className = 'ad-box-details';
   adBoxDetails.innerHTML = `
         <span>${ad.manufacturer} </span>|<span> ${ad.model} </span>|<span> ${ad.state}</span>`;
+  let adBoxStatus = '';
+  if (isAdmin) {
+    adBoxStatus = createElement('div');
+    adBoxStatus.className = 'ad-box-available';
+    adBoxStatus.innerHTML = `Status: <span>${ad.status}</span>`;
+  }
 
   // coupling infos
-  adBoxInfo.append(adBoxTitle, adBoxPrice, adBoxDetails);
+  adBoxInfo.append(adBoxTitle, adBoxPrice, adBoxStatus, adBoxDetails);
 
   /**
     * update sections
@@ -235,12 +243,16 @@ const buildAdBox = (ad) => { // adBox builder
     showMakeOfferModal(ad.id);
   });
 
-  const reportAdButton = document.createElement('button'); // update price button
-  reportAdButton.innerHTML = 'Report';
-  reportAdButton.className = 'revealReportModal';
-  reportAdButton.addEventListener('click', () => {
-    showReportAdModal();
-  });
+
+  let reportAdButton = ''; // update price button
+  if (!isAdmin) {
+    reportAdButton = document.createElement('button');
+    reportAdButton.innerHTML = 'Report';
+    reportAdButton.className = 'revealReportModal';
+    reportAdButton.addEventListener('click', () => {
+      showReportAdModal();
+    });
+  }
   adBoxButtons.append(makeOfferButton, reportAdButton); // coupling
 
   /**
