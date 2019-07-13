@@ -57,16 +57,35 @@
     width: 100%;
     background: #e7f1fa;
     padding: 10px;
+    text-align: center;
 }
-.car-make-offer-buttons button:nth-child(1) {
+.car-make-offer-buttons button {
     width: 40%;
-    margin: 0px auto;
+    margin: 0px 2%;
     padding: 4px;
-    background: #2581dc;
     color: white;
-    border: 1px solid #2581dc;
     border-radius: 2px;
     cursor: pointer;
+}
+
+.car-make-offer-buttons button:nth-child(1) {
+    background: #2581dc;
+    border: 1px solid #2581dc;
+}
+
+.car-make-offer-buttons button:nth-child(1):hover {
+    background: #007bff;
+  }
+
+.car-make-offer-buttons button:nth-child(2) {
+  color: black;
+  border: 1px solid #343a40;
+}
+
+.car-make-offer-buttons button:nth-child(2):hover {
+    color: white;
+    background: orangered;
+    border: 1px solid rgb(255, 97, 40);
 }
 
 .car-photo{
