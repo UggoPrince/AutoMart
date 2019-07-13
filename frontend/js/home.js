@@ -14,11 +14,12 @@ const showMakeOfferModal = (car_id) => {
   makeOfferModal.style.display = 'block';
 };
 
-const showReportAdModal = () => {
-  const reportFraudModal = document.getElementById('reportFraudByUser'); // Get the modal
+const showReportAdModal = (car_id) => {
+  const reportFraudModal = document.getElementById('reportFraudModal'); // Get the modal
   const nameOfReportPersonInput = document.getElementById('nameOfReportPerson');
   const { first_name, last_name } = JSON.parse(localStorage.getItem('autoMartUser'));
   nameOfReportPersonInput.value = `${first_name} ${last_name}`;
+  document.getElementById('carIdForReport').value = car_id;
   reportFraudModal.style.display = 'block';
 };
 
@@ -73,7 +74,10 @@ class Order {
   }
 
   buildOrderData(form) {
-    return { car_id: form.car_id.value, amount: form.amount.value };
+    return {
+      car_id: form.car_id.value,
+      amount: form.amount.value,
+    };
   }
 
   getNotify() {
@@ -142,6 +146,107 @@ class Order {
   }
 }
 
+class Flag {
+  async postData(url, formData) {
+    const { token } = JSON.parse(localStorage.getItem('autoMartUser'));
+    const serverRes = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authentication: `${token}`,
+      },
+      body: JSON.stringify(formData),
+    }).then(response => response.json())
+      .catch(error => ({ fetchError: error.message }));
+    return serverRes;
+  }
+
+  buildReportData(form) {
+    return {
+      car_id: form.car_id.value,
+      reason: form.reason.value,
+      description: form.description.value,
+    };
+  }
+
+  getNotify() {
+    return document.getElementsByClassName('serverNotice')[1];
+  }
+
+  handleNetworkError() {
+    const notify = this.getNotify();
+    notify.style.color = 'red';
+    notify.style.background = 'rgb(255, 182, 182)';
+    notify.innerHTML = 'Not connecting. Check your network.';
+  }
+
+  displayError(error) {
+    const notify = this.getNotify();
+    notify.innerHTML = 'Unsuccessful.';
+    const errorSpan = document.getElementsByClassName('errorSpanForReport');
+    if (error.reason) errorSpan[0].innerHTML = error.reason;
+    if (error.description) errorSpan[1].innerHTML = error.description;
+  }
+
+  handleUserError(resultError) {
+    const notify = this.getNotify();
+    notify.style.color = 'red';
+    notify.style.background = 'rgb(255, 182, 182)';
+    if (resultError.status === 401) {
+      notify.innerHTML = 'Session expired, login to continue.';
+      setTimeout(() => {
+        signOut('signin.html'); // from main.js
+      }, 1500);
+    } else {
+      this.displayError(resultError.error.error);
+    }
+  }
+
+  closeModalAfterSuccess() {
+    setTimeout(() => {
+      const makeOfferModal = document.getElementById('makeOfferModal'); // Get the modal
+      makeOfferModal.style.display = 'none';
+      const notify = this.getNotify();
+      notify.style.display = 'none';
+      notify.innerHTML = '';
+    }, 1500);
+  }
+
+  handleSuccess() {
+    const notify = this.getNotify();
+    notify.innerHTML = 'Advert Reported.';
+  }
+
+  emptyErrorSpan() {
+    const errorSpan = document.getElementsByClassName('errorSpanForReport');
+    errorSpan[0].innerHTML = '';
+    errorSpan[1].innerHTML = '';
+  }
+
+  async reportAdvert(event) {
+    event.preventDefault();
+    this.emptyErrorSpan();
+    const notify = this.getNotify();
+    notify.style.display = 'inline-block';
+    notify.style.color = 'green';
+    notify.style.background = 'rgb(198, 240, 198)';
+    notify.innerHTML = 'Wait. Processing...';
+    const form = event.target;
+    const formData = this.buildReportData(form);
+    const url = 'https://automarter.herokuapp.com/api/v1/flag';
+    const result = await this.postData(url, formData)
+      .then(data => data)
+      .catch(error => error);
+    if (result.fetchError) {
+      this.handleNetworkError();
+    } else if (result.error && result.status !== 401) {
+      this.handleUserError(result);
+    } else if (result.status === 201) {
+      this.handleSuccess();
+    }
+  }
+}
+
 const initMakeOfferModal = () => {
   const makeOfferModal = document.getElementById('makeOfferModal'); // Get the modal
   const span = document.getElementsByClassName('close')[0]; // Get the <span> element that closes the modal
@@ -168,8 +273,14 @@ const initMakeOfferModal = () => {
 };
 
 const initReportModal = () => {
-  const reportFraudModal = document.getElementById('reportFraudByUser'); // Get the modal
+  const reportFraudModal = document.getElementById('reportFraudModal'); // Get the modal
   const reportSpan = document.getElementsByClassName('close')[1]; // Get the <span> element that closes the modal
+  const flag = new Flag();
+  // const notify = order.getNotify();
+
+  reportFraudModal.addEventListener('submit', async (event) => {
+    await flag.reportAdvert(event);
+  });
 
   reportSpan.addEventListener('click', () => { // When the user clicks on <span> (x), close the modal
     reportFraudModal.style.display = 'none';
@@ -250,7 +361,7 @@ const buildAdBox = (ad) => { // adBox builder
     reportAdButton.innerHTML = 'Report';
     reportAdButton.className = 'revealReportModal';
     reportAdButton.addEventListener('click', () => {
-      showReportAdModal();
+      showReportAdModal(ad.id);
     });
   }
   adBoxButtons.append(makeOfferButton, reportAdButton); // coupling
@@ -323,7 +434,13 @@ const buildOneAdBox = (ad) => {
   button.addEventListener('click', () => {
     showMakeOfferModal(ad.id);
   });
-  buttonDiv.append(button); // coupling
+
+  const button2 = createElement('button');
+  button2.innerHTML = 'Report';
+  button2.addEventListener('click', () => {
+    showReportAdModal(ad.id);
+  });
+  buttonDiv.append(button, button2); // coupling
 
   // total coupling
   carDetails.append(carHeader, carPhoto, buttonDiv);

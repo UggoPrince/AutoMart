@@ -105,7 +105,7 @@
         </div>
     </div>
     <!-- The Modal -->
-    <div id="reportFraudByUser" class="modal">
+    <div id="reportFraudModal" class="modal">
 
         <!-- Modal content -->
         <div class="form-medium offer-form-container">
@@ -122,8 +122,17 @@
                     <input  id="nameOfReportPerson" class="akol-9" value="name" readonly class="akol-10">
                 </section>
                 <section class="offer-form-block">
-                    <label class="akol-3">Give Reasons</label>
-                    <textarea class="akol-9" name="" id="" cols="30" rows="10" maxlength="20"></textarea>
+                    <span class="errorSpanForReport"></span>
+                    <label class="akol-3">Reason</label>
+                    <textarea class="akol-9" name="reason" id="" cols="30" rows="10" maxlength="20"></textarea>
+                </section>
+                <section class="offer-form-block">
+                    <span class="errorSpanForReport"></span>
+                    <label class="akol-3">Description</label>
+                    <textarea class="akol-9" name="description" id="" cols="30" rows="10" maxlength="20"></textarea>
+                </section>
+                <section>
+                    <input id="carIdForReport" value="" name="car_id" hidden>
                 </section>
             </section>
             <section class="modal-footer">

@@ -45,10 +45,11 @@ form {
     color: red;
 }
 
-.errorSpan {
+.errorSpan, .errorSpanForReport {
     color: red;
     font-size: 14px;
     display: block;
+    text-align: left;
 }
 
 .form-under {
@@ -161,6 +162,7 @@ form {
 .offer-form-block {
     margin: auto;
     text-align: center;
+    display: block;
 }
 
 .ad-form-block label, .offer-form-block label {
