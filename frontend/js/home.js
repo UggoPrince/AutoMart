@@ -3,8 +3,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable camelcase */
-
-
 const showMakeOfferModal = (car_id) => {
   const makeOfferModal = document.getElementById('makeOfferModal'); // Get the modal
   const nameOfOrderPersonInput = document.getElementById('nameOfOrderPerson');
@@ -36,6 +34,14 @@ class AdvertGetter {
     }).then(response => response.json())
       .catch(error => ({ fetchError: error.message }));
     return cars;
+  }
+
+  async getAnAdvert(car_id) {
+    const url = `https://automarter.herokuapp.com/api/v1/car/${car_id}`;
+    const car = await this.getData(url)
+      .then(data => data)
+      .catch(error => error);
+    return car;
   }
 
   async getAllAdverts() {
@@ -197,7 +203,7 @@ const buildAdBox = (ad) => { // adBox builder
   // title section
   const adBoxTitle = document.createElement('div');
   adBoxTitle.className = 'ad-box-title';
-  adBoxTitle.innerHTML = `<a>${ad.title}</a>`;
+  adBoxTitle.innerHTML = `<a href="home.html?car=${ad.id}">${ad.title}</a>`;
 
   // price section
   const adBoxPrice = document.createElement('div');
@@ -263,8 +269,70 @@ const displayAdverts = () => {
   }
 };
 
-document.addEventListener('DOMContentLoaded', async () => {
-  // get all ads
+const buildOneAdBox = (ad) => {
+  // car block
+  const carPage = createElement('section');
+  carPage.className = 'car-page';
+
+  // details
+  const carDetails = createElement('div');
+  carDetails.className = 'car-details';
+
+  // header block
+  const carHeader = createElement('section');
+  carHeader.className = 'car-header';
+
+  const carTitle = createElement('div'); // title
+  carTitle.class = 'car-header-title';
+  carTitle.innerHTML = ad.title;
+  const carPrice = createElement('div'); // price
+  carPrice.innerHTML = `Price: ${ad.price}`;
+  carPrice.className = 'car-header-price';
+  const carState = createElement('div');
+  carState.innerHTML = `State: ${ad.state}`;
+  carState.className = 'car-header-state';
+  const carModel = createElement('div');
+  carModel.innerHTML = `Manufacturer: ${ad.manufacturer} | Model: ${ad.model}`;
+  carModel.className = 'car-header-model';
+
+  carHeader.append(carTitle, carPrice, carState, carModel); // coupling
+
+  // photo section
+  const carPhoto = createElement('img');
+  // eslint-disable-next-line prefer-destructuring
+  carPhoto.src = ad.photos[0];
+  carPhoto.className = 'car-photo';
+
+  // buttons
+  const buttonDiv = createElement('div');
+  buttonDiv.className = 'car-make-offer-buttons';
+  const button = createElement('button');
+  button.innerHTML = 'Make Offer';
+  button.addEventListener('click', () => {
+    showMakeOfferModal(ad.id);
+  });
+  buttonDiv.append(button); // coupling
+
+  // total coupling
+  carDetails.append(carHeader, carPhoto, buttonDiv);
+  carPage.append(carDetails);
+  return carPage;
+};
+
+const runGetOneAdvert = async () => {
+  const anAdGetter = new AdvertGetter();
+  const ad = await anAdGetter.getAnAdvert(urlParams().get('car'));
+  if (ad.status === 401) {
+    signOut('signin.html'); // from main.js
+  }
+  if (ad.data.id) {
+    const sectionTag = document.getElementsByClassName('home-page-body')[0];
+    const AdBlock = buildOneAdBox(ad.data);
+    sectionTag.appendChild(AdBlock);
+  }
+};
+
+const runGetAllAdverts = async () => {
   const adsGetter = new AdvertGetter();
   const Ads = await adsGetter.getAllAdverts();
   if (Ads.status === 401) {
@@ -272,6 +340,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
   if (Ads.data.length !== 0) arrangeMyAdverts(Ads.data);
   displayAdverts();
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (urlParams().has('car')) {
+    runGetOneAdvert();
+  } else {
+  // get all ads
+    runGetAllAdverts();
+  }
   initMakeOfferModal();
   initReportModal();
 });
