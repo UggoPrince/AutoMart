@@ -2,6 +2,10 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
 
+
+// eslint-disable-next-line no-unused-vars
+const urlParams = () => new URLSearchParams(window.location.search);
+
 // eslint-disable-next-line no-unused-vars
 const createElement = tag => document.createElement(tag);
 
@@ -21,7 +25,8 @@ function slideToggle() {
 const getPageName = () => {
   const url = window.location.href;
   const x = url.lastIndexOf('/') + 1;
-  const page = url.substring(x);
+  const dot = url.lastIndexOf('.html');
+  const page = `${url.substring(x, dot)}.html`;
   return page;
 };
 
