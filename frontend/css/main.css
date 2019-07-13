@@ -367,9 +367,13 @@ section::after,
   color: #039ec5;
 }
 .ad-box-available {
-  color: orange;
   text-transform: capitalize;
   font-weight: 700;
+  color: #2a4b6b;
+}
+
+.ad-box-available span {
+  color: orange;
 }
 .ad-box-buttons {
   width: 100%;
