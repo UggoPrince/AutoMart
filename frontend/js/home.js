@@ -25,7 +25,7 @@ const showReportAdModal = (car_id) => {
 
 let Adverts = [];
 
-class AdvertGetter {
+class Advert {
   async getData(url) {
     const { token } = JSON.parse(localStorage.getItem('autoMartUser'));
     const cars = await fetch(url, {
@@ -55,6 +55,27 @@ class AdvertGetter {
       .then(data => data)
       .catch(error => error);
     return cars;
+  }
+
+  async deleteAdvert(car_id) {
+    const url = `https://automarter.herokuapp.com/api/v1/car/${car_id}`;
+    const { token } = JSON.parse(localStorage.getItem('autoMartUser'));
+    const deletedCar = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        Authentication: `${token}`,
+        mode: 'cors',
+      },
+    }).then(response => response.json())
+      .catch(error => ({ fetchError: error.message }));
+    if (deletedCar.error && deletedCar.status !== 401) {
+      // eslint-disable-next-line no-console
+      // console.log(deletedCar.error);
+    } else if (deletedCar.status === 401) {
+      signOut('signin.html'); // from main.js
+    } else if (deletedCar.status === 200) {
+      getElemId(`ad-Box${car_id}`).style.display = 'none';
+    }
   }
 }
 
@@ -363,6 +384,14 @@ const buildAdBox = (ad) => { // adBox builder
     reportAdButton.addEventListener('click', () => {
       showReportAdModal(ad.id);
     });
+  } else {
+    reportAdButton = document.createElement('button');
+    reportAdButton.innerHTML = 'Delete Ad';
+    reportAdButton.className = '.ad-box-delete-button';
+    reportAdButton.addEventListener('click', async () => {
+      const advert = new Advert();
+      await advert.deleteAdvert(ad.id);
+    });
   }
   adBoxButtons.append(makeOfferButton, reportAdButton); // coupling
 
@@ -449,7 +478,7 @@ const buildOneAdBox = (ad) => {
 };
 
 const runGetOneAdvert = async () => {
-  const anAdGetter = new AdvertGetter();
+  const anAdGetter = new Advert();
   const ad = await anAdGetter.getAnAdvert(urlParams().get('car'));
   if (ad.status === 401) {
     signOut('signin.html'); // from main.js
@@ -462,7 +491,7 @@ const runGetOneAdvert = async () => {
 };
 
 const runGetAllAdverts = async () => {
-  const adsGetter = new AdvertGetter();
+  const adsGetter = new Advert();
   const Ads = await adsGetter.getAllAdverts();
   if (Ads.status === 401) {
     signOut('signin.html'); // from main.js
