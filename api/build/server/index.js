@@ -42,7 +42,7 @@ app.get('/swagger.json', function (req, res) {
 app.use('/api/v1/api-docs', _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(_swaggerDef["default"])); // HOME PAGE
 
 app.get('/', function (req, res) {
-  res.status(200).send('<h1>Welcome to AutoMart API.</h1>' + '<span>Here is the documentation of version 1.0' + ' <a href="https://automarter.herokuapp.com/api/v1/api-docs/" target="blank">' + 'automarter.herokuapp.com/api/v1/api-docs/</a></span><br>' + 'To register with the following emails makes you an admin:<br>' + 'johndoe@gmail.com, admin@gmail.com, bestadmin@yahoo.com');
+  res.status(200).send('<h1>Welcome to AutoMart API.</h1>' + '<span>Here is the documentation of version 1.0' + ' <a href="https://automarter.herokuapp.com/api/v1/api-docs/" target="blank">' + 'automarter.herokuapp.com/api/v1/api-docs/</a></span>');
 }); // Parse incoming request data
 
 app.use(_bodyParser["default"].json());
@@ -51,7 +51,14 @@ app.use(_bodyParser["default"].json({
 }));
 app.use(_bodyParser["default"].urlencoded({
   extended: true
-}));
+})); // app.options('*', cors());
+
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
 app.use('/api/v1/', _usersRoutes["default"]);
 app.use('/api/v1/', _carsRoutes["default"]);
 app.use('/api/v1/', _ordersRoutes["default"]);

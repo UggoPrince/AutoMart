@@ -42,7 +42,7 @@ components:
     updateOrder:
       type: object
       properties:
-        amount:
+        price:
           type: float
           description: Pew price the buyer is offering.
           example: '14500000.00'
@@ -88,10 +88,8 @@ components:
           $ref: '#/components/schemas/model'
         body_type:
           $ref: '#/components/schemas/body_type'
-        photos:
-          type: array
-          items:
-            $ref: '#/components/schemas/photo'
+        image_url:
+            $ref: '#/components/schemas/image_url'
     order_id:
       type: integer
       description: Order identification number
@@ -116,12 +114,12 @@ paths:
       description: 'make a purchase order'
       opperationId: makeOrder
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
-          description: authentication header with jwt token
+          description: Authorization header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
       requestBody:
         content:
           'application/json':
@@ -179,12 +177,12 @@ paths:
       description: buyer gets all their purchase orders
       operationId: getAllMyPurchaseOrders
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
-          description: authentication header with jwt token
+          description: Authorization header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
         - name: buyer
           in: query
           description: order id
@@ -227,12 +225,12 @@ paths:
       description: buyer updates the price of their purchase when the status is still "pending"
       operationId: updateOrder
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
-          description: authentication header with jwt token
+          description: Authorization header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
         - name: order_id
           in: query
           description: order id

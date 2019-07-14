@@ -62,9 +62,7 @@ class ValidateUser extends Validator {
 
   static isValidPhoneNumber(phone_number, field) {
     const telRegExp = /^(\+\d{1,3} ?)?(\(\d{1,5}\)|\d{1,5}) ?\d{3}?\d{0,7}( (x|xtn|ext|extn|pax|pbx|extension)?\.? ?\d{2-5})?$/i;
-    if (ValidateUser.isEmptyString(phone_number)) {
-      ValidateUser.integrateError(field, `No ${field} entered.`);
-    } else if (!telRegExp.test(phone_number)) {
+    if (!ValidateUser.isEmptyString(phone_number) && !telRegExp.test(phone_number)) {
       ValidateUser.integrateError(field, `Invalid ${field}.`);
     }
   }

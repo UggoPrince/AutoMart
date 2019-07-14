@@ -23,10 +23,8 @@ components:
           $ref: '#/components/schemas/model'
         body_type:
           $ref: '#/components/schemas/body_type'
-        photos:
-          type: array
-          items:
-            $ref: '#/components/schemas/photo'
+        image_url:
+            $ref: '#/components/schemas/image_url'
     createAdvert:
       type: object
       properties:
@@ -44,7 +42,7 @@ components:
           $ref: '#/components/schemas/model'
         body_type:
           $ref: '#/components/schemas/body_type'
-        photos:
+        image_url:
           $ref: '#/components/schemas/image'
     createdAdvert:
       type: object
@@ -69,17 +67,8 @@ components:
           $ref: '#/components/schemas/price'
         title:
           $ref: '#/components/schemas/title'
-        photos:
-          type: array
-          items:
-            $ref: '#/components/schemas/photo'
-    updateCarStatus:
-      type: object
-      properties:
-        status:
-          type: string
-          description: update car status to sold
-          example: sold
+        image_url:
+            $ref: '#/components/schemas/image_url'
     updatedCarStatus:
       type: object
       properties:
@@ -147,7 +136,7 @@ components:
       type: string
       description: Body type of the vehicle
       example: Sedan, Truck, Hatchback...
-    photo:
+    image_url:
       type: string
       description: Photo representation of the car on cloudinary
       example: 'https://res.cloudinary.com/dya3r9cfe/image/upload/v1558624479/c9.jpg'
@@ -163,12 +152,12 @@ paths:
       description: 'Create a car sale advert'
       opperationId: addCar
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
-          description: authentication header with jwt token
+          description: Authorization header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
       requestBody:
         content:
           'application/json':
@@ -209,12 +198,12 @@ paths:
       description: Admin get a all cars
       operationId: getCars
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
-          description: authentication header with jwt token
+          description: Authorization header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
       responses:
         '200':
           description: Response data that contains all cars
@@ -252,12 +241,12 @@ paths:
       description: 'get a specific car'
       operationId: getACar
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
           description: authentication header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
         - name: car_id
           in: query
           description: id of the specific car in database
@@ -312,12 +301,12 @@ paths:
       description: Admin delete a specific car advert
       operationId: deleteCar
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
-          description: authentication header with jwt token
+          description: Authorization header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
         - name: car_id
           in: query
           description: id of the specific car in database
@@ -389,12 +378,12 @@ paths:
       description: 'get a all unsold cars'
       operationId: getAllUnsoldCars
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
-          description: authentication header with jwt token
+          description: Authorization header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
         - name: status
           in: query
           description: available cars
@@ -440,12 +429,12 @@ paths:
       description: 'Get all unsold (available) cars within a price range'
       operationId: getAllUnsoldCarsInPriceRange
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
-          description: authentication header with jwt token
+          description: Authorization header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
         - name: status
           in: query
           description: available cars
@@ -503,12 +492,12 @@ paths:
       description: Get all unsold new cars
       operationId: getAllNewUnsoldCars
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
-          description: authentication header with jwt token
+          description: Authorization header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
         - name: status
           in: query
           description: all available cars
@@ -560,12 +549,12 @@ paths:
       description: Get all unsold used cars
       operationId: getAllUsedUnsoldCars
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
-          description: authentication header with jwt token
+          description: Authorization header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
         - name: status
           in: query
           description: all available cars
@@ -617,12 +606,12 @@ paths:
       description: Get all unsold used cars
       operationId: getAllUnsoldCarsByManufacturer
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
-          description: authentication header with jwt token
+          description: Authorization header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
         - name: status
           in: query
           description: all available cars
@@ -676,12 +665,12 @@ paths:
       description: get all cars of a particular user
       operationId: getOwnerCars
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
-          description: authentication header with jwt token
+          description: Authorization header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
       responses:
         '200':
           description: Response data that contains all users posted cars ads
@@ -718,24 +707,18 @@ paths:
       description: update a posted car avdert as sold
       operationId: updateCarStatus
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
-          description: authentication header with jwt token
+          description: Authorization header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
         - name: car_id
           in: query
           description: specific car id
           required: true
           schema:
             $ref: '#/components/schemas/car_id'
-      requestBody:
-        content:
-          'application/json':
-            schema:
-              $ref: '#/components/schemas/updateCarStatus'
-        required: true
       responses:
         '200':
           description: Response data that contains car detals with updated status
@@ -765,21 +748,6 @@ paths:
                   error: 
                     type: object/string
                     example: 'Car with id (carId) does not exist.'
-        '400':
-          description: > 
-            Error response when a different string instead of 'sold' is sent
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                    description: 400 error status code
-                    example: '400'
-                  error: 
-                    type: object/string
-                    example: 'Invalid newStatus. Must be changed to [ sold ] in order to update the status.'
   /car/car_id/price:
     patch:
       tags:
@@ -787,12 +755,12 @@ paths:
       description: update the price of a car advert
       operationId: updateCarPrice
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
-          description: authentication header with jwt token
+          description: Authorization header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
         - name: car_id
           in: query
           description: specific car id

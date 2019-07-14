@@ -64,10 +64,9 @@ function (_Validator) {
 
   }, {
     key: "validateUpdateCarStatusFields",
-    value: function validateUpdateCarStatusFields(car_id, status) {
+    value: function validateUpdateCarStatusFields(car_id) {
       ValidateCar.refresh();
       ValidateCar.validateInt(car_id, 'car_id');
-      ValidateCar.isValidNewStatus(status, 'status');
       return ValidateCar.getErrorMessage();
     } // validates the field and url parameter that updates a car price
 
@@ -167,19 +166,6 @@ function (_Validator) {
       }
     }
   }, {
-    key: "isValidNewStatus",
-    value: function isValidNewStatus(status, field) {
-      if (ValidateCar.isEmptyString(status)) {
-        ValidateCar.integrateError(field, "No ".concat(field, " entered."));
-      } else {
-        var str = status.toLowerCase();
-
-        if (str !== 'sold') {
-          ValidateCar.integrateError(field, "Invalid ".concat(field, ". Must be changed to [ sold ] in order to update the status."));
-        }
-      }
-    }
-  }, {
     key: "isValidPrice",
     value: function isValidPrice(price, field) {
       ValidateCar.validateFloat(price, field);
@@ -187,7 +173,11 @@ function (_Validator) {
   }, {
     key: "isValidTitle",
     value: function isValidTitle(title, field) {
-      ValidateCar.validateString(title, field);
+      var regExp = /^[\w -]+[^_]$/;
+
+      if (!_Validator2["default"].isEmptyString(title) && !regExp.test(title)) {
+        _Validator2["default"].integrateError(field, "Invalid ".concat(field, "."));
+      }
     }
   }, {
     key: "isValidManufacturer",
@@ -217,9 +207,9 @@ function (_Validator) {
     key: "isValidPhoto",
     value: function isValidPhoto(car_photo, str) {
       // console.log(myPhoto.photo.length === undefined);
-      if (!car_photo.photo) {
+      if (!car_photo.image_url) {
         ValidateCar.integrateError(str, "No ".concat(str, " submited."));
-      } else if (car_photo.photo.type !== 'image/jpeg' && car_photo.photo.type !== 'image/png') {
+      } else if (car_photo.image_url.type !== 'image/jpeg' && car_photo.image_url.type !== 'image/png') {
         ValidateCar.integrateError(str, "You didn't submit an ".concat(str, " type. jpg/png is accepted."));
       }
     }

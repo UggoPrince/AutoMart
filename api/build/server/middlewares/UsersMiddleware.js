@@ -19,8 +19,9 @@ var validateUserSignup = function validateUserSignup(req, res, next) {
       last_name = _req$body.last_name,
       email = _req$body.email,
       password = _req$body.password,
-      address = _req$body.address,
-      phone_number = _req$body.phone_number;
+      address = _req$body.address;
+  var phone_number = req.body.phone_number;
+  if (phone_number === 'undefined' || phone_number === '') phone_number = '';
 
   var result = _ValidateUser["default"].validateSignupFields(first_name, last_name, email, password, address, phone_number);
 

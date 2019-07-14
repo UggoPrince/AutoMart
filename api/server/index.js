@@ -28,9 +28,7 @@ app.get('/', (req, res) => {
   res.status(200).send('<h1>Welcome to AutoMart API.</h1>'
   + '<span>Here is the documentation of version 1.0'
   + ' <a href="https://automarter.herokuapp.com/api/v1/api-docs/" target="blank">'
-  + 'automarter.herokuapp.com/api/v1/api-docs/</a></span><br>'
-  + 'To register with the following emails makes you an admin:<br>'
-  + 'johndoe@gmail.com, admin@gmail.com, bestadmin@yahoo.com');
+  + 'automarter.herokuapp.com/api/v1/api-docs/</a></span>');
 });
 
 // Parse incoming request data
@@ -38,6 +36,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// app.options('*', cors());
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
 app.use('/api/v1/', usersRouter);
 app.use('/api/v1/', carsRouter);
 app.use('/api/v1/', ordersRouter);

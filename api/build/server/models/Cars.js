@@ -47,7 +47,7 @@ function () {
       var _postAdvert = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee(carData, car_photo) {
-        var uploadedImg, queryString, result, _result$rows$, id, created_on, state, status, price, title, manufacturer, model, body_type, photos;
+        var uploadedImg, queryString, result, _result$rows$, id, created_on, state, status, price, title, manufacturer, model, body_type, image_url;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -58,13 +58,13 @@ function () {
 
               case 2:
                 uploadedImg = _context.sent;
-                queryString = "\n      INSERT INTO cars (\n        owner, state, status, price, title, manufacturer, model, body_type, photos\n        )\n      VALUES (\n        '".concat(carData.owner, "', '").concat(carData.state, "', '").concat(carData.status, "',\n        '").concat(carData.price, "', '").concat(carData.title, "', '").concat(carData.manufacturer, "',\n        '").concat(carData.model, "', '").concat(carData.body_type, "', '{").concat(uploadedImg.url, "}'\n      )\n      RETURNING *;\n    ");
+                queryString = "\n      INSERT INTO cars (\n        owner, state, status, price, title, manufacturer, model, body_type, image_url\n        )\n      VALUES (\n        '".concat(carData.owner, "', '").concat(carData.state, "', '").concat(carData.status, "',\n        '").concat(carData.price, "', '").concat(carData.title, "', '").concat(carData.manufacturer, "',\n        '").concat(carData.model, "', '").concat(carData.body_type, "', '").concat(uploadedImg.url, "'\n      )\n      RETURNING *;\n    ");
                 _context.next = 6;
                 return db.query(queryString);
 
               case 6:
                 result = _context.sent;
-                _result$rows$ = result.rows[0], id = _result$rows$.id, created_on = _result$rows$.created_on, state = _result$rows$.state, status = _result$rows$.status, price = _result$rows$.price, title = _result$rows$.title, manufacturer = _result$rows$.manufacturer, model = _result$rows$.model, body_type = _result$rows$.body_type, photos = _result$rows$.photos;
+                _result$rows$ = result.rows[0], id = _result$rows$.id, created_on = _result$rows$.created_on, state = _result$rows$.state, status = _result$rows$.status, price = _result$rows$.price, title = _result$rows$.title, manufacturer = _result$rows$.manufacturer, model = _result$rows$.model, body_type = _result$rows$.body_type, image_url = _result$rows$.image_url;
                 result.rows[0] = {
                   id: id,
                   email: carData.email,
@@ -76,7 +76,7 @@ function () {
                   manufacturer: manufacturer,
                   model: model,
                   body_type: body_type,
-                  photos: photos
+                  image_url: image_url
                 };
                 return _context.abrupt("return", result);
 
@@ -105,7 +105,7 @@ function () {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                filePath = car_photo.photo.path;
+                filePath = car_photo.image_url.path;
                 _context2.next = 3;
                 return cloudinary.uploader.upload(filePath, {
                   folder: process.env.CLOUDINARY_AUTOMART_FOLDER,
@@ -406,20 +406,19 @@ function () {
       var _updateStatus = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee11(carData) {
-        var status, result;
+        var result;
         return regeneratorRuntime.wrap(function _callee11$(_context11) {
           while (1) {
             switch (_context11.prev = _context11.next) {
               case 0:
-                status = carData.status.toLowerCase();
-                _context11.next = 3;
-                return this.updater(carData.car_id, 'status', status, carData.email);
+                _context11.next = 2;
+                return this.updater(carData.car_id, 'status', 'sold', carData.email);
 
-              case 3:
+              case 2:
                 result = _context11.sent;
                 return _context11.abrupt("return", result);
 
-              case 5:
+              case 4:
               case "end":
                 return _context11.stop();
             }

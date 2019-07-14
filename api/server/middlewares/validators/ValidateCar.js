@@ -20,10 +20,9 @@ class ValidateCar extends Validator {
   }
 
   // validates the field and url parameter sent to update a car status
-  static validateUpdateCarStatusFields(car_id, status) {
+  static validateUpdateCarStatusFields(car_id) {
     ValidateCar.refresh();
     ValidateCar.validateInt(car_id, 'car_id');
-    ValidateCar.isValidNewStatus(status, 'status');
     return ValidateCar.getErrorMessage();
   }
 
@@ -109,23 +108,15 @@ class ValidateCar extends Validator {
     }
   }
 
-  static isValidNewStatus(status, field) {
-    if (ValidateCar.isEmptyString(status)) {
-      ValidateCar.integrateError(field, `No ${field} entered.`);
-    } else {
-      const str = status.toLowerCase();
-      if (str !== 'sold') {
-        ValidateCar.integrateError(field, `Invalid ${field}. Must be changed to [ sold ] in order to update the status.`);
-      }
-    }
-  }
-
   static isValidPrice(price, field) {
     ValidateCar.validateFloat(price, field);
   }
 
   static isValidTitle(title, field) {
-    ValidateCar.validateString(title, field);
+    const regExp = /^[\w -]+[^_]$/;
+    if (!Validator.isEmptyString(title) && !regExp.test(title)) {
+      Validator.integrateError(field, `Invalid ${field}.`);
+    }
   }
 
   static isValidManufacturer(manufacturer, field) {
@@ -161,9 +152,9 @@ class ValidateCar extends Validator {
 
   static isValidPhoto(car_photo, str) {
     // console.log(myPhoto.photo.length === undefined);
-    if (!car_photo.photo) {
+    if (!car_photo.image_url) {
       ValidateCar.integrateError(str, `No ${str} submited.`);
-    } else if (car_photo.photo.type !== 'image/jpeg' && car_photo.photo.type !== 'image/png') {
+    } else if (car_photo.image_url.type !== 'image/jpeg' && car_photo.image_url.type !== 'image/png') {
       ValidateCar.integrateError(str, `You didn't submit an ${str} type. jpg/png is accepted.`);
     }
   }

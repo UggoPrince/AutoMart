@@ -11,9 +11,9 @@ class ValidateOrder extends Validator {
     return ValidateOrder.getErrorMessage();
   }
 
-  static validateUpdateOrderFields(amount, order_id) {
+  static validateUpdateOrderFields(price, order_id) {
     ValidateOrder.refresh();
-    ValidateOrder.isValidAmount(amount, 'amount'); // validate the new price that's to update old price
+    ValidateOrder.isValidAmount(price, 'price'); // validate the new price that's to update old price
     ValidateOrder.isValidOrderId(order_id, 'order_id'); // validate the order's id
     return ValidateOrder.getErrorMessage();
   }

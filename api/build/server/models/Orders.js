@@ -140,7 +140,7 @@ function () {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                queryString = "\n      SELECT orders.id, car_id, orders.created_on, amount, orders.status,\n      cars.state car_state, cars.status car_status, cars.price car_price, title,\n      manufacturer, model, body_type, photos\n      FROM cars FULL JOIN orders ON cars.id = orders.car_id\n      WHERE orders.buyer=".concat(buyer, ";");
+                queryString = "\n      SELECT orders.id, car_id, orders.created_on, amount, orders.status,\n      cars.state car_state, cars.status car_status, cars.price car_price, title,\n      manufacturer, model, body_type, image_url\n      FROM cars FULL JOIN orders ON cars.id = orders.car_id\n      WHERE orders.buyer=".concat(buyer, ";");
                 _context4.next = 3;
                 return db.query(queryString);
 
@@ -173,7 +173,7 @@ function () {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                queryString = "\n    UPDATE orders SET amount = '".concat(orderData.amount, "'\n    WHERE id = '").concat(orderData.order_id, "' AND status = 'pending'\n    RETURNING id, car_id, status, amount;");
+                queryString = "\n    UPDATE orders SET amount = '".concat(orderData.price, "'\n    WHERE id = '").concat(orderData.order_id, "' AND status = 'pending'\n    RETURNING id, car_id, status, amount;");
                 _context5.next = 3;
                 return db.query(queryString);
 
