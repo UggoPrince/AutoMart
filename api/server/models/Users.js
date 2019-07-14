@@ -13,7 +13,7 @@ class Users {
       VALUES (
         '${userData.email}', '${userData.first_name}', '${userData.last_name}',
         '${userData.password}', '${userData.address}',
-        ${userData.phone_number}, ${userData.is_admin}
+        '${userData.phone_number}', ${userData.is_admin}
         ) RETURNING *`;
     const result = await db.query(queryString).then(res => res).catch(err => err);
     return result;

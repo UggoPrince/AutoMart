@@ -50,9 +50,9 @@ function (_Validator) {
     }
   }, {
     key: "validateUpdateOrderFields",
-    value: function validateUpdateOrderFields(amount, order_id) {
+    value: function validateUpdateOrderFields(price, order_id) {
       ValidateOrder.refresh();
-      ValidateOrder.isValidAmount(amount, 'amount'); // validate the new price that's to update old price
+      ValidateOrder.isValidAmount(price, 'price'); // validate the new price that's to update old price
 
       ValidateOrder.isValidOrderId(order_id, 'order_id'); // validate the order's id
 

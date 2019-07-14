@@ -21,27 +21,29 @@ function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(req, res, next) {
-    var sentToken, jwt;
+    var sentToken, token, jwt;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            sentToken = req.get('Authentication');
+            sentToken = req.get('Authorization');
+            token = '';
 
             if (sentToken) {
-              _context.next = 5;
+              _context.next = 6;
               break;
             }
 
             res.status(401).send((0, _errorHandlers.errorNoHeader)());
-            _context.next = 9;
+            _context.next = 11;
             break;
 
-          case 5:
-            _context.next = 7;
-            return _JWT["default"].verifyToken(sentToken);
+          case 6:
+            token = sentToken.slice(7, sentToken.length);
+            _context.next = 9;
+            return _JWT["default"].verifyToken(token);
 
-          case 7:
+          case 9:
             jwt = _context.sent;
 
             if (jwt.tokenExp) {
@@ -51,7 +53,7 @@ function () {
               next();
             }
 
-          case 9:
+          case 11:
           case "end":
             return _context.stop();
         }

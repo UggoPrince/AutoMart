@@ -8,7 +8,7 @@ export const createTables = `
             last_name VARCHAR(100) NOT NULL,
             password VARCHAR NOT NULL,
             address VARCHAR NOT NULL,
-            phone_number VARCHAR NOT NULL,
+            phone_number VARCHAR DEFAULT NULL,
             is_admin BOOLEAN DEFAULT false
         );
     CREATE TABLE IF NOT EXISTS
@@ -21,11 +21,11 @@ export const createTables = `
             status VARCHAR NOT NULL DEFAULT 'available',
             CONSTRAINT car_status CHECK(status = 'available' OR status = 'sold'),
             price DECIMAL NOT NULL,
-            title VARCHAR NOT NULL,
+            title VARCHAR DEFAULT NULL,
             manufacturer VARCHAR NOT NULL,
             model VARCHAR NOT NULL,
             body_type VARCHAR(30) NOT NULL,
-            photos VARCHAR []
+            image_url VARCHAR
         );
     CREATE TABLE IF NOT EXISTS
         orders(
@@ -56,15 +56,15 @@ export const seedUsers = `INSERT INTO users (
     ('brian', 'emeka', 'brianemeka@gmail.com', 'emeka123456', 'no 10 rumuokoro road', false,'07022338899');`;
 
 export const seedCars = `INSERT INTO cars (
-    owner, state, status, price, title, manufacturer, model, body_type, photos
+    owner, state, status, price, title, manufacturer, model, body_type, image_url
     ) VALUES
     (1, 'new', 'sold', 15000000.00, 'Brand new G-Wagon', 'mercedes', 'g-wagon', 'SUV',
-    '{https://res.cloudinary.com/dya3r9cfe/image/upload/v1558624490/c1.jpg}'),
+    'https://res.cloudinary.com/dya3r9cfe/image/upload/v1558624490/c1.jpg'),
     (1, 'new', 'available', 6000000.00, 'New venza on sale.', 'toyota', 'venza', 'SUV',
-    '{https://res.cloudinary.com/dya3r9cfe/image/upload/v1558624479/c9.jpg}'),
+    'https://res.cloudinary.com/dya3r9cfe/image/upload/v1558624479/c9.jpg'),
     (1, 'used', 'available', 9000000.00, 'Ford truck. Buy now while still available.', 'toyota',
-    'Fond Pickup Truck', 'Truck', '{https://res.cloudinary.com/dya3r9cfe/image/upload/v1558617991/c14.png}'),
+    'Fond Pickup Truck', 'Truck', 'https://res.cloudinary.com/dya3r9cfe/image/upload/v1558617991/c14.png'),
     (2, 'used', 'sold', 14000000.00, 'Belgium Mack for sale.', 'Mack', 'Mack 209', 'Trailer',
-    '{https://res.cloudinary.com/dya3r9cfe/image/upload/v1558624761/c8.jpg}'),
+    'https://res.cloudinary.com/dya3r9cfe/image/upload/v1558624761/c8.jpg'),
     (2, 'new', 'available', 16000000.00, 'New Mercedes truck', 'Mercedes', 'Mercedes 455', 'Trailer',
-    '{https://res.cloudinary.com/dya3r9cfe/image/upload/v1558624904/c2.jpg}');`;
+    'https://res.cloudinary.com/dya3r9cfe/image/upload/v1558624904/c2.jpg');`;

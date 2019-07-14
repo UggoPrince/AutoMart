@@ -30,9 +30,9 @@ export const validatePurchaseOrder = async (req, res, next) => {
 };
 
 export const validateUpdateOrderPrice = async (req, res, next) => {
-  const { amount } = req.body;
+  const { price } = req.body;
   const { order_id } = req.params;
-  const result = Validator.validateUpdateOrderFields(amount, order_id);
+  const result = Validator.validateUpdateOrderFields(price, order_id);
   if (result.error) {
     res.status(400).send(Validator.Response());
   } else {

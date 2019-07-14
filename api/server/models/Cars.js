@@ -22,18 +22,18 @@ class Cars {
     const uploadedImg = await this.uploadImage(car_photo);
     const queryString = `
       INSERT INTO cars (
-        owner, state, status, price, title, manufacturer, model, body_type, photos
+        owner, state, status, price, title, manufacturer, model, body_type, image_url
         )
       VALUES (
         '${carData.owner}', '${carData.state}', '${carData.status}',
         '${carData.price}', '${carData.title}', '${carData.manufacturer}',
-        '${carData.model}', '${carData.body_type}', '{${uploadedImg.url}}'
+        '${carData.model}', '${carData.body_type}', '${uploadedImg.url}'
       )
       RETURNING *;
     `;
     const result = await db.query(queryString);
     const {
-      id, created_on, state, status, price, title, manufacturer, model, body_type, photos,
+      id, created_on, state, status, price, title, manufacturer, model, body_type, image_url,
     } = result.rows[0];
     result.rows[0] = {
       id,
@@ -46,13 +46,13 @@ class Cars {
       manufacturer,
       model,
       body_type,
-      photos,
+      image_url,
     };
     return result;
   }
 
   async uploadImage(car_photo) {
-    const filePath = car_photo.photo.path;
+    const filePath = car_photo.image_url.path;
     const uploadedImg = await cloudinary.uploader.upload(filePath, {
       folder: process.env.CLOUDINARY_AUTOMART_FOLDER,
       use_filename: true,
@@ -135,8 +135,7 @@ class Cars {
   }
 
   async updateStatus(carData) {
-    const status = carData.status.toLowerCase();
-    const result = await this.updater(carData.car_id, 'status', status, carData.email);
+    const result = await this.updater(carData.car_id, 'status', 'sold', carData.email);
     return result;
   }
 

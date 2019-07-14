@@ -66,6 +66,10 @@ components:
       type: string
       description: Authentication token
       example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0aG9ueUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTYxMTYyMTY0LCJleHAiOjE1NjEyNDg1NjR9.jx2qbXyui03Dhb9F8iwwbMel9LMYIShLYr5Y5y94BtU
+    authToken:
+      type: string
+      description: Authentication token
+      example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0aG9ueUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTYxMTYyMTY0LCJleHAiOjE1NjEyNDg1NjR9.jx2qbXyui03Dhb9F8iwwbMel9LMYIShLYr5Y5y94BtU
     user_id:
       type: integer
       description: User identification number

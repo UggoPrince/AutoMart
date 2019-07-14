@@ -35,7 +35,7 @@ describe('Test token not sent and also test token has expired', () => {
         done();
       });
   });
-  it('should not report an advert as fraud because no authentication header was sent', (done) => {
+  it('should not report an advert as fraud because no Authorization header was sent', (done) => {
     chai.request(app)
       .post('/api/v1/flag')
       .send(flag)
@@ -49,7 +49,7 @@ describe('Test token not sent and also test token has expired', () => {
   it('should report an advert as fraud because token has expired', (done) => {
     chai.request(app)
       .post('/api/v1/flag')
-      .set({ authentication: process.env.tokenUser3 })
+      .set({ Authorization: `Bearer ${process.env.tokenUser3}` })
       .send(flag)
       .end((err, res) => {
         expect(res.status).to.be.eql(401);

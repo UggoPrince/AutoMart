@@ -53,12 +53,12 @@ paths:
       description: report a suspected or fraudulent advert
       opperationId: reportAdvert
       parameters:
-        - name: authentication
+        - name: Authorization
           in: header
-          description: authentication header with jwt token
+          description: Authorization header with jwt token
           required: true
           schema:
-            $ref: '#/components/schemas/token'
+            $ref: '#/components/schemas/authToken'
       requestBody:
         content:
           'application/json':

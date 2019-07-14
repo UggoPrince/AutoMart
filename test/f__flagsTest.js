@@ -17,7 +17,7 @@ describe('Flags Test', () => {
     it('should report an advert as fraud', (done) => {
       chai.request(app)
         .post('/api/v1/flag')
-        .set({ authentication: process.env.tokenUser2 })
+        .set({ Authorization: `Bearer ${process.env.tokenUser2}` })
         .send(flag)
         .end((err, res) => {
           expect(res.status).to.be.eql(201);
@@ -29,7 +29,7 @@ describe('Flags Test', () => {
     it('should not report an advert when any or all the fields are invalid', (done) => {
       chai.request(app)
         .post('/api/v1/flag')
-        .set({ authentication: process.env.tokenUser2 })
+        .set({ Authorization: `Bearer ${process.env.tokenUser2}` })
         .send({
           car_id: 'k',
           reason: 'repeated **--)()',
@@ -45,7 +45,7 @@ describe('Flags Test', () => {
     it('should not report an advert if the car id is not in database', (done) => {
       chai.request(app)
         .post('/api/v1/flag')
-        .set({ authentication: process.env.tokenUser2 })
+        .set({ Authorization: `Bearer ${process.env.tokenUser2}` })
         .send({
           car_id: 100,
           reason: 'repeated',

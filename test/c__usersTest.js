@@ -40,7 +40,7 @@ describe('Users Test', () => {
     email: 'admin@gmail.com',
     password: 'k12345kljd',
     address: 'no 3 ikorodu',
-    phone_number: '07034533669',
+    phone_number: '',
   };
 
   const invalidData = {
