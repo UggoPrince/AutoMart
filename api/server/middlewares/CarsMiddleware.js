@@ -17,6 +17,7 @@ export const validateCreateAdvert = async (req, res, next) => {
     state, status, price, title, manufacturer, model, body_type, car_photo,
   );
   if (result.error) {
+    console.log(Validator.Response());
     res.status(400).send(Validator.Response());
   } else {
     req.body.owner = req.token.id;

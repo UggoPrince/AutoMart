@@ -132,7 +132,7 @@ class ValidateCar extends Validator {
       ValidateCar.integrateError(field, `No ${field} entered.`);
     } else {
       const str = body_type.toLowerCase();
-      const bodyT = [' Convertibles', ' Coupe',
+      const bodyT = [' car', ' Convertibles', ' Coupe',
         ' SUV', ' Hatchback',
         ' Sedan', ' Wagon',
         ' Van', ' Truck',

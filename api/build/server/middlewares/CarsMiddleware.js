@@ -42,6 +42,7 @@ function () {
             result = _ValidateCar["default"].validateCreateAdvertFields(state, status, price, title, manufacturer, model, body_type, car_photo);
 
             if (result.error) {
+              console.log(_ValidateCar["default"].Response());
               res.status(400).send(_ValidateCar["default"].Response());
             } else {
               req.body.owner = req.token.id;
