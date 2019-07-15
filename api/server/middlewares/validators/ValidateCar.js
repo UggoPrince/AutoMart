@@ -130,23 +130,6 @@ class ValidateCar extends Validator {
   static isValidBodyType(body_type, field) {
     if (ValidateCar.isEmptyString(body_type)) {
       ValidateCar.integrateError(field, `No ${field} entered.`);
-    } else {
-      const str = body_type.toLowerCase();
-      const bodyT = [' car', ' Convertibles', ' Coupe',
-        ' SUV', ' Hatchback',
-        ' Sedan', ' Wagon',
-        ' Van', ' Truck',
-        ' Trailer truck', ' Tipper truck',
-        ' Bus', ' Motorbike',
-      ];
-      if (str !== 'convertibles' && str !== 'coupe'
-      && str !== 'suv' && str !== 'hatchback'
-      && str !== 'sedan' && str !== 'wagon'
-      && str !== 'van' && str !== 'truck'
-      && str !== 'trailer truck' && str !== 'tipper truck'
-      && str !== 'bus' && str !== 'motorbike') {
-        ValidateCar.integrateError(field, `Invalid ${field}. Each should be one of these: ${bodyT}`);
-      }
     }
   }
 
