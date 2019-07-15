@@ -20,7 +20,7 @@ var validateUserSignup = function validateUserSignup(req, res, next) {
       email = _req$body.email,
       password = _req$body.password,
       address = _req$body.address;
-  console.log('request', req);
+  console.log('request', req.body);
 
   var result = _ValidateUser["default"].validateSignupFields(first_name, last_name, email, password, address);
 
