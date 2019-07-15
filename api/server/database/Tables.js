@@ -12,7 +12,7 @@ export const createTables = `
         );
     CREATE TABLE IF NOT EXISTS
         cars(
-            id SERIAL PRIMARY KEY ON DELETE CASCADE,
+            id SERIAL PRIMARY KEY,
             owner INT REFERENCES users (id),
             created_on TIMESTAMP NOT NULL DEFAULT NOW(),
             state VARCHAR(4) NOT NULL,
@@ -30,7 +30,7 @@ export const createTables = `
         orders(
             id SERIAL PRIMARY KEY,
             buyer INT REFERENCES users (id),
-            car_id INT REFERENCES cars (id),
+            car_id INT REFERENCES cars (id) ON DELETE CASCADE,
             created_on TIMESTAMP NOT NULL DEFAULT NOW(),
             amount DECIMAL NOT NULL,
             status VARCHAR NOT NULL DEFAULT 'pending',
