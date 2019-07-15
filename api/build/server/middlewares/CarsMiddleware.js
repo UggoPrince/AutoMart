@@ -85,7 +85,7 @@ function () {
             }
 
             res.status(400).send(_ValidateCar["default"].Response());
-            _context2.next = 14;
+            _context2.next = 20;
             break;
 
           case 6:
@@ -94,22 +94,32 @@ function () {
 
           case 8:
             if (_context2.sent) {
-              _context2.next = 12;
+              _context2.next = 18;
               break;
             }
+
+            _context2.t0 = console;
+            _context2.t1 = car_id;
+            _context2.next = 13;
+            return _CarChecker["default"].checkId(car_id);
+
+          case 13:
+            _context2.t2 = _context2.sent;
+
+            _context2.t0.log.call(_context2.t0, _context2.t1, _context2.t2);
 
             res.status(404).send({
               status: 404,
               error: "Car with id (".concat(car_id, ") does not exist.")
             });
-            _context2.next = 14;
+            _context2.next = 20;
             break;
 
-          case 12:
+          case 18:
             req.body.email = req.token.email;
             next();
 
-          case 14:
+          case 20:
           case "end":
             return _context2.stop();
         }

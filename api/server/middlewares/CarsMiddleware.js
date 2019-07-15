@@ -32,6 +32,7 @@ export const validateUpdateCarStatus = async (req, res, next) => {
   if (result.error) {
     res.status(400).send(Validator.Response());
   } else if (!await CarChecker.checkId(car_id)) {
+    console.log(car_id, await CarChecker.checkId(car_id));
     res.status(404).send({
       status: 404,
       error: `Car with id (${car_id}) does not exist.`,
