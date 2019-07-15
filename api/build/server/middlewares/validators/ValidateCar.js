@@ -64,9 +64,10 @@ function (_Validator) {
 
   }, {
     key: "validateUpdateCarStatusFields",
-    value: function validateUpdateCarStatusFields(car_id) {
+    value: function validateUpdateCarStatusFields(car_id, status) {
       ValidateCar.refresh();
       ValidateCar.validateInt(car_id, 'car_id');
+      ValidateCar.isValidStatusUpdate(status, 'status');
       return ValidateCar.getErrorMessage();
     } // validates the field and url parameter that updates a car price
 
@@ -166,6 +167,19 @@ function (_Validator) {
       }
     }
   }, {
+    key: "isValidStatusUpdate",
+    value: function isValidStatusUpdate(status, field) {
+      if (ValidateCar.isEmptyString(status)) {
+        ValidateCar.integrateError(field, "No ".concat(field, " entered."));
+      } else {
+        var str = status.toLowerCase();
+
+        if (str !== 'sold') {
+          ValidateCar.integrateError(field, "No ".concat(field, " entered."));
+        }
+      }
+    }
+  }, {
     key: "isValidPrice",
     value: function isValidPrice(price, field) {
       ValidateCar.validateFloat(price, field);
@@ -194,24 +208,20 @@ function (_Validator) {
     value: function isValidBodyType(body_type, field) {
       if (ValidateCar.isEmptyString(body_type)) {
         ValidateCar.integrateError(field, "No ".concat(field, " entered."));
-      } else {
-        var str = body_type.toLowerCase();
-        var bodyT = [' Convertibles', ' Coupe', ' SUV', ' Hatchback', ' Sedan', ' Wagon', ' Van', ' Truck', ' Trailer truck', ' Tipper truck', ' Bus', ' Motorbike'];
-
-        if (str !== 'convertibles' && str !== 'coupe' && str !== 'suv' && str !== 'hatchback' && str !== 'sedan' && str !== 'wagon' && str !== 'van' && str !== 'truck' && str !== 'trailer truck' && str !== 'tipper truck' && str !== 'bus' && str !== 'motorbike') {
-          ValidateCar.integrateError(field, "Invalid ".concat(field, ". Each should be one of these: ").concat(bodyT));
-        }
       }
     }
   }, {
     key: "isValidPhoto",
     value: function isValidPhoto(car_photo, str) {
       // console.log(myPhoto.photo.length === undefined);
-      if (!car_photo.image_url) {
+      if (car_photo.empty) {
         ValidateCar.integrateError(str, "No ".concat(str, " submited."));
-      } else if (car_photo.image_url.type !== 'image/jpeg' && car_photo.image_url.type !== 'image/png') {
-        ValidateCar.integrateError(str, "You didn't submit an ".concat(str, " type. jpg/png is accepted."));
       }
+      /* else if (car_photo.image_url.type !== 'image/jpeg'
+      && car_photo.image_url.type !== 'image/png') {
+      ValidateCar.integrateError(str, `You didn't submit an ${str} type. jpg/png is accepted.`);
+      } */
+
     }
   }, {
     key: "isValidStatusQuery",

@@ -8,7 +8,10 @@ export const validateCreateAdvert = async (req, res, next) => {
   const {
     state, status, price, title, manufacturer, model, body_type,
   } = req.body;
-  const car_photo = req.files;
+  let car_photo = {};
+  if (req.body.img_url) car_photo = { empty: false };
+  else if (req.files.img_url) car_photo = { empty: false };
+  else car_photo = { empty: true };
   const result = Validator.validateCreateAdvertFields(
     state, status, price, title, manufacturer, model, body_type, car_photo,
   );
@@ -23,7 +26,7 @@ export const validateCreateAdvert = async (req, res, next) => {
 
 export const validateUpdateCarStatus = async (req, res, next) => {
   const { car_id } = req.params;
-  const result = Validator.validateUpdateCarStatusFields(car_id);
+  const result = Validator.validateUpdateCarStatusFields(car_id, req.body.status);
   if (result.error) {
     res.status(400).send(Validator.Response());
   } else if (!await CarChecker.checkId(car_id)) {
@@ -77,15 +80,8 @@ export const validateViewCars = (req, res, next) => {
   const isTwo = qLength > 0 && qLength === 2;
   const isThree = qLength > 0 && qLength === 3;
   if (isZero) {
-    if (!req.token.is_admin) {
-      res.status(403).send({
-        status: 403,
-        error: 'You are not an admin. Only admins are allowed to view both sold and unsold cars.',
-      });
-    } else {
-      req.qLength = 0;
-      next();
-    }
+    req.qLength = 0;
+    next();
   } else if (isOne) {
     if (rQuery.status) { // getting all available cars
       const result = Validator.validateViewUnsoldCarsQuery(rQuery.status);

@@ -8,7 +8,6 @@ export const createTables = `
             last_name VARCHAR(100) NOT NULL,
             password VARCHAR NOT NULL,
             address VARCHAR NOT NULL,
-            phone_number VARCHAR DEFAULT NULL,
             is_admin BOOLEAN DEFAULT false
         );
     CREATE TABLE IF NOT EXISTS
@@ -31,7 +30,7 @@ export const createTables = `
         orders(
             id SERIAL PRIMARY KEY,
             buyer INT REFERENCES users (id),
-            car_id INT REFERENCES cars (id),
+            car_id INT REFERENCES cars (id) ON DELETE CASCADE,
             created_on TIMESTAMP NOT NULL DEFAULT NOW(),
             amount DECIMAL NOT NULL,
             status VARCHAR NOT NULL DEFAULT 'pending',
@@ -49,11 +48,11 @@ export const createTables = `
 export const dropTables = 'DROP TABLE IF EXISTS users, cars, orders, flags;';
 
 export const seedUsers = `INSERT INTO users (
-    first_name, last_name, email, password, address, is_admin, phone_number
+    first_name, last_name, email, password, address, is_admin
     ) VALUES
-    ('john', 'doe', 'johndoe@gmail.com', 'doe123456', 'no 55 ikorodu road', true, '07012345678'),
-    ('sarah', 'conoh', 'sarahconoh@gmail.com', 'conoh123456', 'no 56 ibadan road', false, '07011223344'),
-    ('brian', 'emeka', 'brianemeka@gmail.com', 'emeka123456', 'no 10 rumuokoro road', false,'07022338899');`;
+    ('john', 'doe', 'johndoe@gmail.com', 'doe123456', 'no 55 ikorodu road', true),
+    ('sarah', 'conoh', 'sarahconoh@gmail.com', 'conoh123456', 'no 56 ibadan road', false),
+    ('brian', 'emeka', 'brianemeka@gmail.com', 'emeka123456', 'no 10 rumuokoro road', false);`;
 
 export const seedCars = `INSERT INTO cars (
     owner, state, status, price, title, manufacturer, model, body_type, image_url

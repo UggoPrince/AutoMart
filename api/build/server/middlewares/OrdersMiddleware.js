@@ -92,22 +92,23 @@ function () {
           case 0:
             price = req.body.price;
             order_id = req.params.order_id;
+            console.log(req.body);
             result = _ValidateOrder["default"].validateUpdateOrderFields(price, order_id);
 
             if (!result.error) {
-              _context2.next = 7;
+              _context2.next = 8;
               break;
             }
 
             res.status(400).send(_ValidateOrder["default"].Response());
-            _context2.next = 11;
+            _context2.next = 12;
             break;
 
-          case 7:
-            _context2.next = 9;
+          case 8:
+            _context2.next = 10;
             return _OrderChecker["default"].checkId(order_id);
 
-          case 9:
+          case 10:
             order = _context2.sent;
 
             if (order.error) {
@@ -120,7 +121,7 @@ function () {
               next();
             }
 
-          case 11:
+          case 12:
           case "end":
             return _context2.stop();
         }

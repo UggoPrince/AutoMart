@@ -52,6 +52,9 @@ function () {
                 _context.next = 2;
                 return this.pool.query(queryString).then(function (res) {
                   return res;
+                })["catch"](function (error) {
+                  console.log(error);
+                  return error;
                 });
 
               case 2:

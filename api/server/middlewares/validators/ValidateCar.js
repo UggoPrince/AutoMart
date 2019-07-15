@@ -20,9 +20,10 @@ class ValidateCar extends Validator {
   }
 
   // validates the field and url parameter sent to update a car status
-  static validateUpdateCarStatusFields(car_id) {
+  static validateUpdateCarStatusFields(car_id, status) {
     ValidateCar.refresh();
     ValidateCar.validateInt(car_id, 'car_id');
+    ValidateCar.isValidStatusUpdate(status, 'status');
     return ValidateCar.getErrorMessage();
   }
 
@@ -108,6 +109,15 @@ class ValidateCar extends Validator {
     }
   }
 
+  static isValidStatusUpdate(status, field) {
+    if (ValidateCar.isEmptyString(status)) {
+      ValidateCar.integrateError(field, `No ${field} entered.`);
+    } else {
+      const str = status.toLowerCase();
+      if (str !== 'sold') { ValidateCar.integrateError(field, `No ${field} entered.`); }
+    }
+  }
+
   static isValidPrice(price, field) {
     ValidateCar.validateFloat(price, field);
   }
@@ -130,33 +140,17 @@ class ValidateCar extends Validator {
   static isValidBodyType(body_type, field) {
     if (ValidateCar.isEmptyString(body_type)) {
       ValidateCar.integrateError(field, `No ${field} entered.`);
-    } else {
-      const str = body_type.toLowerCase();
-      const bodyT = [' Convertibles', ' Coupe',
-        ' SUV', ' Hatchback',
-        ' Sedan', ' Wagon',
-        ' Van', ' Truck',
-        ' Trailer truck', ' Tipper truck',
-        ' Bus', ' Motorbike',
-      ];
-      if (str !== 'convertibles' && str !== 'coupe'
-      && str !== 'suv' && str !== 'hatchback'
-      && str !== 'sedan' && str !== 'wagon'
-      && str !== 'van' && str !== 'truck'
-      && str !== 'trailer truck' && str !== 'tipper truck'
-      && str !== 'bus' && str !== 'motorbike') {
-        ValidateCar.integrateError(field, `Invalid ${field}. Each should be one of these: ${bodyT}`);
-      }
     }
   }
 
   static isValidPhoto(car_photo, str) {
     // console.log(myPhoto.photo.length === undefined);
-    if (!car_photo.image_url) {
+    if (car_photo.empty) {
       ValidateCar.integrateError(str, `No ${str} submited.`);
-    } else if (car_photo.image_url.type !== 'image/jpeg' && car_photo.image_url.type !== 'image/png') {
+    } /* else if (car_photo.image_url.type !== 'image/jpeg'
+    && car_photo.image_url.type !== 'image/png') {
       ValidateCar.integrateError(str, `You didn't submit an ${str} type. jpg/png is accepted.`);
-    }
+    } */
   }
 
   static isValidStatusQuery(status, query) {

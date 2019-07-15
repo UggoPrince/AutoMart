@@ -30,7 +30,14 @@ function () {
         switch (_context.prev = _context.next) {
           case 0:
             _req$body = req.body, state = _req$body.state, status = _req$body.status, price = _req$body.price, title = _req$body.title, manufacturer = _req$body.manufacturer, model = _req$body.model, body_type = _req$body.body_type;
-            car_photo = req.files;
+            car_photo = {};
+            if (req.body.img_url) car_photo = {
+              empty: false
+            };else if (req.files.img_url) car_photo = {
+              empty: false
+            };else car_photo = {
+              empty: true
+            };
             result = _ValidateCar["default"].validateCreateAdvertFields(state, status, price, title, manufacturer, model, body_type, car_photo);
 
             if (result.error) {
@@ -41,7 +48,7 @@ function () {
               next();
             }
 
-          case 4:
+          case 5:
           case "end":
             return _context.stop();
         }
@@ -68,7 +75,7 @@ function () {
         switch (_context2.prev = _context2.next) {
           case 0:
             car_id = req.params.car_id;
-            result = _ValidateCar["default"].validateUpdateCarStatusFields(car_id);
+            result = _ValidateCar["default"].validateUpdateCarStatusFields(car_id, req.body.status);
 
             if (!result.error) {
               _context2.next = 6;
@@ -242,15 +249,8 @@ var validateViewCars = function validateViewCars(req, res, next) {
   var isThree = qLength > 0 && qLength === 3;
 
   if (isZero) {
-    if (!req.token.is_admin) {
-      res.status(403).send({
-        status: 403,
-        error: 'You are not an admin. Only admins are allowed to view both sold and unsold cars.'
-      });
-    } else {
-      req.qLength = 0;
-      next();
-    }
+    req.qLength = 0;
+    next();
   } else if (isOne) {
     if (rQuery.status) {
       // getting all available cars

@@ -7,8 +7,12 @@ import Cars from '../models/Cars';
 class CarsController {
   async addCar(req, res) {
     const reqBody = req.body;
-    const car_photo = req.files;
-
+    let car_photo = '';
+    if (req.body.img_url) {
+      car_photo = { str: true, image: req.body.img_url };
+    } else {
+      car_photo = { str: false, image: req.files };
+    }
     const result = await Cars.postAdvert(reqBody, car_photo);
     res.status(201).send({
       status: 201,

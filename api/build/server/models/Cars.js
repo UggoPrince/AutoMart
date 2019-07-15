@@ -47,22 +47,43 @@ function () {
       var _postAdvert = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee(carData, car_photo) {
-        var uploadedImg, queryString, result, _result$rows$, id, created_on, state, status, price, title, manufacturer, model, body_type, image_url;
+        var img, uploadedImg, queryString, result, _result$rows$, id, created_on, state, status, price, title, manufacturer, model, body_type, image_url;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return this.uploadImage(car_photo);
+                // check if user for this car exist
+                img = '';
 
-              case 2:
+                if (!car_photo.str) {
+                  _context.next = 5;
+                  break;
+                }
+
+                img = car_photo.image;
+                _context.next = 10;
+                break;
+
+              case 5:
+                if (car_photo.str) {
+                  _context.next = 10;
+                  break;
+                }
+
+                _context.next = 8;
+                return this.uploadImage(car_photo.image);
+
+              case 8:
                 uploadedImg = _context.sent;
-                queryString = "\n      INSERT INTO cars (\n        owner, state, status, price, title, manufacturer, model, body_type, image_url\n        )\n      VALUES (\n        '".concat(carData.owner, "', '").concat(carData.state, "', '").concat(carData.status, "',\n        '").concat(carData.price, "', '").concat(carData.title, "', '").concat(carData.manufacturer, "',\n        '").concat(carData.model, "', '").concat(carData.body_type, "', '").concat(uploadedImg.url, "'\n      )\n      RETURNING *;\n    ");
-                _context.next = 6;
+                img = uploadedImg.url;
+
+              case 10:
+                queryString = "\n      INSERT INTO cars (\n        owner, state, status, price, title, manufacturer, model, body_type, image_url\n        )\n      VALUES (\n        '".concat(carData.owner, "', '").concat(carData.state, "', '").concat(carData.status, "',\n        '").concat(carData.price, "', '").concat(carData.title, "', '").concat(carData.manufacturer, "',\n        '").concat(carData.model, "', '").concat(carData.body_type, "', '").concat(img, "'\n      )\n      RETURNING *;\n    ");
+                _context.next = 13;
                 return db.query(queryString);
 
-              case 6:
+              case 13:
                 result = _context.sent;
                 _result$rows$ = result.rows[0], id = _result$rows$.id, created_on = _result$rows$.created_on, state = _result$rows$.state, status = _result$rows$.status, price = _result$rows$.price, title = _result$rows$.title, manufacturer = _result$rows$.manufacturer, model = _result$rows$.model, body_type = _result$rows$.body_type, image_url = _result$rows$.image_url;
                 result.rows[0] = {
@@ -80,7 +101,7 @@ function () {
                 };
                 return _context.abrupt("return", result);
 
-              case 10:
+              case 17:
               case "end":
                 return _context.stop();
             }
@@ -105,7 +126,7 @@ function () {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                filePath = car_photo.image_url.path;
+                filePath = car_photo.img_url.path;
                 _context2.next = 3;
                 return cloudinary.uploader.upload(filePath, {
                   folder: process.env.CLOUDINARY_AUTOMART_FOLDER,

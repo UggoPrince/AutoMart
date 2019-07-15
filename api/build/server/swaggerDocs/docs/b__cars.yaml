@@ -69,6 +69,13 @@ components:
           $ref: '#/components/schemas/title'
         image_url:
             $ref: '#/components/schemas/image_url'
+    updateCarStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          description: update car status to sold
+          example: 'sold'
     updatedCarStatus:
       type: object
       properties:
@@ -195,7 +202,7 @@ paths:
     get:
       tags:
         - Car
-      description: Admin get a all cars
+      description: Admin/User get a all cars
       operationId: getCars
       parameters:
         - name: Authorization
@@ -220,20 +227,6 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Car'
-        '403':
-          description: Response gotten when the user is not an admin
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                    description: 403 error status code
-                    example: '403'
-                  error: 
-                    type: object/string
-                    example: 'You are not an admin. Only admins are allowed to view both sold and unsold cars.'
   /car/car_id:
     get:
       tags:
@@ -719,6 +712,12 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/car_id'
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/updateCarStatus'
+        required: true
       responses:
         '200':
           description: Response data that contains car detals with updated status

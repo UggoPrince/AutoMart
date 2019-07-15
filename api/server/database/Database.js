@@ -17,7 +17,8 @@ export default class Database {
   }
 
   async query(queryString) {
-    const result = await this.pool.query(queryString).then(res => res);
+    const result = await this.pool.query(queryString).then(res => res)
+      .catch((error) => { console.log(error); return error; });
     return result;
   }
 }

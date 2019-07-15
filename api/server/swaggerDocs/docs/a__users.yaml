@@ -19,8 +19,6 @@ components:
           $ref: '#/components/schemas/address'
         is_admin:
           $ref: '#/components/schemas/is_admin'
-        phone_number:
-          $ref: '#/components/schemas/phone_number'
     UserData:
       type: object
       properties:
@@ -38,8 +36,6 @@ components:
           $ref: '#/components/schemas/address'
         is_admin:
           $ref: '#/components/schemas/is_admin'
-        phone_number:
-          $ref: '#/components/schemas/phone_number'
     userSignup:
       type: object
       properties:
@@ -53,8 +49,6 @@ components:
           $ref: '#/components/schemas/password'
         address:
           $ref: '#/components/schemas/address'
-        phone_number:
-          $ref: '#/components/schemas/phone_number'
     userSignin:
       type: 'object'
       properties:
@@ -98,11 +92,6 @@ components:
       type: boolean
       description: if user is admin or not
       example: 'true'
-    phone_number:
-      type: string
-      description: '07012345678'
-    
-
 paths:
   /auth/signup:         # path of the user from your endpoint
     post:              # endpoint request type (post request)

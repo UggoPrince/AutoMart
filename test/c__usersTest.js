@@ -22,7 +22,6 @@ describe('Users Test', () => {
     email: 'johnmatthew@gmail.com',
     password: 'k12345kljd',
     address: 'no 3 ikorodu',
-    phone_number: '07034533669',
   };
 
   const newUser2 = {
@@ -31,7 +30,6 @@ describe('Users Test', () => {
     email: 'joshua@gmail.com',
     password: 'k12345kljd',
     address: 'no 3 ikorodu',
-    phone_number: '07034533669',
   };
 
   const newUser3 = {
@@ -40,7 +38,6 @@ describe('Users Test', () => {
     email: 'admin@gmail.com',
     password: 'k12345kljd',
     address: 'no 3 ikorodu',
-    phone_number: '',
   };
 
   const invalidData = {
@@ -49,7 +46,6 @@ describe('Users Test', () => {
     email: 'johnmatthewgmail.com',
     password: 'k123',
     address: '12****---',
-    phone_number: '07kk',
   };
   describe('POST /api/v1/auth/signup', () => {
     it('should sign up a user', (done) => {
