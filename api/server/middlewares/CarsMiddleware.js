@@ -28,16 +28,18 @@ export const validateCreateAdvert = async (req, res, next) => {
 
 export const validateUpdateCarStatus = async (req, res, next) => {
   const { car_id } = req.params;
+  console.log({ body: req.body, carId: car_id });
   const result = Validator.validateUpdateCarStatusFields(car_id);
   if (result.error) {
     res.status(400).send(Validator.Response());
   } else if (!await CarChecker.checkId(car_id)) {
-    console.log(car_id, await CarChecker.checkId(car_id));
     res.status(404).send({
       status: 404,
       error: `Car with id (${car_id}) does not exist.`,
     });
   } else {
+    const ll = await CarChecker.checkId(car_id);
+    console.log({ carExist: ll });
     req.body.email = req.token.email;
     next();
   }

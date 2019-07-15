@@ -358,17 +358,6 @@ describe('Cars Test', () => {
           done();
         });
     });
-    it('should not get all cars because user is not an admin', (done) => {
-      chai.request(app)
-        .get('/api/v1/car')
-        .set({ Authorization: `Bearer ${process.env.tokenUser2}` })
-        .end((err, res) => {
-          expect(res.status).to.be.equal(403);
-          expect(res.type).to.be.equal('application/json');
-          expect(res.body).to.be.an('object');
-          done();
-        });
-    });
   });
 
   describe('GET /api/v1/car?status=available&state=new', () => {
