@@ -379,7 +379,7 @@ function () {
       var _updater = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee10(car_id, field, value, ownerEmail) {
-        var queryString, result, _result$rows$2, id, created_on, state, status, price, title, manufacturer, model, body_type, photos;
+        var queryString, result, _result$rows$2, id, created_on, state, status, price, title, manufacturer, model, body_type, image_url;
 
         return regeneratorRuntime.wrap(function _callee10$(_context10) {
           while (1) {
@@ -391,7 +391,7 @@ function () {
 
               case 3:
                 result = _context10.sent;
-                _result$rows$2 = result.rows[0], id = _result$rows$2.id, created_on = _result$rows$2.created_on, state = _result$rows$2.state, status = _result$rows$2.status, price = _result$rows$2.price, title = _result$rows$2.title, manufacturer = _result$rows$2.manufacturer, model = _result$rows$2.model, body_type = _result$rows$2.body_type, photos = _result$rows$2.photos;
+                _result$rows$2 = result.rows[0], id = _result$rows$2.id, created_on = _result$rows$2.created_on, state = _result$rows$2.state, status = _result$rows$2.status, price = _result$rows$2.price, title = _result$rows$2.title, manufacturer = _result$rows$2.manufacturer, model = _result$rows$2.model, body_type = _result$rows$2.body_type, image_url = _result$rows$2.image_url;
                 result.rows[0] = {
                   id: id,
                   email: ownerEmail,
@@ -403,7 +403,7 @@ function () {
                   manufacturer: manufacturer,
                   model: model,
                   body_type: body_type,
-                  photos: photos
+                  image_url: image_url
                 };
                 return _context10.abrupt("return", result);
 
