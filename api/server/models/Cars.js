@@ -121,7 +121,7 @@ class Cars {
     const result = await db.query(queryString);
     const {
       // eslint-disable-next-line no-unused-vars
-      id, created_on, state, status, price, title, manufacturer, model, body_type, photos,
+      id, created_on, state, status, price, title, manufacturer, model, body_type, image_url,
     } = result.rows[0];
     result.rows[0] = {
       id,
@@ -134,7 +134,7 @@ class Cars {
       manufacturer,
       model,
       body_type,
-      photos,
+      image_url,
     };
     return result;
   }
