@@ -11,7 +11,7 @@ class AdvertUpdater {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        Authentication: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(formData),
     }).then(response => response.json())
@@ -84,7 +84,7 @@ const buildAdBlock = (ad) => { // adBlock builder
   adBlockImg.className = 'ad-block-img';
   const img = document.createElement('img');
   // eslint-disable-next-line prefer-destructuring
-  img.src = ad.photos[0];
+  img.src = ad.image_url;
   adBlockImg.append(img); // coupling
 
   /**
@@ -195,7 +195,7 @@ class AdvertPoster {
     const serverRes = await fetch(url, {
       method: 'POST',
       headers: {
-        Authentication: `${token}`,
+        Authorization: `Bearer ${token}`,
         // 'Content-Type': 'application/json',
       },
       body: formData,
@@ -211,7 +211,7 @@ class AdvertPoster {
     formData.append('status', 'available');
     formData.append('manufacturer', form.manufacturer.value);
     formData.append('model', form.model.value);
-    formData.append('photo', form.photo.files[0]);
+    formData.append('img_url', form.img_url.files[0]);
     formData.append('price', form.price.value);
     formData.append('title', form.title.value);
     return formData;
@@ -282,6 +282,7 @@ class AdvertPoster {
 
   appendToAds(data) {
     const container = document.getElementsByClassName('ad-block-container')[0];
+    document.getElementById('myAdsDiv').style.background = 'white';
     container.prepend(buildAdBlock(data));
   }
 
@@ -318,7 +319,7 @@ class Orders {
     const orders = await fetch(`https://automarter.herokuapp.com/api/v1/order?buyer=${id}`, {
       method: 'GET',
       headers: {
-        Authentication: `${token}`,
+        Authorization: `Bearer ${token}`,
       // 'Content-Type': 'application/json',
       },
     }).then(response => response.json())
@@ -332,7 +333,7 @@ class Orders {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        Authentication: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(formData),
     }).then(response => response.json())
@@ -348,7 +349,7 @@ class Orders {
   }
 
   buildUpdateAmountData(form) {
-    return { amount: form.amount.value };
+    return { price: form.amount.value };
   }
 
   closeForm(id) {
@@ -391,7 +392,7 @@ const buildPurchaseBlock = (po) => { // adBlock builder
   poBlockImg.className = 'po-block-img';
   const img = document.createElement('img');
   // eslint-disable-next-line prefer-destructuring
-  img.src = po.photos[0];
+  img.src = po.image_url;
   poBlockImg.append(img); // coupling
 
   /**
@@ -494,7 +495,7 @@ const getAllMyAdverts = async () => {
   const cars = await fetch(`https://automarter.herokuapp.com/api/v1/car?owner=${id}`, {
     method: 'GET',
     headers: {
-      Authentication: `${token}`,
+      Authorization: `Bearer ${token}`,
       // 'Content-Type': 'application/json',
     },
   }).then(response => response.json())
@@ -516,6 +517,18 @@ const arrangeMyAdverts = (ads) => {
     }
   }
   MyAdverts.push(container, container2);
+};
+
+const adEmptyCoupling = () => {
+  const container = document.createElement('div');
+  const container2 = document.createElement('div');
+  container.className = 'ad-block-container';
+  container2.className = 'ad-block-container';
+  container2.style.display = 'none';
+  const adsDiv = document.getElementById('myAdsDiv');
+  adsDiv.style.backgroundImage = "url('images/noAds.png')";
+  adsDiv.style.minHeight = '70vh';
+  adsDiv.append(container, container2);
 };
 
 const displayMyAdverts = () => {
@@ -617,6 +630,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     signOut('signin.html'); // from main.js
   }
   if (MyAds.data.length !== 0) arrangeMyAdverts(MyAds.data);
+  else adEmptyCoupling();
   if (MyPurchase.length !== 0) arrangeMyPurchase(MyPurchase.data);
   displayMyAdverts(MyAds);
   displayPurchaseOrders(MyPurchase);

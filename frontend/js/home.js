@@ -31,7 +31,7 @@ class Advert {
     const cars = await fetch(url, {
       method: 'GET',
       headers: {
-        Authentication: `${token}`,
+        Authorization: `Bearer ${token}`,
         // 'Content-Type': 'application/json',
       },
     }).then(response => response.json())
@@ -63,7 +63,7 @@ class Advert {
     const deletedCar = await fetch(url, {
       method: 'DELETE',
       headers: {
-        Authentication: `${token}`,
+        Authorization: `Bearer ${token}`,
         mode: 'cors',
       },
     }).then(response => response.json())
@@ -86,7 +86,7 @@ class Order {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authentication: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(formData),
     }).then(response => response.json())
@@ -174,7 +174,7 @@ class Flag {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authentication: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(formData),
     }).then(response => response.json())
@@ -325,7 +325,7 @@ const buildAdBox = (ad) => { // adBox builder
   adBoxImg.className = 'ad-box-img';
   const img = document.createElement('img');
   // eslint-disable-next-line prefer-destructuring
-  img.src = ad.photos[0];
+  img.src = ad.image_url;
   adBoxImg.append(img); // coupling
 
   /**
@@ -452,7 +452,7 @@ const buildOneAdBox = (ad) => {
   // photo section
   const carPhoto = createElement('img');
   // eslint-disable-next-line prefer-destructuring
-  carPhoto.src = ad.photos[0];
+  carPhoto.src = ad.image_url;
   carPhoto.className = 'car-photo';
 
   // buttons

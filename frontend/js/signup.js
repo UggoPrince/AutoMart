@@ -19,7 +19,6 @@ const buildSignupFormData = form => ({
   first_name: form.first_name.value,
   last_name: form.last_name.value,
   address: form.address.value,
-  phone_number: form.phone_number.value,
   email: form.email.value,
   password: form.password.value,
 });
@@ -32,7 +31,6 @@ const displayError = (error) => {
   if (error.first_name) errorSpan[0].innerHTML = error.first_name;
   if (error.last_name) errorSpan[1].innerHTML = error.last_name;
   if (error.address) errorSpan[2].innerHTML = error.address;
-  if (error.phone_number) errorSpan[3].innerHTML = error.phone_number;
   if (error.email) errorSpan[4].innerHTML = error.email;
   if (error.password) errorSpan[5].innerHTML = error.password;
   if (error.error === 'You already have an account with this email. Login.') {
