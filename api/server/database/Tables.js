@@ -12,7 +12,7 @@ export const createTables = `
         );
     CREATE TABLE IF NOT EXISTS
         cars(
-            id SERIAL PRIMARY KEY,
+            id SERIAL PRIMARY KEY ON DELETE CASCADE,
             owner INT REFERENCES users (id),
             created_on TIMESTAMP NOT NULL DEFAULT NOW(),
             state VARCHAR(4) NOT NULL,
