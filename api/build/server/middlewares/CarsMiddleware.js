@@ -30,7 +30,15 @@ function () {
         switch (_context.prev = _context.next) {
           case 0:
             _req$body = req.body, state = _req$body.state, status = _req$body.status, price = _req$body.price, title = _req$body.title, manufacturer = _req$body.manufacturer, model = _req$body.model, body_type = _req$body.body_type;
-            car_photo = req.files;
+            console.log(req.body);
+            car_photo = {};
+            if (req.body.img_url) car_photo = {
+              empty: false
+            };else if (req.files.img_url) car_photo = {
+              empty: false
+            };else car_photo = {
+              empty: true
+            };
             result = _ValidateCar["default"].validateCreateAdvertFields(state, status, price, title, manufacturer, model, body_type, car_photo);
 
             if (result.error) {
@@ -41,7 +49,7 @@ function () {
               next();
             }
 
-          case 4:
+          case 6:
           case "end":
             return _context.stop();
         }

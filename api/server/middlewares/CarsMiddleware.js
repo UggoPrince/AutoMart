@@ -8,7 +8,11 @@ export const validateCreateAdvert = async (req, res, next) => {
   const {
     state, status, price, title, manufacturer, model, body_type,
   } = req.body;
-  const car_photo = req.files;
+  console.log(req.body);
+  let car_photo = {};
+  if (req.body.img_url) car_photo = { empty: false };
+  else if (req.files.img_url) car_photo = { empty: false };
+  else car_photo = { empty: true };
   const result = Validator.validateCreateAdvertFields(
     state, status, price, title, manufacturer, model, body_type, car_photo,
   );

@@ -38,18 +38,31 @@ function () {
             switch (_context.prev = _context.next) {
               case 0:
                 reqBody = req.body;
-                car_photo = req.files;
-                _context.next = 4;
+                car_photo = '';
+
+                if (req.body.img_url) {
+                  car_photo = {
+                    str: true,
+                    image: req.body.img_url
+                  };
+                } else {
+                  car_photo = {
+                    str: false,
+                    image: req.files
+                  };
+                }
+
+                _context.next = 5;
                 return _Cars["default"].postAdvert(reqBody, car_photo);
 
-              case 4:
+              case 5:
                 result = _context.sent;
                 res.status(201).send({
                   status: 201,
                   data: result.rows[0]
                 });
 
-              case 6:
+              case 7:
               case "end":
                 return _context.stop();
             }

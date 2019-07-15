@@ -207,11 +207,16 @@ function (_Validator) {
     key: "isValidPhoto",
     value: function isValidPhoto(car_photo, str) {
       // console.log(myPhoto.photo.length === undefined);
-      if (!car_photo.image_url) {
+      console.log(car_photo);
+
+      if (car_photo.empty) {
         ValidateCar.integrateError(str, "No ".concat(str, " submited."));
-      } else if (car_photo.image_url.type !== 'image/jpeg' && car_photo.image_url.type !== 'image/png') {
-        ValidateCar.integrateError(str, "You didn't submit an ".concat(str, " type. jpg/png is accepted."));
       }
+      /* else if (car_photo.image_url.type !== 'image/jpeg'
+      && car_photo.image_url.type !== 'image/png') {
+      ValidateCar.integrateError(str, `You didn't submit an ${str} type. jpg/png is accepted.`);
+      } */
+
     }
   }, {
     key: "isValidStatusQuery",

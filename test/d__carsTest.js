@@ -42,7 +42,28 @@ describe('Cars Test', () => {
         .field('manufacturer', carAdvert.manufacturer)
         .field('model', carAdvert.model)
         .field('body_type', carAdvert.body_type)
-        .attach('image_url', fs.readFileSync(`${__dirname}/testImages/c1.jpg`), 'c1.jpg')
+        .attach('img_url', fs.readFileSync(`${__dirname}/testImages/c1.jpg`), 'c1.jpg')
+        .end((err, res) => {
+          expect(res.status).to.be.eql(201);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should create a car advert', (done) => {
+      chai.request(app)
+        .post('/api/v1/car')
+        .set({ Authorization: `Bearer ${process.env.tokenUser}` })
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .field('owner', 1)
+        .field('state', 'new')
+        .field('status', 'available')
+        .field('price', 16000000)
+        .field('title', carAdvert.title)
+        .field('manufacturer', carAdvert.manufacturer)
+        .field('model', carAdvert.model)
+        .field('body_type', carAdvert.body_type)
+        .field('img_url', 'https://res.cloudinary.com/dya3r9cfe/image/upload/v1558624490/c1.jpg')
         .end((err, res) => {
           expect(res.status).to.be.eql(201);
           expect(res.type).to.be.equal('application/json');
@@ -63,7 +84,7 @@ describe('Cars Test', () => {
         .field('manufacturer', 1)
         .field('model', 1)
         .field('body_type', 'kl')
-        .attach('image_url', ''/* fs.readFileSync(`${__dirname}/testImages/c1.jpg`) */, 'c1.jpg')
+        .attach('img_url', ''/* fs.readFileSync(`${__dirname}/testImages/c1.jpg`) */, 'c1.jpg')
         .end((err, res) => {
           expect(res.status).to.be.eql(400);
           expect(res.type).to.be.equal('application/json');
@@ -84,7 +105,7 @@ describe('Cars Test', () => {
         .field('manufacturer', '')
         .field('model', '')
         .field('body_type', '')
-        .attach('image_url', fs.readFileSync(`${__dirname}/testImages/mypdf.pdf`), 'mypdf.pdf')
+        .attach('img_url', fs.readFileSync(`${__dirname}/testImages/mypdf.pdf`), 'mypdf.pdf')
         .end((err, res) => {
           expect(res.status).to.be.eql(400);
           expect(res.type).to.be.equal('application/json');

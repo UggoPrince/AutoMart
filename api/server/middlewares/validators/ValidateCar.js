@@ -152,11 +152,13 @@ class ValidateCar extends Validator {
 
   static isValidPhoto(car_photo, str) {
     // console.log(myPhoto.photo.length === undefined);
-    if (!car_photo.image_url) {
+    console.log(car_photo);
+    if (car_photo.empty) {
       ValidateCar.integrateError(str, `No ${str} submited.`);
-    } else if (car_photo.image_url.type !== 'image/jpeg' && car_photo.image_url.type !== 'image/png') {
+    } /* else if (car_photo.image_url.type !== 'image/jpeg'
+    && car_photo.image_url.type !== 'image/png') {
       ValidateCar.integrateError(str, `You didn't submit an ${str} type. jpg/png is accepted.`);
-    }
+    } */
   }
 
   static isValidStatusQuery(status, query) {

@@ -19,7 +19,12 @@ const db = new Database();
 class Cars {
   async postAdvert(carData, car_photo) {
     // check if user for this car exist
-    const uploadedImg = await this.uploadImage(car_photo);
+    let img = '';
+    if (car_photo.str) img = car_photo.image;
+    else if (!car_photo.str) {
+      const uploadedImg = await this.uploadImage(car_photo.image);
+      img = uploadedImg.url;
+    }
     const queryString = `
       INSERT INTO cars (
         owner, state, status, price, title, manufacturer, model, body_type, image_url
@@ -27,7 +32,7 @@ class Cars {
       VALUES (
         '${carData.owner}', '${carData.state}', '${carData.status}',
         '${carData.price}', '${carData.title}', '${carData.manufacturer}',
-        '${carData.model}', '${carData.body_type}', '${uploadedImg.url}'
+        '${carData.model}', '${carData.body_type}', '${img}'
       )
       RETURNING *;
     `;
@@ -52,7 +57,7 @@ class Cars {
   }
 
   async uploadImage(car_photo) {
-    const filePath = car_photo.image_url.path;
+    const filePath = car_photo.img_url.path;
     const uploadedImg = await cloudinary.uploader.upload(filePath, {
       folder: process.env.CLOUDINARY_AUTOMART_FOLDER,
       use_filename: true,
