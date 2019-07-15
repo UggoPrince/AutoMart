@@ -41,11 +41,7 @@ function () {
               case 0:
                 queryString = "\n      INSERT INTO users (\n        email, first_name, last_name, password, address, is_admin\n        )\n      VALUES (\n        '".concat(userData.email, "', '").concat(userData.first_name, "', '").concat(userData.last_name, "',\n        '").concat(userData.password, "', '").concat(userData.address, "', ").concat(userData.is_admin, "\n        ) RETURNING *");
                 _context.next = 3;
-                return db.query(queryString).then(function (res) {
-                  return res;
-                })["catch"](function (err) {
-                  return err;
-                });
+                return db.query(queryString);
 
               case 3:
                 result = _context.sent;

@@ -8,7 +8,7 @@ exports.errorInvalidQueryString = exports.errorEmailDuplicate = exports.errorInv
 /* eslint-disable linebreak-style */
 var authNotsent = {
   status: 401,
-  error: 'No authentication header sent. Login and send a token.'
+  error: 'No Authorization header sent. Login and send a token.'
 };
 var expiredToken = {
   status: 401,

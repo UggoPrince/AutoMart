@@ -23,7 +23,7 @@ class ValidateCar extends Validator {
   static validateUpdateCarStatusFields(car_id, status) {
     ValidateCar.refresh();
     ValidateCar.validateInt(car_id, 'car_id');
-    ValidateCar.isValidStatus(status, 'status');
+    ValidateCar.isValidStatusUpdate(status, 'status');
     return ValidateCar.getErrorMessage();
   }
 
@@ -69,7 +69,7 @@ class ValidateCar extends Validator {
   static validateViewUnsoldNewCars(status, state) {
     ValidateCar.refresh();
     ValidateCar.isValidStatusQuery(status, 'status');
-    ValidateCar.isValidStateUpdate(state, 'state');
+    ValidateCar.isValidState(state, 'state');
     return ValidateCar.getErrorMessage();
   }
 
@@ -109,9 +109,12 @@ class ValidateCar extends Validator {
     }
   }
 
-  static isValidStateUpdate(status, field) {
-    if (ValidateCar.isEmptyString(status) || status.toLowerCase() !== 'sold') {
+  static isValidStatusUpdate(status, field) {
+    if (ValidateCar.isEmptyString(status)) {
       ValidateCar.integrateError(field, `No ${field} entered.`);
+    } else {
+      const str = status.toLowerCase();
+      if (str !== 'sold') { ValidateCar.integrateError(field, `No ${field} entered.`); }
     }
   }
 
@@ -142,7 +145,6 @@ class ValidateCar extends Validator {
 
   static isValidPhoto(car_photo, str) {
     // console.log(myPhoto.photo.length === undefined);
-    console.log(car_photo);
     if (car_photo.empty) {
       ValidateCar.integrateError(str, `No ${str} submited.`);
     } /* else if (car_photo.image_url.type !== 'image/jpeg'

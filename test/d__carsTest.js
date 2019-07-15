@@ -120,6 +120,7 @@ describe('Cars Test', () => {
       chai.request(app)
         .patch('/api/v1/car/1/status')
         .set({ Authorization: `Bearer ${process.env.tokenUser}` })
+        .send({ status: 'sold' })
         .end((err, res) => {
           expect(res.status).to.be.equal(200);
           expect(res.type).to.be.equal('application/json');
@@ -131,6 +132,19 @@ describe('Cars Test', () => {
       chai.request(app)
         .patch('/api/v1/car/p/status')
         .set({ Authorization: `Bearer ${process.env.tokenUser}` })
+        .send({ status: 'solder' })
+        .end((err, res) => {
+          expect(res.status).to.be.equal(400);
+          expect(res.type).to.be.equal('application/json');
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+    it('should not update the status of a car when the car_id is invalid.', (done) => {
+      chai.request(app)
+        .patch('/api/v1/car/p/status')
+        .set({ Authorization: `Bearer ${process.env.tokenUser}` })
+        .send({ status: '' })
         .end((err, res) => {
           expect(res.status).to.be.equal(400);
           expect(res.type).to.be.equal('application/json');
@@ -142,6 +156,7 @@ describe('Cars Test', () => {
       chai.request(app)
         .patch('/api/v1/car/22/status')
         .set({ Authorization: `Bearer ${process.env.tokenUser}` })
+        .send({ status: 'sold' })
         .end((err, res) => {
           expect(res.status).to.be.equal(404);
           expect(res.type).to.be.equal('application/json');

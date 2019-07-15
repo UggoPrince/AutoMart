@@ -67,7 +67,7 @@ function (_Validator) {
     value: function validateUpdateCarStatusFields(car_id, status) {
       ValidateCar.refresh();
       ValidateCar.validateInt(car_id, 'car_id');
-      ValidateCar.isValidStatus(status, 'status');
+      ValidateCar.isValidStatusUpdate(status, 'status');
       return ValidateCar.getErrorMessage();
     } // validates the field and url parameter that updates a car price
 
@@ -121,7 +121,7 @@ function (_Validator) {
     value: function validateViewUnsoldNewCars(status, state) {
       ValidateCar.refresh();
       ValidateCar.isValidStatusQuery(status, 'status');
-      ValidateCar.isValidStateUpdate(state, 'state');
+      ValidateCar.isValidState(state, 'state');
       return ValidateCar.getErrorMessage();
     }
   }, {
@@ -167,10 +167,16 @@ function (_Validator) {
       }
     }
   }, {
-    key: "isValidStateUpdate",
-    value: function isValidStateUpdate(status, field) {
-      if (ValidateCar.isEmptyString(status) || status.toLowerCase() !== 'sold') {
+    key: "isValidStatusUpdate",
+    value: function isValidStatusUpdate(status, field) {
+      if (ValidateCar.isEmptyString(status)) {
         ValidateCar.integrateError(field, "No ".concat(field, " entered."));
+      } else {
+        var str = status.toLowerCase();
+
+        if (str !== 'sold') {
+          ValidateCar.integrateError(field, "No ".concat(field, " entered."));
+        }
       }
     }
   }, {
@@ -208,8 +214,6 @@ function (_Validator) {
     key: "isValidPhoto",
     value: function isValidPhoto(car_photo, str) {
       // console.log(myPhoto.photo.length === undefined);
-      console.log(car_photo);
-
       if (car_photo.empty) {
         ValidateCar.integrateError(str, "No ".concat(str, " submited."));
       }

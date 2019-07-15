@@ -69,34 +69,30 @@ function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee2(req, res, next) {
-    var car_id, status, result;
+    var car_id, result;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             car_id = req.params.car_id;
-            status = req.body.status.status;
-            console.log({
-              body: req.body
-            });
-            result = _ValidateCar["default"].validateUpdateCarStatusFields(car_id, status);
+            result = _ValidateCar["default"].validateUpdateCarStatusFields(car_id, req.body.status);
 
             if (!result.error) {
-              _context2.next = 8;
+              _context2.next = 6;
               break;
             }
 
             res.status(400).send(_ValidateCar["default"].Response());
-            _context2.next = 16;
+            _context2.next = 14;
             break;
 
-          case 8:
-            _context2.next = 10;
+          case 6:
+            _context2.next = 8;
             return _CarChecker["default"].checkId(car_id);
 
-          case 10:
+          case 8:
             if (_context2.sent) {
-              _context2.next = 14;
+              _context2.next = 12;
               break;
             }
 
@@ -104,14 +100,14 @@ function () {
               status: 404,
               error: "Car with id (".concat(car_id, ") does not exist.")
             });
-            _context2.next = 16;
+            _context2.next = 14;
             break;
 
-          case 14:
+          case 12:
             req.body.email = req.token.email;
             next();
 
-          case 16:
+          case 14:
           case "end":
             return _context2.stop();
         }

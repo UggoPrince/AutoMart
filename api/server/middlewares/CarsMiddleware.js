@@ -26,9 +26,7 @@ export const validateCreateAdvert = async (req, res, next) => {
 
 export const validateUpdateCarStatus = async (req, res, next) => {
   const { car_id } = req.params;
-  const { status } = req.body.status;
-  console.log({ body: req.body });
-  const result = Validator.validateUpdateCarStatusFields(car_id, status);
+  const result = Validator.validateUpdateCarStatusFields(car_id, req.body.status);
   if (result.error) {
     res.status(400).send(Validator.Response());
   } else if (!await CarChecker.checkId(car_id)) {
