@@ -261,15 +261,8 @@ var validateViewCars = function validateViewCars(req, res, next) {
   var isThree = qLength > 0 && qLength === 3;
 
   if (isZero) {
-    if (!req.token.is_admin) {
-      res.status(403).send({
-        status: 403,
-        error: 'You are not an admin. Only admins are allowed to view both sold and unsold cars.'
-      });
-    } else {
-      req.qLength = 0;
-      next();
-    }
+    req.qLength = 0;
+    next();
   } else if (isOne) {
     if (rQuery.status) {
       // getting all available cars
