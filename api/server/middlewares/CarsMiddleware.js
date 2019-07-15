@@ -8,7 +8,6 @@ export const validateCreateAdvert = async (req, res, next) => {
   const {
     state, status, price, title, manufacturer, model, body_type,
   } = req.body;
-  console.log(req.body);
   let car_photo = {};
   if (req.body.img_url) car_photo = { empty: false };
   else if (req.files.img_url) car_photo = { empty: false };
@@ -17,7 +16,6 @@ export const validateCreateAdvert = async (req, res, next) => {
     state, status, price, title, manufacturer, model, body_type, car_photo,
   );
   if (result.error) {
-    console.log(Validator.Response());
     res.status(400).send(Validator.Response());
   } else {
     req.body.owner = req.token.id;
@@ -28,8 +26,9 @@ export const validateCreateAdvert = async (req, res, next) => {
 
 export const validateUpdateCarStatus = async (req, res, next) => {
   const { car_id } = req.params;
-  console.log({ body: req.body, carId: car_id });
-  const result = Validator.validateUpdateCarStatusFields(car_id);
+  const { status } = req.body.status;
+  console.log({ body: req.body });
+  const result = Validator.validateUpdateCarStatusFields(car_id, status);
   if (result.error) {
     res.status(400).send(Validator.Response());
   } else if (!await CarChecker.checkId(car_id)) {
@@ -38,8 +37,6 @@ export const validateUpdateCarStatus = async (req, res, next) => {
       error: `Car with id (${car_id}) does not exist.`,
     });
   } else {
-    const ll = await CarChecker.checkId(car_id);
-    console.log({ carExist: ll });
     req.body.email = req.token.email;
     next();
   }

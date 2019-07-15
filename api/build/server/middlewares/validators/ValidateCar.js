@@ -64,9 +64,10 @@ function (_Validator) {
 
   }, {
     key: "validateUpdateCarStatusFields",
-    value: function validateUpdateCarStatusFields(car_id) {
+    value: function validateUpdateCarStatusFields(car_id, status) {
       ValidateCar.refresh();
       ValidateCar.validateInt(car_id, 'car_id');
+      ValidateCar.isValidStatus(status, 'status');
       return ValidateCar.getErrorMessage();
     } // validates the field and url parameter that updates a car price
 
@@ -120,7 +121,7 @@ function (_Validator) {
     value: function validateViewUnsoldNewCars(status, state) {
       ValidateCar.refresh();
       ValidateCar.isValidStatusQuery(status, 'status');
-      ValidateCar.isValidState(state, 'state');
+      ValidateCar.isValidStateUpdate(state, 'state');
       return ValidateCar.getErrorMessage();
     }
   }, {
@@ -163,6 +164,13 @@ function (_Validator) {
         if (str !== 'available') {
           ValidateCar.integrateError(field, "Invalid ".concat(field, ". Must be [ available ]."));
         }
+      }
+    }
+  }, {
+    key: "isValidStateUpdate",
+    value: function isValidStateUpdate(status, field) {
+      if (ValidateCar.isEmptyString(status) || status.toLowerCase() !== 'sold') {
+        ValidateCar.integrateError(field, "No ".concat(field, " entered."));
       }
     }
   }, {

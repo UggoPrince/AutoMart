@@ -6,11 +6,9 @@ export const validateUserSignup = (req, res, next) => {
   const {
     first_name, last_name, email, password, address,
   } = req.body;
-  console.log('request', req.body);
   const result = Validator.validateSignupFields(
     first_name, last_name, email, password, address,
   );
-  console.log('result: ', result);
   if (result.error) {
     res.status(400).send(Validator.Response());
   } else {

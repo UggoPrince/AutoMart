@@ -20,9 +20,10 @@ class ValidateCar extends Validator {
   }
 
   // validates the field and url parameter sent to update a car status
-  static validateUpdateCarStatusFields(car_id) {
+  static validateUpdateCarStatusFields(car_id, status) {
     ValidateCar.refresh();
     ValidateCar.validateInt(car_id, 'car_id');
+    ValidateCar.isValidStatus(status, 'status');
     return ValidateCar.getErrorMessage();
   }
 
@@ -68,7 +69,7 @@ class ValidateCar extends Validator {
   static validateViewUnsoldNewCars(status, state) {
     ValidateCar.refresh();
     ValidateCar.isValidStatusQuery(status, 'status');
-    ValidateCar.isValidState(state, 'state');
+    ValidateCar.isValidStateUpdate(state, 'state');
     return ValidateCar.getErrorMessage();
   }
 
@@ -105,6 +106,12 @@ class ValidateCar extends Validator {
       if (str !== 'available') {
         ValidateCar.integrateError(field, `Invalid ${field}. Must be [ available ].`);
       }
+    }
+  }
+
+  static isValidStateUpdate(status, field) {
+    if (ValidateCar.isEmptyString(status) || status.toLowerCase() !== 'sold') {
+      ValidateCar.integrateError(field, `No ${field} entered.`);
     }
   }
 

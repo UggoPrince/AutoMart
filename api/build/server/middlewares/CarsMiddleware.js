@@ -30,7 +30,6 @@ function () {
         switch (_context.prev = _context.next) {
           case 0:
             _req$body = req.body, state = _req$body.state, status = _req$body.status, price = _req$body.price, title = _req$body.title, manufacturer = _req$body.manufacturer, model = _req$body.model, body_type = _req$body.body_type;
-            console.log(req.body);
             car_photo = {};
             if (req.body.img_url) car_photo = {
               empty: false
@@ -42,7 +41,6 @@ function () {
             result = _ValidateCar["default"].validateCreateAdvertFields(state, status, price, title, manufacturer, model, body_type, car_photo);
 
             if (result.error) {
-              console.log(_ValidateCar["default"].Response());
               res.status(400).send(_ValidateCar["default"].Response());
             } else {
               req.body.owner = req.token.id;
@@ -50,7 +48,7 @@ function () {
               next();
             }
 
-          case 6:
+          case 5:
           case "end":
             return _context.stop();
         }
@@ -71,55 +69,49 @@ function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee2(req, res, next) {
-    var car_id, result;
+    var car_id, status, result;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             car_id = req.params.car_id;
-            result = _ValidateCar["default"].validateUpdateCarStatusFields(car_id);
+            status = req.body.status.status;
+            console.log({
+              body: req.body
+            });
+            result = _ValidateCar["default"].validateUpdateCarStatusFields(car_id, status);
 
             if (!result.error) {
-              _context2.next = 6;
+              _context2.next = 8;
               break;
             }
 
             res.status(400).send(_ValidateCar["default"].Response());
-            _context2.next = 20;
+            _context2.next = 16;
             break;
 
-          case 6:
-            _context2.next = 8;
+          case 8:
+            _context2.next = 10;
             return _CarChecker["default"].checkId(car_id);
 
-          case 8:
+          case 10:
             if (_context2.sent) {
-              _context2.next = 18;
+              _context2.next = 14;
               break;
             }
-
-            _context2.t0 = console;
-            _context2.t1 = car_id;
-            _context2.next = 13;
-            return _CarChecker["default"].checkId(car_id);
-
-          case 13:
-            _context2.t2 = _context2.sent;
-
-            _context2.t0.log.call(_context2.t0, _context2.t1, _context2.t2);
 
             res.status(404).send({
               status: 404,
               error: "Car with id (".concat(car_id, ") does not exist.")
             });
-            _context2.next = 20;
+            _context2.next = 16;
             break;
 
-          case 18:
+          case 14:
             req.body.email = req.token.email;
             next();
 
-          case 20:
+          case 16:
           case "end":
             return _context2.stop();
         }
