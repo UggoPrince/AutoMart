@@ -6,11 +6,11 @@ export const validateUserSignup = (req, res, next) => {
   const {
     first_name, last_name, email, password, address,
   } = req.body;
-  let { phone_number } = req.body;
-  if (phone_number === 'undefined' || phone_number === '') phone_number = '';
+  console.log('request', req);
   const result = Validator.validateSignupFields(
-    first_name, last_name, email, password, address, phone_number,
+    first_name, last_name, email, password, address,
   );
+  console.log('result: ', result);
   if (result.error) {
     res.status(400).send(Validator.Response());
   } else {

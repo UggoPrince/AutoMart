@@ -40,7 +40,7 @@ function (_Validator) {
 
   _createClass(ValidateUser, null, [{
     key: "validateSignupFields",
-    value: function validateSignupFields(first_name, last_name, email, password, address, phone_number) {
+    value: function validateSignupFields(first_name, last_name, email, password, address) {
       ValidateUser.refresh();
       ValidateUser.isValidName(first_name, 'first_name'); // validate firstname
 
@@ -49,8 +49,6 @@ function (_Validator) {
       ValidateUser.isValidAddress(address, 'address'); // validate address
 
       ValidateUser.isValidEmail(email, 'email'); // validate email
-
-      ValidateUser.isValidPhoneNumber(phone_number, 'phone_number'); // validate phone number
 
       ValidateUser.isValidPassword(password, 'password'); // validate password
 
@@ -69,23 +67,15 @@ function (_Validator) {
   }, {
     key: "isValidName",
     value: function isValidName(name, field) {
-      var nameRegExp = /^(?=.*[A-Za-z])+\w+[^_]$/;
-
       if (ValidateUser.isEmptyString(name)) {
         ValidateUser.integrateError(field, "No ".concat(field, " entered."));
-      } else if (!nameRegExp.test(name)) {
-        ValidateUser.integrateError(field, "Invalid ".concat(field, "."));
       }
     }
   }, {
     key: "isValidAddress",
     value: function isValidAddress(address, field) {
-      var addRegExp = /^[a-zA-Z0-9\s,.'-]{3,}$/;
-
       if (ValidateUser.isEmptyString(address)) {
         ValidateUser.integrateError(field, "No ".concat(field, " entered."));
-      } else if (!addRegExp.test(address)) {
-        ValidateUser.integrateError(field, "Invalid ".concat(field, "."));
       }
     }
   }, {
@@ -102,21 +92,8 @@ function (_Validator) {
   }, {
     key: "isValidPassword",
     value: function isValidPassword(password, field) {
-      var passRegExp = /^(?=.*[A-Za-z])+(?=.*\d)[A-Za-z\d]{8,}$/; // /^[A-Za-z]\w{8,}$/;
-
       if (ValidateUser.isEmptyString(password)) {
-        ValidateUser.integrateError(field, "".concat(field, " must have a letter, number and atleast 8 characters long."));
-      } else if (!passRegExp.test(password)) {
-        ValidateUser.integrateError(field, "Invalid ".concat(field, ". password must have a letter, number and atleast 8 characters long."));
-      }
-    }
-  }, {
-    key: "isValidPhoneNumber",
-    value: function isValidPhoneNumber(phone_number, field) {
-      var telRegExp = /^(\+\d{1,3} ?)?(\(\d{1,5}\)|\d{1,5}) ?\d{3}?\d{0,7}( (x|xtn|ext|extn|pax|pbx|extension)?\.? ?\d{2-5})?$/i;
-
-      if (!ValidateUser.isEmptyString(phone_number) && !telRegExp.test(phone_number)) {
-        ValidateUser.integrateError(field, "Invalid ".concat(field, "."));
+        ValidateUser.integrateError(field, "No ".concat(field, " entered"));
       }
     }
   }]);

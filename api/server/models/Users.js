@@ -8,12 +8,11 @@ class Users {
   async signup(userData) {
     const queryString = `
       INSERT INTO users (
-        email, first_name, last_name, password, address, phone_number, is_admin
+        email, first_name, last_name, password, address, is_admin
         )
       VALUES (
         '${userData.email}', '${userData.first_name}', '${userData.last_name}',
-        '${userData.password}', '${userData.address}',
-        '${userData.phone_number}', ${userData.is_admin}
+        '${userData.password}', '${userData.address}', ${userData.is_admin}
         ) RETURNING *`;
     const result = await db.query(queryString).then(res => res).catch(err => err);
     return result;

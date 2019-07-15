@@ -20,10 +20,11 @@ var validateUserSignup = function validateUserSignup(req, res, next) {
       email = _req$body.email,
       password = _req$body.password,
       address = _req$body.address;
-  var phone_number = req.body.phone_number;
-  if (phone_number === 'undefined' || phone_number === '') phone_number = '';
+  console.log('request', req);
 
-  var result = _ValidateUser["default"].validateSignupFields(first_name, last_name, email, password, address, phone_number);
+  var result = _ValidateUser["default"].validateSignupFields(first_name, last_name, email, password, address);
+
+  console.log('result: ', result);
 
   if (result.error) {
     res.status(400).send(_ValidateUser["default"].Response());
