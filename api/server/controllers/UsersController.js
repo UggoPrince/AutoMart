@@ -1,8 +1,7 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable camelcase */
 import Users from '../models/Users';
-import JWT from '../authentication/JWT';
+import Auth from '../middlewares/AuthMiddleware';
 import {
   errorNoAccount,
   errorInvalidEmailPass,
@@ -78,7 +77,7 @@ class UsersController {
       email: userData.email,
       is_admin: userData.is_admin,
     };
-    const token = JWT.signToken(tokenData);
+    const token = Auth.signToken(tokenData);
     return token;
   }
 }

@@ -46,18 +46,16 @@ section::after,
   padding-left: 2%;
   float: left;
   line-height: 70px;
-  /*text-transform: uppercase;*/
   font-size: 2em;
 }
 
 .brand a, .brand a:visited {
-  color: rgb(255, 97, 40);/*rgb(255, 166, 0);*/
-  /*text-shadow: #343a40 -1px 0 1px;*/
+  color: rgb(255, 142, 101);/*rgb(255, 97, 40);*/
   font-weight: bold;
   text-decoration: none;
 }
 .pageName a, .pageName a:visited {
-  color: #2a4b6b;
+  color: #039ec5;/*#2a4b6b;*/
   font-weight: bold;
   text-decoration: none;
 }
@@ -89,12 +87,9 @@ section::after,
   background: linear-gradient(#fff, #fff, #eee); /*#262626;*/
 }
 
-/*
-.side-nav ul li a:hover {
-  background: #039ec5;
-  color:  #ffffff;
+.top-nav ul li i {
+  color: #039ec5;/*rgb(252, 124, 77);*/
 }
-*/
 
 .top-nav ul li a, .side-nav ul li a {
   display: block;
@@ -105,10 +100,11 @@ section::after,
 }
 
 .top-nav ul li a {color: #2581dc;}
-.side-nav ul li a {color:white;}
 
+.top-nav ul li a:hover i {
+  color: orange;
+}
 .top-nav ul li a:hover {
-  background: orange;/*#2581dc; /*link-hover-color*/
   background: linear-gradient(#007bff, #2581dc);
   color:#ffffff; /* nav-font-color */
 }
@@ -221,9 +217,11 @@ section::after,
 }
 .bannerText div:nth-child(1) {
   color: #ffc104;
+  font-size: 5rem;
   text-shadow: #000 -1px 0 20px;
   padding-top: 60px;
 }
+
 .bannerText div:nth-child(2) {
   color: white;
   font-style: normal;
@@ -387,8 +385,6 @@ section::after,
   color: white;
   border-radius: 2px;
   cursor: pointer;
-  /*background: rgb(255, 97, 40);
-  border: 1px solid rgb(255, 97, 40);*/
   margin: 2px 2%;
 }
 
@@ -454,7 +450,7 @@ section::after,
 .dashMenu span {
   color: white;
   display: block;
-  width: 150px;
+  width: 155px;
   padding: 0px 2% 0px 2%;
   line-height: 30px;
   /*background: #2a4b6b;*/
@@ -849,6 +845,7 @@ section::after,
 .bw {background: white;}
 
 footer {
+  width: 100%;
   min-height: 200px;
   background:#343a40;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -856,9 +853,59 @@ footer {
   text-align: center;
 }
 
-footer div {
+.footer section {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.footer-block {
+  display: inline-block;
+  margin: auto;
+  text-align: left;
+  vertical-align: top;
+}
+
+footer .footer-block {
   padding: 10px;
-  float: left;
+}
+
+footer .footer-block div {
+  display: inline-block;
+  width: 100%;
+}
+
+.footer-company-info div {
+  padding: 5px 0px 5px 0px;
+}
+.footer-company-info div span {
+  cursor: pointer;
+}
+
+.footer-company-info i {
+  color: #469ffd;
+}
+
+.footer-contact div {
+  padding: 5px 0px 5px 0px;
+}
+
+.footer-contact i {
+  color: rgb(252, 124, 77);
+  font-size: 17px;
+}
+
+.footer-contact div:hover i {
+  color: orange;
+}
+
+.footer-social i {
+  background: rgb(252, 124, 77);
+  padding: 15px;
+  cursor: pointer;
+}
+
+.footer-social i:hover {
+  background: orange;
 }
 
 @media screen and (max-width: 864px) {
@@ -937,18 +984,11 @@ footer div {
     .nav-mobile {
         display: block;
     }
-/*
-    .ad-block-info-child section div:first-of-type {
-      width: 100px;
-      padding: 4px;
-    }
-
-    .ad-block-info-child input[type='number'] {width: 122px;}*/
 }
 
 @media only screen and (max-width: 659px) {
   .dashboard-header a {
-    width:100px;
+    width:130px;
   }
 }
 
@@ -966,8 +1006,11 @@ footer div {
     text-align: center;
   }
 }
+@media only screen and (min-width:573px) {
+  .dashboard-header { display: inline-block !important;}
+}
 
-@media only screen and (max-width: 447px) {
+@media only screen and (max-width: 572px) {
   .dashMenu {
     padding: 15px 2% 5px 2%;
     display: inline-block;
@@ -987,6 +1030,35 @@ footer div {
   .dashboard-header a:hover {
     background: #039ec5;
     color:#fff;
+  }
+}
+
+@media only screen and (max-width: 447px) {
+  .bannerText div:nth-child(1) {
+    font-size: 4rem;
+  }
+}
+
+@media only screen and (max-width: 343px) {
+  .bannerText div:nth-child(1) {
+    font-size: 3rem;
+  }
+}
+
+@media only screen and (max-width: 259px) {
+  .bannerText div:nth-child(1) {
+    font-size: 2rem;
+  }
+}
+
+@media only screen and (max-width: 239px) {
+  .ad-box-buttons {
+    text-align: center;
+  }
+  .ad-box-buttons button {
+    width: 80%;
+    float: none;
+    margin: 2px auto;
   }
 }
 

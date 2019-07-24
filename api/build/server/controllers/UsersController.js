@@ -7,7 +7,7 @@ exports["default"] = void 0;
 
 var _Users = _interopRequireDefault(require("../models/Users"));
 
-var _JWT = _interopRequireDefault(require("../authentication/JWT"));
+var _AuthMiddleware = _interopRequireDefault(require("../middlewares/AuthMiddleware"));
 
 var _errorHandlers = require("../helpers/errorHandlers");
 
@@ -164,7 +164,7 @@ function () {
         is_admin: userData.is_admin
       };
 
-      var token = _JWT["default"].signToken(tokenData);
+      var token = _AuthMiddleware["default"].signToken(tokenData);
 
       return token;
     }

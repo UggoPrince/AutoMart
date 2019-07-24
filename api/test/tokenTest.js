@@ -1,16 +1,15 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable import/no-extraneous-dependencies */
 /* global after:true, describe:true, it:true, */
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import { dropTables } from '../api/server/database/Tables';
+import Tables from '../server/database/Tables';
 import app, { db } from './app';
 
 chai.use(chaiHttp);
 
 after(async () => {
   // eslint-disable-next-line no-console
-  await db.pool.query(dropTables).then(res => res).catch((err) => { console.log(err); });
+  await db.query(Tables.dropTables);
 });
 
 describe('Test token not sent and also test token has expired', () => {

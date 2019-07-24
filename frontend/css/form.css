@@ -107,6 +107,10 @@ form {
     border: 1px solid orangered;
 }
 
+.oredbutton2 {
+    background: rgb(255, 97, 40);
+}
+
 .form-block input[type='submit'] {
     /*width: 385px;*/
     width: 100%;
@@ -118,13 +122,13 @@ form {
     /*background: #2581dc; /*link-hover-color*/
     color: white;
     /*border: 1px solid #2581dc;*/
-    border: 1px solid orangered;
+    border: 1px solid rgb(255, 97, 40);
 }
 
 .form-block input[type='submit']:hover, input[type='submit']:active {
     /*background: linear-gradient(#007bff, #2581dc);*/
-    background: rgb(255, 97, 40);
-    border-color: rgb(255, 97, 40);
+    background: rgb(252, 124, 77);
+    border-color: rgb(252, 124, 77);
 }
 
 /**/

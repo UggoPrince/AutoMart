@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable camelcase */
 /* global describe:true, it:true, */

@@ -1,11 +1,10 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable import/no-extraneous-dependencies */
 /* global before:true, describe:true, it:true, */
 import fs from 'fs';
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import dotenv from 'dotenv';
-import { seedCars } from '../api/server/database/Tables';
+import Tables from '../server/database/Tables';
 import app, { db } from './app';
 
 dotenv.config();
@@ -14,7 +13,7 @@ chai.use(chaiHttp);
 before('Seed cars table', async () => {
   process.env.CLOUDINARY_AUTOMART_FOLDER = 'automartTest';
   // eslint-disable-next-line no-console
-  await db.pool.query(seedCars).then(res => res).catch((err) => { console.log(err); });
+  await db.query(Tables.seedCars);
 });
 
 describe('Cars Test', () => {

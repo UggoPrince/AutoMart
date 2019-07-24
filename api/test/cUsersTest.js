@@ -1,18 +1,16 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable camelcase */
 /* global before:true, describe:true, it:true, */
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import { createTables, seedUsers } from '../api/server/database/Tables';
+import Tables from '../server/database/Tables';
 import app, { db } from './app';
 
 chai.use(chaiHttp);
 
 before('Create Tables', async () => {
-  await db.pool.query(createTables).then(res => res).catch((err) => { console.log(err); });
-  await db.pool.query(seedUsers).then(res => res).catch((err) => { console.log(err); });
+  await db.query(Tables.createTables);
+  await db.query(Tables.seedUsers);
 });
 
 describe('Users Test', () => {

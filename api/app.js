@@ -1,23 +1,17 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable no-console */
-/* eslint-disable import/no-extraneous-dependencies */
-// import 'core-js/stable';
-// import 'regenerator-runtime/runtime';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import dotenv from 'dotenv';
+import debug from 'debug';
 import app from './server/index';
 import Database from './server/database/Database';
-import {
-  createTables, // dropTables, seedUsers, seedCars,
-} from './server/database/Tables';
+import Tables from './server/database/Tables';
 
 dotenv.config();
 const port = process.env.PORT || 4000;
 
 const db = new Database();
-db.pool.query(createTables, (err) => {
-  if (err) console.log(err);
-  // await db.query(seedUsers);
-  // await db.query(seedCars);
+db.pool.query(Tables.createTables, (err) => {
+  if (err) debug.log(err);
 });
 
-app.listen(port, () => console.log(`App listening on port ${port}!`));
+app.listen(port, () => debug.log('App started!'));

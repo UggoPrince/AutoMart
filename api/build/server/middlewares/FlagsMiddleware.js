@@ -15,66 +15,86 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var validateReportAdvert =
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var FlagsMiddleware =
 /*#__PURE__*/
 function () {
-  var _ref = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee(req, res, next) {
-    var _req$body, car_id, reason, description, result;
+  function FlagsMiddleware() {
+    _classCallCheck(this, FlagsMiddleware);
+  }
 
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _req$body = req.body, car_id = _req$body.car_id, reason = _req$body.reason, description = _req$body.description;
-            result = _ValidateFlag["default"].validateReportAdvertFields(car_id, reason, description);
+  _createClass(FlagsMiddleware, [{
+    key: "validateReportAdvert",
+    value: function () {
+      var _validateReportAdvert = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee(req, res, next) {
+        var _req$body, car_id, reason, description, result;
 
-            if (!result.error) {
-              _context.next = 6;
-              break;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _req$body = req.body, car_id = _req$body.car_id, reason = _req$body.reason, description = _req$body.description;
+                result = _ValidateFlag["default"].validateReportAdvertFields(car_id, reason, description);
+
+                if (!result.error) {
+                  _context.next = 6;
+                  break;
+                }
+
+                res.status(400).send({
+                  status: 400,
+                  error: _ValidateFlag["default"].Response()
+                });
+                _context.next = 13;
+                break;
+
+              case 6:
+                _context.next = 8;
+                return _FlagChecker["default"].checkFlaggedCar(car_id);
+
+              case 8:
+                if (_context.sent) {
+                  _context.next = 12;
+                  break;
+                }
+
+                res.status(404).send({
+                  status: 404,
+                  error: "Car with id (".concat(car_id, ") does not exist.")
+                });
+                _context.next = 13;
+                break;
+
+              case 12:
+                next();
+
+              case 13:
+              case "end":
+                return _context.stop();
             }
+          }
+        }, _callee);
+      }));
 
-            res.status(400).send({
-              status: 400,
-              error: _ValidateFlag["default"].Response()
-            });
-            _context.next = 13;
-            break;
-
-          case 6:
-            _context.next = 8;
-            return _FlagChecker["default"].checkFlaggedCar(car_id);
-
-          case 8:
-            if (_context.sent) {
-              _context.next = 12;
-              break;
-            }
-
-            res.status(404).send({
-              status: 404,
-              error: "Car with id (".concat(car_id, ") does not exist.")
-            });
-            _context.next = 13;
-            break;
-
-          case 12:
-            next();
-
-          case 13:
-          case "end":
-            return _context.stop();
-        }
+      function validateReportAdvert(_x, _x2, _x3) {
+        return _validateReportAdvert.apply(this, arguments);
       }
-    }, _callee);
-  }));
 
-  return function validateReportAdvert(_x, _x2, _x3) {
-    return _ref.apply(this, arguments);
-  };
+      return validateReportAdvert;
+    }()
+  }]);
+
+  return FlagsMiddleware;
 }();
 
-var _default = validateReportAdvert;
+var _default = new FlagsMiddleware();
+
 exports["default"] = _default;
 //# sourceMappingURL=FlagsMiddleware.js.map

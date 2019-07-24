@@ -15,11 +15,10 @@ var _AuthMiddleware = _interopRequireDefault(require("../middlewares/AuthMiddlew
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-/* eslint-disable linebreak-style */
 var Router = _express["default"].Router(); // reports a fraudulent advert
 
 
-Router.post('/flag', [_AuthMiddleware["default"], _FlagsMiddleware["default"]], _FlagsController["default"].reportAdvert);
+Router.post('/flag', [_AuthMiddleware["default"].authenticate, _FlagsMiddleware["default"].validateReportAdvert], _FlagsController["default"].reportAdvert);
 var _default = Router;
 exports["default"] = _default;
 //# sourceMappingURL=flagsRoutes.js.map

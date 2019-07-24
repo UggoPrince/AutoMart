@@ -1,7 +1,4 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable no-useless-constructor */
 /* eslint-disable no-control-regex */
-/* eslint-disable class-methods-use-ValidateUser */
 /* eslint-disable camelcase */
 import Validator from './Validator';
 

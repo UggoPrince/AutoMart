@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable import/no-extraneous-dependencies */
 /* global describe:true, it:true, */
 import chai, { expect } from 'chai';
