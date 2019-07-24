@@ -1,8 +1,6 @@
 .vscode/
 .nyc_output/
 node_modules/
-api/build/
 UI/
 package-lock.json
 .env
-.coveralls.yml
