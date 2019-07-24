@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.validateUserSignin = exports.validateUserSignup = void 0;
+exports["default"] = void 0;
 
 var _ValidateUser = _interopRequireDefault(require("./validators/ValidateUser"));
 
@@ -13,58 +13,78 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var validateUserSignup = function validateUserSignup(req, res, next) {
-  var _req$body = req.body,
-      first_name = _req$body.first_name,
-      last_name = _req$body.last_name,
-      email = _req$body.email,
-      password = _req$body.password,
-      address = _req$body.address;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  var result = _ValidateUser["default"].validateSignupFields(first_name, last_name, email, password, address);
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  if (result.error) {
-    res.status(400).send(_ValidateUser["default"].Response());
-  } else {
-    next();
-  }
-};
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-exports.validateUserSignup = validateUserSignup;
-
-var validateUserSignin =
+var UsersMiddleware =
 /*#__PURE__*/
 function () {
-  var _ref = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee(req, res, next) {
-    var _req$body2, email, password, result;
+  function UsersMiddleware() {
+    _classCallCheck(this, UsersMiddleware);
+  }
 
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _req$body2 = req.body, email = _req$body2.email, password = _req$body2.password;
-            result = _ValidateUser["default"].validateSigninFields(email, password);
+  _createClass(UsersMiddleware, [{
+    key: "validateUserSignup",
+    value: function validateUserSignup(req, res, next) {
+      var _req$body = req.body,
+          first_name = _req$body.first_name,
+          last_name = _req$body.last_name,
+          email = _req$body.email,
+          password = _req$body.password,
+          address = _req$body.address;
 
-            if (result.error) {
-              res.status(400).send(_ValidateUser["default"].Response());
-            } else {
-              next();
-            }
+      var result = _ValidateUser["default"].validateSignupFields(first_name, last_name, email, password, address);
 
-          case 3:
-          case "end":
-            return _context.stop();
-        }
+      if (result.error) {
+        res.status(400).send(_ValidateUser["default"].Response());
+      } else {
+        next();
       }
-    }, _callee);
-  }));
+    }
+  }, {
+    key: "validateUserSignin",
+    value: function () {
+      var _validateUserSignin = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee(req, res, next) {
+        var _req$body2, email, password, result;
 
-  return function validateUserSignin(_x, _x2, _x3) {
-    return _ref.apply(this, arguments);
-  };
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _req$body2 = req.body, email = _req$body2.email, password = _req$body2.password;
+                result = _ValidateUser["default"].validateSigninFields(email, password);
+
+                if (result.error) {
+                  res.status(400).send(_ValidateUser["default"].Response());
+                } else {
+                  next();
+                }
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function validateUserSignin(_x, _x2, _x3) {
+        return _validateUserSignin.apply(this, arguments);
+      }
+
+      return validateUserSignin;
+    }()
+  }]);
+
+  return UsersMiddleware;
 }();
 
-exports.validateUserSignin = validateUserSignin;
+var _default = new UsersMiddleware();
+
+exports["default"] = _default;
 //# sourceMappingURL=UsersMiddleware.js.map

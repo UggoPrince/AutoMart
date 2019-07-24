@@ -1,7 +1,6 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable no-console */
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
+import debug from 'debug';
 
 dotenv.config();
 
@@ -18,7 +17,7 @@ export default class Database {
 
   async query(queryString) {
     const result = await this.pool.query(queryString).then(res => res)
-      .catch((error) => { console.log(error); return error; });
+      .catch((error) => { debug.log(error); return error; });
     return result;
   }
 }

@@ -366,10 +366,10 @@ const buildAdBox = (ad) => { // adBox builder
   // update button sections
   adBoxButtons = document.createElement('section');
   adBoxButtons.className = 'ad-box-buttons';
-  adBoxButtons.id = 'ad-box-buttons';
+  adBoxButtons.id = `ad-box-buttons${ad.id}`;
 
   const makeOfferButton = document.createElement('button'); // update status button
-  makeOfferButton.innerHTML = 'Make Offer';
+  makeOfferButton.innerHTML = '<i class="fas fa-cart-arrow-down"></i> Make Offer';
   makeOfferButton.className = 'revealOfferModal';
   makeOfferButton.addEventListener('click', () => {
     showMakeOfferModal(ad.id);
@@ -379,14 +379,14 @@ const buildAdBox = (ad) => { // adBox builder
   let reportAdButton = ''; // update price button
   if (!isAdmin) {
     reportAdButton = document.createElement('button');
-    reportAdButton.innerHTML = 'Report';
+    reportAdButton.innerHTML = '<i class="fas fa-mask"></i> Report';
     reportAdButton.className = 'revealReportModal';
     reportAdButton.addEventListener('click', () => {
       showReportAdModal(ad.id);
     });
   } else {
     reportAdButton = document.createElement('button');
-    reportAdButton.innerHTML = 'Delete Ad';
+    reportAdButton.innerHTML = '<i class="fas fa-trash"></i> Delete Ad';
     reportAdButton.className = '.ad-box-delete-button';
     reportAdButton.addEventListener('click', async () => {
       const advert = new Advert();
@@ -459,16 +459,26 @@ const buildOneAdBox = (ad) => {
   const buttonDiv = createElement('div');
   buttonDiv.className = 'car-make-offer-buttons';
   const button = createElement('button');
-  button.innerHTML = 'Make Offer';
+  button.innerHTML = '<i class="fas fa-cart-arrow-down"></i> Make Offer';
   button.addEventListener('click', () => {
     showMakeOfferModal(ad.id);
   });
 
-  const button2 = createElement('button');
-  button2.innerHTML = 'Report';
-  button2.addEventListener('click', () => {
-    showReportAdModal(ad.id);
-  });
+  let button2 = '';
+  if (!isAdmin) {
+    button2 = createElement('button');
+    button2.innerHTML = '<i class="fas fa-mask"></i> Report';
+    button2.addEventListener('click', () => {
+      showReportAdModal(ad.id);
+    });
+  } else {
+    button2 = document.createElement('button');
+    button2.innerHTML = '<i class="fas fa-trash"></i> Delete Ad';
+    button2.addEventListener('click', async () => {
+      const advert = new Advert();
+      await advert.deleteAdvert(ad.id);
+    });
+  }
   buttonDiv.append(button, button2); // coupling
 
   // total coupling

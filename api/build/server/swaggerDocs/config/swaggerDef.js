@@ -11,7 +11,6 @@ var _swaggerJsdoc = _interopRequireDefault(require("swagger-jsdoc"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-/* eslint-disable linebreak-style */
 var swaggerDefinition = {
   openapi: '3.0.1',
   info: {

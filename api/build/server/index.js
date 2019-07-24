@@ -27,7 +27,6 @@ var _flagsRoutes = _interopRequireDefault(require("./routes/flagsRoutes"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-/* eslint-disable linebreak-style */
 // Set up express app
 var app = (0, _express["default"])();
 app.use((0, _cors["default"])()); // for cross origin requests

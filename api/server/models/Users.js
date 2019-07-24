@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable class-methods-use-this */
 import Database from '../database/Database';
 

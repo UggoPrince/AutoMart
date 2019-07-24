@@ -560,14 +560,12 @@ const displayPurchaseOrders = () => {
   }
 };
 
-let dashBoardMobileMenuOpen = false;
-const toggleDashboardMenu = (dashboardMenu) => {
-  if (!dashBoardMobileMenuOpen) {
-    dashboardMenu.style.display = 'inline-block';
-    dashBoardMobileMenuOpen = true;
+const toggleDashboardMenu = () => {
+  const dasMenu = document.getElementsByClassName('dashheader')[0];
+  if (dasMenu.style.display === 'inline-block') {
+    dasMenu.style.display = 'none';
   } else {
-    dashboardMenu.style.display = 'none';
-    dashBoardMobileMenuOpen = false;
+    dasMenu.style.display = 'inline-block';
   }
 };
 
@@ -644,10 +642,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   const menuButtonForMobile = document.getElementById('dashbaordMenuButton');
-  const dashboardMenu = document.getElementById('dashboard-header');
-  menuButtonForMobile.addEventListener('click', () => {
-    toggleDashboardMenu(dashboardMenu);
-  });
+  menuButtonForMobile.addEventListener('click', toggleDashboardMenu);
   const unsoldAndSoldButtons = document.getElementsByClassName('unsold&SoldButtons');
   const indicateUnsoldOrSold = document.getElementById('indicateUnsoldOrSold');
   indicateUnsoldOrSold.innerHTML = '- Available';

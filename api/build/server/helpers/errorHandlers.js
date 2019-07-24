@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.errorInvalidQueryString = exports.errorEmailDuplicate = exports.errorInvalidEmailPass = exports.errorNoAccount = exports.errorExpiredToken = exports.errorNoHeader = void 0;
-
-/* eslint-disable linebreak-style */
 var authNotsent = {
   status: 401,
   error: 'No Authorization header sent. Login and send a token.'

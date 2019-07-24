@@ -1,6 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable class-methods-use-this */
-
 let error = false;
 let errorMessages = {};
 

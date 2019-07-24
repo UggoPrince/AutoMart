@@ -9,6 +9,8 @@ var _pg = require("pg");
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
+var _debug = _interopRequireDefault(require("debug"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -53,7 +55,8 @@ function () {
                 return this.pool.query(queryString).then(function (res) {
                   return res;
                 })["catch"](function (error) {
-                  console.log(error);
+                  _debug["default"].log(error);
+
                   return error;
                 });
 

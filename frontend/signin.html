@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/form.css">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">
+    <script src="https://kit.fontawesome.com/1cc13f5136.js"></script>
     <script src="js/main.js"></script>
     <script src="js/signin.js"></script>
 </head>
@@ -16,16 +17,16 @@
             
             <div class="nav-container">
                 <div class="brand">
-                    <a href="">AutoMart</a>
+                    <a href="index.html">Aut<i class="fas fa-car"></i>Mart</a>
                 </div>
                 <nav class="top-nav">
                     <div class="nav-mobile">
                         <a id="nav-toggle"><span></span></a>
                     </div>
                     <ul class="nav-list">
-                        <li><a href="index.html">HOME</a></li>
-                        <li><a href="signin.html">SIGN IN</a></li>
-                        <li><a href="signup.html">SIGN UP</a></li>
+                        <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
+                        <li><a href="signin.html"><i class="fas fa-sign-in-alt"></i> SIGN IN</a></li>
+                        <li><a href="signup.html"><i class="fas fa-user-plus"></i> SIGN UP</a></li>
                     </ul>
                 </nav>
             </div>
@@ -36,7 +37,7 @@
             <div class="form-container form-medium">
                 <form class="" method="POST" action="" name="signinForm" id="signinForm">
                     <div class="form-header col-12">
-                        <h1>User Login</h1>
+                        <h1>Login</h1>
                         <span class="serverNotice"></span>
                     </div>
                     <section class="form-body">
@@ -51,7 +52,7 @@
                             <input class="col-7-5" type="password" name="password" placeholder="Enter Password" required/>
                         </section>
                         <section class="form-block">
-                            <input class="oredbutton" type="submit" value="LOGIN" />
+                            <input class="oredbutton2" type="submit" value="LOGIN" />
                         </section>
                     </section>
                 </form>
@@ -64,17 +65,27 @@
     </main>
     <footer>
         <section>
-            <div class="col-4">
+            <div class="col-3 footer-block footer-company-info">
                 <p>COMPANY INFO</p>
-                <span></span>
+                <div><i class="fas fa-chevron-right"></i><span> About Us</span></div>
+                <div><i class="fas fa-chevron-right"></i><span> Privacy Policy</span></div>
+                <div><i class="fas fa-chevron-right"></i><span> Terms And Conditions</span></div>
+                <div><i class="fas fa-chevron-right"></i><span> FAQ</span></div>
             </div>
-            <div class="col-4">
+            <div class="col-3 footer-block footer-contact">
                 <p>CONTACT US</p>
-                <span></span>
+                <div><i class="fas fa-phone-alt"></i> +234 (0) 9012300800</div>
+                <div><i class="fab fa-whatsapp"></i> +234 (0) 8112345678</div>
+                <div><i class="far fa-envelope"></i> info@automart.com</div>
             </div>
-            <div class="col-4">
+            <div class="col-3 footer-block footer-social">
                 <p>SOCIAL MEDIA</p>
-                <span></span>
+                <div>
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-linkedin-in"></i>
+                </div>
             </div>
         </section>
     </footer>

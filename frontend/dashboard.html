@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">
     <link rel="stylesheet" type="text/css" media="screen" href="css/form.css">
     <link rel="stylesheet" type="text/css" media="screen" href="css/makeOfferModal.css">
+    <script src="https://kit.fontawesome.com/1cc13f5136.js"></script>
     <script src="js/main.js"></script>
     <script src="js/dashboard.js"></script>
 </head>
@@ -16,16 +17,16 @@
         <div class="navigation">
             <div class="nav-container">
                 <div class="pageName">
-                    <a href="">Dashboard</a>
+                    <a href="">Dashboard <i class="fas fa-tachometer-alt"></i></a>
                 </div>
                 <nav class="top-nav">
                     <div class="nav-mobile">
                         <a id="nav-toggle"><span></span></a>
                     </div>
                     <ul class="nav-list">
-                        <li><a href="home.html">HOME</a></li>
-                        <li><a href="dashboard.html">DASHBOARD</a></li>
-                        <li><a href="" id="signoutLink">SIGN OUT</a></li>
+                        <li><a href="home.html"><i class="fas fa-home"></i> HOME</a></li>
+                        <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> DASHBOARD</a></li>
+                        <li><a href="" id="signoutLink"><i class="fas fa-sign-out-alt"></i> SIGN OUT</a></li>
                     </ul>
                 </nav>
             </div>
@@ -37,11 +38,11 @@
                     <div class="dashMenu">
                         <span id="dashbaordMenuButton">Dashboard Menu </span>
                     </div>
-                    <div class="dashboard-header" id="dashboard-header">
-                        <a class="revealPostAdvertModal">Post Advert</a>
-                        <a class="tabLink">My Adverts</a>
-                        <a class="tabLink">Orders</a>
-                        <a class="tabLink">My Purchase</a>
+                    <div class="dashboard-header dashheader" id="dashboard-header">
+                        <a class="revealPostAdvertModal"><i class="fas fa-plus-square"></i> Post Advert</a>
+                        <a class="tabLink"><i class="fas fa-store"></i> My Adverts</a>
+                        <a class="tabLink"><i class="fas fa-users"></i> Orders</a>
+                        <a class="tabLink"><i class="fas fa-shopping-cart"></i> My Purchase</a>
                     </div>
                 </section>
                 <section class="dashboard-body">
@@ -50,8 +51,8 @@
                             <section class="tabHeader">
                                 <div class="dtab-header">
                                     <h3>My Adverts <span id="indicateUnsoldOrSold"></span></h3>
-                                    <button class="unsold&SoldButtons">Available</button>
-                                    <button class="unsold&SoldButtons">Sold</button>
+                                    <button class="unsold&SoldButtons"><i class="fas fa-lock-open"></i> Available</button>
+                                    <button class="unsold&SoldButtons"><i class="fas fa-lock"></i> Sold</button>
                                 </div>
                             </section>
                             <div id="myAdsDiv">
@@ -97,17 +98,27 @@
     </main>
     <footer>
         <section>
-            <div class="col-4">
+            <div class="col-3 footer-block footer-company-info">
                 <p>COMPANY INFO</p>
-                <span></span>
+                <div><i class="fas fa-chevron-right"></i><span> About Us</span></div>
+                <div><i class="fas fa-chevron-right"></i><span> Privacy Policy</span></div>
+                <div><i class="fas fa-chevron-right"></i><span> Terms And Conditions</span></div>
+                <div><i class="fas fa-chevron-right"></i><span> FAQ</span></div>
             </div>
-            <div class="col-4">
+            <div class="col-3 footer-block footer-contact">
                 <p>CONTACT US</p>
-                <span></span>
+                <div><i class="fas fa-phone-alt"></i> +234 (0) 9012300800</div>
+                <div><i class="fab fa-whatsapp"></i> +234 (0) 8112345678</div>
+                <div><i class="far fa-envelope"></i> info@automart.com</div>
             </div>
-            <div class="col-4">
+            <div class="col-3 footer-block footer-social">
                 <p>SOCIAL MEDIA</p>
-                <span></span>
+                <div>
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-linkedin-in"></i>
+                </div>
             </div>
         </section>
     </footer>

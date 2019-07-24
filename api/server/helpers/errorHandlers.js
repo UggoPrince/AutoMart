@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const authNotsent = { status: 401, error: 'No Authorization header sent. Login and send a token.' };
 const expiredToken = { status: 401, error: 'Session expired, login' };
 const noAccount = { status: 400, error: 'You do not have an account. Sign up now.' };
