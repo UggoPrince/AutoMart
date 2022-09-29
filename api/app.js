@@ -10,8 +10,8 @@ dotenv.config();
 const port = process.env.PORT || 4000;
 
 const db = new Database();
-db.pool.query(Tables.createTables, (err) => {
-  if (err) debug.log(err);
+db.pool.query(Tables.createTables).then(result => {
+  console.log('Tables now exist');
 });
 
 app.listen(port, () => debug.log('App started!'));

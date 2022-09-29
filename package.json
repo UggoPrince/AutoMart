@@ -10,7 +10,7 @@
     "build-docs": "cp -R ./api/server/swaggerDocs/docs/ ./api/build/server/swaggerDocs/",
     "build": "npm run clean && npm run build-server && npm run build-app && npm run build-docs",
     "start": "node ./api/build/app.js",
-    "start:dev": "nodemon --exec babel-node ./api/app.js",
+    "dev": "nodemon --exec babel-node ./api/app.js",
     "test": "set DATABASE=automartTest&& nyc mocha --require @babel/register ./api/test --exit --recursive --timeout 240000",
     "coverage": "nyc report --reporter=lcov --reporter=text-lcov | coveralls"
   },
@@ -33,7 +33,7 @@
     "express": "^4.17.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
-    "pg": "^7.11.0",
+    "pg": "^8.8.0",
     "regenerator-runtime": "^0.13.2",
     "swagger-jsdoc": "^3.2.9",
     "swagger-ui-express": "^4.0.5"
